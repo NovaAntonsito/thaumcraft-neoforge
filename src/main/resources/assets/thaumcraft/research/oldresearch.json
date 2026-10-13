@@ -1,0 +1,168 @@
+{
+  "entries": [
+    {
+      "key": "RESEARCH",
+      "name": "research.RESEARCH.title",
+      "icons": [
+        "thaumcraft:textures/items/scribing_tools.png"
+      ],
+      "category": "BASICS",
+      "location": [
+        2,
+        -1
+      ],
+      "parents": [
+        "FIRSTSTEPS"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.RESEARCH.stage.1",
+          "required_craft": [
+            "thaumcraft:scribing_tools",
+            "thaumcraft:table_wood"
+          ],
+          "recipes": [
+            "thaumcraft:tablewood",
+            "thaumcraft:inkwell"
+          ]
+        },
+        {
+          "text": "research.RESEARCH.stage.2",
+          "recipes": [
+            "thaumcraft:tablewood",
+            "thaumcraft:inkwell"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "RESEARCHEXPERTISE",
+      "name": "research.RESEARCHEXPERTISE.title",
+      "icons": [
+        "thaumcraft:textures/research/r_researcher1.png"
+      ],
+      "category": "BASICS",
+      "location": [
+        4,
+        -1
+      ],
+      "parents": [
+        "RESEARCH"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.RESEARCHEXPERTISE.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.RESEARCHEXPERTISE.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "DECONSTRUCTOR",
+      "name": "research.DECONSTRUCTOR.title",
+      "icons": [
+        "thaumcraft:deconstruction_table"
+      ],
+      "category": "BASICS",
+      "location": [
+        5,
+        -3
+      ],
+      "parents": [
+        "RESEARCHEXPERTISE"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.DECONSTRUCTOR.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.DECONSTRUCTOR.stage.2",
+          "recipes": [
+            "thaumcraft:deconstruction_table_craft"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "RESEARCHMASTERY",
+      "name": "research.RESEARCHMASTERY.title",
+      "icons": [
+        "thaumcraft:textures/research/r_researcher2.png"
+      ],
+      "category": "BASICS",
+      "location": [
+        4,
+        1
+      ],
+      "parents": [
+        "RESEARCHEXPERTISE"
+      ],
+      "meta": [
+        "ROUND",
+        "SPIKY",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.RESEARCHMASTERY.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1"
+          ],
+          "warp": 1
+        },
+        {
+          "text": "research.RESEARCHMASTERY.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "RESEARCHDUPE",
+      "name": "research.RESEARCHDUPE.title",
+      "icons": [
+        "thaumcraft:textures/research/r_resdupe.png"
+      ],
+      "category": "BASICS",
+      "location": [
+        4,
+        3
+      ],
+      "parents": [
+        "RESEARCHMASTERY"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.RESEARCHDUPE.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.RESEARCHDUPE.stage.2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "HEDGEALCHEMY@3",
+  "catalyst": {
+    "tag": "c:strings"
+  },
+  "aspects": {
+    "vinculum": 5
+  },
+  "result": {
+    "id": "minecraft:cobweb",
+    "count": 1
+  }
+}

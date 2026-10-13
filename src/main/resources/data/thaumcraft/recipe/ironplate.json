@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:plate_iron",
+    "count": 3
+  }
+}

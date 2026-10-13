@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "thaumcraft:models/block/thaumatorium.obj",
+  "textures": {
+    "texture": "thaumcraft:blocks/thaumatorium",
+    "particle": "thaumcraft:blocks/thaumatorium"
+  }
+}

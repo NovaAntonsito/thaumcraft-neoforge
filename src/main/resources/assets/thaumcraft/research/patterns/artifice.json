@@ -1,0 +1,85 @@
+{
+  "entries": [
+    {
+      "target": "MIRROR",
+      "color": "vitreus",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["vitreus", "tenebrae", "motus", "alienis", "permutatio"]
+    },
+    {
+      "target": "MIRRORHAND",
+      "color": "vitreus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["vitreus", "tenebrae", "instrumentum", "alienis", "permutatio", "volatus"]
+    },
+    {
+      "target": "MIRRORESSENTIA",
+      "color": "vitreus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["vitreus", "tenebrae", "alkimia", "alienis", "permutatio", "aqua"]
+    },
+    {
+      "target": "LAMPGROWTH",
+      "color": "herba",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 2,
+      "aspects": ["herba", "victus", "aqua", "lux", "machina"]
+    },
+    {
+      "target": "LAMPFERTILITY",
+      "color": "bestia",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 2,
+      "aspects": ["bestia", "victus", "desiderium", "lux", "machina"]
+    },
+    {
+      "target": "ARCANEPATTERNCRAFTER",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["ordo", "fabrico", "desiderium", "metallum", "machina"]
+    },
+    {
+      "target": "BASICTURRET",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["ordo", "aversio", "metallum", "machina", "instrumentum"]
+    },
+    {
+      "target": "ARCANEBORE",
+      "color": "terra",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["ordo", "terra", "metallum", "machina", "instrumentum"]
+    },
+    {
+      "target": "GRAPPLEGUN",
+      "color": "motus",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 1,
+      "aspects": ["motus", "metallum", "machina", "auram"]
+    },
+    {
+      "target": "VISGENERATOR",
+      "color": "auram",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["potentia", "aer", "metallum", "machina", "auram"]
+    }
+  ]
+}

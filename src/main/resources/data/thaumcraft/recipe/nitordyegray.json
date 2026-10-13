@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumcraft:nitorgroup",
+  "ingredients": [
+    {
+      "tag": "c:dyes/gray"
+    },
+    {
+      "tag": "thaumcraft:nitor"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:nitor_gray",
+    "count": 1
+  }
+}

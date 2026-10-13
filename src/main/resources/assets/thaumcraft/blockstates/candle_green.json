@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "thaumcraft:block/candle"
+      },
+      {
+        "model": "thaumcraft:block/candle",
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/candle",
+        "y": 180
+      },
+      {
+        "model": "thaumcraft:block/candle",
+        "y": 270
+      }
+    ]
+  }
+}

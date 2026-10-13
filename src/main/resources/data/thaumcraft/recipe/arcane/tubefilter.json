@@ -1,0 +1,17 @@
+{
+  "type": "thaumcraft:arcane_shapeless",
+  "research": "TUBES",
+  "vis": 10,
+  "ingredients": [
+    {
+      "item": "thaumcraft:tube"
+    },
+    {
+      "item": "thaumcraft:filter"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:tube_filter",
+    "count": 1
+  }
+}

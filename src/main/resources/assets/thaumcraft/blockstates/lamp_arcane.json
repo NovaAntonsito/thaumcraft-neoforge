@@ -1,0 +1,76 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "enabled": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_arcane_on"
+      }
+    },
+    {
+      "when": {
+        "enabled": "false"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_arcane_off"
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand",
+        "y": 180,
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand",
+        "y": 270,
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "thaumcraft:block/lamp_stand",
+        "y": 90,
+        "x": 90
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "entries": [
+    {
+      "target": "BASEELDRITCH",
+      "color": "tenebrae",
+      "stage": 0,
+      "radius": 4,
+      "blanks": 16,
+      "aspects": ["tenebrae", "alienis", "vacuos", "vitium", "auram", "alkimia", "metallum", "terra", "praecantatio", "perditio"]
+    },
+    {
+      "target": "VOIDSIPHON",
+      "color": "tenebrae",
+      "stage": 0,
+      "radius": 4,
+      "blanks": 16,
+      "aspects": ["tenebrae", "alienis", "vacuos", "vitium", "auram", "machina", "metallum", "fabrico", "desiderium", "ordo"]
+    },
+    {
+      "target": "VOIDSEERPEARL",
+      "color": "tenebrae",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 4,
+      "blanks": 16,
+      "aspects": ["tenebrae", "alienis", "vacuos", "vitium", "auram", "spiritus", "cognitio", "sensus", "praecantatio", "perditio"]
+    },
+    {
+      "target": "VOIDROBEARMOR",
+      "color": "tenebrae",
+      "meta": ["SEPARATED"],
+      "stage": 0,
+      "radius": 4,
+      "blanks": 16,
+      "aspects": ["alienis", "tenebrae", "vacuos", "auram", "praemunio", "instrumentum", "potentia", "ordo"],
+      "hash-delta": 8
+    },
+    {
+      "target": "PRIMALCRUSHER",
+      "color": "tenebrae",
+      "stage": 0,
+      "radius": 4,
+      "blanks": 16,
+      "aspects": ["tenebrae", "alienis", "vacuos", "vitium", "auram", "metallum", "instrumentum", "terra", "aer", "ignis", "ordo", "aqua", "perditio"]
+    }
+  ]
+}

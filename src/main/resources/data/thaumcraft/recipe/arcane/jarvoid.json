@@ -1,0 +1,20 @@
+{
+  "type": "thaumcraft:arcane_void_jar",
+  "research": "WARDEDJARS",
+  "vis": 50,
+  "crystals": {
+    "perditio": 1
+  },
+  "pattern": [
+    "J"
+  ],
+  "key": {
+    "J": {
+      "item": "thaumcraft:jar_normal"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:jar_void",
+    "count": 1
+  }
+}

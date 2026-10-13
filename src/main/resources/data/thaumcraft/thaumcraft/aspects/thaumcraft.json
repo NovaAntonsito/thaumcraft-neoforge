@@ -1,0 +1,128 @@
+{
+  "entries": [
+    {
+      "items": [
+        "thaumcraft:quicksilver"
+      ],
+      "aspects": {
+        "metallum": 10,
+        "mortuus": 5,
+        "alkimia": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:nugget_rareearth"
+      ],
+      "aspects": {
+        "terra": 5,
+        "ordo": 5,
+        "metallum": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:salis_mundus"
+      ],
+      "aspects": {
+        "praecantatio": 5,
+        "potentia": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crucible"
+      ],
+      "base": "minecraft:cauldron",
+      "aspects": {
+        "fabrico": 20,
+        "alkimia": 20
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:arcane_workbench"
+      ],
+      "base": "minecraft:crafting_table",
+      "aspects": {
+        "praecantatio": 5,
+        "auram": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:log_greatwood"
+      ],
+      "aspects": {
+        "herba": 20,
+        "victus": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:log_silverwood"
+      ],
+      "aspects": {
+        "herba": 20,
+        "auram": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:candle_white",
+        "thaumcraft:candle_orange",
+        "thaumcraft:candle_magenta",
+        "thaumcraft:candle_lightblue",
+        "thaumcraft:candle_yellow",
+        "thaumcraft:candle_lime",
+        "thaumcraft:candle_pink",
+        "thaumcraft:candle_gray",
+        "thaumcraft:candle_silver",
+        "thaumcraft:candle_cyan",
+        "thaumcraft:candle_purple",
+        "thaumcraft:candle_blue",
+        "thaumcraft:candle_brown",
+        "thaumcraft:candle_green",
+        "thaumcraft:candle_red",
+        "thaumcraft:candle_black"
+      ],
+      "complex": true,
+      "aspects": {
+        "lux": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:pedestal_arcane"
+      ],
+      "complex": true,
+      "aspects": {
+        "praecantatio": 3,
+        "aer": 3
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:thaumometer"
+      ],
+      "complex": true,
+      "aspects": {
+        "sensus": 10,
+        "auram": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:primordial_pearl"
+      ],
+      "aspects": {
+        "aer": 10,
+        "ignis": 10,
+        "aqua": 10,
+        "terra": 10,
+        "ordo": 10,
+        "perditio": 10
+      }
+    }
+  ]
+}

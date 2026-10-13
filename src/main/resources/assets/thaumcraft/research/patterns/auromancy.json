@@ -1,0 +1,160 @@
+{
+  "entries": [
+    {
+      "target": "FOCUSADVANCED",
+      "color": "vitreus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 2,
+      "aspects": ["ordo", "vitreus", "lux", "praecantatio", "auram"]
+    },
+    {
+      "target": "FOCUSGREATER",
+      "color": "alienis",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 4,
+      "blanks": 24,
+      "aspects": ["vitreus", "lux", "auram", "alienis", "aer", "terra", "ignis", "aqua", "ordo", "perditio"]
+    },
+    {
+      "target": "FOCUSFLUX",
+      "color": "vitium",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["vitium", "perditio", "praecantatio"]
+    },
+    {
+      "target": "FOCUSHEAL",
+      "color": "victus",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["victus", "ordo", "praecantatio"]
+    },
+    {
+      "target": "FOCUSCURSE",
+      "color": "mortuus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["mortuus", "perditio", "exanimis", "tenebrae", "praecantatio"],
+      "hash-delta": 1
+    },
+    {
+      "target": "FOCUSBREAK",
+      "color": "terra",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["terra", "potentia", "praecantatio"]
+    },
+    {
+      "target": "FOCUSEXCHANGE",
+      "color": "permutatio",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["permutatio", "vacuos", "praecantatio"]
+    },
+    {
+      "target": "FOCUSPLAN",
+      "color": "fabrico",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["fabrico", "potentia", "praecantatio"]
+    },
+    {
+      "target": "FOCUSRIFT",
+      "color": "tenebrae",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["perditio", "potentia", "alienis", "vacuos", "tenebrae", "praecantatio"],
+      "hash-delta": 1
+    },
+    {
+      "target": "FOCUSPROJECTILE",
+      "color": "motus",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["motus", "ordo", "praecantatio"]
+    },
+    {
+      "target": "FOCUSBOLT",
+      "color": "potentia",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["potentia", "perditio", "praecantatio"]
+    },
+    {
+      "target": "FOCUSSCATTER",
+      "color": "potentia",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["potentia", "permutatio", "ordo", "praecantatio"]
+    },
+    {
+      "target": "FOCUSMINE",
+      "color": "vinculum",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["potentia", "vinculum", "praecantatio"]
+    },
+    {
+      "target": "FOCUSSPELLBAT",
+      "color": "bestia",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["bestia", "vinculum", "alienis", "exanimis", "praecantatio"]
+    },
+    {
+      "target": "FOCUSCLOUD",
+      "color": "alkimia",
+      "meta": ["ROUNDEX"],
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["alkimia", "potentia", "perditio", "ordo", "praecantatio"]
+    },
+    {
+      "target": "FOCUSSPLIT",
+      "color": "bestia",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["potentia", "perditio", "aversio", "ordo", "praecantatio"]
+    },
+    {
+      "target": "RECHARGEPEDESTAL",
+      "color": "auram",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["auram", "potentia", "permutatio", "praecantatio"]
+    },
+    {
+      "target": "VISAMULET",
+      "color": "auram",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 7,
+      "aspects": ["aer", "terra", "ignis", "aqua", "ordo", "auram", "vacuos"]
+    },
+    {
+      "target": "WORKBENCHCHARGER",
+      "color": "vacuos",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["auram", "vacuos", "permutatio", "desiderium"]
+    }
+  ]
+}

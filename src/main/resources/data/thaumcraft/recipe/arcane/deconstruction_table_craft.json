@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "DECONSTRUCTOR",
+  "vis": 50,
+  "crystals": {
+    "perditio": 1
+  },
+  "pattern": [
+    " T ",
+    "AWP"
+  ],
+  "key": {
+    "T": {
+      "item": "thaumcraft:thaumometer"
+    },
+    "A": {
+      "item": "minecraft:golden_axe"
+    },
+    "W": {
+      "item": "thaumcraft:table_wood"
+    },
+    "P": {
+      "item": "minecraft:golden_pickaxe"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:deconstruction_table",
+    "count": 1
+  }
+}

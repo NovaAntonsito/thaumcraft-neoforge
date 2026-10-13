@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumcraft:nitorgroup",
+  "ingredients": [
+    {
+      "tag": "c:dyes/pink"
+    },
+    {
+      "tag": "thaumcraft:nitor"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:nitor_pink",
+    "count": 1
+  }
+}

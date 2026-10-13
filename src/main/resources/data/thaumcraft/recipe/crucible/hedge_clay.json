@@ -1,0 +1,14 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "HEDGEALCHEMY@3",
+  "catalyst": {
+    "item": "minecraft:dirt"
+  },
+  "aspects": {
+    "aqua": 5
+  },
+  "result": {
+    "id": "minecraft:clay_ball",
+    "count": 1
+  }
+}

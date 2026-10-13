@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=true": {
+      "model": "thaumcraft:block/condenser"
+    },
+    "enabled=false": {
+      "model": "thaumcraft:block/condenser_off"
+    }
+  }
+}

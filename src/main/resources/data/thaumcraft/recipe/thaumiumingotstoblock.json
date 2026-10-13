@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:ingot_thaumium"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:metal_thaumium",
+    "count": 1
+  },
+  "group": "thaumcraft:thaumium_stuff"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "BASEALCHEMY",
+  "vis": 15,
+  "crystals": {
+    "aqua": 1
+  },
+  "pattern": [
+    "GWG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "W": {
+      "item": "thaumcraft:plank_silverwood"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:filter",
+    "count": 2
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "HEDGEALCHEMY@2",
+  "catalyst": {
+    "tag": "c:gunpowders"
+  },
+  "aspects": {
+    "ignis": 10,
+    "perditio": 10,
+    "alkimia": 5
+  },
+  "result": {
+    "id": "minecraft:gunpowder",
+    "count": 2
+  }
+}

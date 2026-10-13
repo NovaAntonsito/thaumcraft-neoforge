@@ -1,0 +1,15 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "HEDGEALCHEMY@2",
+  "catalyst": {
+    "tag": "c:dusts/glowstone"
+  },
+  "aspects": {
+    "sensus": 5,
+    "lux": 10
+  },
+  "result": {
+    "id": "minecraft:glowstone_dust",
+    "count": 2
+  }
+}

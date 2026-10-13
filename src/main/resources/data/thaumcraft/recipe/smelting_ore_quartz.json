@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "thaumcraft:ore_quartz"
+  },
+  "result": {
+    "id": "minecraft:quartz"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

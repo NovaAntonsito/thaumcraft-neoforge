@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "thaumcraft:log_greatwood"
+  },
+  "result": {
+    "id": "minecraft:charcoal"
+  },
+  "experience": 0.5,
+  "cookingtime": 200
+}

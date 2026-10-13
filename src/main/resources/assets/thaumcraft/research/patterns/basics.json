@@ -1,0 +1,53 @@
+{
+  "entries": [
+    {
+      "target": "RESEARCHEXPERTISE",
+      "color": "sensus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["ordo", "aer", "cognitio", "sensus"]
+    },
+    {
+      "target": "DECONSTRUCTOR",
+      "color": "fabrico",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["perditio", "cognitio", "fabrico"]
+    },
+    {
+      "target": "RESEARCHMASTERY",
+      "color": "sensus",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["ordo", "praecantatio", "lux", "potentia", "cognitio", "sensus", "desiderium"]
+    },
+    {
+      "target": "RESEARCHDUPE",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["desiderium", "fabrico", "permutatio", "cognitio", "sensus"]
+    },
+    {
+      "target": "FLUXCLEANUP",
+      "color": "ordo",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["ordo", "victus", "herba", "auram", "vitium"]
+    },
+    {
+      "target": "RIFTCLOSER",
+      "color": "alienis",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["aversio", "potentia", "perditio", "vacuos", "vitium", "alienis", "auram"],
+      "hash-delta": 2
+    }
+  ]
+}

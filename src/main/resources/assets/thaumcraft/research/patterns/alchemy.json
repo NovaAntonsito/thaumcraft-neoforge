@@ -1,0 +1,110 @@
+{
+  "entries": [
+    {
+      "target": "METALLURGY",
+      "color": "praecantatio",
+      "stage": 1,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["metallum", "praecantatio", "terra"]
+    },
+    {
+      "target": "METALPURIFICATION",
+      "color": "ordo",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["metallum", "ordo", "permutatio"]
+    },
+    {
+      "target": "LIQUIDDEATH",
+      "color": "vitium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["aqua", "perditio", "mortuus", "vitium", "exanimis"]
+    },
+    {
+      "target": "BOTTLETAINT",
+      "color": "vitium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["aqua", "perditio", "mortuus", "vitium"]
+    },
+    {
+      "target": "BATHSALTS",
+      "color": "auram",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["ordo", "auram", "cognitio", "alkimia", "victus"]
+    },
+    {
+      "target": "SANESOAP",
+      "color": "cognitio",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["ordo", "cognitio", "alkimia", "alienis", "victus"]
+    },
+    {
+      "target": "ESSENTIASMELTER",
+      "color": "ignis",
+      "stage": 2,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["metallum", "potentia", "ignis", "praecantatio", "permutatio"]
+    },
+    {
+      "target": "ESSENTIASMELTERTHAUMIUM",
+      "color": "praecantatio",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["metallum", "potentia", "ignis", "praecantatio", "auram", "machina", "fabrico"]
+    },
+    {
+      "target": "ESSENTIASMELTERVOID",
+      "color": "tenebrae",
+      "stage": 0,
+      "radius": 4,
+      "blanks": 10,
+      "aspects": ["metallum", "potentia", "ignis", "tenebrae", "vitreus", "machina", "fabrico", "vacuos", "alienis"],
+      "hash-delta": 3
+    },
+    {
+      "target": "CENTRIFUGE",
+      "color": "permutatio",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["potentia", "permutatio", "machina", "aqua"]
+    },
+    {
+      "target": "THAUMATORIUM",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["metallum", "machina", "fabrico", "alkimia", "ordo"]
+    },
+    {
+      "target": "EVERFULLURN",
+      "color": "aqua",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["aqua", "alkimia", "ordo", "permutatio"],
+      "hash-delta": 1
+    },
+    {
+      "target": "POTIONSPRAYER",
+      "color": "vinculum",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["aqua", "alkimia", "vinculum", "perditio"]
+    }
+  ]
+}

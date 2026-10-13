@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "HEDGEALCHEMY@2",
+  "catalyst": {
+    "tag": "c:slime_balls"
+  },
+  "aspects": {
+    "aqua": 5,
+    "victus": 5,
+    "alkimia": 1
+  },
+  "result": {
+    "id": "minecraft:slime_ball",
+    "count": 2
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumcraft:tallowcandles",
+  "ingredients": [
+    {
+      "tag": "c:dyes/light_gray"
+    },
+    {
+      "tag": "thaumcraft:candles"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:candle_silver",
+    "count": 1
+  }
+}

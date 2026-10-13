@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "thaumcraft:models/block/pillar.obj",
+  "textures": {
+    "texture": "thaumcraft:blocks/pillar_normal",
+    "particle": "thaumcraft:blocks/pillar_normal"
+  }
+}

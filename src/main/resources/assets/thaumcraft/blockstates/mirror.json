@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "thaumcraft:block/mirror"
+    },
+    "facing=down": {
+      "model": "thaumcraft:block/mirror",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "thaumcraft:block/mirror",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "thaumcraft:block/mirror",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "thaumcraft:block/mirror",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thaumcraft:block/mirror",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

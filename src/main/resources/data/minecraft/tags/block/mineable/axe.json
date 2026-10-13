@@ -1,0 +1,20 @@
+{
+  "values": [
+    "thaumcraft:arcane_workbench",
+    "thaumcraft:alembic",
+    "thaumcraft:log_greatwood",
+    "thaumcraft:log_silverwood",
+    "thaumcraft:plank_greatwood",
+    "thaumcraft:plank_silverwood",
+    "thaumcraft:table_wood",
+    "thaumcraft:research_table",
+    "thaumcraft:deconstruction_table",
+    "thaumcraft:bellows",
+    "thaumcraft:centrifuge",
+    "thaumcraft:vis_generator",
+    "thaumcraft:arcane_ear",
+    "thaumcraft:arcane_ear_toggle",
+    "thaumcraft:levitator",
+    "thaumcraft:hungry_chest"
+  ]
+}

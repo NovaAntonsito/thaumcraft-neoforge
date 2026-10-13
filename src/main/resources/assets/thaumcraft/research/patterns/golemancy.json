@@ -1,0 +1,148 @@
+{
+  "entries": [
+    {
+      "target": "JARBRAIN",
+      "color": "exanimis",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["exanimis", "desiderium", "cognitio", "victus", "perditio"]
+    },
+    {
+      "target": "MINDCLOCKWORK",
+      "color": "machina",
+      "stage": 1,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["machina", "ordo", "cognitio", "metallum"]
+    },
+    {
+      "target": "GOLEMDIRECT",
+      "color": "machina",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["machina", "desiderium", "motus"]
+    },
+    {
+      "target": "MINDBIOTHAUMIC",
+      "color": "exanimis",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 6,
+      "aspects": ["exanimis", "alienis", "cognitio", "machina", "victus"]
+    },
+    {
+      "target": "SEALEMPTY",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["machina", "desiderium", "vacuos"]
+    },
+    {
+      "target": "SEALPROVIDE",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "permutatio"]
+    },
+    {
+      "target": "SEALSTOCK",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "vacuos"]
+    },
+    {
+      "target": "SEALGUARD",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "mortuus", "aversio"]
+    },
+    {
+      "target": "SEALBUTCHER",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "bestia", "mortuus"]
+    },
+    {
+      "target": "SEALUSE",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "fabrico"]
+    },
+    {
+      "target": "SEALHARVEST",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "fabrico", "herba"]
+    },
+    {
+      "target": "SEALBREAK",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "perditio", "terra"]
+    },
+    {
+      "target": "SEALLUMBER",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "desiderium", "cognitio", "fabrico", "herba"]
+    },
+    {
+      "target": "GOLEMVISION",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "potentia", "instrumentum", "sensus"]
+    },
+    {
+      "target": "GOLEMCLIMBER",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["machina", "potentia", "instrumentum", "motus"]
+    },
+    {
+      "target": "GOLEMFLYER",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["machina", "potentia", "instrumentum", "motus", "volatus"]
+    },
+    {
+      "target": "GOLEMBREAKER",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 3,
+      "aspects": ["machina", "potentia", "instrumentum", "perditio", "terra"]
+    },
+    {
+      "target": "GOLEMCOMBATADV",
+      "color": "machina",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["machina", "potentia", "instrumentum", "perditio", "aversio", "mortuus"]
+    }
+  ]
+}

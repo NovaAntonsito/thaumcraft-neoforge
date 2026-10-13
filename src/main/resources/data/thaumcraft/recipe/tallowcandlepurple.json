@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumcraft:tallowcandles",
+  "ingredients": [
+    {
+      "tag": "c:dyes/purple"
+    },
+    {
+      "tag": "thaumcraft:candles"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:candle_purple",
+    "count": 1
+  }
+}

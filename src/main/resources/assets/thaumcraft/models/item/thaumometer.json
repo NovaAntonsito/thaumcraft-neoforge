@@ -1,0 +1,121 @@
+{
+  "loader": "neoforge:obj",
+  "model": "thaumcraft:models/item/scanner.obj",
+  "flip_v": true,
+  "textures": {
+    "body": "thaumcraft:items/scanner",
+    "pane": "thaumcraft:items/scanscreen",
+    "particle": "thaumcraft:items/scanner"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        -0.96,
+        0.096,
+        -6.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        -16.96,
+        0.096,
+        -6.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        90,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        -1.6
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        90,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -1.6,
+        0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "gui": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        2.8,
+        -2.8,
+        0
+      ],
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ]
+    },
+    "ground": {
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "translation": [
+        1.6,
+        1.6,
+        1.6
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "translation": [
+        3.2,
+        3.2,
+        -2.72
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "entries": [
+    {
+      "target": "INFUSION",
+      "color": "praecantatio",
+      "stage": 0,
+      "radius": 2,
+      "blanks": 0,
+      "aspects": ["ordo", "fabrico", "machina", "praecantatio"]
+    },
+    {
+      "target": "INFUSIONSTABLE",
+      "color": "ordo",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["ordo", "aer", "machina", "praecantatio", "potentia"]
+    },
+    {
+      "target": "INFUSIONBOOST",
+      "color": "auram",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 5,
+      "aspects": ["ordo", "motus", "auram", "praecantatio", "potentia", "machina"]
+    },
+    {
+      "target": "BOOTSTRAVELLER",
+      "color": "motus",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["ordo", "terra", "aer", "aqua", "motus", "volatus"]
+    },
+    {
+      "target": "ELEMENTALTOOLS",
+      "color": "terra",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["terra", "aer", "aqua", "ignis", "perditio", "ordo", "instrumentum", "aversio"]
+    },
+    {
+      "target": "INFUSIONENCHANTMENT",
+      "color": "praecantatio",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["praecantatio", "praemunio", "cognitio", "ordo", "instrumentum", "aversio"]
+    },
+    {
+      "target": "RUNICSHIELDING",
+      "color": "praemunio",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["praecantatio", "praemunio", "vitreus", "aer", "potentia", "cognitio"]
+    },
+    {
+      "target": "ARMORFORTRESS",
+      "color": "praemunio",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["praecantatio", "praemunio", "metallum", "aversio", "potentia"]
+    },
+    {
+      "target": "FORTRESSMASK",
+      "color": "aversio",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["praecantatio", "aversio", "potentia", "sensus", "tenebrae"]
+    },
+    {
+      "target": "CURIOSITYBAND",
+      "color": "cognitio",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 4,
+      "aspects": ["praecantatio", "sensus", "vacuos", "cognitio", "vinculum"]
+    },
+    {
+      "target": "VERDANTCHARMS",
+      "color": "victus",
+      "meta": ["ROUND"],
+      "stage": 0,
+      "radius": 3,
+      "blanks": 0,
+      "aspects": ["praecantatio", "ordo", "victus", "herba", "potentia", "humanus", "desiderium"]
+    },
+    {
+      "target": "CHARMUNDYING",
+      "color": "desiderium",
+      "stage": 0,
+      "radius": 3,
+      "blanks": 8,
+      "aspects": ["victus", "praemunio", "potentia", "desiderium", "alienis"]
+    }
+  ]
+}

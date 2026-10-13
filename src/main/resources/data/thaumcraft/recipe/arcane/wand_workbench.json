@@ -1,0 +1,38 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "BASEAUROMANCY@2",
+  "vis": 100,
+  "crystals": {
+    "terra": 1,
+    "aqua": 1
+  },
+  "pattern": [
+    "ISI",
+    "BRB",
+    "GTG"
+  ],
+  "key": {
+    "S": {
+      "item": "thaumcraft:slab_arcane_stone"
+    },
+    "T": {
+      "item": "thaumcraft:table_stone"
+    },
+    "R": {
+      "item": "thaumcraft:vis_resonator"
+    },
+    "B": {
+      "item": "thaumcraft:stone_arcane"
+    },
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand_workbench",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:infusion_enchantment",
+  "enchantment": "burrowing",
+  "aspects": {
+    "sensus": 80,
+    "terra": 150
+  },
+  "components": [
+    {
+      "item": "minecraft:enchanted_book"
+    },
+    {
+      "item": "minecraft:rabbit_foot"
+    }
+  ]
+}

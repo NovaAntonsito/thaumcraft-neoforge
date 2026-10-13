@@ -1,0 +1,30 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "INFUSION@2",
+  "vis": 150,
+  "crystals": {
+    "aer": 1,
+    "terra": 1,
+    "aqua": 1,
+    "ignis": 1,
+    "ordo": 1,
+    "perditio": 1
+  },
+  "pattern": [
+    "S S",
+    " N ",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "thaumcraft:stone_arcane_brick"
+    },
+    "N": {
+      "tag": "thaumcraft:nitor"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:infusion_matrix",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:infusion_enchantment",
+  "enchantment": "collector",
+  "aspects": {
+    "desiderium": 80,
+    "aqua": 100
+  },
+  "components": [
+    {
+      "item": "minecraft:enchanted_book"
+    },
+    {
+      "item": "minecraft:lead"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumcraft:jarlabels",
+  "ingredients": [
+    {
+      "item": "thaumcraft:label"
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:phial",
+      "components": {
+        "thaumcraft:aspects": {
+          "motus": 10
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:label",
+    "count": 1,
+    "components": {
+      "thaumcraft:aspects": {
+        "motus": 1
+      }
+    }
+  }
+}

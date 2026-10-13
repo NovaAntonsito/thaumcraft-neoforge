@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/void"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:plate_void",
+    "count": 3
+  }
+}

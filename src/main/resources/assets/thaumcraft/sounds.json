@@ -1,0 +1,244 @@
+{
+  "bubble": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:bubble1",
+      "thaumcraft:bubble2",
+      "thaumcraft:bubble3",
+      "thaumcraft:bubble4"
+    ]
+  },
+  "spill": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:spill",
+        "stream": false
+      }
+    ]
+  },
+  "dust": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:dust",
+        "stream": false
+      }
+    ]
+  },
+  "jar": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:jar1",
+      "thaumcraft:jar2",
+      "thaumcraft:jar3",
+      "thaumcraft:jar4"
+    ]
+  },
+  "page": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:page1",
+      "thaumcraft:page2"
+    ]
+  },
+  "key": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "thaumcraft:key",
+        "stream": false
+      }
+    ]
+  },
+  "craftstart": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:craftstart",
+        "stream": false
+      }
+    ]
+  },
+  "craftfail": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:craftfail",
+        "stream": false
+      }
+    ]
+  },
+  "infuser": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:infuser",
+        "stream": false
+      }
+    ]
+  },
+  "infuserstart": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:infuserstart",
+        "stream": false
+      }
+    ]
+  },
+  "wand": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:wand1",
+      "thaumcraft:wand2",
+      "thaumcraft:wand3"
+    ]
+  },
+  "poof": {
+    "category": "ambient",
+    "sounds": [
+      "thaumcraft:poof1",
+      "thaumcraft:poof2"
+    ]
+  },
+  "zap": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:zap1",
+      "thaumcraft:zap2"
+    ]
+  },
+  "wandfail": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:wandfail",
+        "stream": false
+      }
+    ]
+  },
+  "wind": {
+    "category": "ambient",
+    "sounds": [
+      "thaumcraft:wind1",
+      "thaumcraft:wind2"
+    ]
+  },
+  "clack": {
+    "category": "ambient",
+    "sounds": [
+      "thaumcraft:clack1",
+      "thaumcraft:clack2",
+      "thaumcraft:clack3"
+    ]
+  },
+  "write": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:write1",
+      "thaumcraft:write2"
+    ]
+  },
+  "hhon": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:hhon",
+        "stream": false
+      }
+    ]
+  },
+  "hhoff": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:hhoff",
+        "stream": false
+      }
+    ]
+  },
+  "erase": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:erase",
+        "stream": false
+      }
+    ]
+  },
+  "learn": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:learn",
+        "stream": false
+      }
+    ]
+  },
+  "ticks": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "thaumcraft:ticks",
+        "stream": false
+      }
+    ]
+  },
+  "scan": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "thaumcraft:scan",
+        "stream": false
+      }
+    ]
+  },
+  "creak": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:creak1",
+      "thaumcraft:creak2"
+    ]
+  },
+  "squeek": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:squeek1",
+      "thaumcraft:squeek2"
+    ]
+  },
+  "tool": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:tool1",
+      "thaumcraft:tool2"
+    ]
+  },
+  "pump": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:pump1",
+      "thaumcraft:pump2",
+      "thaumcraft:pump3"
+    ]
+  },
+  "evilportal": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:evilportal",
+        "stream": false
+      }
+    ]
+  },
+  "brain": {
+    "category": "ambient",
+    "sounds": [
+      "thaumcraft:brain1",
+      "thaumcraft:brain2",
+      "thaumcraft:brain3",
+      "thaumcraft:brain4"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=false": {
+      "model": "thaumcraft:block/void_siphon"
+    },
+    "enabled=true": {
+      "model": "thaumcraft:block/void_siphon"
+    }
+  }
+}

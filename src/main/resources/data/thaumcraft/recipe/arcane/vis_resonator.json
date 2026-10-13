@@ -1,0 +1,21 @@
+{
+  "type": "thaumcraft:arcane_shapeless",
+  "research": "UNLOCKAUROMANCY@2",
+  "vis": 50,
+  "crystals": {
+    "aer": 1,
+    "aqua": 1
+  },
+  "ingredients": [
+    {
+      "tag": "c:plates/iron"
+    },
+    {
+      "tag": "c:gems/quartz"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:vis_resonator",
+    "count": 1
+  }
+}

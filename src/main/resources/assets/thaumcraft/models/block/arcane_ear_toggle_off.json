@@ -1,0 +1,7 @@
+{
+  "parent": "thaumcraft:block/arcane_ear_off",
+  "textures": {
+    "particle": "thaumcraft:blocks/arcane_ear_toggle_off",
+    "side": "thaumcraft:blocks/arcane_ear_toggle_off"
+  }
+}

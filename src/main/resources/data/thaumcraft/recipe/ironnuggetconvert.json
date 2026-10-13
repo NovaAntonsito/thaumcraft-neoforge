@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:nugget_iron"
+    }
+  },
+  "result": {
+    "id": "minecraft:iron_nugget",
+    "count": 1
+  }
+}

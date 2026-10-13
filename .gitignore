@@ -1,0 +1,13 @@
+.gradle/
+build/
+out/
+run/
+runs/
+*.iml
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+src/generated/resources/.cache/

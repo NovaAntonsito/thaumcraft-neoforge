@@ -1,0 +1,29 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "BASEALCHEMY",
+  "vis": 50,
+  "crystals": {
+    "aer": 1,
+    "ignis": 1
+  },
+  "pattern": [
+    " G ",
+    "BSB",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "B": {
+      "tag": "c:plates/brass"
+    },
+    "S": {
+      "item": "thaumcraft:nugget_rareearth"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:morphic_resonator",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:nuggets/brass"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:ingot_brass",
+    "count": 1
+  }
+}

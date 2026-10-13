@@ -1,0 +1,269 @@
+package thaumcraft.common.config;
+
+import thaumcraft.common.blocks.devices.BlockArcaneEar;
+import thaumcraft.common.blocks.devices.BlockRedstoneRelay;
+import thaumcraft.common.blocks.devices.BlockLevitator;
+import thaumcraft.common.blocks.devices.BlockHungryChest;
+import thaumcraft.common.blocks.devices.BlockSpa;
+import thaumcraft.common.blocks.devices.BlockPotionSprayer;
+import thaumcraft.common.blocks.devices.BlockWaterJug;
+import thaumcraft.common.blocks.essentia.BlockJarBrain;
+import thaumcraft.common.blocks.essentia.BlockJarBrainItem;
+import thaumcraft.common.blocks.misc.BlockFluidPure;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import thaumcraft.common.blocks.basic.BlockCandle;
+import thaumcraft.common.blocks.basic.BlockPillar;
+import thaumcraft.common.blocks.basic.BlockTable;
+import thaumcraft.common.blocks.crafting.BlockResearchTable;
+import thaumcraft.common.blocks.crafting.BlockDeconstructionTable;
+import thaumcraft.common.blocks.crafting.BlockInfusionMatrix;
+import thaumcraft.common.blocks.devices.BlockPedestal;
+import thaumcraft.common.blocks.misc.BlockEffect;
+import thaumcraft.common.blocks.misc.BlockNitor;
+import thaumcraft.common.blocks.misc.BlockPlaceholder;
+import thaumcraft.common.blocks.devices.BlockLamp;
+import thaumcraft.common.blocks.devices.BlockInfernalFurnace;
+import thaumcraft.common.blocks.devices.BlockCondenser;
+import thaumcraft.common.blocks.devices.BlockCondenserLattice;
+import thaumcraft.common.blocks.devices.BlockInlay;
+import thaumcraft.common.blocks.devices.BlockStabilizer;
+import thaumcraft.common.blocks.devices.BlockVisGenerator;
+import thaumcraft.common.blocks.devices.BlockVisBattery;
+import thaumcraft.common.blocks.devices.BlockRechargePedestal;
+import thaumcraft.common.blocks.devices.BlockDioptra;
+import thaumcraft.common.tiles.devices.TileLampArcane;
+import thaumcraft.common.tiles.devices.TileLampGrowth;
+import thaumcraft.common.tiles.devices.TileLampFertility;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import thaumcraft.Thaumcraft;
+import thaumcraft.common.blocks.basic.BlockMetalTC;
+import thaumcraft.common.blocks.basic.BlockTranslucent;
+import thaumcraft.common.blocks.crafting.BlockArcaneWorkbench;
+import thaumcraft.common.blocks.crafting.BlockCrucible;
+import thaumcraft.common.blocks.essentia.BlockAlembic;
+import thaumcraft.common.blocks.essentia.BlockJar;
+import thaumcraft.common.blocks.essentia.BlockJarItem;
+import thaumcraft.common.blocks.essentia.BlockSmelter;
+import thaumcraft.common.blocks.essentia.BlockSmelterAux;
+import thaumcraft.common.blocks.essentia.BlockSmelterVent;
+import thaumcraft.common.blocks.essentia.BlockTube;
+import thaumcraft.common.blocks.essentia.BlockCentrifuge;
+import thaumcraft.common.blocks.devices.BlockBellows;
+import thaumcraft.common.blocks.devices.BlockMirror;
+import thaumcraft.common.blocks.crafting.BlockVoidSiphon;
+import thaumcraft.common.blocks.crafting.BlockThaumatorium;
+import thaumcraft.common.blocks.devices.BlockBrainBox;
+import thaumcraft.common.blocks.devices.BlockMirrorItem;
+import thaumcraft.common.tiles.devices.TileMirror;
+import thaumcraft.common.tiles.devices.TileMirrorEssentia;
+import thaumcraft.common.tiles.essentia.TileTube;
+import thaumcraft.common.tiles.essentia.TileTubeBuffer;
+import thaumcraft.common.tiles.essentia.TileTubeFilter;
+import thaumcraft.common.tiles.essentia.TileTubeOneway;
+import thaumcraft.common.tiles.essentia.TileTubeRestrict;
+import thaumcraft.common.tiles.essentia.TileTubeValve;
+import thaumcraft.common.blocks.world.ore.BlockOreTC;
+import thaumcraft.common.tiles.essentia.TileJarFillable;
+import thaumcraft.common.tiles.essentia.TileJarFillableVoid;
+
+/**
+ * Port of ConfigBlocks. Field names follow thaumcraft.api.blocks.BlocksTC; registry names are the original ones.
+ * Every block also gets its BlockItem here (the original ItemBlock registration).
+ */
+public final class ConfigBlocks {
+    private ConfigBlocks() {
+    }
+
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Thaumcraft.MODID);
+
+    public static final DeferredBlock<Block> oreAmber = register("ore_amber", () -> new BlockOreTC(1.5f, BlockOreTC.xpForGem()));
+    public static final DeferredBlock<Block> oreCinnabar = register("ore_cinnabar", () -> new BlockOreTC(2.0f, BlockOreTC.noXp()));
+    public static final DeferredBlock<Block> oreQuartz = register("ore_quartz", () -> new BlockOreTC(3.0f, BlockOreTC.xpForGem()));
+
+    public static final DeferredBlock<Block> amberBlock = register("amber_block", BlockTranslucent::new);
+    public static final DeferredBlock<Block> amberBrick = register("amber_brick", BlockTranslucent::new);
+
+    public static final DeferredBlock<Block> metalBlockBrass = register("metal_brass", () -> new BlockMetalTC(MapColor.GOLD));
+    public static final DeferredBlock<Block> metalBlockThaumium = register("metal_thaumium", () -> new BlockMetalTC(MapColor.COLOR_PURPLE));
+    public static final DeferredBlock<Block> crucible = register("crucible", BlockCrucible::new);
+    public static final DeferredBlock<Block> arcaneWorkbench = register("arcane_workbench", BlockArcaneWorkbench::new);
+    public static final DeferredBlock<Block> wandWorkbench = register("wand_workbench", thaumcraft.common.blocks.crafting.BlockFocalManipulator::new);
+
+    public static final DeferredBlock<Block> metalBlockVoid = register("metal_void", () -> new BlockMetalTC(MapColor.COLOR_BLACK));
+
+    // Greatwood and silverwood: only the wood blocks for now. TODO: trees, leaves, saplings, stairs and slabs (stage 9).
+    public static final DeferredBlock<Block> logGreatwood = register("log_greatwood", () -> log(MapColor.WOOD));
+    public static final DeferredBlock<Block> logSilverwood = register("log_silverwood", () -> log(MapColor.QUARTZ));
+    public static final DeferredBlock<Block> plankGreatwood = register("plank_greatwood", () -> planks(MapColor.WOOD));
+    public static final DeferredBlock<Block> plankSilverwood = register("plank_silverwood", () -> planks(MapColor.QUARTZ));
+
+    public static final DeferredBlock<Block> smelterBasic = register("smelter_basic", () -> new BlockSmelter(0));
+    public static final DeferredBlock<Block> alembic = register("alembic", BlockAlembic::new);
+
+    public static final DeferredBlock<Block> tableWood = register("table_wood", () -> new BlockTable(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.WOOD).strength(2.0f, 2.0f).sound(SoundType.WOOD).ignitedByLava()));
+    public static final DeferredBlock<Block> tableStone = register("table_stone", () -> new BlockTable(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.STONE).strength(2.5f, 2.0f).sound(SoundType.STONE)));
+    public static final DeferredBlock<Block> researchTable = register("research_table", BlockResearchTable::new);
+    public static final DeferredBlock<Block> deconstructionTable = register("deconstruction_table", BlockDeconstructionTable::new);
+    public static final DeferredBlock<Block> jarNormal = registerJar("jar_normal", () -> new BlockJar(TileJarFillable::new));
+    public static final DeferredBlock<Block> jarVoid = registerJar("jar_void", () -> new BlockJar(TileJarFillableVoid::new));
+
+    // Stage 4d: arcane stone and the infusion altar.
+    public static final DeferredBlock<Block> stoneArcane = register("stone_arcane", () -> stone());
+    public static final DeferredBlock<Block> stoneArcaneBrick = register("stone_arcane_brick", () -> stone());
+    public static final DeferredBlock<Block> stairsArcane = register("stairs_arcane", () -> new StairBlock(stoneArcane.get().defaultBlockState(), stoneProps()));
+    public static final DeferredBlock<Block> stairsArcaneBrick = register("stairs_arcane_brick", () -> new StairBlock(stoneArcaneBrick.get().defaultBlockState(), stoneProps()));
+    public static final DeferredBlock<Block> slabArcaneStone = register("slab_arcane_stone", () -> new SlabBlock(stoneProps()));
+    public static final DeferredBlock<Block> slabArcaneBrick = register("slab_arcane_brick", () -> new SlabBlock(stoneProps()));
+    public static final DeferredBlock<Block> pedestalArcane = register("pedestal_arcane", BlockPedestal::new);
+    public static final DeferredBlock<Block> pillarArcane = register("pillar_arcane", BlockPillar::new);
+    public static final DeferredBlock<Block> infusionMatrix = register("infusion_matrix", BlockInfusionMatrix::new);
+    /** One candle and one nitor per dye color, as in the original BlocksTC.candles and BlocksTC.nitor maps. */
+    public static final Map<DyeColor, DeferredBlock<Block>> candles = dyed("candle_", BlockCandle::new);
+    public static final Map<DyeColor, DeferredBlock<Block>> nitor = dyed("nitor_", BlockNitor::new);
+    // Stage 6a: essentia tubes, smeltery upgrades, bellows and the centrifuge.
+    public static final DeferredBlock<Block> metalAlchemical = register("metal_alchemical", () -> new BlockMetalTC(MapColor.METAL));
+    public static final DeferredBlock<Block> metalAlchemicalAdvanced = register("metal_alchemical_advanced", () -> new BlockMetalTC(MapColor.METAL));
+    public static final DeferredBlock<Block> smelterThaumium = register("smelter_thaumium", () -> new BlockSmelter(1));
+    public static final DeferredBlock<Block> smelterVoid = register("smelter_void", () -> new BlockSmelter(2));
+    public static final DeferredBlock<Block> smelterAux = register("smelter_aux", BlockSmelterAux::new);
+    public static final DeferredBlock<Block> smelterVent = register("smelter_vent", BlockSmelterVent::new);
+    public static final DeferredBlock<Block> tube = register("tube", () -> new BlockTube(TileTube::new));
+    public static final DeferredBlock<Block> tubeValve = register("tube_valve", () -> new BlockTube(TileTubeValve::new));
+    public static final DeferredBlock<Block> tubeFilter = register("tube_filter", () -> new BlockTube(TileTubeFilter::new));
+    public static final DeferredBlock<Block> tubeRestrict = register("tube_restrict", () -> new BlockTube(TileTubeRestrict::new));
+    public static final DeferredBlock<Block> tubeOneway = register("tube_oneway", () -> new BlockTube(TileTubeOneway::new));
+    public static final DeferredBlock<Block> tubeBuffer = register("tube_buffer", () -> new BlockTube(TileTubeBuffer::new));
+    public static final DeferredBlock<Block> bellows = register("bellows", BlockBellows::new);
+    public static final DeferredBlock<Block> centrifuge = register("centrifuge", BlockCentrifuge::new);
+
+    // Stage 6b: mirrors, the void siphon and the thaumatorium.
+    public static final DeferredBlock<Block> mirror = registerMirror("mirror", () -> new BlockMirror(TileMirror::new));
+    public static final DeferredBlock<Block> voidSiphon = register("void_siphon", BlockVoidSiphon::new);
+    /** No items: both halves drop an alchemical construct (setCreativeTab(null) in the original). */
+    public static final DeferredBlock<Block> thaumatorium = BLOCKS.register("thaumatorium", () -> new BlockThaumatorium(false));
+    public static final DeferredBlock<Block> thaumatoriumTop = BLOCKS.register("thaumatorium_top", () -> new BlockThaumatorium(true));
+    public static final DeferredBlock<Block> brainBox = register("brain_box", BlockBrainBox::new);
+    public static final DeferredBlock<Block> mirrorEssentia = registerMirror("mirror_essentia", () -> new BlockMirror(TileMirrorEssentia::new));
+
+    // Stage 6c: lamps, the infernal furnace, flux condenser, stabilizer, vis devices and the dioptra.
+    public static final DeferredBlock<Block> lampArcane = register("lamp_arcane", () -> new BlockLamp(TileLampArcane::new));
+    public static final DeferredBlock<Block> lampGrowth = register("lamp_growth", () -> new BlockLamp(TileLampGrowth::new));
+    public static final DeferredBlock<Block> lampFertility = register("lamp_fertility", () -> new BlockLamp(TileLampFertility::new));
+    /** Built with salis mundus; no item (setCreativeTab(null) in the original). */
+    public static final DeferredBlock<Block> infernalFurnace = BLOCKS.register("infernal_furnace", BlockInfernalFurnace::new);
+    /** The invisible blocks that make up the infernal furnace shell. No items. */
+    public static final DeferredBlock<Block> placeholderNetherbrick = BLOCKS.register("placeholder_brick", BlockPlaceholder::new);
+    public static final DeferredBlock<Block> placeholderObsidian = BLOCKS.register("placeholder_obsidian", BlockPlaceholder::new);
+    public static final DeferredBlock<Block> condenser = register("condenser", BlockCondenser::new);
+    public static final DeferredBlock<Block> condenserLattice = register("condenser_lattice", () -> new BlockCondenserLattice(false));
+    public static final DeferredBlock<Block> condenserLatticeDirty = register("condenser_lattice_dirty", () -> new BlockCondenserLattice(true));
+    public static final DeferredBlock<Block> stabilizer = register("stabilizer", BlockStabilizer::new);
+    public static final DeferredBlock<Block> inlay = register("inlay", BlockInlay::new);
+    public static final DeferredBlock<Block> visGenerator = register("vis_generator", BlockVisGenerator::new);
+    public static final DeferredBlock<Block> visBattery = register("vis_battery", BlockVisBattery::new);
+    public static final DeferredBlock<Block> rechargePedestal = register("recharge_pedestal", BlockRechargePedestal::new);
+    public static final DeferredBlock<Block> dioptra = register("dioptra", BlockDioptra::new);
+
+    // Stage 6d: arcane ears, redstone relay, levitator, hungry chest, brain in a jar, spa, potion sprayer and everfull urn.
+    public static final DeferredBlock<Block> arcaneEar = register("arcane_ear", () -> new BlockArcaneEar(false));
+    public static final DeferredBlock<Block> arcaneEarToggle = register("arcane_ear_toggle", () -> new BlockArcaneEar(true));
+    public static final DeferredBlock<Block> redstoneRelay = register("redstone_relay", BlockRedstoneRelay::new);
+    public static final DeferredBlock<Block> levitator = register("levitator", BlockLevitator::new);
+    public static final DeferredBlock<Block> hungryChest = register("hungry_chest", BlockHungryChest::new);
+    public static final DeferredBlock<Block> jarBrain = registerJarBrain();
+    public static final DeferredBlock<Block> spa = register("spa", BlockSpa::new);
+    public static final DeferredBlock<Block> potionSprayer = register("potion_sprayer", BlockPotionSprayer::new);
+    public static final DeferredBlock<Block> everfullUrn = register("everfull_urn", BlockWaterJug::new);
+    /** The purifying fluid; its item is the bucket (ConfigItems.purifyingFluidBucket). */
+    public static final DeferredBlock<BlockFluidPure> purifyingFluid = BLOCKS.register("purifying_fluid", BlockFluidPure::new);
+
+    /** The light left by the Lamplight infusion enchantment. No item. */
+    public static final DeferredBlock<Block> effectGlimmer = BLOCKS.register("effect_glimmer", BlockEffect::new);
+    public static final DeferredBlock<Block> effectSap = BLOCKS.register("effect_sap", thaumcraft.common.blocks.misc.BlockEffectSap::new);
+    /** The dimensional tear of the rift focus. No item, like the original (no creative tab, nothing dropped). */
+    public static final DeferredBlock<Block> hole = BLOCKS.register("hole", thaumcraft.common.blocks.misc.BlockHole::new);
+
+    /** BlockStoneTC: hardness 2, resistance 10 (6 in 1.21 units). Usable as beacon base (tag). */
+    private static BlockBehaviour.Properties stoneProps() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
+                .requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE);
+    }
+
+    private static Block stone() {
+        return new Block(stoneProps());
+    }
+
+    /** dye.getUnlocalizedName() in 1.12 is "lightBlue"/"silver"; the original lowercased it: candle_lightblue, candle_silver. */
+    private static Map<DyeColor, DeferredBlock<Block>> dyed(String prefix, Function<DyeColor, Block> factory) {
+        Map<DyeColor, DeferredBlock<Block>> out = new EnumMap<>(DyeColor.class);
+        for (DyeColor dye : DyeColor.values()) {
+            out.put(dye, register(prefix + legacyDyeName(dye), () -> factory.apply(dye)));
+        }
+        return out;
+    }
+
+    public static String legacyDyeName(DyeColor dye) {
+        return switch (dye) {
+            case LIGHT_BLUE -> "lightblue";
+            case LIGHT_GRAY -> "silver";
+            default -> dye.getName();
+        };
+    }
+
+    /** BlockLogsTC: hardness 2, resistance 5. */
+    private static Block log(MapColor color) {
+        return new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASS)
+                .strength(2.0f, 5.0f).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    /** BlockPlanksTC: hardness 2, resistance 5, like vanilla planks. */
+    private static Block planks(MapColor color) {
+        return new Block(BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASS)
+                .strength(2.0f, 5.0f).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    /** Jars use BlockJarItem, which keeps their essentia. */
+    private static DeferredBlock<Block> registerJar(String name, Supplier<Block> block) {
+        DeferredBlock<Block> holder = BLOCKS.register(name, block);
+        ConfigItems.ITEMS.register(name, () -> new BlockJarItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+
+    /** The brain in a jar uses BlockJarBrainItem, which keeps its experience. */
+    private static DeferredBlock<Block> registerJarBrain() {
+        DeferredBlock<Block> holder = BLOCKS.register("jar_brain", BlockJarBrain::new);
+        ConfigItems.ITEMS.register("jar_brain", () -> new BlockJarBrainItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+
+    /** Mirrors use BlockMirrorItem, which carries the link. */
+    private static DeferredBlock<Block> registerMirror(String name, Supplier<Block> block) {
+        DeferredBlock<Block> holder = BLOCKS.register(name, block);
+        ConfigItems.ITEMS.register(name, () -> new BlockMirrorItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+
+    private static DeferredBlock<Block> register(String name, Supplier<Block> block) {
+        DeferredBlock<Block> holder = BLOCKS.register(name, block);
+        ConfigItems.ITEMS.register(name, () -> new BlockItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+}
