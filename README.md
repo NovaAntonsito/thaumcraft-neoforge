@@ -4,7 +4,7 @@ Port de Thaumcraft 6 a Minecraft 1.21.1 con NeoForge.
 
 ## Branches
 - `main`: port fiel a TC6 (etapas 1 a 7b + fix de primales).
-- `version-sonada`: `main` más lo propio que no está en Thaumcraft (anomalías del mundo y diseños).
+- `version-sonada`: `main` más lo propio que no está en Thaumcraft: anomalías del mundo (fase 1, `docs/etapas/anomalias-1-nucleo.md`) y su diseño completo (`docs/diseno/`).
 
 ## Estructura
 Un solo proyecto NeoForge (ModDevGradle). Cada etapa del port se aplicó encima de la anterior, en este orden:

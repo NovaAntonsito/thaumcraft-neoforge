@@ -85,7 +85,7 @@ public class SlotCraftingArcaneWorkbench extends Slot {
         AspectList crystals = null;
         if (recipe != null) {
             // TODO: vis *= 1 - CasterManager.getTotalVisDiscount(player) once casters and robes are ported.
-            vis = recipe.getVis();
+            vis = thaumcraft.common.anomaly.AnomalyModifiers.arcaneVis(thePlayer.level(), recipe.getVis());
             crystals = recipe.getCrystals();
             if (vis > 0) {
                 tile.getAura();

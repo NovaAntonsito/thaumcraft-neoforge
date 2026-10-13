@@ -22,6 +22,8 @@ public class AuraThread {
     private float phaseFlux = 0.0f;
     private float phaseMax = 0.0f;
     private long lastWorldTime = 0L;
+    /** Vis regeneration multiplier from active anomalies, read once per pass. */
+    private float visRegenMult = 1.0f;
     private final float[] phaseTable = {0.25f, 0.15f, 0.1f, 0.05f, 0.0f, 0.05f, 0.1f, 0.15f};
     private final float[] maxTable = {0.15f, 0.05f, 0.0f, -0.05f, -0.15f, -0.05f, 0.0f, 0.05f};
 
@@ -33,6 +35,7 @@ public class AuraThread {
         phaseVis = phaseTable[moon];
         phaseMax = 1.0f + maxTable[moon];
         phaseFlux = 0.25f - phaseVis;
+        visRegenMult = thaumcraft.common.anomaly.AnomalyModifiers.get(world, thaumcraft.common.anomaly.AnomalyStat.VIS_REGEN);
         for (AuraChunk auraChunk : auraWorld.auraChunks.values()) {
             processAuraChunk(auraWorld, auraChunk);
         }
@@ -81,7 +84,7 @@ public class AuraThread {
             neighbourFluxChunk.markDirty();
         }
         if (currentVis + currentFlux < base) {
-            float inc = Math.min(base - (currentVis + currentFlux), phaseVis);
+            float inc = Math.min(base - (currentVis + currentFlux), phaseVis * visRegenMult);
             currentVis += inc;
             dirty = true;
         } else if (currentVis > base * 1.25 && rand.nextFloat() < 0.1) {

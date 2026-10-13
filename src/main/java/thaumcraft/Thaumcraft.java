@@ -93,6 +93,10 @@ public class Thaumcraft {
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onRegisterCommands);
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onServerStarted);
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onTagsUpdated);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onLogin);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onChangeDimension);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onRespawn);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
@@ -295,5 +299,6 @@ public class Thaumcraft {
 
     private static void onRegisterCommands(RegisterCommandsEvent event) {
         ThaumcraftCommand.register(event.getDispatcher());
+        thaumcraft.common.anomaly.AnomalyCommand.register(event.getDispatcher());
     }
 }

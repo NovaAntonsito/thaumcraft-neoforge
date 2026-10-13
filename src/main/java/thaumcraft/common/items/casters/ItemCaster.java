@@ -159,6 +159,9 @@ public class ItemCaster extends Item implements ICaster, IArchitect {
         float consumptionModifier = 1.0f;
         if (player != null) {
             consumptionModifier -= CasterManager.getTotalVisDiscount(player);
+            if (!crafting) {
+                consumptionModifier *= thaumcraft.common.anomaly.AnomalyModifiers.get(player.level(), thaumcraft.common.anomaly.AnomalyStat.FOCUS_VIS_COST);
+            }
         }
         return Math.max(consumptionModifier, 0.1f);
     }
