@@ -15,6 +15,8 @@ import net.minecraft.resources.ResourceLocation;
  */
 public final class TCRenderTypes extends RenderType {
     private static final Map<ResourceLocation, RenderType> OVERLAY_ADDITIVE = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> SEAL = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> SEAL_XRAY = new HashMap<>();
 
     private TCRenderTypes(String name, VertexFormat format, VertexFormat.Mode mode, int bufferSize, boolean affectsCrumbling, boolean sortOnUpload,
                           Runnable setupState, Runnable clearState) {
@@ -28,5 +30,18 @@ public final class TCRenderTypes extends RenderType {
                 CompositeState.builder().setShaderState(new ShaderStateShard(net.minecraft.client.renderer.GameRenderer::getPositionTexColorShader)).setTextureState(new TextureStateShard(t, false, false))
                         .setTransparencyState(LIGHTNING_TRANSPARENCY).setDepthTestState(NO_DEPTH_TEST).setCullState(NO_CULL)
                         .setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
+    }
+
+    /**
+     * The golem seals and their area markers: normal blending, culling off, no depth writes, POSITION_TEX_COLOR.
+     * With xray the depth test is off too, as the original did while the player sneaks.
+     */
+    public static RenderType seal(ResourceLocation texture, boolean xray) {
+        return (xray ? SEAL_XRAY : SEAL).computeIfAbsent(texture, t -> create(xray ? "thaumcraft_seal_xray" : "thaumcraft_seal",
+                DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 1536, false, true,
+                CompositeState.builder().setShaderState(new ShaderStateShard(net.minecraft.client.renderer.GameRenderer::getPositionTexColorShader))
+                        .setTextureState(new TextureStateShard(t, false, false))
+                        .setTransparencyState(TRANSLUCENT_TRANSPARENCY).setDepthTestState(xray ? NO_DEPTH_TEST : LEQUAL_DEPTH_TEST)
+                        .setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
     }
 }

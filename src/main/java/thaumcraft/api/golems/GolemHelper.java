@@ -32,9 +32,8 @@ public class GolemHelper {
         return SealHandler.getSeal(key);
     }
 
-    /** TODO (stage 8b): the seal placer item. */
     public static ItemStack getSealStack(String key) {
-        return ItemStack.EMPTY;
+        return thaumcraft.common.golems.seals.ItemSealPlacer.getSealStack(key);
     }
 
     public static ISealEntity getSealEntity(ResourceKey<Level> dim, thaumcraft.api.golems.seals.SealPos pos) {

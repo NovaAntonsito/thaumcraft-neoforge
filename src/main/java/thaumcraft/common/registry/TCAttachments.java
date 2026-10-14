@@ -1,6 +1,9 @@
 package thaumcraft.common.registry;
 
+import java.util.List;
 import java.util.function.Supplier;
+
+import net.minecraft.nbt.CompoundTag;
 
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -48,5 +51,14 @@ public final class TCAttachments {
     public static final Supplier<AttachmentType<AuraChunk>> AURA = ATTACHMENT_TYPES.register("aura",
             () -> AttachmentType.builder(() -> new AuraChunk(null, (short) 0, 0.0f, 0.0f))
                     .serialize(AuraChunk.CODEC)
+                    .build());
+
+    /**
+     * The golem seals placed in a chunk, one SealEntity.writeNBT tag each. Replaces the "seals" list the original
+     * wrote into the chunk NBT in ChunkDataEvent.Save.
+     */
+    public static final Supplier<AttachmentType<List<CompoundTag>>> SEALS = ATTACHMENT_TYPES.register("seals",
+            () -> AttachmentType.<List<CompoundTag>>builder(() -> List.of())
+                    .serialize(CompoundTag.CODEC.listOf(), list -> !list.isEmpty())
                     .build());
 }

@@ -1781,5 +1781,8 @@
   "block.thaumcraft.placeholder_cauldron": "Golem Press",
   "block.thaumcraft.placeholder_table": "Golem Press",
   "entity.thaumcraft.golem": "Golem",
-  "entity.thaumcraft.golem_dart": "Golem Dart"
+  "entity.thaumcraft.golem_dart": "Golem Dart",
+  "item.thaumcraft.seal_blank": "Blank Seal",
+  "item.thaumcraft.seal_pickup": "Control Seal: Collect",
+  "item.thaumcraft.seal_fill": "Control Seal: Store"
 }

@@ -1,0 +1,14 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "SEALSTORE",
+  "catalyst": {
+    "item": "thaumcraft:seal_blank"
+  },
+  "aspects": {
+    "aversio": 10
+  },
+  "result": {
+    "id": "thaumcraft:seal_fill",
+    "count": 1
+  }
+}

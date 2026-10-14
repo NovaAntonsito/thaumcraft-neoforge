@@ -116,6 +116,10 @@ public final class ConfigItems {
     public static final DeferredItem<Item> moduleVision = ITEMS.registerSimpleItem("module_vision");
     public static final DeferredItem<Item> moduleAggression = ITEMS.registerSimpleItem("module_aggression");
 
+    // Stage 8b.
+    /** "blank","pickup","fill". TODO (stages 8b-2, 8c): the other seals. */
+    public static final Map<String, DeferredItem<thaumcraft.common.golems.seals.ItemSealPlacer>> seals = sealVariants("blank", "pickup", "fill");
+
     /** Port of CreativeTabThaumcraft. TODO icon: the original uses the goggles, not ported yet. */
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TABTC = CREATIVE_TABS.register("thaumcraft",
             () -> CreativeModeTab.builder()
@@ -142,6 +146,26 @@ public final class ConfigItems {
                         }
                     })
                     .build());
+
+    /** One placer item per seal: seal_blank places nothing, seal_pickup places "thaumcraft:pickup" and so on. */
+    private static Map<String, DeferredItem<thaumcraft.common.golems.seals.ItemSealPlacer>> sealVariants(String... names) {
+        Map<String, DeferredItem<thaumcraft.common.golems.seals.ItemSealPlacer>> out = new LinkedHashMap<>();
+        for (String name : names) {
+            String key = name.equals("blank") ? null : Thaumcraft.MODID + ":" + name;
+            out.put(name, ITEMS.registerItem("seal_" + name, p -> new thaumcraft.common.golems.seals.ItemSealPlacer(key, p)));
+        }
+        return out;
+    }
+
+    /**
+     * The seals, registered in ConfigItems.init in the original, in the same order.
+     * TODO (stages 8b-2, 8c): SealPickupAdvanced, SealFillAdvanced, SealEmpty(Advanced), SealHarvest, SealButcher,
+     * SealGuard(Advanced), SealLumber, SealBreaker(Advanced), SealUse, SealProvide and SealStock.
+     */
+    public static void registerSeals() {
+        thaumcraft.common.golems.seals.SealHandler.registerSeal(new thaumcraft.common.golems.seals.SealPickup());
+        thaumcraft.common.golems.seals.SealHandler.registerSeal(new thaumcraft.common.golems.seals.SealFill());
+    }
 
     private static Map<String, DeferredItem<Item>> variants(String base, String... names) {
         Map<String, DeferredItem<Item>> out = new LinkedHashMap<>();

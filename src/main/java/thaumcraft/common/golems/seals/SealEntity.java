@@ -178,9 +178,12 @@ public class SealEntity implements ISealEntity {
         return nbt;
     }
 
-    /** TODO (stage 8b): PacketSealToClient. */
     @Override
     public void syncToClient(Level world) {
+        if (!world.isClientSide) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayersInDimension((net.minecraft.server.level.ServerLevel) world,
+                    new thaumcraft.common.lib.network.misc.PacketSealToClient(this));
+        }
     }
 
     @Override

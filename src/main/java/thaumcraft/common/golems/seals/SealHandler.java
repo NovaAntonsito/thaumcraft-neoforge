@@ -1,25 +1,35 @@
 package thaumcraft.common.golems.seals;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.neoforged.neoforge.network.PacketDistributor;
 import thaumcraft.Thaumcraft;
 import thaumcraft.api.golems.seals.ISeal;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
 import thaumcraft.api.golems.tasks.Task;
 import thaumcraft.common.golems.tasks.TaskHandler;
+import thaumcraft.common.lib.network.misc.PacketSealToClient;
+import thaumcraft.common.registry.TCAttachments;
 
 /**
  * Port of SealHandler: the registered seal types and the placed seals of each dimension.
- * TODO (stage 8b): saving the seals with their chunk, PacketSealToClient and the seal item dropped on removal.
+ * In single player the client and the integrated server share these maps, as they did in 1.12.
  */
 public class SealHandler {
     public static LinkedHashMap<String, ISeal> types = new LinkedHashMap<>();
@@ -72,7 +82,13 @@ public class SealHandler {
             if (!world.isClientSide && seal != null && seal.seal != null) {
                 seal.seal.onRemoval(world, pos.pos, pos.face);
             }
-            // TODO (stage 8b): drop the seal's placer item unless quiet.
+            if (!quiet && seal != null && !world.isClientSide) {
+                ItemStack stack = ItemSealPlacer.getSealStack(seal.getSeal().getKey());
+                if (!stack.isEmpty()) {
+                    world.addFreshEntity(new ItemEntity(world, pos.pos.getX() + 0.5 + pos.face.getStepX() / 1.7f,
+                            pos.pos.getY() + 0.5 + pos.face.getStepY() / 1.7f, pos.pos.getZ() + 0.5 + pos.face.getStepZ() / 1.7f, stack));
+                }
+            }
         } catch (Exception e) {
             Thaumcraft.LOGGER.warn("Removing invalid seal at {}", pos.pos);
         }
@@ -81,7 +97,12 @@ public class SealHandler {
                 task.setSuspended(true);
             }
         }
-        // TODO (stage 8b): PacketSealToClient with an empty seal, and markChunkAsDirty unless quiet.
+        if (!world.isClientSide) {
+            PacketDistributor.sendToPlayersInDimension((ServerLevel) world, new PacketSealToClient(new SealEntity(world, pos, null)));
+        }
+        if (!quiet) {
+            markChunkAsDirty(world, pos.pos);
+        }
     }
 
     public static ISealEntity getSealEntity(ResourceKey<Level> dim, SealPos pos) {
@@ -102,6 +123,7 @@ public class SealHandler {
         se.put(sp, sealent);
         if (!world.isClientSide) {
             sealent.syncToClient(world);
+            markChunkAsDirty(world, pos);
         }
         return true;
     }
@@ -117,6 +139,7 @@ public class SealHandler {
         se.put(seal.getSealPos(), seal);
         if (!world.isClientSide) {
             seal.syncToClient(world);
+            markChunkAsDirty(world, seal.getSealPos().pos);
         }
         return true;
     }
@@ -137,5 +160,22 @@ public class SealHandler {
                 }
             }
         }
+    }
+
+    /**
+     * 1.12 queued the chunk in AuraHandler.dirtyChunks so it would be saved, and the seals were written in
+     * ChunkDataEvent.Save. Here the chunk's SEALS attachment is rewritten now, which also flags the chunk for saving.
+     */
+    public static void markChunkAsDirty(Level world, BlockPos bp) {
+        if (world.isClientSide || !world.isLoaded(bp)) {
+            return;
+        }
+        LevelChunk chunk = world.getChunkAt(bp);
+        List<CompoundTag> tagList = new ArrayList<>();
+        for (ISealEntity seal : getSealsInChunk(world, chunk.getPos())) {
+            tagList.add(seal.writeNBT());
+        }
+        chunk.setData(TCAttachments.SEALS, tagList);
+        chunk.setUnsaved(true);
     }
 }

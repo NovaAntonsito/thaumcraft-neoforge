@@ -127,6 +127,7 @@ public class Thaumcraft {
             IDustTrigger.registerDustTrigger(new DustTriggerSimple("RESEARCH",
                     state -> state.is(ConfigBlocks.tableWood.get()), () -> new ItemStack(ConfigBlocks.researchTable.get())));
             thaumcraft.common.golems.GolemProperties.registerDefaults();
+            ConfigItems.registerSeals();
             registerInfusionAltar();
             registerFakeRecipes();
             // CommonProxy: dispensers throw alumentum (BehaviorDispenseAlumetum).

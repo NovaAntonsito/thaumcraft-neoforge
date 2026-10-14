@@ -280,7 +280,7 @@
       "key": "CONTROLSEALS",
       "name": "research.CONTROLSEALS.title",
       "icons": [
-        "thaumcraft:seal"
+        "thaumcraft:seal_blank"
       ],
       "category": "GOLEMANCY",
       "location": [
