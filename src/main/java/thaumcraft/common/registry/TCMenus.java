@@ -51,6 +51,9 @@ public final class TCMenus {
     public static final Supplier<MenuType<ContainerPotionSprayer>> POTION_SPRAYER = MENUS.register("potion_sprayer",
             () -> IMenuTypeExtension.create(ContainerPotionSprayer::new));
 
+    public static final Supplier<MenuType<thaumcraft.common.container.ContainerGolemBuilder>> GOLEM_BUILDER = MENUS.register("golem_builder",
+            () -> IMenuTypeExtension.create(thaumcraft.common.container.ContainerGolemBuilder::new));
+
     private TCMenus() {
     }
 

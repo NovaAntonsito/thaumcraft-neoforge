@@ -93,6 +93,10 @@ public class Thaumcraft {
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onRegisterCommands);
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onServerStarted);
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onTagsUpdated);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onLogin);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onChangeDimension);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onRespawn);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
@@ -122,6 +126,7 @@ public class Thaumcraft {
             // Reborn: salis mundus on a wooden table also makes a research table.
             IDustTrigger.registerDustTrigger(new DustTriggerSimple("RESEARCH",
                     state -> state.is(ConfigBlocks.tableWood.get()), () -> new ItemStack(ConfigBlocks.researchTable.get())));
+            thaumcraft.common.golems.GolemProperties.registerDefaults();
             registerInfusionAltar();
             registerFakeRecipes();
             // CommonProxy: dispensers throw alumentum (BehaviorDispenseAlumetum).
@@ -151,6 +156,7 @@ public class Thaumcraft {
                 new ItemStack(stone, 8), new ItemStack(ConfigBlocks.pedestalArcane.get()), new ItemStack(ConfigBlocks.infusionMatrix.get())));
         // TODO: the ancient and eldritch altars (their stones are not ported yet).
         registerThaumatorium();
+        registerGolemPress();
         registerInfernalFurnace();
         registerSmeltingBonuses();
     }
@@ -164,6 +170,21 @@ public class Thaumcraft {
         IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("THAUMATORIUM", thaumotoriumBlueprint));
         ThaumcraftApi.addMultiblockRecipeToCatalog(id("thaumatorium"), new ThaumcraftApi.BluePrint("THAUMATORIUM", thaumotoriumBlueprint,
                 new ItemStack(ConfigBlocks.metalAlchemical.get(), 2), new ItemStack(ConfigBlocks.crucible.get())));
+    }
+
+    /** ConfigRecipes.initializeAlchemyRecipes: the golem press, a piston facing up under iron bars, with a cauldron, an anvil and a stone table. */
+    private static void registerGolemPress() {
+        Part gp1 = new Part(Blocks.IRON_BARS, ConfigBlocks.placeholderBars.get());
+        Part gp2 = new Part(Blocks.CAULDRON, ConfigBlocks.placeholderCauldron.get());
+        Part gp3 = new Part(Blocks.PISTON.defaultBlockState().setValue(net.minecraft.world.level.block.piston.PistonBaseBlock.FACING, Direction.UP),
+                ConfigBlocks.golemBuilder.get());
+        Part gp4 = new Part(Blocks.ANVIL, ConfigBlocks.placeholderAnvil.get());
+        Part gp5 = new Part(ConfigBlocks.tableStone.get(), ConfigBlocks.placeholderTable.get());
+        Part[][][] golempressBlueprint = {{{null, null}, {gp1, null}}, {{gp2, gp4}, {gp3, gp5}}};
+        IDustTrigger.registerDustTrigger(new DustTriggerMultiblock("MINDCLOCKWORK", golempressBlueprint));
+        ThaumcraftApi.addMultiblockRecipeToCatalog(id("golempress"), new ThaumcraftApi.BluePrint("MINDCLOCKWORK",
+                new ItemStack(ConfigBlocks.golemBuilder.get()), golempressBlueprint, new ItemStack(Blocks.IRON_BARS), new ItemStack(Items.CAULDRON),
+                new ItemStack(Blocks.PISTON), new ItemStack(Blocks.ANVIL), new ItemStack(ConfigBlocks.tableStone.get())));
     }
 
     /** ConfigRecipes.initializeAlchemyRecipes: the infernal furnace, a 3x3x3 shell of nether brick and obsidian around lava. */
@@ -247,6 +268,8 @@ public class Thaumcraft {
                 (te, side) -> side == null ? new InvWrapper(te) : new SidedInvWrapper(te, side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TCBlockEntities.THAUMATORIUM_TOP.get(),
                 (te, side) -> te.getThaumatorium() == null ? null : side == null ? new InvWrapper(te) : new SidedInvWrapper(te, side));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TCBlockEntities.GOLEM_BUILDER.get(),
+                (te, side) -> side == null ? new InvWrapper(te) : new SidedInvWrapper(te, side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TCBlockEntities.VOID_SIPHON.get(),
                 (te, side) -> side == null ? new InvWrapper(te) : new SidedInvWrapper(te, side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TCBlockEntities.INFERNAL_FURNACE.get(),
@@ -295,5 +318,6 @@ public class Thaumcraft {
 
     private static void onRegisterCommands(RegisterCommandsEvent event) {
         ThaumcraftCommand.register(event.getDispatcher());
+        thaumcraft.common.anomaly.AnomalyCommand.register(event.getDispatcher());
     }
 }

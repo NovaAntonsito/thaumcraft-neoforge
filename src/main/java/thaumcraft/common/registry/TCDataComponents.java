@@ -58,6 +58,14 @@ public final class TCDataComponents {
     public static final Supplier<DataComponentType<Integer>> CHARGE = DATA_COMPONENTS.registerComponentType("charge",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
 
+    /** The packed parts of a golem placer. Replaces the "props" NBT long of ItemGolemPlacer. */
+    public static final Supplier<DataComponentType<Long>> GOLEM_PROPS = DATA_COMPONENTS.registerComponentType("golem_props",
+            builder -> builder.persistent(com.mojang.serialization.Codec.LONG).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_LONG.cast()));
+
+    /** The rank experience of a golem placer. Replaces the "xp" NBT int of ItemGolemPlacer. */
+    public static final Supplier<DataComponentType<Integer>> GOLEM_XP = DATA_COMPONENTS.registerComponentType("golem_xp",
+            builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+
     /** Experience stored in a brain in a jar. Replaces the "xp" NBT int of BlockJarBrainItem. */
     public static final Supplier<DataComponentType<Integer>> XP = DATA_COMPONENTS.registerComponentType("xp",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));

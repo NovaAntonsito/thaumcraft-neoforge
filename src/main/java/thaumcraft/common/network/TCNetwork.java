@@ -42,11 +42,17 @@ public final class TCNetwork {
                 .playToClient(PacketAspectDiscovery.TYPE, PacketAspectDiscovery.STREAM_CODEC, PacketAspectDiscovery::handle)
                 .playToClient(PacketAspectDiscoveryError.TYPE, PacketAspectDiscoveryError.STREAM_CODEC, PacketAspectDiscoveryError::handle)
                 .playToClient(PacketAuraToClient.TYPE, PacketAuraToClient.STREAM_CODEC, PacketAuraToClient::handle)
+                .playToClient(thaumcraft.common.anomaly.PacketAnomalySync.TYPE, thaumcraft.common.anomaly.PacketAnomalySync.STREAM_CODEC,
+                        thaumcraft.common.anomaly.PacketAnomalySync::handle)
                 .playToServer(PacketGivePlayerNoteToServer.TYPE, PacketGivePlayerNoteToServer.STREAM_CODEC, PacketGivePlayerNoteToServer::handle)
                 .playToServer(PacketAspectPlaceToServer.TYPE, PacketAspectPlaceToServer.STREAM_CODEC, PacketAspectPlaceToServer::handle)
                 .playToServer(PacketAspectCombinationToServer.TYPE, PacketAspectCombinationToServer.STREAM_CODEC, PacketAspectCombinationToServer::handle)
                 .playToServer(PacketCopyPlayerNoteToServer.TYPE, PacketCopyPlayerNoteToServer.STREAM_CODEC, PacketCopyPlayerNoteToServer::handle)
                 .playToServer(PacketSyncResearchFlagsToServer.TYPE, PacketSyncResearchFlagsToServer.STREAM_CODEC, PacketSyncResearchFlagsToServer::handle)
+                .playToServer(thaumcraft.common.lib.network.misc.PacketGolemBuilderToServer.TYPE, thaumcraft.common.lib.network.misc.PacketGolemBuilderToServer.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketGolemBuilderToServer::handle)
+                .playToClient(thaumcraft.common.lib.network.misc.PacketGolemBuilderStuffToClient.TYPE, thaumcraft.common.lib.network.misc.PacketGolemBuilderStuffToClient.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketGolemBuilderStuffToClient::handle)
                 .playToServer(PacketSelectThaumotoriumRecipeToServer.TYPE, PacketSelectThaumotoriumRecipeToServer.STREAM_CODEC,
                         PacketSelectThaumotoriumRecipeToServer::handle)
                 .playToClient(thaumcraft.common.lib.network.fx.PacketFXFocusEffect.TYPE, thaumcraft.common.lib.network.fx.PacketFXFocusEffect.STREAM_CODEC,

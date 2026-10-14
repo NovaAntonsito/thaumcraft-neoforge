@@ -1764,5 +1764,22 @@
   "key.thaumcraft.misc_toggle": "Misc Caster Toggle",
   "entity.thaumcraft.focus_cloud": "Focus Cloud",
   "entity.thaumcraft.focus_mine": "Focus Mine",
-  "entity.thaumcraft.spellbat": "Spellbat"
+  "entity.thaumcraft.spellbat": "Spellbat",
+  "tc.anomaly.start": "An anomaly stirs: %s",
+  "tc.anomaly.end": "%s has faded.",
+  "tc.anomaly.aurora_arcana": "Arcane Aurora",
+  "tc.anomaly.aurora_arcana.desc": "Vis regenerates twice as fast and arcane recipes cost 25%% less vis.",
+  "tc.anomaly.aura_drought": "Aura Drought",
+  "tc.anomaly.aura_drought.desc": "Vis regenerates at half speed. Arcane recipes and foci cost 50%% more vis.",
+  "item.thaumcraft.golem": "Golem",
+  "item.thaumcraft.golem_bell": "Golemancer's Bell",
+  "item.thaumcraft.module_vision": "Vision Module",
+  "item.thaumcraft.module_aggression": "Aggression Module",
+  "block.thaumcraft.golem_builder": "Golem Press",
+  "block.thaumcraft.placeholder_bars": "Golem Press",
+  "block.thaumcraft.placeholder_anvil": "Golem Press",
+  "block.thaumcraft.placeholder_cauldron": "Golem Press",
+  "block.thaumcraft.placeholder_table": "Golem Press",
+  "entity.thaumcraft.golem": "Golem",
+  "entity.thaumcraft.golem_dart": "Golem Dart"
 }

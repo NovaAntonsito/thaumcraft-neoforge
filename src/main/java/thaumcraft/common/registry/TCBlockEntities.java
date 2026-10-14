@@ -228,6 +228,10 @@ public final class TCBlockEntities {
             () -> BlockEntityType.Builder.of(TileNitor::new,
                     ConfigBlocks.nitor.values().stream().map(DeferredBlock::get).toArray(Block[]::new)).build(null));
 
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.crafting.TileGolemBuilder>> GOLEM_BUILDER = BLOCK_ENTITIES.register("golem_builder",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.crafting.TileGolemBuilder::new, ConfigBlocks.golemBuilder.get()).build(null));
+
     private TCBlockEntities() {
     }
 }

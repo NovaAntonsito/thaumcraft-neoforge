@@ -51,7 +51,7 @@ public class GuiArcaneWorkbench extends AbstractContainerScreen<ContainerArcaneW
         AspectList crystals = null;
         // TODO: vis discount from casters and robes (CasterManager.getTotalVisDiscount).
         if (result != null) {
-            cost = result.getVis();
+            cost = thaumcraft.common.anomaly.AnomalyModifiers.arcaneVis(minecraft != null ? minecraft.level : null, result.getVis());
             crystals = result.getCrystals();
         }
         if (crystals != null) {

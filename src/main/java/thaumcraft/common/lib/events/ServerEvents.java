@@ -80,6 +80,11 @@ public final class ServerEvents {
         }
         tickBlockSwap(world);
         tickBlockBreak(world);
+        // Every 20 ticks in the original (with the aura saving and rift checks).
+        if (world.getGameTime() % 20L == 0L) {
+            thaumcraft.common.golems.tasks.TaskHandler.clearSuspendedOrExpiredTasks(world);
+        }
+        thaumcraft.common.golems.seals.SealHandler.tickSealEntities(world);
     }
 
     /**

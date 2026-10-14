@@ -22,4 +22,18 @@ public final class ThaumcraftApiHelper {
         }
         return null;
     }
+
+    /** Sets one byte of a long, byte 0 being the most significant (ByteBuffer order). */
+    public static long setByteInLong(long data, byte b, int index) {
+        java.nio.ByteBuffer bb = java.nio.ByteBuffer.allocate(8);
+        bb.putLong(0, data);
+        bb.put(index, b);
+        return bb.getLong(0);
+    }
+
+    public static byte getByteInLong(long data, int index) {
+        java.nio.ByteBuffer bb = java.nio.ByteBuffer.allocate(8);
+        bb.putLong(0, data);
+        return bb.get(index);
+    }
 }

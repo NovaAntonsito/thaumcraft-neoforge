@@ -195,6 +195,13 @@ public final class ConfigBlocks {
     /** The purifying fluid; its item is the bucket (ConfigItems.purifyingFluidBucket). */
     public static final DeferredBlock<BlockFluidPure> purifyingFluid = BLOCKS.register("purifying_fluid", BlockFluidPure::new);
 
+    // Stage 8a: the golem press, built with salis mundus, and its placeholders. No items.
+    public static final DeferredBlock<Block> golemBuilder = BLOCKS.register("golem_builder", thaumcraft.common.blocks.crafting.BlockGolemBuilder::new);
+    public static final DeferredBlock<Block> placeholderBars = BLOCKS.register("placeholder_bars", () -> new BlockPlaceholder(false, 0));
+    public static final DeferredBlock<Block> placeholderAnvil = BLOCKS.register("placeholder_anvil", () -> new BlockPlaceholder(false, 0));
+    public static final DeferredBlock<Block> placeholderCauldron = BLOCKS.register("placeholder_cauldron", () -> new BlockPlaceholder(false, 13));
+    public static final DeferredBlock<Block> placeholderTable = BLOCKS.register("placeholder_table", () -> new BlockPlaceholder(false, 0));
+
     /** The light left by the Lamplight infusion enchantment. No item. */
     public static final DeferredBlock<Block> effectGlimmer = BLOCKS.register("effect_glimmer", BlockEffect::new);
     public static final DeferredBlock<Block> effectSap = BLOCKS.register("effect_sap", thaumcraft.common.blocks.misc.BlockEffectSap::new);

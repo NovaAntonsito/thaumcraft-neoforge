@@ -99,4 +99,61 @@ public final class InventoryUtils {
             world.addFreshEntity(entityitem2);
         }
     }
+
+    /**
+     * Whether the inventories touching pos (except above it) hold enough of the stack, with the BASEORE filter:
+     * the same item, ignoring damage and components.
+     */
+    public static boolean checkAdjacentChests(net.minecraft.world.level.Level world, net.minecraft.core.BlockPos pos, ItemStack itemStack) {
+        int c = itemStack.getCount();
+        for (net.minecraft.core.Direction face : net.minecraft.core.Direction.values()) {
+            if (face == net.minecraft.core.Direction.UP) continue;
+            net.neoforged.neoforge.items.IItemHandler handler = world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                    pos.relative(face), face.getOpposite());
+            if (handler == null) continue;
+            for (int i = 0; i < handler.getSlots(); ++i) {
+                ItemStack s = handler.getStackInSlot(i);
+                if (!s.isEmpty() && s.is(itemStack.getItem())) {
+                    c -= s.getCount();
+                    if (c <= 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** Takes the stack out of the inventories touching pos (except above it). Returns whether all of it was found. */
+    public static boolean consumeFromAdjacentChests(net.minecraft.world.level.Level world, net.minecraft.core.BlockPos pos, ItemStack itemStack) {
+        int c = itemStack.getCount();
+        for (net.minecraft.core.Direction face : net.minecraft.core.Direction.values()) {
+            if (face == net.minecraft.core.Direction.UP || c <= 0) continue;
+            net.neoforged.neoforge.items.IItemHandler handler = world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                    pos.relative(face), face.getOpposite());
+            if (handler == null) continue;
+            for (int i = 0; i < handler.getSlots() && c > 0; ++i) {
+                ItemStack s = handler.getStackInSlot(i);
+                if (!s.isEmpty() && s.is(itemStack.getItem())) {
+                    c -= handler.extractItem(i, c, false).getCount();
+                }
+            }
+        }
+        return c <= 0;
+    }
+
+    public static boolean consumeItemsFromAdjacentInventoryOrPlayer(net.minecraft.world.level.Level world, net.minecraft.core.BlockPos pos, Player player,
+                                                                     boolean sim, ItemStack... items) {
+        for (ItemStack stack : items) {
+            if (!checkAdjacentChests(world, pos, stack) && !isPlayerCarryingAmount(player, stack)) {
+                return false;
+            }
+        }
+        if (!sim) {
+            for (ItemStack stack : items) {
+                if (!consumeFromAdjacentChests(world, pos, stack.copy())) {
+                    consumePlayerItem(player, stack, true);
+                }
+            }
+        }
+        return true;
+    }
 }

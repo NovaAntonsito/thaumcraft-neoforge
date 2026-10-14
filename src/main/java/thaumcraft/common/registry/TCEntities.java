@@ -44,8 +44,19 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntitySpellBat>of(thaumcraft.common.entities.monster.EntitySpellBat::new, MobCategory.MISC)
                     .sized(0.5f, 0.9f).clientTrackingRange(4).updateInterval(3).build("spellbat"));
 
+    /** ConfigEntities: "Golem", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.golems.EntityThaumcraftGolem>> GOLEM = ENTITY_TYPES.register("golem",
+            () -> EntityType.Builder.<thaumcraft.common.golems.EntityThaumcraftGolem>of(thaumcraft.common.golems.EntityThaumcraftGolem::new, MobCategory.MISC)
+                    .sized(0.4f, 0.9f).eyeHeight(0.7f).clientTrackingRange(4).updateInterval(3).build("golem"));
+
+    /** ConfigEntities: "GolemDart", tracked up to 64 blocks, updates every 20 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.projectile.EntityGolemDart>> GOLEM_DART = ENTITY_TYPES.register("golem_dart",
+            () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityGolemDart>of(thaumcraft.common.entities.projectile.EntityGolemDart::new, MobCategory.MISC)
+                    .sized(0.2f, 0.2f).clientTrackingRange(4).updateInterval(20).build("golem_dart"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
+        event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
         event.put(SPELL_BAT.get(), thaumcraft.common.entities.monster.EntitySpellBat.createAttributes().build());
     }
 

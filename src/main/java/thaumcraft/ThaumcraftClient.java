@@ -129,6 +129,9 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.FOCUS_CLOUD.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_MINE.get(), thaumcraft.client.renderers.entity.projectile.RenderFocusMine::new);
         event.registerEntityRenderer(TCEntities.SPELL_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderSpellBat::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.GOLEM_BUILDER.get(), thaumcraft.client.renderers.tile.TileGolemBuilderRenderer::new);
+        event.registerEntityRenderer(TCEntities.GOLEM.get(), thaumcraft.common.golems.client.RenderThaumcraftGolem::new);
+        event.registerEntityRenderer(TCEntities.GOLEM_DART.get(), thaumcraft.client.renderers.entity.projectile.RenderDart::new);
     }
 
     @SubscribeEvent
@@ -144,6 +147,7 @@ public class ThaumcraftClient {
         event.register(TCMenus.FOCAL_MANIPULATOR.get(), GuiFocalManipulator::new);
         event.register(TCMenus.FOCUS_POUCH.get(), thaumcraft.client.gui.GuiFocusPouch::new);
         event.register(TCMenus.POTION_SPRAYER.get(), GuiPotionSprayer::new);
+        event.register(TCMenus.GOLEM_BUILDER.get(), thaumcraft.client.gui.GuiGolemBuilder::new);
     }
 
     /** FluidPure: the water textures tinted 0x77FFCCAA (getColor of the original). */
@@ -179,6 +183,7 @@ public class ThaumcraftClient {
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, ThaumometerHud.ID, ThaumometerHud::render);
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, thaumcraft.client.gui.CasterHud.ID, thaumcraft.client.gui.CasterHud::render);
         event.registerAboveAll(NotificationsHud.ID, NotificationsHud::render);
+        event.registerAbove(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud.ID, thaumcraft.client.gui.AnomalyHud::render);
     }
 
     /** Clients generate item aspects from the recipes the server sent. */
@@ -219,6 +224,11 @@ public class ThaumcraftClient {
             }
             return -1;
         }, ConfigItems.casterBasic.get());
+        // itemGolemColourHandler: the golem's material color.
+        event.register((stack, tintIndex) -> {
+            Long props = stack.get(thaumcraft.common.registry.TCDataComponents.GOLEM_PROPS.get());
+            return 0xFF000000 | (props != null ? thaumcraft.common.golems.GolemProperties.fromLong(props).getMaterial().itemColor : 0xFFFFFF);
+        }, ConfigItems.golemPlacer.get());
     }
 
     /** Port of ColorHandler for candles and nitor: tinted with their dye's map color. */

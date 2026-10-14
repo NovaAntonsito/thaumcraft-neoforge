@@ -123,7 +123,7 @@ public class ContainerArcaneWorkbench extends AbstractContainerMenu implements C
         if (arecipe != null && ThaumcraftCapabilities.getKnowledge(player).isResearchKnown(arecipe.value().getResearch())) {
             // The crystals are checked by matches(); here the research and the vis. TODO: vis discount.
             tileEntity.getAura();
-            if (tileEntity.auraVisServer >= arecipe.value().getVis()) {
+            if (tileEntity.auraVisServer >= thaumcraft.common.anomaly.AnomalyModifiers.arcaneVis(level, arecipe.value().getVis())) {
                 craftResult.setRecipeUsed(arecipe);
                 itemstack = arecipe.value().assemble(input, level.registryAccess());
             }

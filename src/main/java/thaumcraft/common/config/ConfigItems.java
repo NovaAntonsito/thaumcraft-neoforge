@@ -108,6 +108,14 @@ public final class ConfigItems {
     public static final Map<String, DeferredItem<Item>> mind = variants("mind", "clockwork", "biothaumic");
     public static final DeferredItem<ItemHandMirror> handMirror = ITEMS.registerItem("hand_mirror", ItemHandMirror::new);
 
+    // Stage 8a.
+    public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =
+            ITEMS.registerItem("golem", thaumcraft.common.golems.ItemGolemPlacer::new);
+    public static final DeferredItem<thaumcraft.common.golems.ItemGolemBell> golemBell =
+            ITEMS.registerItem("golem_bell", thaumcraft.common.golems.ItemGolemBell::new);
+    public static final DeferredItem<Item> moduleVision = ITEMS.registerSimpleItem("module_vision");
+    public static final DeferredItem<Item> moduleAggression = ITEMS.registerSimpleItem("module_aggression");
+
     /** Port of CreativeTabThaumcraft. TODO icon: the original uses the goggles, not ported yet. */
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TABTC = CREATIVE_TABS.register("thaumcraft",
             () -> CreativeModeTab.builder()
@@ -124,6 +132,8 @@ public final class ConfigItems {
                             } else if (item.get() instanceof ItemThaumonomicon book && book.isCheat()) {
                                 // getSubItems: the cheat variant only with allowCheatSheet.
                                 if (Config.ALLOW_CHEAT_SHEET.getAsBoolean()) output.accept(item.get());
+                            } else if (item.get() instanceof thaumcraft.common.golems.ItemGolemPlacer) {
+                                output.acceptAll(thaumcraft.common.golems.ItemGolemPlacer.creativeStacks(item.get()));
                             } else if (item.get() instanceof ItemResearchNote) {
                                 // A blank note is useless: notes come from the thaumonomicon.
                             } else {
