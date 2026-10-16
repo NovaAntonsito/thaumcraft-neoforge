@@ -148,6 +148,7 @@ public class ThaumcraftClient {
         event.register(TCMenus.FOCUS_POUCH.get(), thaumcraft.client.gui.GuiFocusPouch::new);
         event.register(TCMenus.POTION_SPRAYER.get(), GuiPotionSprayer::new);
         event.register(TCMenus.GOLEM_BUILDER.get(), thaumcraft.client.gui.GuiGolemBuilder::new);
+        event.register(TCMenus.SEAL.get(), thaumcraft.common.golems.client.gui.SealBaseGUI::new);
     }
 
     /** FluidPure: the water textures tinted 0x77FFCCAA (getColor of the original). */

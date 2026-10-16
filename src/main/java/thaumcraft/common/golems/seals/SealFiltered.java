@@ -65,13 +65,13 @@ public abstract class SealFiltered implements ISeal, ISealGui, ISealConfigFilter
         nbt.put("Sizes", nbttaglist);
     }
 
-    /** TODO (stage 8b-2): SealBaseContainer. */
+    /** The menu provider of SealBaseContainer (1.12 returned the container itself). */
     @Override
     public Object returnContainer(Level world, Player player, BlockPos pos, Direction side, ISealEntity seal) {
-        return null;
+        return thaumcraft.common.golems.client.gui.SealBaseContainer.provider(seal);
     }
 
-    /** TODO (stage 8b-2): SealBaseGUI. */
+    /** Not used: the screen (SealBaseGUI) comes from the menu type registered in ThaumcraftClient. */
     @Override
     public Object returnGui(Level world, Player player, BlockPos pos, Direction side, ISealEntity seal) {
         return null;

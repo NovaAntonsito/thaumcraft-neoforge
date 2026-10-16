@@ -22,7 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import thaumcraft.Thaumcraft;
+import net.minecraft.world.entity.player.Player;
 import thaumcraft.api.golems.EnumGolemTrait;
+import thaumcraft.api.golems.ISealDisplayer;
 import thaumcraft.api.golems.IGolemProperties;
 import thaumcraft.api.golems.parts.PartModel;
 import thaumcraft.client.lib.obj.ObjModel;
@@ -31,7 +33,7 @@ import thaumcraft.common.golems.EntityThaumcraftGolem;
 /**
  * Port of RenderThaumcraftGolem: the golem is built from OBJ parts (golem_base plus the head, arms, legs and addon
  * models of its parts) with the original's procedural limb animation, drawn in the model's own (unflipped) space.
- * TODO (stage 8b): the faint outline drawn through walls while sneaking with a seal displayer in hand.
+ * While the player sneaks with a seal displayer in hand, a golem out of sight is also drawn faintly through walls.
  */
 @OnlyIn(Dist.CLIENT)
 public class RenderThaumcraftGolem extends EntityRenderer<EntityThaumcraftGolem> {
@@ -69,21 +71,35 @@ public class RenderThaumcraftGolem extends EntityRenderer<EntityThaumcraftGolem>
         float f8 = entity.walkAnimation.position(partialTicks);
         boolean visible = !entity.isInvisible();
         boolean ghost = !visible && !entity.isInvisibleTo(Minecraft.getInstance().player);
+        int overlay = LivingEntityRenderer.getOverlayCoords(entity, 0.0f);
         if (visible || ghost) {
-            int overlay = LivingEntityRenderer.getOverlayCoords(entity, 0.0f);
+            pose.pushPose();
             renderParts(entity, f8, f7, f5, f4, f6, partialTicks, pose, buffers, light, overlay, ghost);
+            pose.popPose();
+        }
+        Player player = Minecraft.getInstance().player;
+        if (player != null && player.isShiftKeyDown()
+                && (player.getMainHandItem().getItem() instanceof ISealDisplayer || player.getOffhandItem().getItem() instanceof ISealDisplayer)
+                && !player.hasLineOfSight(entity)) {
+            xray = true;
+            renderParts(entity, f8, f7, f5, f4, f6, partialTicks, pose, buffers, light, overlay, false);
+            xray = false;
         }
         pose.popPose();
         super.render(entity, entityYaw, partialTicks, pose, buffers, light);
     }
 
+    /** Set while drawing the see-through outline: color 0.25 everywhere, no depth test. */
+    private boolean xray = false;
+
     private RenderType type(ResourceLocation texture, boolean ghost) {
+        if (xray) return thaumcraft.client.lib.render.TCRenderTypes.entityXray(texture);
         return ghost ? RenderType.entityTranslucent(texture) : RenderType.entityCutoutNoCull(texture);
     }
 
     private void renderParts(EntityThaumcraftGolem entity, float limbSwing, float prevLimbSwing, float rotFloat, float headPitch, float headYaw,
                              float partialTicks, PoseStack pose, MultiBufferSource buffers, int light, int overlay, boolean ghost) {
-        int white = ghost ? 0x26FFFFFF : 0xFFFFFFFF;
+        int white = xray ? 0x40404040 : ghost ? 0x26FFFFFF : 0xFFFFFFFF;
         ResourceLocation matTexture = entity.getProperties().getMaterial().texture;
         boolean holding = !entity.getMainHandItem().isEmpty();
         boolean aflag = entity.getProperties().hasTrait(EnumGolemTrait.WHEELED) || entity.getProperties().hasTrait(EnumGolemTrait.FLYER);

@@ -54,6 +54,10 @@ public final class TCMenus {
     public static final Supplier<MenuType<thaumcraft.common.container.ContainerGolemBuilder>> GOLEM_BUILDER = MENUS.register("golem_builder",
             () -> IMenuTypeExtension.create(thaumcraft.common.container.ContainerGolemBuilder::new));
 
+    /** ProxyGUI id 18: a seal's settings, opened with the golem bell. */
+    public static final Supplier<MenuType<thaumcraft.common.golems.client.gui.SealBaseContainer>> SEAL = MENUS.register("seal",
+            () -> IMenuTypeExtension.create(thaumcraft.common.golems.client.gui.SealBaseContainer::new));
+
     private TCMenus() {
     }
 

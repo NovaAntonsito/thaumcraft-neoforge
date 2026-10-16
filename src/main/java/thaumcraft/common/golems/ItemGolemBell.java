@@ -2,6 +2,7 @@ package thaumcraft.common.golems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -19,12 +20,14 @@ import net.minecraft.world.phys.Vec3;
 import thaumcraft.api.golems.ISealDisplayer;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
+import thaumcraft.common.golems.client.gui.SealBaseContainer;
 import thaumcraft.common.golems.seals.SealHandler;
 import thaumcraft.common.lib.SoundsTC;
 
 /**
- * Port of ItemGolemBell. On a golem it toggles follow/stay (handled by the golem). Sneak-clicking a seal removes it.
- * TODO (stage 8b): opening a seal's settings and, with GOLEMLOGISTICS, the logistics screen.
+ * Port of ItemGolemBell. On a golem it toggles follow/stay (handled by the golem). Clicking a seal opens its settings,
+ * sneak-clicking removes it.
+ * TODO (stage 8c): sneak-clicking with GOLEMLOGISTICS opens the logistics screen.
  */
 public class ItemGolemBell extends Item implements ISealDisplayer {
     public ItemGolemBell(Properties properties) {
@@ -41,6 +44,8 @@ public class ItemGolemBell extends Item implements ISealDisplayer {
                 if (se != null && playerIn.isShiftKeyDown()) {
                     SealHandler.removeSealEntity(playerIn.level(), se.getSealPos(), false);
                     worldIn.playSound(null, se.getSealPos().pos, SoundsTC.ZAP.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+                } else if (se != null && playerIn instanceof ServerPlayer sp) {
+                    SealBaseContainer.open(sp, se);
                 }
                 return InteractionResultHolder.fail(playerIn.getItemInHand(hand));
             }
@@ -64,6 +69,8 @@ public class ItemGolemBell extends Item implements ISealDisplayer {
                 if (player.isShiftKeyDown()) {
                     SealHandler.removeSealEntity(world, se.getSealPos(), false);
                     world.playSound(null, context.getClickedPos(), SoundsTC.ZAP.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+                } else if (player instanceof ServerPlayer sp) {
+                    SealBaseContainer.open(sp, se);
                 }
                 return InteractionResult.SUCCESS;
             }
