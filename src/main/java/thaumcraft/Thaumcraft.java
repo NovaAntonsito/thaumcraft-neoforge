@@ -128,6 +128,7 @@ public class Thaumcraft {
                     state -> state.is(ConfigBlocks.tableWood.get()), () -> new ItemStack(ConfigBlocks.researchTable.get())));
             thaumcraft.common.golems.GolemProperties.registerDefaults();
             ConfigItems.registerSeals();
+            thaumcraft.common.lib.utils.CropUtils.registerDefaults();
             registerInfusionAltar();
             registerFakeRecipes();
             // CommonProxy: dispensers throw alumentum (BehaviorDispenseAlumetum).

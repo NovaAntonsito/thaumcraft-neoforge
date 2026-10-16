@@ -175,6 +175,84 @@ public final class BlockUtils {
         return false;
     }
 
+    static BlockPos lastPos;
+    static double lastdistance;
+
+    /** Shows the cracking animation of breaker id at pos to the players within 32 blocks, except breaker id itself. */
+    public static void destroyBlockPartially(Level world, int par1, BlockPos pos, int par5) {
+        if (!(world instanceof ServerLevel sl)) {
+            return;
+        }
+        for (ServerPlayer player : sl.players()) {
+            if (player != null && player.getId() != par1) {
+                double d0 = pos.getX() - player.getX();
+                double d2 = pos.getY() - player.getY();
+                double d3 = pos.getZ() - player.getZ();
+                if (d0 * d0 + d2 * d2 + d3 * d3 >= 1024.0) {
+                    continue;
+                }
+                player.connection.send(new net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket(par1, pos, par5));
+            }
+        }
+    }
+
+    /** Walks from lastPos to the furthest connected block of the same kind (24 out, 48 up at most). */
+    public static void findBlocks(Level world, BlockPos pos, BlockState block, int reach) {
+        for (int xx = -reach; xx <= reach; ++xx) {
+            for (int yy = reach; yy >= -reach; --yy) {
+                for (int zz = -reach; zz <= reach; ++zz) {
+                    if (Math.abs(lastPos.getX() + xx - pos.getX()) > 24) {
+                        return;
+                    }
+                    if (Math.abs(lastPos.getY() + yy - pos.getY()) > 48) {
+                        return;
+                    }
+                    if (Math.abs(lastPos.getZ() + zz - pos.getZ()) > 24) {
+                        return;
+                    }
+                    BlockPos p = lastPos.offset(xx, yy, zz);
+                    BlockState bs = world.getBlockState(p);
+                    // 1.12 also compared damageDropped; flattened states of one block drop the same item
+                    boolean same = bs.getBlock() == block.getBlock();
+                    if (same && bs.getDestroySpeed(world, p) >= 0.0f) {
+                        double xd = lastPos.getX() + xx - pos.getX();
+                        double yd = lastPos.getY() + yy - pos.getY();
+                        double zd = lastPos.getZ() + zz - pos.getZ();
+                        double d = xd * xd + yd * yd + zd * zd;
+                        if (d > lastdistance) {
+                            lastdistance = d;
+                            lastPos = p;
+                            findBlocks(world, pos, block, reach);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /** Breaks the furthest block of the same kind connected to pos (a whole tree, one block at a time). */
+    public static boolean breakFurthestBlock(Level world, BlockPos pos, BlockState block, Player player) {
+        lastPos = pos;
+        lastdistance = 0.0;
+        int reach = Utils.isWoodLog(world, pos) ? 2 : 1;
+        findBlocks(world, pos, block, reach);
+        boolean worked = harvestBlockSkipCheck(world, player, lastPos);
+        world.sendBlockUpdated(pos, block, block, 3);
+        if (worked && Utils.isWoodLog(world, pos)) {
+            world.sendBlockUpdated(pos, block, block, 3);
+            for (int xx = -3; xx <= 3; ++xx) {
+                for (int yy = -3; yy <= 3; ++yy) {
+                    for (int zz = -3; zz <= 3; ++zz) {
+                        BlockPos p = lastPos.offset(xx, yy, zz);
+                        world.scheduleTick(p, world.getBlockState(p).getBlock(), 50 + world.random.nextInt(75));
+                    }
+                }
+            }
+        }
+        return worked;
+    }
+
     /** Block.getSilkTouchDrop of 1.12: the block's own item. */
     public static ItemStack getSilkTouchDrop(BlockState bs) {
         return new ItemStack(bs.getBlock());

@@ -342,4 +342,12 @@ public final class InventoryUtils {
         boolean t2 = !filter.igDmg && stack0.getDamageValue() != stack1.getDamageValue();
         return stack0.getItem() == stack1.getItem() && !t2 && t1;
     }
+
+    public static void dropItemAtEntity(net.minecraft.world.level.Level world, ItemStack item, net.minecraft.world.entity.Entity entity) {
+        if (!world.isClientSide && item != null && !item.isEmpty() && item.getCount() > 0) {
+            net.minecraft.world.entity.item.ItemEntity entityItem = new net.minecraft.world.entity.item.ItemEntity(world,
+                    entity.getX(), entity.getY() + entity.getEyeHeight() / 2.0f, entity.getZ(), item.copy());
+            world.addFreshEntity(entityItem);
+        }
+    }
 }

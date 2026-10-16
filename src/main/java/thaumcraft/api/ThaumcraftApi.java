@@ -146,4 +146,17 @@ public class ThaumcraftApi {
             this.aspects = aspects;
         }
     }
+
+    /**
+     * This method is used to register seeds for crops that the harvesting golems can replant.
+     * @param block the crop block
+     * @param seed the item that plants it
+     */
+    public static void registerSeed(net.minecraft.world.level.block.Block block, net.minecraft.world.item.ItemStack seed) {
+        CommonInternals.seedList.put(block, seed);
+    }
+
+    public static net.minecraft.world.item.ItemStack getSeed(net.minecraft.world.level.block.Block block) {
+        return CommonInternals.seedList.get(block);
+    }
 }

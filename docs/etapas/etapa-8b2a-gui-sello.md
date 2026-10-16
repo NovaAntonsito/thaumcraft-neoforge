@@ -6,7 +6,7 @@
   - Shift + click lo sigue sacando, como en 8b-1.
 - **Pestañas** (botones en el arco de la izquierda, solo si el sello tiene más de una):
   - **Prioridad/Bloqueo:** prioridad (de -5 a 5), color del golem que lo atiende (todos o uno de los 16 tintes), candado (solo golems del dueño) y "You own this seal".
-  - **Filtro:** 9 casilleros fantasma (Collect) o 1 (Store). Click con un item lo copia sin gastarlo. Botón de lista negra / lista blanca. En lista blanca se ve la cantidad (o una `*` dorada si es cualquiera).
+  - **Filtro:** 1 casillero fantasma en los sellos básicos (9 en los avanzados, que vienen en 8c). Click con un item lo copia sin gastarlo. Botón de lista negra / lista blanca. En lista blanca se ve la cantidad (o una `*` dorada si es cualquiera).
   - **Área:** alto, ancho y largo de 1 a 8.
   - **Opciones:** casillas de cada sello (para los sellos de 8b-2b).
   - **Requisitos:** rasgos que el golem necesita o no puede tener, con tooltip.

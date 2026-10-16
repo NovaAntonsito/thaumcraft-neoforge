@@ -1784,5 +1784,12 @@
   "entity.thaumcraft.golem_dart": "Golem Dart",
   "item.thaumcraft.seal_blank": "Blank Seal",
   "item.thaumcraft.seal_pickup": "Control Seal: Collect",
-  "item.thaumcraft.seal_fill": "Control Seal: Store"
+  "item.thaumcraft.seal_fill": "Control Seal: Store",
+  "item.thaumcraft.seal_empty": "Control Seal: Empty",
+  "item.thaumcraft.seal_harvest": "Control Seal: Harvest",
+  "item.thaumcraft.seal_butcher": "Control Seal: Butcher",
+  "item.thaumcraft.seal_guard": "Control Seal: Guard",
+  "item.thaumcraft.seal_lumber": "Control Seal: Lumberjack",
+  "item.thaumcraft.seal_breaker": "Control Seal: Block Breaker",
+  "item.thaumcraft.seal_use": "Control Seal: Use"
 }

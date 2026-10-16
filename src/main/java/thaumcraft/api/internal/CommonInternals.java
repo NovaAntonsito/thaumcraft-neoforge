@@ -14,6 +14,9 @@ public class CommonInternals {
 
     public static final ArrayList<ThaumcraftApi.SmeltBonus> smeltingBonus = new ArrayList<>();
 
+    /** Keyed by block instead of the unlocalized name. */
+    public static final HashMap<net.minecraft.world.level.block.Block, net.minecraft.world.item.ItemStack> seedList = new HashMap<>();
+
     public static Object getCatalogRecipe(ResourceLocation key) {
         return craftingRecipeCatalog.get(key);
     }
