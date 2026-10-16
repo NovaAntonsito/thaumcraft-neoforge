@@ -270,6 +270,13 @@ public final class ClientFX {
         world.addParticle(new DustParticleOptions(new Vector3f(r, g, b), 0.6f), x, y, z, vx, vy, vz);
     }
 
+    /** FXDispatcher.drawWispyMotesOnBlock: a pale mote somewhere on top of the block. TODO: age and gravity with FXWispy. */
+    public static void drawWispyMotesOnBlock(Level world, BlockPos pp, int age, float grav) {
+        RandomSource rand = world.random;
+        drawWispyMotes(world, pp.getX() + rand.nextFloat(), pp.getY(), pp.getZ() + rand.nextFloat(), 0.0, 0.0, 0.0,
+                0.4f + rand.nextFloat() * 0.6f, 0.6f + rand.nextFloat() * 0.4f, 0.6f + rand.nextFloat() * 0.4f);
+    }
+
     /**
      * FXDispatcher.voidStreak: a dark streak pulled from a flux rift into the void siphon. TODO: FXVoidStreak
      * (stage 10); for now reverse portal particles along the line.

@@ -3,9 +3,6 @@ package thaumcraft.common.world;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -22,7 +19,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.neoforged.neoforge.common.Tags;
 import thaumcraft.Config;
-import thaumcraft.Thaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.blocks.world.ore.BlockCrystal;
 import thaumcraft.common.blocks.world.ore.ShardType;
@@ -46,9 +42,6 @@ import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
 public final class ThaumcraftWorldGenerator {
     /** world.getHeight() of a 1.12 overworld. */
     private static final int WORLD_HEIGHT = 256;
-    /** The magical forest biome of stage 9a-2. */
-    public static final ResourceKey<Biome> MAGICAL_FOREST = ResourceKey.create(Registries.BIOME,
-            ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "magical_forest"));
 
     private ThaumcraftWorldGenerator() {
     }
@@ -179,7 +172,7 @@ public final class ThaumcraftWorldGenerator {
         int z = chunkZ * 16 + 8 + Mth.nextInt(random, -4, 4);
         BlockPos bp = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new BlockPos(x, 0, z));
         Holder<Biome> bio = world.getBiome(bp);
-        if (BiomeHandler.getBiomeSupportsGreatwood(bio) / 2.0f > random.nextFloat() || (!bio.is(MAGICAL_FOREST) && bio.is(Tags.Biomes.IS_MAGICAL))
+        if (BiomeHandler.getBiomeSupportsGreatwood(bio) / 2.0f > random.nextFloat() || (!bio.is(thaumcraft.common.world.biomes.TCBiomes.MAGICAL_FOREST) && bio.is(Tags.Biomes.IS_MAGICAL))
                 || bio.is(Biomes.WINDSWEPT_FOREST) || bio.is(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
             return new WorldGenSilverwoodTrees(false, 7, 4).generate(world, random, bp);
         }

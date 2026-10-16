@@ -148,6 +148,12 @@ public class Config {
     public static final ModConfigSpec.BooleanValue GENERATE_QUARTZ = BUILDER.define("generateQuartz", true);
     public static final ModConfigSpec.BooleanValue GENERATE_CRYSTALS = BUILDER.define("generateCrystals", true);
     public static final ModConfigSpec.BooleanValue GENERATE_TREES = BUILDER.define("generateTrees", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_MAGIC_FOREST = BUILDER.worldRestart().define("generateMagicForest", true);
+    public static final ModConfigSpec.IntValue BIOME_MAGICAL_FOREST_WEIGHT = BUILDER
+            .comment("Higher values increases number of magical forest biomes. If you are using biome",
+                    "addon mods you probably want to increase this weight quite a bit")
+            .gameRestart()
+            .defineInRange("biomeMagicalForestWeight", 5, 0, 100);
 
     static {
         BUILDER.pop();

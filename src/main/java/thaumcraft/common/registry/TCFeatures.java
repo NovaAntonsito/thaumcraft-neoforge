@@ -24,4 +24,7 @@ public final class TCFeatures {
     /** generateVegetation: greatwood and silverwood trees, and cinderpearls in hot deserts. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> VEGETATION = FEATURES.register("vegetation",
             () -> new ThaumcraftWorldGenerator.VegetationFeature(NoneFeatureConfiguration.CODEC));
+    /** BiomeGenMagicalForest.decorate, placed by the magical forest biome. */
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> MAGICAL_FOREST = FEATURES.register("magical_forest",
+            () -> new thaumcraft.common.world.biomes.BiomeGenMagicalForest(NoneFeatureConfiguration.CODEC));
 }

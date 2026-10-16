@@ -37,6 +37,14 @@ repositories {
             includeGroup 'dev.engine-room.flywheel'
         }
     }
+    // TerraBlender (biome placement for the magical forest).
+    maven {
+        name = 'Minecraft Forge'
+        url = 'https://maven.minecraftforge.net/'
+        content {
+            includeGroup 'com.github.glitchfiend'
+        }
+    }
 }
 
 base {
@@ -125,6 +133,9 @@ configurations {
 }
 
 dependencies {
+    // TerraBlender is required: it places the magical forest in the overworld.
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+
     // Ponder is optional: compiled against, present in dev runs, but not required to load the mod.
     // The NeoForge jar already bundles Ponder-Common and Catnip, so transitive deps are off.
     compileOnly("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}") { transitive = false }

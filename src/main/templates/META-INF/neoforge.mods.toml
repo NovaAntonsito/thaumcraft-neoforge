@@ -86,6 +86,14 @@ Port de Thaumcraft 6 a Minecraft 1.21.1 (NeoForge).
     ordering="NONE"
     side="BOTH"
 
+# TerraBlender: places the magical forest biome in the overworld.
+[[dependencies.${mod_id}]]
+    modId="terrablender"
+    type="required"
+    versionRange="[4.1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
 # Ponder: in-game tutorials (hold W over an item). Not needed to play.
 [[dependencies.${mod_id}]]
     modId="ponder"

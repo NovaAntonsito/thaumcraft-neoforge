@@ -69,6 +69,143 @@
     },
     {
       "items": [
+        "thaumcraft:leaves_greatwood"
+      ],
+      "aspects": {
+        "herba": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:leaves_silverwood"
+      ],
+      "aspects": {
+        "herba": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:sapling_greatwood"
+      ],
+      "aspects": {
+        "herba": 15,
+        "victus": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:sapling_silverwood"
+      ],
+      "aspects": {
+        "herba": 15,
+        "auram": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:shimmerleaf"
+      ],
+      "aspects": {
+        "herba": 5,
+        "auram": 10,
+        "potentia": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:cinderpearl"
+      ],
+      "aspects": {
+        "herba": 5,
+        "auram": 5,
+        "ignis": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:vishroom"
+      ],
+      "aspects": {
+        "herba": 2,
+        "mortuus": 1,
+        "praecantatio": 1,
+        "perditio": 1
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_aer"
+      ],
+      "aspects": {
+        "aer": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_ignis"
+      ],
+      "aspects": {
+        "ignis": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_aqua"
+      ],
+      "aspects": {
+        "aqua": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_terra"
+      ],
+      "aspects": {
+        "terra": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_ordo"
+      ],
+      "aspects": {
+        "ordo": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_perditio"
+      ],
+      "aspects": {
+        "perditio": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crystal_vitium"
+      ],
+      "aspects": {
+        "vitium": 15,
+        "vitreus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:grass_ambient"
+      ],
+      "base": "minecraft:grass_block",
+      "aspects": {
+        "lux": 5
+      }
+    },
+    {
+      "items": [
         "thaumcraft:candle_white",
         "thaumcraft:candle_orange",
         "thaumcraft:candle_magenta",

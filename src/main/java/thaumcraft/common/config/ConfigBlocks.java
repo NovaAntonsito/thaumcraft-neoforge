@@ -134,6 +134,7 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> shimmerleaf = register("shimmerleaf", BlockPlantShimmerleaf::new);
     public static final DeferredBlock<Block> cinderpearl = register("cinderpearl", BlockPlantCinderpearl::new);
     public static final DeferredBlock<Block> vishroom = register("vishroom", BlockPlantVishroom::new);
+    public static final DeferredBlock<Block> grassAmbient = register("grass_ambient", thaumcraft.common.blocks.world.BlockGrassAmbient::new);
     public static final DeferredBlock<Block> plankGreatwood = register("plank_greatwood", () -> planks(MapColor.WOOD));
     public static final DeferredBlock<Block> plankSilverwood = register("plank_silverwood", () -> planks(MapColor.QUARTZ));
 

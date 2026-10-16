@@ -236,6 +236,8 @@ public class ThaumcraftClient {
             int color = 0xFF000000 | ((thaumcraft.common.blocks.world.ore.BlockCrystal) block).aspect.getColor();
             event.register((stack, tintIndex) -> color, block);
         }
+        // basicColourHandler gave the item the block's color with no world: the default grass color.
+        event.register((stack, tintIndex) -> 0xFF000000 | net.minecraft.world.level.GrassColor.get(0.5, 1.0), ConfigBlocks.grassAmbient.get());
         // The 1.12 leaf items had no color handler; greatwood takes the default foliage color like vanilla leaves.
         event.register((stack, tintIndex) -> 0xFF000000 | net.minecraft.world.level.FoliageColor.getDefaultColor(), ConfigBlocks.leafGreatwood.get());
     }
@@ -262,6 +264,10 @@ public class ThaumcraftClient {
             return 0xFF000000 | (level != null && pos != null ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
                     : net.minecraft.world.level.FoliageColor.getDefaultColor());
         }, ConfigBlocks.leafGreatwood.get(), ConfigBlocks.leafSilverwood.get());
+        // grassColourHandler.
+        event.register((state, level, pos, tintIndex) -> 0xFF000000 | (level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(level, pos) : net.minecraft.world.level.GrassColor.get(0.5, 1.0)),
+                ConfigBlocks.grassAmbient.get());
         // crystalColourHandler: the aspect's color.
         event.register((state, level, pos, tintIndex) -> 0xFF000000
                 | (state.getBlock() instanceof thaumcraft.common.blocks.world.ore.BlockCrystal c ? c.aspect.getColor() : 0xFFFFFF), crystalBlocks());

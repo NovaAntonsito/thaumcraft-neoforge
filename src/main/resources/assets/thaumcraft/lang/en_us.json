@@ -1862,5 +1862,8 @@
   "block.thaumcraft.sapling_silverwood": "Silverwood Sapling",
   "block.thaumcraft.shimmerleaf": "Shimmerleaf",
   "block.thaumcraft.cinderpearl": "Cinderpearl",
-  "block.thaumcraft.vishroom": "Vishroom"
+  "block.thaumcraft.vishroom": "Vishroom",
+  "block.thaumcraft.grass_ambient": "Ambient Grass Block",
+  "biome.thaumcraft.magical_forest": "Magical Forest",
+  "biome.thaumcraft.eerie": "Eerie"
 }
