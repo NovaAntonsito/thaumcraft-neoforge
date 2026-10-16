@@ -1,0 +1,16 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "SEALBREAK&&MINDBIOTHAUMIC",
+  "catalyst": {
+    "item": "thaumcraft:seal_breaker"
+  },
+  "aspects": {
+    "sensus": 10,
+    "cognitio": 10,
+    "instrumentum": 20
+  },
+  "result": {
+    "id": "thaumcraft:seal_breaker_advanced",
+    "count": 1
+  }
+}

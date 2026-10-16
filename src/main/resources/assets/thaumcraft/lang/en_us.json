@@ -1791,5 +1791,12 @@
   "item.thaumcraft.seal_guard": "Control Seal: Guard",
   "item.thaumcraft.seal_lumber": "Control Seal: Lumberjack",
   "item.thaumcraft.seal_breaker": "Control Seal: Block Breaker",
-  "item.thaumcraft.seal_use": "Control Seal: Use"
+  "item.thaumcraft.seal_use": "Control Seal: Use",
+  "item.thaumcraft.seal_pickup_advanced": "Advanced Control Seal: Collect",
+  "item.thaumcraft.seal_fill_advanced": "Advanced Control Seal: Store",
+  "item.thaumcraft.seal_empty_advanced": "Advanced Control Seal: Empty",
+  "item.thaumcraft.seal_guard_advanced": "Advanced Control Seal: Guard",
+  "item.thaumcraft.seal_breaker_advanced": "Control Seal: Advanced Block Breaker",
+  "item.thaumcraft.seal_provider": "Control Seal: Provide",
+  "item.thaumcraft.seal_stock": "Control Seal: Stock"
 }

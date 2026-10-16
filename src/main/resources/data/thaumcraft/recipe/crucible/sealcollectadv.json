@@ -1,0 +1,15 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "SEALCOLLECT&&MINDBIOTHAUMIC",
+  "catalyst": {
+    "item": "thaumcraft:seal_pickup"
+  },
+  "aspects": {
+    "sensus": 10,
+    "cognitio": 10
+  },
+  "result": {
+    "id": "thaumcraft:seal_pickup_advanced",
+    "count": 1
+  }
+}

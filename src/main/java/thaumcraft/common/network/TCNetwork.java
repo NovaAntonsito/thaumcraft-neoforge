@@ -55,6 +55,10 @@ public final class TCNetwork {
                         thaumcraft.common.lib.network.misc.PacketGolemBuilderStuffToClient::handle)
                 .playToClient(thaumcraft.common.lib.network.misc.PacketSealToClient.TYPE, thaumcraft.common.lib.network.misc.PacketSealToClient.STREAM_CODEC,
                         thaumcraft.common.lib.network.misc.PacketSealToClient::handle)
+                .playToServer(thaumcraft.common.lib.network.misc.PacketLogisticsRequestToServer.TYPE, thaumcraft.common.lib.network.misc.PacketLogisticsRequestToServer.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketLogisticsRequestToServer::handle)
+                .playToServer(thaumcraft.common.lib.network.misc.PacketMiscStringToServer.TYPE, thaumcraft.common.lib.network.misc.PacketMiscStringToServer.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketMiscStringToServer::handle)
                 .playToServer(PacketSelectThaumotoriumRecipeToServer.TYPE, PacketSelectThaumotoriumRecipeToServer.STREAM_CODEC,
                         PacketSelectThaumotoriumRecipeToServer::handle)
                 .playToClient(thaumcraft.common.lib.network.fx.PacketFXFocusEffect.TYPE, thaumcraft.common.lib.network.fx.PacketFXFocusEffect.STREAM_CODEC,

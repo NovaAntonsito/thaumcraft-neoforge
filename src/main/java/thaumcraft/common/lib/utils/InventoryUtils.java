@@ -77,19 +77,23 @@ public final class InventoryUtils {
         return false;
     }
 
-    /**
-     * Puts a stack into the inventory on the given side, or throws whatever is left out that way.
-     * The original went through ThaumcraftInvHelper.insertStackAt.
-     */
     public static void ejectStackAt(net.minecraft.world.level.Level world, net.minecraft.core.BlockPos pos, net.minecraft.core.Direction side,
                                     ItemStack out) {
-        net.minecraft.core.BlockPos target = pos.relative(side);
-        net.neoforged.neoforge.items.IItemHandler handler = world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
-                target, side.getOpposite());
-        if (handler != null) {
-            out = net.neoforged.neoforge.items.ItemHandlerHelper.insertItemStacked(handler, out, false);
+        ejectStackAt(world, pos, side, out, false);
+    }
+
+    /**
+     * Puts a stack into the inventory on the given side, or throws whatever is left out that way. With smart, what
+     * an inventory there would not take is handed back instead of thrown.
+     */
+    public static ItemStack ejectStackAt(net.minecraft.world.level.Level world, net.minecraft.core.BlockPos pos, net.minecraft.core.Direction side,
+                                         ItemStack out, boolean smart) {
+        out = thaumcraft.api.ThaumcraftInvHelper.insertStackAt(world, pos.relative(side), side.getOpposite(), out, false);
+        if (smart && thaumcraft.api.ThaumcraftInvHelper.getItemHandlerAt(world, pos.relative(side), side.getOpposite()) != null) {
+            return out;
         }
         if (!out.isEmpty()) {
+            net.minecraft.core.BlockPos target = pos.relative(side);
             if (world.getBlockState(target).isCollisionShapeFullBlock(world, target)) {
                 pos = pos.relative(side.getOpposite());
             }
@@ -98,6 +102,7 @@ public final class InventoryUtils {
             entityitem2.setDeltaMovement(0.3 * side.getStepX(), 0.3 * side.getStepY(), 0.3 * side.getStepZ());
             world.addFreshEntity(entityitem2);
         }
+        return ItemStack.EMPTY;
     }
 
     /**

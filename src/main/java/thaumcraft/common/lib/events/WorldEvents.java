@@ -41,6 +41,7 @@ public final class WorldEvents {
         }
         SealHandler.sealEntities.remove(level.dimension());
         TaskHandler.tasks.remove(level.dimension());
+        thaumcraft.api.golems.GolemHelper.provisionRequests.remove(level.dimension());
     }
 
     @SubscribeEvent

@@ -20,14 +20,16 @@ import net.minecraft.world.phys.Vec3;
 import thaumcraft.api.golems.ISealDisplayer;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
+import thaumcraft.api.capabilities.ThaumcraftCapabilities;
+import thaumcraft.common.container.ContainerLogistics;
 import thaumcraft.common.golems.client.gui.SealBaseContainer;
 import thaumcraft.common.golems.seals.SealHandler;
 import thaumcraft.common.lib.SoundsTC;
 
 /**
  * Port of ItemGolemBell. On a golem it toggles follow/stay (handled by the golem). Clicking a seal opens its settings,
- * sneak-clicking removes it.
- * TODO (stage 8c): sneak-clicking with GOLEMLOGISTICS opens the logistics screen.
+ * sneak-clicking removes it. Sneak-clicking anything else with GOLEMLOGISTICS opens the logistics screen, delivering
+ * to the clicked block or, in the air, to the player.
  */
 public class ItemGolemBell extends Item implements ISealDisplayer {
     public ItemGolemBell(Properties properties) {
@@ -47,6 +49,10 @@ public class ItemGolemBell extends Item implements ISealDisplayer {
                 } else if (se != null && playerIn instanceof ServerPlayer sp) {
                     SealBaseContainer.open(sp, se);
                 }
+                return InteractionResultHolder.fail(playerIn.getItemInHand(hand));
+            }
+            if (playerIn.isShiftKeyDown() && ThaumcraftCapabilities.knowsResearch(playerIn, "GOLEMLOGISTICS") && playerIn instanceof ServerPlayer sp) {
+                ContainerLogistics.open(sp, null, null);
                 return InteractionResultHolder.fail(playerIn.getItemInHand(hand));
             }
         } else {
@@ -72,6 +78,10 @@ public class ItemGolemBell extends Item implements ISealDisplayer {
                 } else if (player instanceof ServerPlayer sp) {
                     SealBaseContainer.open(sp, se);
                 }
+                return InteractionResult.SUCCESS;
+            }
+            if (player.isShiftKeyDown() && ThaumcraftCapabilities.knowsResearch(player, "GOLEMLOGISTICS") && player instanceof ServerPlayer sp) {
+                ContainerLogistics.open(sp, context.getClickedPos(), context.getClickedFace());
                 return InteractionResult.SUCCESS;
             }
         }
