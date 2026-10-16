@@ -19,7 +19,7 @@
 | `tile.x.name` / `item.x.name` | se copian a `block.thaumcraft.x` / `item.thaumcraft.x` en los 9 idiomas |
 
 ## Generación de minerales
-Va por datapack (`data/thaumcraft/worldgen` y `neoforge/biome_modifier/add_ores.json`), en todos los biomas del overworld. Copia `ThaumcraftWorldGenerator.generateOres`:
+Desde la etapa 9a va por código (`ThaumcraftWorldGenerator`, ver `etapa-9a1-mundo.md`), en todos los biomas del overworld. Copia `ThaumcraftWorldGenerator.generateOres`:
 | Mineral | Intentos por chunk | Altura |
 |---|---|---|
 | Cinnabar | 18 | y 0 a 50 (la altura del mundo / 5 en 1.12) |

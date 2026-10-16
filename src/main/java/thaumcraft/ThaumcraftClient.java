@@ -231,11 +231,40 @@ public class ThaumcraftClient {
             Long props = stack.get(thaumcraft.common.registry.TCDataComponents.GOLEM_PROPS.get());
             return 0xFF000000 | (props != null ? thaumcraft.common.golems.GolemProperties.fromLong(props).getMaterial().itemColor : 0xFFFFFF);
         }, ConfigItems.golemPlacer.get());
+        // itemCrystalPlanterColourHandler.
+        for (Block block : crystalBlocks()) {
+            int color = 0xFF000000 | ((thaumcraft.common.blocks.world.ore.BlockCrystal) block).aspect.getColor();
+            event.register((stack, tintIndex) -> color, block);
+        }
+        // The 1.12 leaf items had no color handler; greatwood takes the default foliage color like vanilla leaves.
+        event.register((stack, tintIndex) -> 0xFF000000 | net.minecraft.world.level.FoliageColor.getDefaultColor(), ConfigBlocks.leafGreatwood.get());
+    }
+
+    /** The vis crystal clusters are drawn by CrystalModel. */
+    @SubscribeEvent
+    static void registerGeometryLoaders(net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders event) {
+        event.register(thaumcraft.client.renderers.block.CrystalModel.LOADER_ID, thaumcraft.client.renderers.block.CrystalModel.Loader.INSTANCE);
+    }
+
+    private static Block[] crystalBlocks() {
+        return java.util.stream.Stream.of(ConfigBlocks.crystalAir, ConfigBlocks.crystalFire, ConfigBlocks.crystalWater, ConfigBlocks.crystalEarth,
+                ConfigBlocks.crystalOrder, ConfigBlocks.crystalEntropy, ConfigBlocks.crystalTaint).map(DeferredBlock::get).toArray(Block[]::new);
     }
 
     /** Port of ColorHandler for candles and nitor: tinted with their dye's map color. */
     @SubscribeEvent
     static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        // leafColourHandler: silverwood leaves stay white, greatwood leaves take the biome's foliage color.
+        event.register((state, level, pos, tintIndex) -> {
+            if (state.is(ConfigBlocks.leafSilverwood.get())) {
+                return 0xFFFFFFFF;
+            }
+            return 0xFF000000 | (level != null && pos != null ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
+                    : net.minecraft.world.level.FoliageColor.getDefaultColor());
+        }, ConfigBlocks.leafGreatwood.get(), ConfigBlocks.leafSilverwood.get());
+        // crystalColourHandler: the aspect's color.
+        event.register((state, level, pos, tintIndex) -> 0xFF000000
+                | (state.getBlock() instanceof thaumcraft.common.blocks.world.ore.BlockCrystal c ? c.aspect.getColor() : 0xFFFFFF), crystalBlocks());
         event.register((state, level, pos, tintIndex) -> 0xFF000000 | state.getMapColor(level, pos).col, dyedBlocks());
         // The filtered tube's core takes its filter's color.
         event.register((state, level, pos, tintIndex) -> tintIndex == 1 ? 0xFF000000 | BlockTube.filterColor(level, pos) : -1,

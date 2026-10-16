@@ -79,6 +79,13 @@ import thaumcraft.common.tiles.essentia.TileTubeOneway;
 import thaumcraft.common.tiles.essentia.TileTubeRestrict;
 import thaumcraft.common.tiles.essentia.TileTubeValve;
 import thaumcraft.common.blocks.world.ore.BlockOreTC;
+import thaumcraft.common.blocks.world.ore.BlockCrystal;
+import thaumcraft.common.blocks.world.plants.BlockLeavesTC;
+import thaumcraft.common.blocks.world.plants.BlockPlantCinderpearl;
+import thaumcraft.common.blocks.world.plants.BlockPlantShimmerleaf;
+import thaumcraft.common.blocks.world.plants.BlockPlantVishroom;
+import thaumcraft.common.blocks.world.plants.BlockSaplingTC;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.tiles.essentia.TileJarFillable;
 import thaumcraft.common.tiles.essentia.TileJarFillableVoid;
 
@@ -107,9 +114,26 @@ public final class ConfigBlocks {
 
     public static final DeferredBlock<Block> metalBlockVoid = register("metal_void", () -> new BlockMetalTC(MapColor.COLOR_BLACK));
 
-    // Greatwood and silverwood: only the wood blocks for now. TODO: trees, leaves, saplings, stairs and slabs (stage 9).
-    public static final DeferredBlock<Block> logGreatwood = register("log_greatwood", () -> log(MapColor.WOOD));
-    public static final DeferredBlock<Block> logSilverwood = register("log_silverwood", () -> log(MapColor.QUARTZ));
+    // Greatwood and silverwood. TODO: stairs and slabs.
+    public static final DeferredBlock<Block> logGreatwood = register("log_greatwood", () -> log(MapColor.WOOD, 0));
+    /** BlockLogsTC.getLightValue: silverwood logs give light 5. */
+    public static final DeferredBlock<Block> logSilverwood = register("log_silverwood", () -> log(MapColor.QUARTZ, 5));
+    public static final DeferredBlock<Block> leafGreatwood = register("leaves_greatwood", () -> new BlockLeavesTC(false));
+    public static final DeferredBlock<Block> leafSilverwood = register("leaves_silverwood", () -> new BlockLeavesTC(true));
+    public static final DeferredBlock<Block> saplingGreatwood = register("sapling_greatwood", () -> new BlockSaplingTC(false));
+    public static final DeferredBlock<Block> saplingSilverwood = register("sapling_silverwood", () -> new BlockSaplingTC(true));
+
+    // Stage 9a: vis crystal clusters (ShardType order) and the world plants.
+    public static final DeferredBlock<Block> crystalAir = register("crystal_aer", () -> new BlockCrystal(Aspect.AIR));
+    public static final DeferredBlock<Block> crystalFire = register("crystal_ignis", () -> new BlockCrystal(Aspect.FIRE));
+    public static final DeferredBlock<Block> crystalWater = register("crystal_aqua", () -> new BlockCrystal(Aspect.WATER));
+    public static final DeferredBlock<Block> crystalEarth = register("crystal_terra", () -> new BlockCrystal(Aspect.EARTH));
+    public static final DeferredBlock<Block> crystalOrder = register("crystal_ordo", () -> new BlockCrystal(Aspect.ORDER));
+    public static final DeferredBlock<Block> crystalEntropy = register("crystal_perditio", () -> new BlockCrystal(Aspect.ENTROPY));
+    public static final DeferredBlock<Block> crystalTaint = register("crystal_vitium", () -> new BlockCrystal(Aspect.FLUX));
+    public static final DeferredBlock<Block> shimmerleaf = register("shimmerleaf", BlockPlantShimmerleaf::new);
+    public static final DeferredBlock<Block> cinderpearl = register("cinderpearl", BlockPlantCinderpearl::new);
+    public static final DeferredBlock<Block> vishroom = register("vishroom", BlockPlantVishroom::new);
     public static final DeferredBlock<Block> plankGreatwood = register("plank_greatwood", () -> planks(MapColor.WOOD));
     public static final DeferredBlock<Block> plankSilverwood = register("plank_silverwood", () -> planks(MapColor.QUARTZ));
 
@@ -236,9 +260,9 @@ public final class ConfigBlocks {
     }
 
     /** BlockLogsTC: hardness 2, resistance 5. */
-    private static Block log(MapColor color) {
+    private static Block log(MapColor color, int light) {
         return new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASS)
-                .strength(2.0f, 5.0f).sound(SoundType.WOOD).ignitedByLava());
+                .strength(2.0f, 5.0f).sound(SoundType.WOOD).ignitedByLava().lightLevel(s -> light));
     }
 
     /** BlockPlanksTC: hardness 2, resistance 5, like vanilla planks. */

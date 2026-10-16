@@ -133,5 +133,25 @@ public class Config {
         BUILDER.pop();
     }
 
+    static {
+        BUILDER.push("world");
+    }
+
+    public static final ModConfigSpec.IntValue ORE_DENSITY = BUILDER
+            .comment("The % of normal ore amounts that will be spawned. For example 50 will spawn half",
+                    "the ores while 200 will spawn double. Default 100")
+            .worldRestart()
+            .defineInRange("oreDensity", 100, 1, 500);
+
+    public static final ModConfigSpec.BooleanValue GENERATE_CINNABAR = BUILDER.define("generateCinnabar", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_AMBER = BUILDER.define("generateAmber", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_QUARTZ = BUILDER.define("generateQuartz", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_CRYSTALS = BUILDER.define("generateCrystals", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_TREES = BUILDER.define("generateTrees", true);
+
+    static {
+        BUILDER.pop();
+    }
+
     static final ModConfigSpec SPEC = BUILDER.build();
 }

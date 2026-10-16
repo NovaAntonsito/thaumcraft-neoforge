@@ -76,8 +76,7 @@ public final class ConfigResearch {
     /**
      * The things the thaumometer learns from. The "![aspect]" triggers come first, as the original added them
      * when each aspect was created.
-     * TODO: the Thaumcraft mobs (wisp, pech, firebat, taint, cultists, golems, flux rift...), the vis crystals,
-     * the greatwood and silverwood saplings, cinderpearl, shimmerleaf, vishroom, the ancient and eldritch stones,
+     * TODO: the Thaumcraft mobs (wisp, pech, firebat, taint, cultists, golems, flux rift...), the ancient and eldritch stones,
      * primordial pearl, zombie brain, pech wand and void seed, once they are ported. ScanSky (celestial notes)
      * waits for the celestial notes item.
      */
@@ -105,12 +104,26 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Parrot.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
-        ScanningManager.addScannableThing(new ScanBlock("ORE", ConfigBlocks.oreAmber.get(), ConfigBlocks.oreCinnabar.get()));
+        Block[] crystals = {ConfigBlocks.crystalAir.get(), ConfigBlocks.crystalFire.get(), ConfigBlocks.crystalWater.get(),
+                ConfigBlocks.crystalEarth.get(), ConfigBlocks.crystalOrder.get(), ConfigBlocks.crystalEntropy.get(), ConfigBlocks.crystalTaint.get()};
+        Block[] ores = new Block[crystals.length + 2];
+        ores[0] = ConfigBlocks.oreAmber.get();
+        ores[1] = ConfigBlocks.oreCinnabar.get();
+        System.arraycopy(crystals, 0, ores, 2, crystals.length);
+        ScanningManager.addScannableThing(new ScanBlock("ORE", ores));
         ScanningManager.addScannableThing(new ScanBlock("!OREAMBER", ConfigBlocks.oreAmber.get()));
         ScanningManager.addScannableThing(new ScanBlock("!ORECINNABAR", ConfigBlocks.oreCinnabar.get()));
-        ScanningManager.addScannableThing(new ScanBlock("PLANTS", ConfigBlocks.logGreatwood.get(), ConfigBlocks.logSilverwood.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!ORECRYSTAL", crystals));
+        ScanningManager.addScannableThing(new ScanBlock("PLANTS", ConfigBlocks.logGreatwood.get(), ConfigBlocks.logSilverwood.get(),
+                ConfigBlocks.saplingGreatwood.get(), ConfigBlocks.saplingSilverwood.get(), ConfigBlocks.cinderpearl.get(),
+                ConfigBlocks.shimmerleaf.get(), ConfigBlocks.vishroom.get()));
         ScanningManager.addScannableThing(new ScanBlock("!PLANTWOOD", ConfigBlocks.logGreatwood.get()));
         ScanningManager.addScannableThing(new ScanBlock("!PLANTWOOD", ConfigBlocks.logSilverwood.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!PLANTWOOD", ConfigBlocks.saplingGreatwood.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!PLANTWOOD", ConfigBlocks.saplingSilverwood.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!PLANTCINDERPEARL", ConfigBlocks.cinderpearl.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!PLANTSHIMMERLEAF", ConfigBlocks.shimmerleaf.get()));
+        ScanningManager.addScannableThing(new ScanBlock("!PLANTVISHROOM", ConfigBlocks.vishroom.get()));
         ScanningManager.addScannableThing(new ScanEntity("f_toomuchflux", thaumcraft.common.entities.EntityFluxRift.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!FluxRift", thaumcraft.common.entities.EntityFluxRift.class, true));
         ScanningManager.addScannableThing(new ScanItem("PRIMPEARL", new ItemStack(ConfigItems.primordialPearl.get())));

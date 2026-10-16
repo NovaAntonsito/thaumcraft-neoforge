@@ -43,9 +43,12 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> PUMP = register("pump");
     public static final Supplier<SoundEvent> EVILPORTAL = register("evilportal");
     public static final Supplier<SoundEvent> BRAIN = register("brain");
+    public static final Supplier<SoundEvent> CRYSTAL = register("crystal");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);
+    /** SoundsTC.CRYSTAL of the original: the block sound type of crystal clusters. */
+    public static final SoundType SOUND_TYPE_CRYSTAL = new DeferredSoundType(0.5f, 1.0f, CRYSTAL, CRYSTAL, CRYSTAL, CRYSTAL, CRYSTAL);
 
     private SoundsTC() {
     }

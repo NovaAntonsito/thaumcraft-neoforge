@@ -82,6 +82,7 @@ public class Thaumcraft {
         TCFluids.FLUID_TYPES.register(modEventBus);
         TCFluids.FLUIDS.register(modEventBus);
         TCMobEffects.MOB_EFFECTS.register(modEventBus);
+        thaumcraft.common.registry.TCFeatures.FEATURES.register(modEventBus);
         modEventBus.addListener(Thaumcraft::onCommonSetup);
         modEventBus.addListener(Thaumcraft::onRegisterCapabilities);
         modEventBus.addListener(TCNetwork::register);
@@ -128,6 +129,10 @@ public class Thaumcraft {
             IDustTrigger.registerDustTrigger(new DustTriggerSimple("RESEARCH",
                     state -> state.is(ConfigBlocks.tableWood.get()), () -> new ItemStack(ConfigBlocks.researchTable.get())));
             thaumcraft.common.golems.GolemProperties.registerDefaults();
+            // BlockLogsTC.getFlammability / getFireSpreadSpeed.
+            net.minecraft.world.level.block.FireBlock fire = (net.minecraft.world.level.block.FireBlock) Blocks.FIRE;
+            fire.setFlammable(ConfigBlocks.logGreatwood.get(), 5, 5);
+            fire.setFlammable(ConfigBlocks.logSilverwood.get(), 5, 5);
             ConfigItems.registerSeals();
             thaumcraft.common.lib.utils.CropUtils.registerDefaults();
             registerInfusionAltar();

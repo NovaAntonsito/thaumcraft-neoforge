@@ -253,6 +253,35 @@ public final class BlockUtils {
         return worked;
     }
 
+    /**
+     * Material.ROCK of 1.12. Materials are gone since 1.20; stone-like blocks still carry the bass drum note block
+     * instrument they got from Material.STONE, so that is what this checks.
+     */
+    public static boolean isRock(BlockState state) {
+        return state.instrument() == net.minecraft.world.level.block.state.properties.NoteBlockInstrument.BASEDRUM;
+    }
+
+    /** isBlockTouching(world, pos, Material.ROCK, solid): a rock neighbour, optionally with a sturdy face towards pos. */
+    public static boolean isBlockTouchingRock(BlockGetter world, BlockPos pos, boolean solid) {
+        for (Direction face : Direction.values()) {
+            BlockPos np = pos.relative(face);
+            BlockState ns = world.getBlockState(np);
+            if (isRock(ns) && (!solid || ns.isFaceSturdy(world, np, face.getOpposite()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isBlockTouching(BlockGetter world, BlockPos pos, Block bs) {
+        for (Direction face : Direction.values()) {
+            if (world.getBlockState(pos.relative(face)).getBlock() == bs) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Block.getSilkTouchDrop of 1.12: the block's own item. */
     public static ItemStack getSilkTouchDrop(BlockState bs) {
         return new ItemStack(bs.getBlock());

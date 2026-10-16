@@ -1848,5 +1848,19 @@
   "tc.anomaly.chosen": "%s chose %s.",
   "tc.anomaly.choice.title": "Foresight: choose the next anomaly",
   "tc.anomaly.choice.time": "Time left: %s",
-  "tc.anomaly.choice.duration": "%s to %s min"
+  "tc.anomaly.choice.duration": "%s to %s min",
+  "block.thaumcraft.crystal_aer": "Air Crystal",
+  "block.thaumcraft.crystal_ignis": "Fire Crystal",
+  "block.thaumcraft.crystal_aqua": "Water Crystal",
+  "block.thaumcraft.crystal_terra": "Earth Crystal",
+  "block.thaumcraft.crystal_ordo": "Order Crystal",
+  "block.thaumcraft.crystal_perditio": "Entropy Crystal",
+  "block.thaumcraft.crystal_vitium": "Flux Crystal",
+  "block.thaumcraft.leaves_greatwood": "Greatwood Leaves",
+  "block.thaumcraft.leaves_silverwood": "Silverwood Leaves",
+  "block.thaumcraft.sapling_greatwood": "Greatwood Sapling",
+  "block.thaumcraft.sapling_silverwood": "Silverwood Sapling",
+  "block.thaumcraft.shimmerleaf": "Shimmerleaf",
+  "block.thaumcraft.cinderpearl": "Cinderpearl",
+  "block.thaumcraft.vishroom": "Vishroom"
 }
