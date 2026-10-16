@@ -66,7 +66,7 @@ public final class ThaumcraftCraftingManager {
         ItemStack temp = lastDrop.copyWithCount(1);
         for (RecipeHolder<CrucibleRecipe> holder : level.getRecipeManager().getAllRecipesFor(TCRecipes.CRUCIBLE_TYPE.get())) {
             CrucibleRecipe recipe = holder.value();
-            if (!ThaumcraftCapabilities.knowsResearchStrict(player, recipe.getResearch()) || !recipe.matches(aspects, temp)) continue;
+            if (!ThaumcraftCapabilities.knowsResearchStrict(player, recipe.getResearch()) || !recipe.matches(aspects, temp, level)) continue;
             int result = recipe.getAspects().visSize();
             if (result > highest) {
                 highest = result;

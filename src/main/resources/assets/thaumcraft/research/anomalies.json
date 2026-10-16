@@ -1,0 +1,390 @@
+{
+  "entries": [
+    {
+      "key": "ANOMALIES",
+      "name": "research.ANOMALIES.title",
+      "icons": [
+        "thaumcraft:thaumometer"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -3
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.ANOMALIES.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "FORESIGHT",
+      "name": "research.FORESIGHT.title",
+      "icons": [
+        "minecraft:spyglass"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -7,
+        -3
+      ],
+      "parents": [
+        "ANOMALIES",
+        "BASEAUROMANCY"
+      ],
+      "stages": [
+        {
+          "text": "research.FORESIGHT.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1",
+            "THEORY;AUROMANCY;1"
+          ],
+          "warp": 1
+        },
+        {
+          "text": "research.FORESIGHT.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_aurora_arcana",
+      "name": "tc.anomaly.aurora_arcana",
+      "icons": [
+        "thaumcraft:vis_resonator"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -12,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.aurora_arcana.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_aura_drought",
+      "name": "tc.anomaly.aura_drought",
+      "icons": [
+        "minecraft:dead_bush"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -11,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.aura_drought.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_vis_storm",
+      "name": "tc.anomaly.vis_storm",
+      "icons": [
+        "minecraft:lightning_rod"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.vis_storm.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_giant_rift",
+      "name": "tc.anomaly.giant_rift",
+      "icons": [
+        "thaumcraft:void_seed"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -9,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.giant_rift.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_flux_tide",
+      "name": "tc.anomaly.flux_tide",
+      "icons": [
+        "thaumcraft:crystal_essence;aspect=vitium"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -8,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.flux_tide.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_void_calm",
+      "name": "tc.anomaly.void_calm",
+      "icons": [
+        "minecraft:ender_eye"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -7,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.void_calm.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_infusion_moon",
+      "name": "tc.anomaly.infusion_moon",
+      "icons": [
+        "minecraft:clock"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -6,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.infusion_moon.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_inspiration",
+      "name": "tc.anomaly.inspiration",
+      "icons": [
+        "thaumcraft:scribing_tools"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -6
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.inspiration.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_primal_convergence",
+      "name": "tc.anomaly.primal_convergence",
+      "icons": [
+        "thaumcraft:crystal_essence;aspect=ignis"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -12,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.primal_convergence.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_crystal_rain",
+      "name": "tc.anomaly.crystal_rain",
+      "icons": [
+        "thaumcraft:crystal_essence;aspect=aqua"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -11,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.crystal_rain.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_vitium_rain",
+      "name": "tc.anomaly.vitium_rain",
+      "icons": [
+        "minecraft:ink_sac"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.vitium_rain.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_inversion",
+      "name": "tc.anomaly.inversion",
+      "icons": [
+        "minecraft:ender_pearl"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -9,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.inversion.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_amber_vein",
+      "name": "tc.anomaly.amber_vein",
+      "icons": [
+        "thaumcraft:amber"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -8,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.amber_vein.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_eldritch_eclipse",
+      "name": "tc.anomaly.eldritch_eclipse",
+      "icons": [
+        "minecraft:wither_rose"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -7,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.eldritch_eclipse.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_whispers",
+      "name": "tc.anomaly.whispers",
+      "icons": [
+        "thaumcraft:brain"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -6,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.whispers.desc"
+        }
+      ]
+    },
+    {
+      "key": "!anomaly_runaway_focus",
+      "name": "tc.anomaly.runaway_focus",
+      "icons": [
+        "thaumcraft:caster_basic"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.runaway_focus.desc"
+        }
+      ]
+    }
+  ]
+}

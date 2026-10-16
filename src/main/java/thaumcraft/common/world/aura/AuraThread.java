@@ -24,6 +24,8 @@ public class AuraThread {
     private long lastWorldTime = 0L;
     /** Vis regeneration multiplier from active anomalies, read once per pass. */
     private float visRegenMult = 1.0f;
+    /** Rift chance multiplier from active anomalies, read once per pass. */
+    private float riftMult = 1.0f;
     private final float[] phaseTable = {0.25f, 0.15f, 0.1f, 0.05f, 0.0f, 0.05f, 0.1f, 0.15f};
     private final float[] maxTable = {0.15f, 0.05f, 0.0f, -0.05f, -0.15f, -0.05f, 0.0f, 0.05f};
 
@@ -36,6 +38,7 @@ public class AuraThread {
         phaseMax = 1.0f + maxTable[moon];
         phaseFlux = 0.25f - phaseVis;
         visRegenMult = thaumcraft.common.anomaly.AnomalyModifiers.get(world, thaumcraft.common.anomaly.AnomalyStat.VIS_REGEN);
+        riftMult = thaumcraft.common.anomaly.AnomalyModifiers.get(world, thaumcraft.common.anomaly.AnomalyStat.RIFT_CHANCE);
         for (AuraChunk auraChunk : auraWorld.auraChunks.values()) {
             processAuraChunk(auraWorld, auraChunk);
         }
@@ -100,7 +103,7 @@ public class AuraThread {
             auraChunk.setFlux(currentFlux);
             auraChunk.markDirty();
         }
-        if (currentFlux > base * 0.75 && rand.nextFloat() < currentFlux / 500.0f / 10.0f) {
+        if (currentFlux > base * 0.75 && rand.nextFloat() < currentFlux / 500.0f / 10.0f * riftMult) {
             AuraHandler.riftTrigger.put(auraWorld.dim, new BlockPos(x * 16, 0, y * 16));
         }
     }

@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.registry.TCRecipes;
@@ -44,12 +45,21 @@ public class CrucibleRecipe implements Recipe<SingleRecipeInput> {
 
     /** The catalyst matches and the crucible holds at least the required amount of every aspect. */
     public boolean matches(AspectList itags, ItemStack cat) {
+        return matches(itags, cat, null);
+    }
+
+    /** As {@link #matches(AspectList, ItemStack)}, with the costs an active anomaly may lower (primal convergence). */
+    public boolean matches(AspectList itags, ItemStack cat, @javax.annotation.Nullable Level level) {
         if (!catalyst.test(cat)) return false;
         if (itags == null) return false;
         for (Aspect tag : aspects.getAspects()) {
-            if (itags.getAmount(tag) < aspects.getAmount(tag)) return false;
+            if (itags.getAmount(tag) < cost(level, tag)) return false;
         }
         return true;
+    }
+
+    private int cost(@javax.annotation.Nullable Level level, Aspect tag) {
+        return thaumcraft.common.anomaly.AnomalyModifiers.crucibleCost(level, tag, aspects.getAmount(tag));
     }
 
     public boolean catalystMatches(ItemStack cat) {
@@ -58,9 +68,14 @@ public class CrucibleRecipe implements Recipe<SingleRecipeInput> {
 
     /** A copy of {@code itags} minus this recipe's aspects. */
     public AspectList removeMatching(AspectList itags) {
+        return removeMatching(itags, null);
+    }
+
+    /** As {@link #removeMatching(AspectList)}, with the costs an active anomaly may lower. */
+    public AspectList removeMatching(AspectList itags, @javax.annotation.Nullable Level level) {
         AspectList temptags = itags.copy();
         for (Aspect tag : aspects.getAspects()) {
-            temptags.remove(tag, aspects.getAmount(tag));
+            temptags.remove(tag, cost(level, tag));
         }
         return temptags;
     }

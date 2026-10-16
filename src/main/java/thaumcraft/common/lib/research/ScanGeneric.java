@@ -30,7 +30,8 @@ public class ScanGeneric implements IScanThing {
         if (obj == null || !(player instanceof ServerPlayer sp)) return;
         AspectList al = ScanManager.objScanAspects(player, obj);
         if (al != null) {
-            double mult = Config.ASPECT_OBTAIN_MULTIPLIER.get();
+            double mult = Config.ASPECT_OBTAIN_MULTIPLIER.get()
+                    * thaumcraft.common.anomaly.AnomalyModifiers.get(sp.level(), thaumcraft.common.anomaly.AnomalyStat.SCAN_POINTS);
             for (Aspect aspect : al.getAspects()) {
                 ResearchNoteManager.checkAndSyncAspectKnowledge(sp, aspect, (int) Math.round(al.getAmount(aspect) * mult));
             }

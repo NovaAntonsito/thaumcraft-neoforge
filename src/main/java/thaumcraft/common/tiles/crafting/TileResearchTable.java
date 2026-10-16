@@ -94,7 +94,7 @@ public class TileResearchTable extends TileThaumcraft implements Container {
     }
 
     public void consumeInkFromTable() {
-        if (canConsumeInkFromTable()) {
+        if (canConsumeInkFromTable() && !thaumcraft.common.anomaly.AnomalyModifiers.freeInk(level)) {
             ItemStack tools = items.get(0);
             tools.setDamageValue(tools.getDamageValue() + 1);
             setChanged();

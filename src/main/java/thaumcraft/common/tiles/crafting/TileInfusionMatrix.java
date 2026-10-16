@@ -287,7 +287,8 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
 
     private float getLossPerCycle() {
-        return recipeInstability / getModFromCurrentStability();
+        return recipeInstability / getModFromCurrentStability()
+                * thaumcraft.common.anomaly.AnomalyModifiers.get(level, thaumcraft.common.anomaly.AnomalyStat.INFUSION_INSTABILITY);
     }
 
     /** ThaumcraftInvHelper.areItemStacksEqualForCrafting. */

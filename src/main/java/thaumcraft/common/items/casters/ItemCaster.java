@@ -347,6 +347,7 @@ public class ItemCaster extends Item implements ICaster, IArchitect {
         }
         if (consumeVis(held, player, focus.getVisCost(focusStack), false, false)) {
             FocusEngine.castFocusPackage(player, core);
+            thaumcraft.common.anomaly.AnomalyRunawayFocus.afterCast(player);
             player.swing(hand, true);
             return InteractionResultHolder.success(held);
         }

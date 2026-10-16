@@ -326,7 +326,9 @@ public final class ResearchNoteManager {
     public static boolean consumeInkFromPlayer(Player player, boolean doIt) {
         for (ItemStack stack : player.getInventory().items) {
             if (stack.getItem() instanceof IScribeTools && stack.getDamageValue() < stack.getMaxDamage()) {
-                if (doIt) stack.setDamageValue(stack.getDamageValue() + 1);
+                if (doIt && !thaumcraft.common.anomaly.AnomalyModifiers.freeInk(player.level())) {
+                    stack.setDamageValue(stack.getDamageValue() + 1);
+                }
                 return true;
             }
         }

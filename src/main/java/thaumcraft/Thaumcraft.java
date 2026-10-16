@@ -97,6 +97,7 @@ public class Thaumcraft {
         NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onLogin);
         NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onChangeDimension);
         NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onRespawn);
+        NeoForge.EVENT_BUS.addListener(thaumcraft.common.anomaly.AnomalyEvents::onRightClickItem);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 

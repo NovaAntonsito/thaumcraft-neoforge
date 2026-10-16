@@ -199,7 +199,7 @@ public class TileCrucible extends BlockEntity {
                     out.onCraftedBy(level, player, out.getCount());
                     EventHooks.firePlayerCraftingEvent(player, out, new SimpleContainer(item.copyWithCount(1)));
                 }
-                aspects = rc.removeMatching(aspects);
+                aspects = rc.removeMatching(aspects, level);
                 tank.drain(50, net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
                 ejectItem(out);
                 craftDone = true;

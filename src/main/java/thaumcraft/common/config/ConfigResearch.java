@@ -67,6 +67,7 @@ public final class ConfigResearch {
             ResearchManager.jsonLocs.add(Thaumcraft.id("research/" + cat.toLowerCase(Locale.ROOT)));
         }
         ResearchManager.jsonLocs.add(Thaumcraft.id("research/scans"));
+        ResearchManager.jsonLocs.add(Thaumcraft.id("research/anomalies"));
         ResearchManager.parseAllResearch();
         // TC4 Research Port: Reborn: the THEORY knowledge stages become research notes.
         ResearchNoteManager.init();
@@ -85,6 +86,7 @@ public final class ConfigResearch {
             ScanningManager.addScannableThing(new ScanAspect("!" + aspect.getTag(), aspect));
         }
         ScanningManager.addScannableThing(new ScanGeneric());
+        ScanningManager.addScannableThing(new thaumcraft.common.anomaly.ScanAnomaly());
         // Enchantments are data driven now; the vanilla ones are known up front.
         for (Field f : Enchantments.class.getFields()) {
             if (Modifier.isStatic(f.getModifiers()) && f.getType() == ResourceKey.class) {

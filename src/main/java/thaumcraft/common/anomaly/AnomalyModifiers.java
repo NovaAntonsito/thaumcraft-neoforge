@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import thaumcraft.api.aspects.Aspect;
 
 /** The single entry point other systems use: 1.0 when no anomaly changes that stat. */
 public final class AnomalyModifiers {
@@ -25,6 +26,22 @@ public final class AnomalyModifiers {
             }
         }
         return mult;
+    }
+
+    /** True while an anomaly makes writing free (inspiration). */
+    public static boolean freeInk(@Nullable Level level) {
+        return get(level, AnomalyStat.INK_COST) <= 0.0f;
+    }
+
+    /** Amount of an aspect a crucible recipe needs after anomalies: primal convergence lowers its primal by 30 %. */
+    public static int crucibleCost(@Nullable Level level, Aspect aspect, int amount) {
+        if (amount <= 0 || !(level instanceof ServerLevel sl) || !AnomalyManager.isEnabledIn(sl)) return amount;
+        for (ActiveAnomaly a : AnomalyManager.get(sl).getActive()) {
+            if (a.type() instanceof AnomalyPrimalConvergence && aspect == AnomalyPrimalConvergence.getPrimal(a)) {
+                return Math.max(1, Math.round(amount * AnomalyPrimalConvergence.COST));
+            }
+        }
+        return amount;
     }
 
     /** Vis cost of an arcane recipe after anomalies. A recipe that costs vis never drops to 0. */

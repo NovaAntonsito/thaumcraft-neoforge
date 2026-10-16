@@ -93,6 +93,11 @@ public class AnomalyType {
     public void onTick(ServerLevel level, ActiveAnomaly anomaly) {
     }
 
+    /** True when the anomaly is over before its time (for example, its rift was closed). Checked once a second. */
+    public boolean isFinished(ServerLevel level, ActiveAnomaly anomaly) {
+        return false;
+    }
+
     /** Called when the anomaly runs out or is stopped. */
     public void onEnd(ServerLevel level, ActiveAnomaly anomaly) {
     }
