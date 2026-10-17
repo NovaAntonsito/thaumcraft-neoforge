@@ -77,7 +77,7 @@ import thaumcraft.common.tiles.devices.TileStabilizer;
  * symmetric stabilizers (candles, skulls) and lost each cycle according to the recipe's instability; while
  * negative, random instability events can fire.
  * <p>
- * TODO: research (!INSTABILITY), flux goo, the flux taint and vis exhaust potions, the eldritch and ancient
+ * TODO: research (!INSTABILITY), the eldritch and ancient
  * pillars and pedestals, matrix speed and cost upgrades, the instability stabilizer, XP recipes (recipeType 1),
  * and the FXDispatcher effects (stage 10).
  */
@@ -424,11 +424,14 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
         }
     }
 
-    /** TODO: applies PotionFluxTaint or PotionVisExhaust; potions are not ported yet, so this only zaps lightly. */
+    /** Taint poison or Flux Flu on whoever is close. */
     private void inEvHarm(boolean all) {
         for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, area())) {
-            sendFX(new PacketFXBlockArc(worldPosition, target, arcColor(), 0.0f, arcColor()), worldPosition);
-            target.hurt(level.damageSources().magic(), 1.0f);
+            if (level.random.nextBoolean()) {
+                target.addEffect(new net.minecraft.world.effect.MobEffectInstance(thaumcraft.common.registry.TCMobEffects.FLUX_TAINT, 120, 0, false, true));
+            } else {
+                target.addEffect(new net.minecraft.world.effect.MobEffectInstance(thaumcraft.common.registry.TCMobEffects.VIS_EXHAUST, 2400, 0, true, true));
+            }
             if (!all) {
                 break;
             }
@@ -479,7 +482,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
                     ped.setItem(0, ItemStack.EMPTY);
                 }
                 if (type == 1 || type == 3) {
-                    // TODO: places BlocksTC.fluxGoo above the pedestal; flux goo is not ported yet.
+                    level.setBlockAndUpdate(cc.above(), thaumcraft.common.config.ConfigBlocks.fluxGoo.get().defaultBlockState());
                     level.playSound(null, cc, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 0.3f, 1.0f);
                 } else if (type == 2 || type == 4) {
                     int a = 5 + level.random.nextInt(5);

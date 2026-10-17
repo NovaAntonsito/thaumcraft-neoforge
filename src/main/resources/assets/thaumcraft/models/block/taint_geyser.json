@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "thaumcraft:blocks/taint_geyser_side",
+    "bottom": "thaumcraft:blocks/log_taintwood_top",
+    "top": "thaumcraft:blocks/taint_geyser_top",
+    "side": "thaumcraft:blocks/taint_geyser_side"
+  }
+}

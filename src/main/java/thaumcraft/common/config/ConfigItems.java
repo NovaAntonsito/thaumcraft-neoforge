@@ -108,6 +108,15 @@ public final class ConfigItems {
     public static final Map<String, DeferredItem<Item>> mind = variants("mind", "clockwork", "biothaumic");
     public static final DeferredItem<ItemHandMirror> handMirror = ITEMS.registerItem("hand_mirror", ItemHandMirror::new);
 
+    // Stage 9b.
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemBottleTaint> bottleTaint =
+            ITEMS.registerItem("bottle_taint", thaumcraft.common.items.consumables.ItemBottleTaint::new);
+    /** The 1.12 spawn eggs were one item; now each mob has its own (same colors as ConfigEntities). */
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintSeedSpawnEgg = ITEMS.registerItem("taint_seed_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_SEED, 10618530, 4465237, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintSeedPrimeSpawnEgg = ITEMS.registerItem("taint_seed_prime_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME, 10618530, 5583718, p));
+
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =
             ITEMS.registerItem("golem", thaumcraft.common.golems.ItemGolemPlacer::new);

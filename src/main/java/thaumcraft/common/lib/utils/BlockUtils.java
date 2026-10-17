@@ -311,4 +311,24 @@ public final class BlockUtils {
             return 0;
         }
     }
+
+    /** The silk touch level of the tool breaking a block, read from its loot parameters (0 without a tool). */
+    public static int getSilkTouchLevel(net.minecraft.world.level.storage.loot.LootParams.Builder params) {
+        return getEnchantmentLevel(params, Enchantments.SILK_TOUCH);
+    }
+
+    /** The fortune level of the tool breaking a block, read from its loot parameters (0 without a tool). */
+    public static int getFortuneLevel(net.minecraft.world.level.storage.loot.LootParams.Builder params) {
+        return getEnchantmentLevel(params, Enchantments.FORTUNE);
+    }
+
+    private static int getEnchantmentLevel(net.minecraft.world.level.storage.loot.LootParams.Builder params,
+            net.minecraft.resources.ResourceKey<Enchantment> key) {
+        ItemStack tool = params.getOptionalParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.TOOL);
+        if (tool == null || tool.isEmpty()) {
+            return 0;
+        }
+        Holder<Enchantment> holder = params.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+        return EnchantmentHelper.getItemEnchantmentLevel(holder, tool);
+    }
 }

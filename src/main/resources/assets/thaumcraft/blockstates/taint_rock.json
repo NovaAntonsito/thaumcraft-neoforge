@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "thaumcraft:block/taint_rock"
+      },
+      {
+        "model": "thaumcraft:block/taint_rock",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/taint_rock",
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/taint_rock",
+        "x": 90,
+        "y": 90
+      }
+    ]
+  }
+}

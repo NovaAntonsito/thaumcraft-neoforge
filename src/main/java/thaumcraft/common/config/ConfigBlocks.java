@@ -135,6 +135,16 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> cinderpearl = register("cinderpearl", BlockPlantCinderpearl::new);
     public static final DeferredBlock<Block> vishroom = register("vishroom", BlockPlantVishroom::new);
     public static final DeferredBlock<Block> grassAmbient = register("grass_ambient", thaumcraft.common.blocks.world.BlockGrassAmbient::new);
+    // Stage 9b: taint.
+    public static final DeferredBlock<Block> taintFibre = register("taint_fibre", thaumcraft.common.blocks.world.taint.BlockTaintFibre::new);
+    public static final DeferredBlock<Block> taintCrust = register("taint_crust", thaumcraft.common.blocks.world.taint.BlockTaint::new);
+    public static final DeferredBlock<Block> taintSoil = register("taint_soil", thaumcraft.common.blocks.world.taint.BlockTaint::new);
+    public static final DeferredBlock<Block> taintRock = register("taint_rock", thaumcraft.common.blocks.world.taint.BlockTaint::new);
+    public static final DeferredBlock<Block> taintGeyser = register("taint_geyser", thaumcraft.common.blocks.world.taint.BlockTaint::new);
+    public static final DeferredBlock<Block> taintLog = register("taint_log", thaumcraft.common.blocks.world.taint.BlockTaintLog::new);
+    public static final DeferredBlock<Block> taintFeature = register("taint_feature", thaumcraft.common.blocks.world.taint.BlockTaintFeature::new);
+    public static final DeferredBlock<Block> fluxGoo = register("flux_goo", thaumcraft.common.blocks.world.taint.BlockFluxGoo::new);
+    public static final DeferredBlock<Block> stonePorous = register("stone_porous", thaumcraft.common.blocks.basic.BlockStonePorous::new);
     public static final DeferredBlock<Block> plankGreatwood = register("plank_greatwood", () -> planks(MapColor.WOOD));
     public static final DeferredBlock<Block> plankSilverwood = register("plank_silverwood", () -> planks(MapColor.QUARTZ));
 

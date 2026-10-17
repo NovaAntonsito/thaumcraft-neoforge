@@ -260,6 +260,80 @@
         "ordo": 10,
         "perditio": 10
       }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_fibre"
+      ],
+      "aspects": {
+        "herba": 5,
+        "vitium": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_crust"
+      ],
+      "aspects": {
+        "victus": 5,
+        "vitium": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_soil"
+      ],
+      "aspects": {
+        "terra": 5,
+        "vitium": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_geyser"
+      ],
+      "aspects": {
+        "auram": 5,
+        "aqua": 5,
+        "vitium": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_rock"
+      ],
+      "aspects": {
+        "terra": 10,
+        "vitium": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_feature"
+      ],
+      "aspects": {
+        "auram": 5,
+        "bestia": 5,
+        "vitium": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:taint_log"
+      ],
+      "aspects": {
+        "herba": 5,
+        "vitium": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:stone_porous"
+      ],
+      "aspects": {
+        "terra": 5,
+        "vacuos": 5
+      }
     }
   ]
 }

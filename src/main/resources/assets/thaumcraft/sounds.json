@@ -249,5 +249,20 @@
         "stream": false
       }
     ]
+  },
+  "gore": {
+    "category": "block",
+    "sounds": [
+      "thaumcraft:gore1",
+      "thaumcraft:gore2"
+    ]
+  },
+  "tentacle": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:tentacle1",
+      "thaumcraft:tentacle2",
+      "thaumcraft:tentacle3"
+    ]
   }
 }

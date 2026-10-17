@@ -1,0 +1,21 @@
+{
+  "type": "thaumcraft:crucible",
+  "research": "BOTTLETAINT",
+  "catalyst": {
+    "type": "neoforge:components",
+    "items": "thaumcraft:phial",
+    "components": {
+      "thaumcraft:aspects": {
+        "vitium": 10
+      }
+    }
+  },
+  "aspects": {
+    "vitium": 30,
+    "aqua": 30
+  },
+  "result": {
+    "id": "thaumcraft:bottle_taint",
+    "count": 1
+  }
+}

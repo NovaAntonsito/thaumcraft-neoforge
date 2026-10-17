@@ -376,4 +376,37 @@ public final class ClientFX {
         RandomSource rand = world.random;
         world.addParticle(ParticleTypes.SPLASH, x + rand.nextGaussian() * 0.1, y, z + rand.nextGaussian() * 0.1, 0.0, 0.0, 0.0);
     }
+
+    /**
+     * FXDispatcher.drawTaintParticles: purple specks thrown up by a taint seed. TODO: FXGeneric (stage 10); for now
+     * dust of a random taint purple.
+     */
+    public static void drawTaintParticles(Level world, double x, double y, double z, double vx, double vy, double vz, float scale) {
+        RandomSource rand = world.random;
+        Vector3f c = new Vector3f(0.4f + rand.nextFloat() * 0.2f, 0.1f + rand.nextFloat() * 0.3f, 0.5f + rand.nextFloat() * 0.2f);
+        world.addParticle(new DustParticleOptions(c, Mth.clamp(scale * 0.5f, 0.2f, 4.0f)), x, y, z, vx, vy, vz);
+    }
+
+    /** FXDispatcher.drawLightningFlash: a short flash over a taint seed. TODO: FXGeneric (stage 10); a bright spark for now. */
+    public static void drawLightningFlash(Level world, double x, double y, double z, float r, float g, float b, float alpha, float scale) {
+        world.addParticle(new DustParticleOptions(new Vector3f(r, g, b), Mth.clamp(scale * 2.0f, 0.5f, 4.0f)), x, y, z, 0, 0, 0);
+        world.addParticle(ParticleTypes.ELECTRIC_SPARK, x, y, z, 0, 0, 0);
+    }
+
+    /** BlockFluxGoo.randomDisplayTick: pink bubbles rising off flux goo. TODO: FXGeneric (stage 10). */
+    public static void fluxGooBubble(Level world, double x, double y, double z) {
+        world.addParticle(new DustParticleOptions(new Vector3f(1.0f, 0.0f, 0.5f), 0.2f + world.random.nextFloat() * 0.3f), x, y, z, 0, 0.01, 0);
+    }
+
+    /**
+     * FXDispatcher.taintLandFX / taintsplosionFX: dark slime bits where taint lands or bursts. TODO: FXBreakingFade
+     * (stage 10); for now slime ball item particles.
+     */
+    public static void taintSplat(Level world, double x, double y, double z, double spread) {
+        RandomSource rand = world.random;
+        float f = rand.nextFloat() * (float) Math.PI * 2.0f;
+        float f2 = rand.nextFloat() * 0.5f + 0.5f;
+        world.addParticle(new net.minecraft.core.particles.ItemParticleOption(ParticleTypes.ITEM, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SLIME_BALL)),
+                x + Mth.sin(f) * spread * f2, y, z + Mth.cos(f) * spread * f2, rand.nextGaussian() * 0.1, rand.nextDouble() * 0.2, rand.nextGaussian() * 0.1);
+    }
 }

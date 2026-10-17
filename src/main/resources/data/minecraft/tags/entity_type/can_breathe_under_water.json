@@ -1,5 +1,7 @@
 {
   "values": [
-    "thaumcraft:golem"
+    "thaumcraft:golem",
+    "thaumcraft:taint_seed",
+    "thaumcraft:taint_seed_prime"
   ]
 }

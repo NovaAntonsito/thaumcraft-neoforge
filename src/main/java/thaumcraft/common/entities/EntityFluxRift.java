@@ -292,9 +292,10 @@ public class EntityFluxRift extends Entity {
     }
 
     /**
-     * RandomItemChooser over the flux events. Only the collapse is ported: wisps (0), taint seeds (1), infectious
-     * vis exhaustion (2) and the flux cloud focus (3) need entities, effects and foci that come later.
-     * TODO: those events, and the "not near a taint seed" check of event 1.
+     * RandomItemChooser over the flux events: wisps (0), a giant taint seed (1), infectious vis exhaustion (2), a
+     * flux cloud on the nearest player (3) and the collapse (4). Events that are not allowed near a taint seed are
+     * skipped there.
+     * TODO: the wisps (stage 9c).
      */
     private void executeRiftEvent() {
         int total = 0;
@@ -308,9 +309,51 @@ public class EntityFluxRift extends Entity {
                 break;
             }
         }
+        Level world = level();
+        if (ei[3] == 0 && thaumcraft.common.blocks.world.taint.TaintHelper.isNearTaintSeed(world, blockPosition())) {
+            return;
+        }
         boolean didit = false;
-        if (ei[0] == 4) {
-            setCollapse(true);
+        switch (ei[0]) {
+            case 1 -> {
+                thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime seed = new thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime(world);
+                seed.moveTo((int) (getX() + random.nextGaussian() * 5.0) + 0.5, (int) (getY() + random.nextGaussian() * 5.0),
+                        (int) (getZ() + random.nextGaussian() * 5.0) + 0.5, world.random.nextInt(360), 0.0f);
+                if (seed.getCanSpawnHere() && world.addFreshEntity(seed)) {
+                    didit = true;
+                    seed.boost = getRiftSize();
+                    AuraHelper.polluteAura(world, blockPosition(), getRiftSize() / 2, true);
+                    discard();
+                }
+            }
+            case 2 -> {
+                for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(16.0))) {
+                    didit = true;
+                    if (target instanceof Player p) {
+                        p.displayClientMessage(Component.translatable("tc.fluxevent.2").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC), true);
+                    }
+                    target.addEffect(new MobEffectInstance(thaumcraft.common.registry.TCMobEffects.INFECTIOUS_VIS_EXHAUST, 3000, 2));
+                }
+            }
+            case 3 -> {
+                Player target2 = world.getNearestPlayer(this, 16.0);
+                if (target2 != null) {
+                    thaumcraft.api.casters.FocusPackage p = new thaumcraft.api.casters.FocusPackage(target2);
+                    thaumcraft.api.casters.FocusMediumRoot root = new thaumcraft.api.casters.FocusMediumRoot();
+                    root.setupFromCasterToTarget(target2, target2, 0.5);
+                    p.addNode(root);
+                    thaumcraft.common.items.casters.foci.FocusMediumCloud fp = new thaumcraft.common.items.casters.foci.FocusMediumCloud();
+                    fp.initialize();
+                    fp.getSetting("radius").setValue(Mth.nextInt(random, 1, 3));
+                    fp.getSetting("duration").setValue(Mth.nextInt(random, Math.min(getRiftSize() / 2, 30), Math.min(getRiftSize(), 120)));
+                    p.addNode(fp);
+                    p.addNode(new thaumcraft.common.items.casters.foci.FocusEffectFlux());
+                    thaumcraft.api.casters.FocusEngine.castFocusPackage(target2, p, true);
+                }
+            }
+            case 4 -> setCollapse(true);
+            default -> {
+            }
         }
         if (didit) {
             setRiftStability(getRiftStability() + ei[2]);
@@ -387,7 +430,12 @@ public class EntityFluxRift extends Entity {
         // The original's switch falls through: very unstable also gets the weakness and the warp.
         EnumStability stability = getStability();
         if (stability == EnumStability.VERY_UNSTABLE) {
-            // TODO: PotionFluxTaint (flux taint effect, not ported yet) for w * 20 ticks.
+            for (LivingEntity p : list) {
+                int w = (int) ((1.0 - p.distanceToSqr(this) / 32.0) * 120.0);
+                if (w > 0) {
+                    p.addEffect(new MobEffectInstance(thaumcraft.common.registry.TCMobEffects.FLUX_TAINT, w * 20, 0));
+                }
+            }
         }
         if (stability == EnumStability.VERY_UNSTABLE || stability == EnumStability.UNSTABLE) {
             for (LivingEntity p : list) {

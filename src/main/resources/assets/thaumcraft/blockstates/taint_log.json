@@ -1,0 +1,106 @@
+{
+  "variants": {
+    "axis=x": [
+      {
+        "model": "thaumcraft:block/log_taintwood_1_north",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_south",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_east",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_west",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_north",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_south",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_east",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_west",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "thaumcraft:block/log_taintwood_1_north"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_south"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_east"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_west"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_north"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_south"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_east"
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_west"
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "thaumcraft:block/log_taintwood_1_north",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_south",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_east",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_1_west",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_north",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_south",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_east",
+        "x": 90
+      },
+      {
+        "model": "thaumcraft:block/log_taintwood_2_west",
+        "x": 90
+      }
+    ]
+  }
+}

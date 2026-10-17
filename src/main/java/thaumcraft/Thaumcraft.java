@@ -133,6 +133,9 @@ public class Thaumcraft {
             net.minecraft.world.level.block.FireBlock fire = (net.minecraft.world.level.block.FireBlock) Blocks.FIRE;
             fire.setFlammable(ConfigBlocks.logGreatwood.get(), 5, 5);
             fire.setFlammable(ConfigBlocks.logSilverwood.get(), 5, 5);
+            // BlockTaintFibre and BlockTaintLog.getFlammability / getFireSpreadSpeed.
+            fire.setFlammable(ConfigBlocks.taintFibre.get(), 3, 3);
+            fire.setFlammable(ConfigBlocks.taintLog.get(), 4, 4);
             thaumcraft.common.world.biomes.TCBiomes.registerRegions();
             ConfigItems.registerSeals();
             thaumcraft.common.lib.utils.CropUtils.registerDefaults();

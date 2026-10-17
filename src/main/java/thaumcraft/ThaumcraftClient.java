@@ -132,6 +132,10 @@ public class ThaumcraftClient {
         event.registerBlockEntityRenderer(TCBlockEntities.GOLEM_BUILDER.get(), thaumcraft.client.renderers.tile.TileGolemBuilderRenderer::new);
         event.registerEntityRenderer(TCEntities.GOLEM.get(), thaumcraft.common.golems.client.RenderThaumcraftGolem::new);
         event.registerEntityRenderer(TCEntities.GOLEM_DART.get(), thaumcraft.client.renderers.entity.projectile.RenderDart::new);
+        event.registerEntityRenderer(TCEntities.FALLING_TAINT.get(), thaumcraft.client.renderers.entity.RenderFallingTaint::new);
+        event.registerEntityRenderer(TCEntities.BOTTLE_TAINT.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(TCEntities.TAINT_SEED.get(), thaumcraft.client.renderers.entity.mob.RenderTaintSeed::new);
+        event.registerEntityRenderer(TCEntities.TAINT_SEED_PRIME.get(), thaumcraft.client.renderers.entity.mob.RenderTaintSeed::new);
     }
 
     @SubscribeEvent

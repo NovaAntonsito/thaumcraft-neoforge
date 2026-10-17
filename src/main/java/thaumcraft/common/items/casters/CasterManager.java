@@ -20,8 +20,7 @@ import thaumcraft.common.registry.TCDataComponents;
 
 /**
  * Vis discounts, caster cooldowns and focus swapping.
- * TODO: the Baubles discounts and belt pouch (they need Curios, not a dependency yet) and the vis exhaust potions
- * (stage 9).
+ * TODO: the Baubles discounts and belt pouch (they need Curios, not a dependency yet).
  */
 public class CasterManager {
     static HashMap<Integer, Long> cooldownServer = new HashMap<>();
@@ -39,6 +38,14 @@ public class CasterManager {
             if (is.getItem() instanceof IVisDiscountGear gear) {
                 total += gear.getVisDiscount(is, player);
             }
+        }
+        // Flux Flu and Flux Phage: 10% more cost per level.
+        net.minecraft.world.effect.MobEffectInstance ve = player.getEffect(thaumcraft.common.registry.TCMobEffects.VIS_EXHAUST);
+        net.minecraft.world.effect.MobEffectInstance ive = player.getEffect(thaumcraft.common.registry.TCMobEffects.INFECTIOUS_VIS_EXHAUST);
+        if (ve != null || ive != null) {
+            int level1 = ve != null ? ve.getAmplifier() : 0;
+            int level2 = ive != null ? ive.getAmplifier() : 0;
+            total -= (Math.max(level1, level2) + 1) * 10;
         }
         return total / 100.0f;
     }

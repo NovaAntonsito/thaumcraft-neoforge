@@ -155,6 +155,16 @@ public class Config {
             .gameRestart()
             .defineInRange("biomeMagicalForestWeight", 5, 0, 100);
 
+    public static final ModConfigSpec.IntValue TAINT_SPREAD_RATE = BUILDER
+            .comment("The % chance of taint fibres spreading on a block tick.",
+                    "Setting this to 0 will effectively stop taint fibre spread.")
+            .defineInRange("taintSpreadRate", 100, 0, 500);
+
+    public static final ModConfigSpec.IntValue TAINT_SPREAD_AREA = BUILDER
+            .comment("The range at which taint can spread from a taint seed.",
+                    "This value is only a base and will be modified by flux levels.")
+            .defineInRange("taintSpreadArea", 32, 8, 256);
+
     static {
         BUILDER.pop();
     }

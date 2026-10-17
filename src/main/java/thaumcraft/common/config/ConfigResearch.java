@@ -104,6 +104,7 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Parrot.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!TaintSeed", thaumcraft.common.entities.monster.tainted.EntityTaintSeed.class, true));
         Block[] crystals = {ConfigBlocks.crystalAir.get(), ConfigBlocks.crystalFire.get(), ConfigBlocks.crystalWater.get(),
                 ConfigBlocks.crystalEarth.get(), ConfigBlocks.crystalOrder.get(), ConfigBlocks.crystalEntropy.get(), ConfigBlocks.crystalTaint.get()};
         Block[] ores = new Block[crystals.length + 2];

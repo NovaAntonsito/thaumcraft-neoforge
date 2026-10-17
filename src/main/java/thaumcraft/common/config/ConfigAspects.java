@@ -39,7 +39,7 @@ public final class ConfigAspects {
     /**
      * registerEntityTags: the aspects the thaumometer shows on creatures. The 1.12 entity names became entity
      * types; the elder guardian (an NBT flag on the guardian in 1.12) is its own type now.
-     * TODO: the Thaumcraft creatures (flux rift, firebat, pech, thaumic slime, brainy zombie, taint, eldritch
+     * TODO: the Thaumcraft creatures (flux rift, firebat, pech, thaumic slime, brainy zombie, the rest of the taint, eldritch
      * guardian, cultists, eldritch crab, wisp, golem...), once they are ported.
      */
     public static void registerEntityTags() {
@@ -96,6 +96,11 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(EntityType.PARROT, new AspectList().add(Aspect.BEAST, 5).add(Aspect.FLIGHT, 5).add(Aspect.SENSES, 5));
         ThaumcraftApi.registerEntityTag(EntityType.STRAY, new AspectList().add(Aspect.UNDEAD, 20).add(Aspect.MAN, 5).add(Aspect.TRAP, 5));
         ThaumcraftApi.registerEntityTag(EntityType.VEX, new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.FLIGHT, 5).add(Aspect.MAGIC, 5).add(Aspect.MAN, 5));
+        // The original registers the taint seeds twice; the second entries are the ones that count.
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED.get(), new AspectList().add(Aspect.FLUX, 20).add(Aspect.AURA, 10).add(Aspect.PLANT, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME.get(), new AspectList().add(Aspect.FLUX, 25).add(Aspect.AURA, 15).add(Aspect.PLANT, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED.get(), new AspectList().add(Aspect.PLANT, 20).add(Aspect.BEAST, 20).add(Aspect.FLUX, 20));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME.get(), new AspectList().add(Aspect.PLANT, 30).add(Aspect.BEAST, 30).add(Aspect.FLUX, 30));
     }
 
     /** Per item and potion, like the per-PotionType registerObjectTag calls of the original loop. */

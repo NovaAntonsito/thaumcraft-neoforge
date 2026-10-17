@@ -54,10 +54,32 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityGolemDart>of(thaumcraft.common.entities.projectile.EntityGolemDart::new, MobCategory.MISC)
                     .sized(0.2f, 0.2f).clientTrackingRange(4).updateInterval(20).build("golem_dart"));
 
+    /** ConfigEntities: "FallingTaint", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.EntityFallingTaint>> FALLING_TAINT = ENTITY_TYPES.register("falling_taint",
+            () -> EntityType.Builder.<thaumcraft.common.entities.EntityFallingTaint>of(thaumcraft.common.entities.EntityFallingTaint::new, MobCategory.MISC)
+                    .sized(0.98f, 0.98f).clientTrackingRange(4).updateInterval(3).build("falling_taint"));
+
+    /** ConfigEntities: "BottleTaint", tracked up to 64 blocks, updates every 20 ticks (10 here, like vanilla throwables). */
+    public static final Supplier<EntityType<thaumcraft.common.entities.projectile.EntityBottleTaint>> BOTTLE_TAINT = ENTITY_TYPES.register("bottle_taint",
+            () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityBottleTaint>of(thaumcraft.common.entities.projectile.EntityBottleTaint::new, MobCategory.MISC)
+                    .sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build("bottle_taint"));
+
+    /** ConfigEntities: "TaintSeed", tracked up to 64 blocks, updates every 20 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintSeed>> TAINT_SEED = ENTITY_TYPES.register("taint_seed",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintSeed>of(thaumcraft.common.entities.monster.tainted.EntityTaintSeed::new, MobCategory.MONSTER)
+                    .sized(1.5f, 1.25f).clientTrackingRange(4).updateInterval(20).build("taint_seed"));
+
+    /** ConfigEntities: "TaintSeedPrime", tracked up to 64 blocks, updates every 20 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime>> TAINT_SEED_PRIME = ENTITY_TYPES.register("taint_seed_prime",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime>of(thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime::new, MobCategory.MONSTER)
+                    .sized(2.0f, 2.0f).clientTrackingRange(4).updateInterval(20).build("taint_seed_prime"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
         event.put(SPELL_BAT.get(), thaumcraft.common.entities.monster.EntitySpellBat.createAttributes().build());
+        event.put(TAINT_SEED.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSeed.createAttributes().build());
+        event.put(TAINT_SEED_PRIME.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime.createAttributes().build());
     }
 
     private TCEntities() {
