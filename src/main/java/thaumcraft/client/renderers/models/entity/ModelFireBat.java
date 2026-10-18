@@ -16,8 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 /**
  * The 1.12 bat model, kept because the Thaumcraft bat textures use its 64x64 layout (vanilla's bat changed in 1.20.3).
- * The hanging pose belongs to the fire bat and comes with it in stage 9. tint multiplies the color, so the spell bat
- * can be drawn in its spell's color.
+ * A hanging fire bat hangs upside down. tint multiplies the color, so the spell bat can be drawn in its spell's color.
  */
 public class ModelFireBat<T extends Entity> extends EntityModel<T> {
     private final ModelPart batHead;
@@ -62,18 +61,34 @@ public class ModelFireBat<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        batHead.xRot = headPitch / 57.295776f;
-        batHead.yRot = netHeadYaw / 57.295776f;
-        batHead.zRot = 0.0f;
-        batHead.setPos(0.0f, 0.0f, 0.0f);
-        batRightWing.setPos(0.0f, 0.0f, 0.0f);
-        batLeftWing.setPos(0.0f, 0.0f, 0.0f);
-        batBody.xRot = 0.7853982f + Mth.cos(ageInTicks * 0.1f) * 0.15f;
-        batBody.yRot = 0.0f;
-        batRightWing.yRot = Mth.cos(ageInTicks * 1.3f) * 3.1415927f * 0.25f;
-        batLeftWing.yRot = -batRightWing.yRot;
-        batOuterRightWing.yRot = batRightWing.yRot * 0.5f;
-        batOuterLeftWing.yRot = -batRightWing.yRot * 0.5f;
+        if (entity instanceof thaumcraft.common.entities.monster.EntityFireBat bat && bat.getIsBatHanging()) {
+            batHead.xRot = headPitch / 57.295776f;
+            batHead.yRot = 3.1415927f - netHeadYaw / 57.295776f;
+            batHead.zRot = 3.1415927f;
+            batHead.setPos(0.0f, -2.0f, 0.0f);
+            batRightWing.setPos(-3.0f, 0.0f, 3.0f);
+            batLeftWing.setPos(3.0f, 0.0f, 3.0f);
+            batBody.xRot = 3.1415927f;
+            batRightWing.xRot = -0.15707964f;
+            batRightWing.yRot = -1.2566371f;
+            batOuterRightWing.yRot = -1.7278761f;
+            batLeftWing.xRot = batRightWing.xRot;
+            batLeftWing.yRot = -batRightWing.yRot;
+            batOuterLeftWing.yRot = -batOuterRightWing.yRot;
+        } else {
+            batHead.xRot = headPitch / 57.295776f;
+            batHead.yRot = netHeadYaw / 57.295776f;
+            batHead.zRot = 0.0f;
+            batHead.setPos(0.0f, 0.0f, 0.0f);
+            batRightWing.setPos(0.0f, 0.0f, 0.0f);
+            batLeftWing.setPos(0.0f, 0.0f, 0.0f);
+            batBody.xRot = 0.7853982f + Mth.cos(ageInTicks * 0.1f) * 0.15f;
+            batBody.yRot = 0.0f;
+            batRightWing.yRot = Mth.cos(ageInTicks * 1.3f) * 3.1415927f * 0.25f;
+            batLeftWing.yRot = -batRightWing.yRot;
+            batOuterRightWing.yRot = batRightWing.yRot * 0.5f;
+            batOuterLeftWing.yRot = -batRightWing.yRot * 0.5f;
+        }
     }
 
     @Override

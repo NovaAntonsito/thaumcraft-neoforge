@@ -1900,5 +1900,17 @@
   "item.thaumcraft.loot_bag_uncommon": "Uncommon Treasure",
   "item.thaumcraft.loot_bag_rare": "Rare Treasure",
   "attribute.thaumcraft.mobmod": "Champion modifier",
-  "attribute.thaumcraft.mobmodtaint": "Tainted modifier"
+  "attribute.thaumcraft.mobmodtaint": "Tainted modifier",
+  "entity.thaumcraft.thaum_slime": "Thaumic Slime",
+  "item.thaumcraft.thaum_slime_spawn_egg": "Thaumic Slime Spawn Egg",
+  "entity.thaumcraft.brainy_zombie": "Angry Zombie",
+  "item.thaumcraft.brainy_zombie_spawn_egg": "Angry Zombie Spawn Egg",
+  "entity.thaumcraft.giant_brainy_zombie": "Furious Zombie",
+  "item.thaumcraft.giant_brainy_zombie_spawn_egg": "Furious Zombie Spawn Egg",
+  "entity.thaumcraft.wisp": "Wisp",
+  "item.thaumcraft.wisp_spawn_egg": "Wisp Spawn Egg",
+  "entity.thaumcraft.firebat": "Firebat",
+  "item.thaumcraft.firebat_spawn_egg": "Firebat Spawn Egg",
+  "entity.thaumcraft.mind_spider": "Mind Spider",
+  "item.thaumcraft.mind_spider_spawn_egg": "Mind Spider Spawn Egg"
 }

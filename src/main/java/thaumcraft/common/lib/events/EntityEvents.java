@@ -5,7 +5,6 @@ import java.util.Map;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
@@ -24,8 +23,6 @@ import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -47,6 +44,7 @@ import thaumcraft.api.entities.ITaintedMob;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.construct.EntityOwnedConstruct;
+import thaumcraft.common.entities.monster.EntityBrainyZombie;
 import thaumcraft.common.entities.monster.mods.ChampionModTainted;
 import thaumcraft.common.entities.monster.mods.ChampionModifier;
 import thaumcraft.common.entities.monster.tainted.EntityTaintacle;
@@ -151,12 +149,7 @@ public final class EntityEvents {
         if (world.isClientSide) return;
         Entity killer = event.getSource().getEntity();
         boolean fakeplayer = killer instanceof FakePlayer;
-        int looting = 0;
-        if (killer instanceof LivingEntity le) {
-            Holder<net.minecraft.world.item.enchantment.Enchantment> l = world.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                    .getHolderOrThrow(Enchantments.LOOTING);
-            looting = EnchantmentHelper.getEnchantmentLevel(l, le);
-        }
+        int looting = EntityUtils.getLootingLevel(world, event.getSource());
         int t = EntityUtils.getChampionMod(entity);
         // TODO: not for EntityThaumcraftBoss (eldritch stage).
         if (event.isRecentlyHit() && !fakeplayer && entity instanceof Monster && t >= 0 && t != 13) {
@@ -170,8 +163,7 @@ public final class EntityEvents {
             ItemStack bag = new ItemStack(lb == 2 ? ConfigItems.lootBagRare.get() : lb == 1 ? ConfigItems.lootBagUncommon.get() : ConfigItems.lootBagCommon.get());
             event.getDrops().add(new ItemEntity(world, entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(), bag));
         }
-        // TODO: not for EntityBrainyZombie (stage 9c-2), it drops its own brain.
-        if (entity instanceof Zombie && event.isRecentlyHit() && world.random.nextInt(10) - looting < 1) {
+        if (entity instanceof Zombie && !(entity instanceof EntityBrainyZombie) && event.isRecentlyHit() && world.random.nextInt(10) - looting < 1) {
             event.getDrops().add(new ItemEntity(world, entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(),
                     new ItemStack(ConfigItems.brain.get())));
         }

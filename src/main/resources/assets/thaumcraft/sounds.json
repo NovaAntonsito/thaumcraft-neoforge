@@ -294,5 +294,19 @@
     "sounds": [
       "thaumcraft:coins"
     ]
+  },
+  "wisplive": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:wisplive1",
+      "thaumcraft:wisplive2",
+      "thaumcraft:wisplive3"
+    ]
+  },
+  "wispdead": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:wispdead"
+    ]
   }
 }

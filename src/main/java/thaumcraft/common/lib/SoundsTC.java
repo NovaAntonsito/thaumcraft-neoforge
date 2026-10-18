@@ -46,6 +46,8 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> BRAIN = register("brain");
     public static final Supplier<SoundEvent> CRYSTAL = register("crystal");
     public static final Supplier<SoundEvent> GORE = register("gore");
+    public static final Supplier<SoundEvent> WISPLIVE = register("wisplive");
+    public static final Supplier<SoundEvent> WISPDEAD = register("wispdead");
     public static final Supplier<SoundEvent> TENTACLE = register("tentacle");
     public static final Supplier<SoundEvent> SWARM = register("swarm");
     public static final Supplier<SoundEvent> SWARMATTACK = register("swarmattack");

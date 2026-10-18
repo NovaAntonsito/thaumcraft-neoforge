@@ -133,6 +133,20 @@ public final class ConfigItems {
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintacleGiantSpawnEgg = ITEMS.registerItem("taintacle_giant_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINTACLE_GIANT, 6842578, 10618530, p));
 
+    // Stage 9c-2.
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> thaumSlimeSpawnEgg = ITEMS.registerItem("thaum_slime_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.THAUMIC_SLIME, 10618530, -32513, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> brainyZombieSpawnEgg = ITEMS.registerItem("brainy_zombie_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.BRAINY_ZOMBIE, -16129, -16744448, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> giantBrainyZombieSpawnEgg = ITEMS.registerItem("giant_brainy_zombie_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.GIANT_BRAINY_ZOMBIE, -16129, -16760832, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> wispSpawnEgg = ITEMS.registerItem("wisp_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.WISP, -16129, -1, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> fireBatSpawnEgg = ITEMS.registerItem("firebat_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.FIRE_BAT, -16129, -806354944, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> mindSpiderSpawnEgg = ITEMS.registerItem("mind_spider_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.MIND_SPIDER, 4996656, 4473924, p));
+
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =
             ITEMS.registerItem("golem", thaumcraft.common.golems.ItemGolemPlacer::new);

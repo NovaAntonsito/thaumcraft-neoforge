@@ -1,0 +1,19 @@
+{
+  "type": "thaumcraft:config_spawns",
+  "option": "angry_zombie",
+  "biomes": "thaumcraft:eerie",
+  "spawners": [
+    {
+      "type": "thaumcraft:brainy_zombie",
+      "weight": 32,
+      "minCount": 1,
+      "maxCount": 1
+    },
+    {
+      "type": "thaumcraft:giant_brainy_zombie",
+      "weight": 8,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

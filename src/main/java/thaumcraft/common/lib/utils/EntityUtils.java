@@ -225,4 +225,13 @@ public final class EntityUtils {
         apply(target.getAttribute(Attributes.ATTACK_DAMAGE), TAINTED_DAMAGE);
         target.heal(25.0f);
     }
+    /** The looting level of whoever caused the damage (LivingDropsEvent.getLootingLevel and dropLoot of 1.12). */
+    public static int getLootingLevel(Level world, net.minecraft.world.damagesource.DamageSource source) {
+        if (source.getEntity() instanceof LivingEntity le) {
+            return net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentLevel(world.registryAccess()
+                    .registryOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                    .getHolderOrThrow(net.minecraft.world.item.enchantment.Enchantments.LOOTING), le);
+        }
+        return 0;
+    }
 }

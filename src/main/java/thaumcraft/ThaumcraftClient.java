@@ -99,6 +99,7 @@ public class ThaumcraftClient {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unchecked")
     static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TCBlockEntities.CRUCIBLE.get(), TileCrucibleRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.JAR.get(), TileJarRenderer::new);
@@ -142,6 +143,13 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.TAINTACLE_GIANT.get(), ctx -> new thaumcraft.client.renderers.entity.mob.RenderTaintacle(ctx, 1.0f, 14));
         // RenderTaintSwarm drew nothing: the swarm is its particles.
         event.registerEntityRenderer(TCEntities.TAINT_SWARM.get(), net.minecraft.client.renderer.entity.NoopRenderer::new);
+        // Stage 9c-2: overworld mobs.
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Slime>) (Object) TCEntities.THAUMIC_SLIME.get(), thaumcraft.client.renderers.entity.mob.RenderThaumicSlime::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Zombie>) (Object) TCEntities.BRAINY_ZOMBIE.get(), thaumcraft.client.renderers.entity.mob.RenderBrainyZombie::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Zombie>) (Object) TCEntities.GIANT_BRAINY_ZOMBIE.get(), thaumcraft.client.renderers.entity.mob.RenderBrainyZombie::new);
+        event.registerEntityRenderer(TCEntities.WISP.get(), thaumcraft.client.renderers.entity.mob.RenderWisp::new);
+        event.registerEntityRenderer(TCEntities.FIRE_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderFireBat::new);
+        event.registerEntityRenderer(TCEntities.MIND_SPIDER.get(), thaumcraft.client.renderers.entity.mob.RenderMindSpider::new);
     }
 
     /** LayerTainted on every living renderer. */

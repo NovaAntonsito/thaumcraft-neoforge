@@ -99,6 +99,36 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.boss.EntityTaintacleGiant>of(thaumcraft.common.entities.monster.boss.EntityTaintacleGiant::new, MobCategory.MONSTER)
                     .sized(1.1f, 6.0f).clientTrackingRange(6).updateInterval(3).build("taintacle_giant"));
 
+    /** ConfigEntities: "ThaumSlime", tracked up to 64 blocks, updates every 3 ticks. Its size scales this box. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityThaumicSlime>> THAUMIC_SLIME = ENTITY_TYPES.register("thaum_slime",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityThaumicSlime>of(thaumcraft.common.entities.monster.EntityThaumicSlime::new, MobCategory.MONSTER)
+                    .sized(0.51000005f, 0.51000005f).eyeHeight(0.325f).clientTrackingRange(4).updateInterval(3).build("thaum_slime"));
+
+    /** ConfigEntities: "BrainyZombie", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityBrainyZombie>> BRAINY_ZOMBIE = ENTITY_TYPES.register("brainy_zombie",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityBrainyZombie>of(thaumcraft.common.entities.monster.EntityBrainyZombie::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.95f).eyeHeight(1.74f).passengerAttachments(2.0125f).ridingOffset(-0.7f).clientTrackingRange(4).updateInterval(3).build("brainy_zombie"));
+
+    /** ConfigEntities: "GiantBrainyZombie", tracked up to 64 blocks, updates every 3 ticks. It grows when angry. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityGiantBrainyZombie>> GIANT_BRAINY_ZOMBIE = ENTITY_TYPES.register("giant_brainy_zombie",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityGiantBrainyZombie>of(thaumcraft.common.entities.monster.EntityGiantBrainyZombie::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.95f).eyeHeight(1.74f).passengerAttachments(2.0125f).ridingOffset(-0.7f).clientTrackingRange(4).updateInterval(3).build("giant_brainy_zombie"));
+
+    /** ConfigEntities: "Wisp", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityWisp>> WISP = ENTITY_TYPES.register("wisp",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityWisp>of(thaumcraft.common.entities.monster.EntityWisp::new, MobCategory.MONSTER)
+                    .sized(0.9f, 0.9f).clientTrackingRange(4).updateInterval(3).build("wisp"));
+
+    /** ConfigEntities: "Firebat", tracked up to 64 blocks, updates every 3 ticks. Immune to fire. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityFireBat>> FIRE_BAT = ENTITY_TYPES.register("firebat",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityFireBat>of(thaumcraft.common.entities.monster.EntityFireBat::new, MobCategory.MONSTER)
+                    .sized(0.5f, 0.9f).fireImmune().clientTrackingRange(4).updateInterval(3).build("firebat"));
+
+    /** ConfigEntities: "MindSpider", tracked up to 64 blocks, updates every 3 ticks. Eye height 0.45. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityMindSpider>> MIND_SPIDER = ENTITY_TYPES.register("mind_spider",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityMindSpider>of(thaumcraft.common.entities.monster.EntityMindSpider::new, MobCategory.MONSTER)
+                    .sized(0.7f, 0.5f).eyeHeight(0.45f).clientTrackingRange(4).updateInterval(3).build("mind_spider"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
@@ -110,6 +140,24 @@ public final class TCEntities {
         event.put(TAINTACLE_SMALL.get(), thaumcraft.common.entities.monster.tainted.EntityTaintacleSmall.createAttributes().build());
         event.put(TAINT_SWARM.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.createAttributes().build());
         event.put(TAINTACLE_GIANT.get(), thaumcraft.common.entities.monster.boss.EntityTaintacleGiant.createAttributes().build());
+        event.put(THAUMIC_SLIME.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
+        event.put(BRAINY_ZOMBIE.get(), thaumcraft.common.entities.monster.EntityBrainyZombie.createAttributes().build());
+        event.put(GIANT_BRAINY_ZOMBIE.get(), thaumcraft.common.entities.monster.EntityGiantBrainyZombie.createAttributes().build());
+        event.put(WISP.get(), thaumcraft.common.entities.monster.EntityWisp.createAttributes().build());
+        event.put(FIRE_BAT.get(), thaumcraft.common.entities.monster.EntityFireBat.createAttributes().build());
+        event.put(MIND_SPIDER.get(), thaumcraft.common.entities.monster.EntityMindSpider.createAttributes().build());
+    }
+
+    /** Where the mobs that spawn on their own may appear (getCanSpawnHere of the original). */
+    public static void registerSpawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event) {
+        event.register(BRAINY_ZOMBIE.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(GIANT_BRAINY_ZOMBIE.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(FIRE_BAT.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                thaumcraft.common.entities.monster.EntityFireBat::checkFireBatSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(WISP.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                thaumcraft.common.entities.monster.EntityWisp::checkWispSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     private TCEntities() {

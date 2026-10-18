@@ -105,6 +105,14 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED.get(), new AspectList().add(Aspect.PLANT, 20).add(Aspect.BEAST, 20).add(Aspect.FLUX, 20));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME.get(), new AspectList().add(Aspect.PLANT, 30).add(Aspect.BEAST, 30).add(Aspect.FLUX, 30));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINTACLE_GIANT.get(), new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.BEAST, 40).add(Aspect.FLUX, 40));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.FIRE_BAT.get(), new AspectList().add(Aspect.BEAST, 5).add(Aspect.FLIGHT, 5).add(Aspect.FIRE, 10));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.THAUMIC_SLIME.get(), new AspectList().add(Aspect.LIFE, 5).add(Aspect.WATER, 5).add(Aspect.FLUX, 5).add(Aspect.ALCHEMY, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.BRAINY_ZOMBIE.get(), new AspectList().add(Aspect.UNDEAD, 20).add(Aspect.MAN, 10).add(Aspect.MIND, 5).add(Aspect.AVERSION, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.GIANT_BRAINY_ZOMBIE.get(), new AspectList().add(Aspect.UNDEAD, 25).add(Aspect.MAN, 15).add(Aspect.MIND, 5).add(Aspect.AVERSION, 10));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.MIND_SPIDER.get(), new AspectList().add(Aspect.FLUX, 5).add(Aspect.FIRE, 5));
+        for (Aspect tag : Aspect.aspects.values()) {
+            ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.WISP.get(), new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new EntityTagsNBT("Type", tag.getTag()));
+        }
     }
 
     /** Per item and potion, like the per-PotionType registerObjectTag calls of the original loop. */

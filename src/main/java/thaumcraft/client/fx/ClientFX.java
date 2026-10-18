@@ -491,4 +491,19 @@ public final class ClientFX {
         world.addParticle(new net.minecraft.core.particles.ItemParticleOption(ParticleTypes.ITEM, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SLIME_BALL)),
                 e.getX() + Mth.sin(f) * w * 0.5f * f2, e.getBoundingBox().minY, e.getZ() + Mth.cos(f) * w * 0.5f * f2, 0, 0, 0);
     }
+    /** FXDispatcher.burst: a flash where a wisp appears (scale 10) or dies (scale 1). TODO: FXBurst (stage 10). */
+    public static void burst(double x, double y, double z, float scale) {
+        ClientLevel world = Minecraft.getInstance().level;
+        if (world == null) return;
+        if (scale >= 5.0f) world.addParticle(ParticleTypes.FLASH, x, y, z, 0, 0, 0);
+        RandomSource rand = world.random;
+        for (int i = 0; i < 4 + (int) scale; ++i) {
+            world.addParticle(ParticleTypes.END_ROD, x, y, z, rand.nextGaussian() * 0.05, rand.nextGaussian() * 0.05, rand.nextGaussian() * 0.05);
+        }
+    }
+
+    /** FXDispatcher.drawWispParticles: motes of the wisp's color around it. TODO: FXWisp (stage 10); dust for now. */
+    public static void drawWispParticles(Level world, double x, double y, double z, int color) {
+        world.addParticle(new DustParticleOptions(rgb(color), 0.5f + world.random.nextFloat() * 0.3f), x, y, z, 0, 0, 0);
+    }
 }

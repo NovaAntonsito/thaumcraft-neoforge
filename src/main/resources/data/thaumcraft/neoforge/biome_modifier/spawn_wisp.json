@@ -1,0 +1,13 @@
+{
+  "type": "thaumcraft:config_spawns",
+  "option": "wisp",
+  "biomes": "#minecraft:is_nether",
+  "spawners": [
+    {
+      "type": "thaumcraft:wisp",
+      "weight": 5,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

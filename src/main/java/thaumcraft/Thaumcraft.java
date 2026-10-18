@@ -86,10 +86,12 @@ public class Thaumcraft {
         thaumcraft.common.registry.TCParticles.PARTICLE_TYPES.register(modEventBus);
         thaumcraft.common.registry.TCAttributes.ATTRIBUTES.register(modEventBus);
         thaumcraft.common.registry.TCFeatures.FEATURES.register(modEventBus);
+        thaumcraft.common.registry.TCBiomeModifiers.SERIALIZERS.register(modEventBus);
         modEventBus.addListener(Thaumcraft::onCommonSetup);
         modEventBus.addListener(Thaumcraft::onRegisterCapabilities);
         modEventBus.addListener(TCNetwork::register);
         modEventBus.addListener(TCEntities::registerAttributes);
+        modEventBus.addListener(TCEntities::registerSpawnPlacements);
         modEventBus.addListener(thaumcraft.common.registry.TCAttributes::addToEntities);
 
         // Game bus: server events.

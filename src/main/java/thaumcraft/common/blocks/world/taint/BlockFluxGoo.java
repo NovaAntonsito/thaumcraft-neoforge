@@ -24,6 +24,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import thaumcraft.api.aura.AuraHelper;
 import thaumcraft.client.fx.ClientFX;
+import thaumcraft.common.entities.monster.EntityThaumicSlime;
 import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.registry.TCMobEffects;
 
@@ -34,9 +35,8 @@ import thaumcraft.common.registry.TCMobEffects;
  * 6000, and on random ticks).
  * <p>
  * Anything in it is slowed, and living creatures get Flux Flu for 30 seconds, stronger the fuller the goo. Little by
- * little it evaporates into flux, and the last bit may turn into taint fibres.
- * TODO: thaumic slimes (stage 9c): a 1 in 50 chance each tick of the goo crawling out as a slime, and slimes
- * growing by soaking it up.
+ * little it evaporates into flux, and the last bit may turn into taint fibres. Thaumic slimes crawl out of it and
+ * grow by soaking it up.
  */
 public class BlockFluxGoo extends Block {
     public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 7);
@@ -62,7 +62,17 @@ public class BlockFluxGoo extends Block {
     @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         int md = state.getValue(LEVEL);
-        // TODO stage 9c: a thaumic slime smaller than the goo level may soak up one level and grow.
+        if (entity instanceof EntityThaumicSlime slime) {
+            if (slime.getSize() < md && world.random.nextBoolean()) {
+                slime.setSize(slime.getSize() + 1, true);
+                if (md > 1) {
+                    world.setBlock(pos, state.setValue(LEVEL, md - 1), Block.UPDATE_CLIENTS);
+                } else {
+                    world.removeBlock(pos, false);
+                }
+            }
+            return;
+        }
         float q = quantaPercentage(state);
         Vec3 m = entity.getDeltaMovement();
         entity.setDeltaMovement(m.x * (1.0f - q), m.y, m.z * (1.0f - q));
@@ -79,7 +89,15 @@ public class BlockFluxGoo extends Block {
     @Override
     protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
         int meta = state.getValue(LEVEL);
-        // TODO stage 9c: from level 2 with air above, 1 in 50 to become a thaumic slime (size 1, or 2 from level 6).
+        if (meta >= 2 && world.isEmptyBlock(pos.above()) && rand.nextInt(50) == 0) {
+            world.removeBlock(pos, false);
+            EntityThaumicSlime slime = new EntityThaumicSlime(world);
+            slime.moveTo(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, 0.0f, 0.0f);
+            slime.setSize(meta >= 6 ? 2 : 1, true);
+            world.addFreshEntity(slime);
+            slime.playSound(SoundsTC.GORE.get(), 1.0f, 1.0f);
+            return;
+        }
         if (rand.nextInt(4) == 0) {
             if (meta == 0) {
                 if (rand.nextBoolean()) {

@@ -1,0 +1,14 @@
+{
+  "type": "thaumcraft:config_spawns",
+  "option": "angry_zombie",
+  "only_with_monsters": true,
+  "biomes": "#minecraft:is_overworld",
+  "spawners": [
+    {
+      "type": "thaumcraft:brainy_zombie",
+      "weight": 10,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

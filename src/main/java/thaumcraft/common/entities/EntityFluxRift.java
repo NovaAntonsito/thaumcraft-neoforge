@@ -295,7 +295,6 @@ public class EntityFluxRift extends Entity {
      * RandomItemChooser over the flux events: wisps (0), a giant taint seed (1), infectious vis exhaustion (2), a
      * flux cloud on the nearest player (3) and the collapse (4). Events that are not allowed near a taint seed are
      * skipped there.
-     * TODO: the wisps (stage 9c).
      */
     private void executeRiftEvent() {
         int total = 0;
@@ -315,6 +314,16 @@ public class EntityFluxRift extends Entity {
         }
         boolean didit = false;
         switch (ei[0]) {
+            case 0 -> {
+                thaumcraft.common.entities.monster.EntityWisp wisp = new thaumcraft.common.entities.monster.EntityWisp(world);
+                wisp.moveTo(getX() + random.nextGaussian() * 5.0, getY() + random.nextGaussian() * 5.0, getZ() + random.nextGaussian() * 5.0, 0.0f, 0.0f);
+                if (world.random.nextInt(5) == 0) {
+                    wisp.setWispType(thaumcraft.api.aspects.Aspect.FLUX.getTag());
+                }
+                if (wisp.getCanSpawnHere() && world.addFreshEntity(wisp)) {
+                    didit = true;
+                }
+            }
             case 1 -> {
                 thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime seed = new thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime(world);
                 seed.moveTo((int) (getX() + random.nextGaussian() * 5.0) + 0.5, (int) (getY() + random.nextGaussian() * 5.0),

@@ -76,8 +76,8 @@ public final class ConfigResearch {
     /**
      * The things the thaumometer learns from. The "![aspect]" triggers come first, as the original added them
      * when each aspect was created.
-     * TODO: the Thaumcraft mobs (wisp, pech, firebat, taint, cultists, golems, flux rift...), the ancient and eldritch stones,
-     * primordial pearl, zombie brain, pech wand and void seed, once they are ported. ScanSky (celestial notes)
+     * TODO: the Thaumcraft mobs still missing (pech, cultists, eldritch...), the ancient and eldritch stones,
+     * primordial pearl, pech wand and void seed, once they are ported. ScanSky (celestial notes)
      * waits for the celestial notes item.
      */
     private static void initScannables() {
@@ -100,11 +100,18 @@ public final class ConfigResearch {
         BuiltInRegistries.MOB_EFFECT.holders().forEach(h -> ScanningManager.addScannableThing(new ScanPotion(h)));
         ScanningManager.addScannableThing(new ScanEntity("f_SPIDER", Spider.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_BAT", Bat.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("f_BAT", thaumcraft.common.entities.monster.EntityFireBat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Bat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Parrot.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("f_FLY", thaumcraft.common.entities.monster.EntityFireBat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("f_FLY", thaumcraft.common.entities.monster.EntityWisp.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!Wisp", thaumcraft.common.entities.monster.EntityWisp.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!ThaumSlime", thaumcraft.common.entities.monster.EntityThaumicSlime.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!Firebat", thaumcraft.common.entities.monster.EntityFireBat.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!BrainyZombie", thaumcraft.common.entities.monster.EntityBrainyZombie.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintCrawler", thaumcraft.common.entities.monster.tainted.EntityTaintCrawler.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Taintacle", thaumcraft.common.entities.monster.tainted.EntityTaintacle.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintSeed", thaumcraft.common.entities.monster.tainted.EntityTaintSeed.class, true));
@@ -138,6 +145,8 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanBlock("f_TELEPORT", Blocks.NETHER_PORTAL, Blocks.END_PORTAL, Blocks.END_PORTAL_FRAME));
         ScanningManager.addScannableThing(new ScanItem("f_TELEPORT", new ItemStack(Items.ENDER_PEARL)));
         ScanningManager.addScannableThing(new ScanEntity("f_TELEPORT", EnderMan.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("f_BRAIN", thaumcraft.common.entities.monster.EntityBrainyZombie.class, true));
+        ScanningManager.addScannableThing(new thaumcraft.api.research.ScanItem("f_BRAIN", new net.minecraft.world.item.ItemStack(ConfigItems.brain.get())));
         ScanningManager.addScannableThing(new ScanBlock("f_DISPENSER", Blocks.DISPENSER));
         ScanningManager.addScannableThing(new ScanItem("f_DISPENSER", new ItemStack(Blocks.DISPENSER)));
         ScanningManager.addScannableThing(new ScanItem("f_MATCLAY", new ItemStack(Items.CLAY_BALL)));
