@@ -1,0 +1,43 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "VERDANTCHARMS",
+  "instability": 5,
+  "aspects": {
+    "victus": 60,
+    "ordo": 30,
+    "herba": 60
+  },
+  "central": {
+    "item": "thaumcraft:amulet_fancy"
+  },
+  "components": [
+    {
+      "item": "thaumcraft:nugget_rareearth"
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "victus": 1
+        }
+      }
+    },
+    {
+      "item": "minecraft:milk_bucket"
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "herba": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:verdant_charm",
+    "count": 1
+  }
+}

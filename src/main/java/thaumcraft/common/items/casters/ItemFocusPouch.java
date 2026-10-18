@@ -16,7 +16,7 @@ import thaumcraft.common.container.ContainerFocusPouch;
 
 /**
  * The focus pouch: 18 slots for foci. Changing the caster's focus looks in it first and puts the old focus back in it.
- * 1.21: the contents are the vanilla container component. The belt slot (Baubles) waits for Curios support.
+ * It can be worn in the Curios belt slot. 1.21: the contents are the vanilla container component.
  */
 public class ItemFocusPouch extends Item {
     public ItemFocusPouch(Item.Properties properties) {

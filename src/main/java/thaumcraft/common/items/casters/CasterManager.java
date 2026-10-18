@@ -16,11 +16,11 @@ import thaumcraft.api.casters.FocusPackage;
 import thaumcraft.api.casters.ICaster;
 import thaumcraft.api.items.IVisDiscountGear;
 import thaumcraft.common.lib.SoundsTC;
+import thaumcraft.common.lib.utils.BaublesHelper;
 import thaumcraft.common.registry.TCDataComponents;
 
 /**
  * Vis discounts, caster cooldowns and focus swapping.
- * TODO: the Baubles discounts and belt pouch (they need Curios, not a dependency yet).
  */
 public class CasterManager {
     static HashMap<Integer, Long> cooldownServer = new HashMap<>();
@@ -32,6 +32,11 @@ public class CasterManager {
         int total = 0;
         if (player == null) {
             return 0.0f;
+        }
+        for (ItemStack bauble : BaublesHelper.getBaubles(player)) {
+            if (bauble.getItem() instanceof IVisDiscountGear gear) {
+                total += gear.getVisDiscount(bauble, player);
+            }
         }
         for (EquipmentSlot slot : ARMOR) {
             ItemStack is = player.getItemBySlot(slot);
@@ -70,7 +75,7 @@ public class CasterManager {
     /**
      * Mounts the focus with this sorting key (or the next one), taking it from the inventory or a focus pouch, and puts
      * the old focus in a pouch or the inventory. "REMOVE" takes the focus off.
-     * 1.21: pouches are only looked for in the main inventory (no Baubles belt slot until Curios support).
+     * Pouches worn as baubles come first. Their slots are kept as -1 - bauble slot, inventory slots as they are.
      */
     public static void changeFocus(ItemStack is, Level w, Player player, String focus) {
         ICaster wand = (ICaster) is.getItem();
@@ -78,6 +83,24 @@ public class CasterManager {
         HashMap<Integer, Integer> pouches = new HashMap<>();
         int pouchcount = 0;
         ItemStack item;
+        net.neoforged.neoforge.items.IItemHandlerModifiable baubles = BaublesHelper.getBaublesHandler(player);
+        for (int a = 0; baubles != null && a < baubles.getSlots(); ++a) {
+            item = baubles.getStackInSlot(a);
+            if (item.getItem() instanceof ItemFocusPouch fp) {
+                ++pouchcount;
+                pouches.put(pouchcount, -1 - a);
+                NonNullList<ItemStack> inv = fp.getInventory(item);
+                for (int q = 0; q < inv.size(); ++q) {
+                    ItemStack in = inv.get(q);
+                    if (in.getItem() instanceof ItemFocus f) {
+                        String sh = f.getSortingHelper(in);
+                        if (sh != null) {
+                            foci.put(sh, q + pouchcount * 1000);
+                        }
+                    }
+                }
+            }
+        }
         for (int a = 0; a < 36; ++a) {
             item = player.getInventory().items.get(a);
             if (item.getItem() instanceof ItemFocus f) {
@@ -125,7 +148,7 @@ public class CasterManager {
             if (pouches.containsKey(pid)) {
                 int pouchslot = pouches.get(pid);
                 int focusslot = slot - pid * 1000;
-                item = fetchFocusFromPouch(player, focusslot, player.getInventory().items.get(pouchslot), pouchslot);
+                item = fetchFocusFromPouch(player, focusslot, getPouch(player, pouchslot), pouchslot);
             }
         }
         if (item.isEmpty()) {
@@ -154,14 +177,27 @@ public class CasterManager {
             focus = contents.copy();
             inv.set(focusid, ItemStack.EMPTY);
             fp.setInventory(pouch, inv);
-            player.getInventory().setChanged();
+            storePouch(player, pouch, pouchslot);
         }
         return focus;
     }
 
+    /** The pouch at a slot from changeFocus: the inventory for 0 and up, a bauble slot for -1 and down. */
+    private static ItemStack getPouch(Player player, int pouchslot) {
+        return pouchslot >= 0 ? player.getInventory().items.get(pouchslot) : BaublesHelper.getStackInSlot(player, -1 - pouchslot);
+    }
+
+    private static void storePouch(Player player, ItemStack pouch, int pouchslot) {
+        if (pouchslot >= 0) {
+            player.getInventory().setChanged();
+        } else {
+            BaublesHelper.setStackInSlot(player, -1 - pouchslot, pouch);
+        }
+    }
+
     private static boolean addFocusToPouch(Player player, ItemStack focus, HashMap<Integer, Integer> pouches) {
         for (Integer pouchslot : pouches.values()) {
-            ItemStack pouch = player.getInventory().items.get(pouchslot);
+            ItemStack pouch = getPouch(player, pouchslot);
             if (!(pouch.getItem() instanceof ItemFocusPouch fp)) {
                 continue;
             }
@@ -170,7 +206,7 @@ public class CasterManager {
                 if (inv.get(q).isEmpty()) {
                     inv.set(q, focus.copy());
                     fp.setInventory(pouch, inv);
-                    player.getInventory().setChanged();
+                    storePouch(player, pouch, pouchslot);
                     return true;
                 }
             }

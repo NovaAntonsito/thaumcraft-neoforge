@@ -459,6 +459,13 @@ public class ThaumcraftClient {
             ItemPropertyFunction linked = (stack, level, entity, seed) -> stack.has(TCDataComponents.MIRROR_LINK.get()) ? 1.0f : 0.0f;
             ItemProperties.register(ConfigBlocks.mirror.get().asItem(), Thaumcraft.id("linked"), linked);
             ItemProperties.register(ConfigBlocks.mirrorEssentia.get().asItem(), Thaumcraft.id("linked"), linked);
+            ItemProperties.register(ConfigItems.verdantCharm.get(), Thaumcraft.id("type"),
+                    (stack, level, entity, seed) -> thaumcraft.common.items.baubles.ItemVerdantCharm.getType(stack));
+            // Head baubles drawn on the player (Curios).
+            top.theillusivec4.curios.api.client.CuriosRendererRegistry.register(ConfigItems.goggles.get(),
+                    () -> new thaumcraft.client.renderers.item.RenderBaubleHead(Thaumcraft.id("textures/items/goggles_bauble.png")));
+            top.theillusivec4.curios.api.client.CuriosRendererRegistry.register(ConfigItems.curiosityBand.get(),
+                    () -> new thaumcraft.client.renderers.item.RenderBaubleHead(Thaumcraft.id("textures/items/curiosity_band_worn.png")));
         });
     }
 }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:ring_mundane",
+    "thaumcraft:ring_apprentice",
+    "thaumcraft:ring_fancy",
+    "thaumcraft:cloud_ring"
+  ]
+}

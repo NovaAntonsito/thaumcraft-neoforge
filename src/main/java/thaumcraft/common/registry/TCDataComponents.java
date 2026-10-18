@@ -117,6 +117,9 @@ public final class TCDataComponents {
     /** ItemBootsTraveller "energy": seconds left before the boots use up another point of charge. */
     public static final Supplier<DataComponentType<Integer>> BOOTS_ENERGY = DATA_COMPONENTS.registerComponentType("boots_energy",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+    /** ItemVerdantCharm "type": 0 plain, 1 lifegiver, 2 sustainer. */
+    public static final Supplier<DataComponentType<Integer>> VERDANT_TYPE = DATA_COMPONENTS.registerComponentType("verdant_type",
+            builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
     /** ItemFortressArmor "mask": 0 grinning devil, 1 angry ghost, 2 sipping fiend. */
     public static final Supplier<DataComponentType<Integer>> FORTRESS_MASK = DATA_COMPONENTS.registerComponentType("fortress_mask",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));

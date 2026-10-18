@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thaumcraft:baubles_stuff",
+  "pattern": [
+    " L ",
+    "L L",
+    " I "
+  ],
+  "key": {
+    "L": {
+      "tag": "c:leathers"
+    },
+    "I": {
+      "tag": "c:ingots/brass"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:girdle_mundane",
+    "count": 1
+  }
+}

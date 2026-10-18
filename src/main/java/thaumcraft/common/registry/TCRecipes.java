@@ -29,6 +29,8 @@ public final class TCRecipes {
 
     public static final Supplier<RecipeSerializer<RecipeMagicDust>> SALIS_MUNDUS = RECIPE_SERIALIZERS.register("salis_mundus",
             () -> new SimpleCraftingRecipeSerializer<>(RecipeMagicDust::new));
+    public static final Supplier<RecipeSerializer<thaumcraft.common.lib.crafting.RecipeTripleMeatTreat>> TRIPLE_MEAT_TREAT = RECIPE_SERIALIZERS.register("triple_meat_treat",
+            () -> new SimpleCraftingRecipeSerializer<>(thaumcraft.common.lib.crafting.RecipeTripleMeatTreat::new));
 
     /** Arcane workbench recipes. In 1.12 they were IArcaneRecipe entries of the normal crafting registry. */
     public static final Supplier<RecipeType<IArcaneRecipe>> ARCANE_TYPE = RECIPE_TYPES.register("arcane_crafting",

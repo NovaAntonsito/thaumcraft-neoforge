@@ -86,7 +86,9 @@ public final class TCNetwork {
                 .playToServer(thaumcraft.common.lib.network.playerdata.PacketFocusNodesToServer.TYPE, thaumcraft.common.lib.network.playerdata.PacketFocusNodesToServer.STREAM_CODEC,
                         thaumcraft.common.lib.network.playerdata.PacketFocusNodesToServer::handle)
                 .playToServer(thaumcraft.common.lib.network.playerdata.PacketFocusNameToServer.TYPE, thaumcraft.common.lib.network.playerdata.PacketFocusNameToServer.STREAM_CODEC,
-                        thaumcraft.common.lib.network.playerdata.PacketFocusNameToServer::handle);
+                        thaumcraft.common.lib.network.playerdata.PacketFocusNameToServer::handle)
+                .playToServer(thaumcraft.common.lib.network.playerdata.PacketPlayerFlagToServer.TYPE, thaumcraft.common.lib.network.playerdata.PacketPlayerFlagToServer.STREAM_CODEC,
+                        thaumcraft.common.lib.network.playerdata.PacketPlayerFlagToServer::handle);
     }
 
     /** Sends a packet to every player within range of a point. Replaces sendToAllAround with a TargetPoint. */

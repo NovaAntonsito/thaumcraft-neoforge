@@ -236,7 +236,7 @@ public class Thaumcraft {
     /**
      * ConfigRecipes.initializeSmelting: the infernal furnace's bonus nuggets. Ore dictionary names become c: tags.
      * Since 1.17 ores drop raw materials, so each metal's c:raw_materials tag gets the same bonus as its ore.
-     * Meat chunks are not ported yet (TODO), so their bonuses are left out.
+     * Cooking meat gives meat nuggets.
      * Also the special mining results of ModConfig (what Refining turns into clusters): each ore, and its raw material.
      */
     private static void registerSmeltingBonuses() {
@@ -248,6 +248,12 @@ public class Thaumcraft {
             ThaumcraftApi.addSmeltingBonus(itemTag("raw_materials/" + m[0]), nugget);
         }
         ThaumcraftApi.addSmeltingBonus(itemTag("ores/cinnabar"), new ItemStack(ConfigItems.nuggets.get("quicksilver").get()));
+        Object[][] meats = {{Items.BEEF, "beef"}, {Items.CHICKEN, "chicken"}, {Items.PORKCHOP, "pork"}, {Items.RABBIT, "rabbit"}, {Items.MUTTON, "mutton"}};
+        for (Object[] m : meats) {
+            ThaumcraftApi.addSmeltingBonus(new ItemStack((Item) m[0]), new ItemStack(ConfigItems.chunks.get((String) m[1]).get()));
+        }
+        // Items.FISH with any metadata: every raw fish.
+        ThaumcraftApi.addSmeltingBonus(net.minecraft.tags.ItemTags.FISHES, new ItemStack(ConfigItems.chunks.get("fish").get()));
         ThaumcraftApi.addSmeltingBonus(itemTag("ores/quartz"), new ItemStack(ConfigItems.nuggets.get("quartz").get()));
         String[][] clusterBonus = {{"iron", null}, {"gold", null}, {"cinnabar", "quicksilver"}, {"copper", "copper"}, {"tin", "tin"},
                 {"silver", "silver"}, {"lead", "lead"}, {"quartz", "quartz"}};
@@ -282,6 +288,7 @@ public class Thaumcraft {
     private static void registerFakeRecipes() {
         ThaumcraftApi.addFakeCraftingRecipe(id("salismundusfake"), id("salismundus"));
         ThaumcraftApi.addFakeCraftingRecipe(id("viscrystalgroup"), id("vis_crystal"));
+        ThaumcraftApi.addFakeCraftingRecipe(id("triplemeattreatfake"), id("triplemeattreat"));
         // Each infusion enchantment shown on a sample tool.
         Object[][] ie = {{"burrowing", Items.WOODEN_PICKAXE}, {"collector", Items.STONE_AXE}, {"destructive", Items.STONE_PICKAXE},
                 {"refining", Items.IRON_PICKAXE}, {"sounding", Items.GOLDEN_PICKAXE}, {"arcing", Items.WOODEN_SWORD},

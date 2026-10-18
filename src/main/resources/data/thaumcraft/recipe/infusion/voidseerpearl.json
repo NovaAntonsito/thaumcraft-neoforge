@@ -1,0 +1,31 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "VOIDSEERPEARL",
+  "instability": 8,
+  "aspects": {
+    "cognitio": 150,
+    "vacuos": 150,
+    "praecantatio": 100
+  },
+  "central": {
+    "item": "thaumcraft:amulet_fancy"
+  },
+  "components": [
+    {
+      "item": "thaumcraft:brain"
+    },
+    {
+      "item": "thaumcraft:void_seed"
+    },
+    {
+      "item": "thaumcraft:brain"
+    },
+    {
+      "item": "thaumcraft:primordial_pearl"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:voidseer_charm",
+    "count": 1
+  }
+}

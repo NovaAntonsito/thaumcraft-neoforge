@@ -613,6 +613,49 @@
         "spiritus": 5,
         "praecantatio": 5
       }
+    },
+    {
+      "items": [
+        "thaumcraft:amulet_vis_found"
+      ],
+      "aspects": {
+        "auram": 20,
+        "metallum": 5,
+        "praecantatio": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:ring_apprentice"
+      ],
+      "aspects": {
+        "auram": 5,
+        "metallum": 5,
+        "praecantatio": 20
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:chunk_beef",
+        "thaumcraft:chunk_chicken",
+        "thaumcraft:chunk_pork",
+        "thaumcraft:chunk_fish",
+        "thaumcraft:chunk_rabbit",
+        "thaumcraft:chunk_mutton"
+      ],
+      "aspects": {
+        "victus": 5,
+        "perditio": 1
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:triple_meat_treat"
+      ],
+      "aspects": {
+        "victus": 10,
+        "desiderium": 10
+      }
     }
   ]
 }

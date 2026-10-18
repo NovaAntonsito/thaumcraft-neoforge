@@ -70,8 +70,8 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe {
 
     /**
      * The 1.12 checks: "weapon" means the item adds attack damage in the main hand, "axe"/"pickaxe"/"shovel"
-     * are tool classes (item abilities now), and armor matches its slot.
-     * TODO: baubles ("amulet", "belt", "ring") and IRechargable ("chargable") items.
+     * are tool classes (item abilities now), armor matches its slot, baubles their Curios slot ("amulet", "belt",
+     * "ring", or any for "bauble") and "chargable" takes IRechargable items.
      */
     private boolean fitsToolClass(ItemStack central) {
         if (enchantment.toolClasses.contains("weapon")) {
@@ -92,9 +92,13 @@ public class InfusionEnchantmentRecipe extends InfusionRecipe {
                 case BOOTS -> "boots";
                 default -> "none";
             };
-            return enchantment.toolClasses.contains("armor") || enchantment.toolClasses.contains(at);
+            if (enchantment.toolClasses.contains("armor") || enchantment.toolClasses.contains(at)) return true;
         }
-        return false;
+        if (thaumcraft.common.lib.utils.BaublesHelper.isBauble(central)) {
+            String at = thaumcraft.common.lib.utils.BaublesHelper.getBaubleType(central);
+            if (enchantment.toolClasses.contains("bauble") || enchantment.toolClasses.contains(at)) return true;
+        }
+        return central.getItem() instanceof thaumcraft.api.items.IRechargable && enchantment.toolClasses.contains("chargable");
     }
 
     /** The central item with one more rank. The more infusion enchantments it already has, the likelier it warps. */

@@ -41,7 +41,6 @@ import thaumcraft.common.registry.TCMobEffects;
  * held and worn gear), the worse it can get. Sounds, whispers, potion effects, fog with eldritch guardians, mind
  * spiders (fake or real) or a crimson portal. Warp above 10 also hints at bath salts.
  * As in the original, the creeper and explosion sounds are played to everyone near the player but the player.
- * TODO: the fortress mask that eases warp and the baubles (Curios) worn come with stage 9e.
  */
 public final class WarpEvents {
     private WarpEvents() {
@@ -308,6 +307,9 @@ public final class WarpEvents {
         int w = PlayerEvents.getFinalWarp(player.getMainHandItem(), player);
         for (EquipmentSlot slot : new EquipmentSlot[] { EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD }) {
             w += PlayerEvents.getFinalWarp(player.getItemBySlot(slot), player);
+        }
+        for (net.minecraft.world.item.ItemStack bauble : thaumcraft.common.lib.utils.BaublesHelper.getBaubles(player)) {
+            w += PlayerEvents.getFinalWarp(bauble, player);
         }
         return w;
     }

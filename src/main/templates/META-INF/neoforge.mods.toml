@@ -94,6 +94,14 @@ Port de Thaumcraft 6 a Minecraft 1.21.1 (NeoForge).
     ordering="NONE"
     side="BOTH"
 
+# Curios: the bauble slots (amulet, ring, belt, head, charm).
+[[dependencies.${mod_id}]]
+    modId="curios"
+    type="required"
+    versionRange="[9.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
 # Ponder: in-game tutorials (hold W over an item). Not needed to play.
 [[dependencies.${mod_id}]]
     modId="ponder"

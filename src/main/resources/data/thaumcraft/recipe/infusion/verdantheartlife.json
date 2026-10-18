@@ -1,0 +1,52 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "VERDANTCHARMS",
+  "instability": 5,
+  "aspects": {
+    "victus": 80,
+    "humanus": 80
+  },
+  "central": {
+    "item": "thaumcraft:verdant_charm"
+  },
+  "components": [
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "victus": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "minecraft:potion",
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:strong_healing"
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "humanus": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:verdant_charm",
+    "count": 1,
+    "components": {
+      "thaumcraft:verdant_type": 1
+    }
+  },
+  "keep_central": true
+}

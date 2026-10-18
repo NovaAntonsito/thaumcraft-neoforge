@@ -24,8 +24,8 @@ import thaumcraft.common.entities.monster.EntityPech;
  * The pech part of ConfigEntities.initEntities: what pechs value and what each kind trades. A trade is {value 1 to 5,
  * stack}; enchanted books are made when traded (a Function of the registries), since enchantments are data now.
  * <p>
- * TODO: native clusters, thaumium tools, cloth robes, the vis amulet, the bauble and the
- * eldritch eye, once they are ported. Until then forager trades of value 1 and mage trades of value 4 give nothing.
+ * The tin, silver and lead clusters were only traded when another mod added those ingots; they are left out.
+ * TODO: the eldritch eye, once it is ported.
  */
 public final class ConfigEntities {
     private ConfigEntities() {
@@ -34,12 +34,18 @@ public final class ConfigEntities {
     public static void initPechTrades() {
         EntityPech.valuedItems.put(Items.ENDER_PEARL, 15);
         ArrayList<List<Object>> forInv = new ArrayList<>();
+        for (String c : new String[] {"iron", "gold", "cinnabar", "quartz", "copper"}) {
+            forInv.add(Arrays.asList(1, new ItemStack(ConfigItems.clusters.get(c).get())));
+        }
         forInv.add(Arrays.asList(2, new ItemStack(Items.BLAZE_ROD)));
         forInv.add(Arrays.asList(2, new ItemStack(ConfigBlocks.saplingGreatwood.get())));
         forInv.add(Arrays.asList(2, new ItemStack(Items.DRAGON_BREATH)));
         forInv.add(Arrays.asList(3, new ItemStack(Items.EXPERIENCE_BOTTLE)));
         forInv.add(Arrays.asList(3, new ItemStack(Items.EXPERIENCE_BOTTLE)));
         forInv.add(Arrays.asList(3, new ItemStack(Items.GOLDEN_APPLE)));
+        forInv.add(Arrays.asList(4, new ItemStack(ConfigItems.thaumiumPick.get())));
+        forInv.add(Arrays.asList(4, new ItemStack(ConfigItems.thaumiumAxe.get())));
+        forInv.add(Arrays.asList(4, new ItemStack(ConfigItems.thaumiumHoe.get())));
         forInv.add(Arrays.asList(5, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
         forInv.add(Arrays.asList(5, new ItemStack(ConfigBlocks.saplingSilverwood.get())));
         forInv.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));
@@ -59,9 +65,13 @@ public final class ConfigEntities {
         forMag.add(Arrays.asList(3, new ItemStack(Items.EXPERIENCE_BOTTLE)));
         forMag.add(Arrays.asList(3, crystal(Aspect.AURA)));
         forMag.add(Arrays.asList(3, new ItemStack(Items.GOLDEN_APPLE)));
+        forMag.add(Arrays.asList(4, new ItemStack(ConfigItems.clothBoots.get())));
+        forMag.add(Arrays.asList(4, new ItemStack(ConfigItems.clothChest.get())));
+        forMag.add(Arrays.asList(4, new ItemStack(ConfigItems.clothLegs.get())));
         forMag.add(Arrays.asList(5, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
         forMag.add(Arrays.asList(5, new ItemStack(ConfigItems.pechWand.get())));
         forMag.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));
+        forMag.add(Arrays.asList(5, new ItemStack(ConfigItems.amuletVisFound.get())));
         // As in the original, the totem went to the forager list.
         forInv.add(Arrays.asList(5, new ItemStack(Items.TOTEM_OF_UNDYING)));
         EntityPech.tradeInventory.put(1, forMag);
@@ -81,6 +91,7 @@ public final class ConfigEntities {
         forArc.add(Arrays.asList(3, new ItemStack(Items.GOLDEN_APPLE)));
         forArc.add(Arrays.asList(4, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
         forInv.add(Arrays.asList(4, new ItemStack(Items.SPECTRAL_ARROW)));
+        forArc.add(Arrays.asList(5, new ItemStack(ConfigItems.baubles.get("ring_apprentice").get())));
         forArc.add(Arrays.asList(5, book(Enchantments.FLAME)));
         forArc.add(Arrays.asList(5, book(Enchantments.INFINITY)));
         forArc.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));

@@ -37,7 +37,11 @@ public final class ConfigLoot {
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.EMERALD), 75, 1, 2);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLD_INGOT), 100, 0, 1, 2);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.ENDER_PEARL), 100, 0, 1, 2);
-        // TODO: amuletVis (6, uncommon and rare) and the 7 baubles (10 common for 0-2, 5 for 3-6), not ported yet.
+        ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.amuletVisFound.get()), 6, 1, 2);
+        int[][] baubleLoot = {{10, 0}, {10, 0}, {10, 0}, {5, 2}, {5, 1}, {5, 1}, {5, 1}};
+        for (int b = 0; b < baubleLoot.length; ++b) {
+            ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.baubles.get(thaumcraft.common.items.baubles.ItemBaubles.VARIANTS[b]).get()), baubleLoot[b][0], baubleLoot[b][1]);
+        }
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.EXPERIENCE_BOTTLE), 5, 0);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.EXPERIENCE_BOTTLE), 10, 1);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.EXPERIENCE_BOTTLE), 20, 2);

@@ -45,6 +45,14 @@ repositories {
             includeGroup 'com.github.glitchfiend'
         }
     }
+    // Curios (bauble slots: amulet, ring, belt, head and charm).
+    maven {
+        name = 'Illusive Soulworks'
+        url = 'https://maven.theillusivec4.top/'
+        content {
+            includeGroup 'top.theillusivec4.curios'
+        }
+    }
 }
 
 base {
@@ -135,6 +143,10 @@ configurations {
 dependencies {
     // TerraBlender is required: it places the magical forest in the overworld.
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+
+    // Curios is required: it gives the player the bauble slots. Compiled against its API, the full mod at runtime.
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // Ponder is optional: compiled against, present in dev runs, but not required to load the mod.
     // The NeoForge jar already bundles Ponder-Common and Catnip, so transitive deps are off.

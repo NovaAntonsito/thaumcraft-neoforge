@@ -29,7 +29,7 @@ import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ResearchNoteManager;
 
-/** Partial port of PlayerEvents: the research hooks (knowledge sync, the crystal, the dream and the book) and warp. */
+/** Partial port of PlayerEvents: the research hooks (knowledge sync, the crystal, the dream and the book), warp and worn gear. */
 @EventBusSubscriber(modid = Thaumcraft.MODID)
 public final class PlayerEvents {
     private PlayerEvents() {
@@ -74,6 +74,86 @@ public final class PlayerEvents {
                 && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).getItem() instanceof thaumcraft.common.items.armor.ItemBootsTraveller
                 && thaumcraft.api.items.RechargeHelper.getCharge(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET)) > 0) {
             player.setDeltaMovement(player.getDeltaMovement().add(0.0, 0.2750000059604645, 0.0));
+        }
+    }
+
+    /** onFallDamage: the traveller boots and the cloudstepper ring soften falls. */
+    @SubscribeEvent
+    public static void onFallDamage(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event) {
+        if (!event.getSource().is(net.minecraft.world.damagesource.DamageTypes.FALL) || !(event.getEntity() instanceof Player player)) {
+            return;
+        }
+        if (player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(thaumcraft.common.config.ConfigItems.travellerBoots.get())) {
+            float f = Math.max(0.0f, event.getAmount() / 2.0f - 1.0f);
+            if (f < 1.0f) {
+                event.setCanceled(true);
+                event.setAmount(0.0f);
+            } else {
+                event.setAmount(f);
+            }
+        }
+        if (thaumcraft.common.lib.utils.BaublesHelper.isBaubleEquipped(player, thaumcraft.common.config.ConfigItems.cloudRing.get()) >= 0) {
+            float f = Math.max(0.0f, event.getAmount() / 3.0f - 2.0f);
+            if (f < 1.0f) {
+                event.setCanceled(true);
+                event.setAmount(0.0f);
+            } else if (f < event.getAmount()) {
+                event.setAmount(f);
+            }
+        }
+    }
+
+    /**
+     * pickupXP: with the headband of curiosity, orbs worth more than 1 lose half their value, and that half is a
+     * chance at 1 theory (5% per point) or 1 observation (20% per point) in a random category.
+     */
+    @SubscribeEvent
+    public static void pickupXP(net.neoforged.neoforge.event.entity.player.PlayerXpEvent.PickupXp event) {
+        Player player = event.getEntity();
+        if (player == null || player.level().isClientSide
+                || thaumcraft.common.lib.utils.BaublesHelper.isBaubleEquipped(player, thaumcraft.common.config.ConfigItems.curiosityBand.get()) < 0
+                || event.getOrb().getValue() <= 1) {
+            return;
+        }
+        net.minecraft.world.entity.ExperienceOrb orb = event.getOrb();
+        int d = orb.value / 2;
+        orb.value -= d;
+        float r = player.getRandom().nextFloat();
+        String[] s = thaumcraft.api.research.ResearchCategories.researchCategories.keySet().toArray(new String[0]);
+        if (s.length == 0) {
+            return;
+        }
+        if (r < 0.05 * d) {
+            String cat = s[player.getRandom().nextInt(s.length)];
+            ResearchManager.addKnowledge(player, PlayerKnowledge.EnumKnowledgeType.THEORY, thaumcraft.api.research.ResearchCategories.getResearchCategory(cat), 1);
+        } else if (r < 0.2 * d) {
+            String cat = s[player.getRandom().nextInt(s.length)];
+            ResearchManager.addKnowledge(player, PlayerKnowledge.EnumKnowledgeType.OBSERVATION, thaumcraft.api.research.ResearchCategories.getResearchCategory(cat), 1);
+        }
+    }
+
+    /** onDeath: a worn charm of undying works like a totem of undying in the hand, and is used up. */
+    @SubscribeEvent
+    public static void onDeath(net.neoforged.neoforge.event.entity.living.LivingDeathEvent event) {
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+        int slot = thaumcraft.common.lib.utils.BaublesHelper.isBaubleEquipped(player, thaumcraft.common.config.ConfigItems.charmUndying.get());
+        if (slot >= 0) {
+            ItemStack charm = thaumcraft.common.lib.utils.BaublesHelper.getStackInSlot(player, slot);
+            if (player instanceof ServerPlayer sp) {
+                sp.awardStat(net.minecraft.stats.Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
+                net.minecraft.advancements.CriteriaTriggers.USED_TOTEM.trigger(sp, charm);
+            }
+            ItemStack left = charm.copy();
+            left.shrink(1);
+            thaumcraft.common.lib.utils.BaublesHelper.setStackInSlot(player, slot, left);
+            player.setHealth(1.0f);
+            player.removeAllEffects();
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, 900, 1));
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.ABSORPTION, 100, 1));
+            player.level().broadcastEntityEvent(player, (byte) 35);
+            event.setCanceled(true);
         }
     }
 

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:amulet_mundane",
+    "thaumcraft:amulet_fancy",
+    "thaumcraft:amulet_vis_found",
+    "thaumcraft:amulet_vis"
+  ]
+}

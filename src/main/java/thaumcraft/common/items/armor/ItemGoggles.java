@@ -17,7 +17,7 @@ import thaumcraft.common.config.ConfigItems;
 
 /**
  * The goggles of revealing: show essentia contents and the like, and lower vis costs by 5%.
- * Repaired with brass. Wearing them as a bauble (head slot) comes with Curios in stage 9e-3.
+ * Repaired with brass. They can also be worn in the Curios head slot, drawn by RenderBaubleHead.
  */
 @SuppressWarnings("deprecation")
 public class ItemGoggles extends ArmorItem implements IVisDiscountGear, IRevealer, IGoggles {

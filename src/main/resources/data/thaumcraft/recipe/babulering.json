@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thaumcraft:baubles_stuff",
+  "pattern": [
+    "NNN",
+    "N N",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "c:nuggets/brass"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:ring_mundane",
+    "count": 1
+  }
+}

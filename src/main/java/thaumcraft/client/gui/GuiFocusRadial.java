@@ -28,7 +28,7 @@ import thaumcraft.common.lib.network.misc.PacketFocusChangeToServer;
  * Port of the focus radial from WandRenderingHandler (handleFociRadial, getFociInfo, renderFocusRadialHUD).
  * 1.21: a screen that does not pause the game. Releasing F picks the hovered focus, clicking a focus picks it, as in
  * the original. The radial grows when opened; it closes at once instead of shrinking back.
- * Foci inside focus pouches in the main inventory count too (the Baubles belt slot waits for Curios support).
+ * Foci inside focus pouches count too: worn ones first, then the main inventory.
  */
 public class GuiFocusRadial extends Screen {
     static final ResourceLocation R1 = ResourceLocation.fromNamespaceAndPath("thaumcraft", "textures/misc/radial.png");
@@ -49,6 +49,15 @@ public class GuiFocusRadial extends Screen {
     }
 
     public static boolean hasFoci(Player player) {
+        for (ItemStack item : thaumcraft.common.lib.utils.BaublesHelper.getBaubles(player)) {
+            if (item.getItem() instanceof ItemFocusPouch fp) {
+                for (ItemStack in : fp.getInventory(item)) {
+                    if (in.getItem() instanceof ItemFocus f && f.getSortingHelper(in) != null) {
+                        return true;
+                    }
+                }
+            }
+        }
         for (int a = 0; a < 36; ++a) {
             ItemStack item = player.getInventory().items.get(a);
             if (item.getItem() instanceof ItemFocus f && f.getSortingHelper(item) != null) {
@@ -71,6 +80,12 @@ public class GuiFocusRadial extends Screen {
         fociHover.clear();
         fociScale.clear();
         int pouchcount = 0;
+        for (ItemStack item : thaumcraft.common.lib.utils.BaublesHelper.getBaubles(player)) {
+            if (item.getItem() instanceof ItemFocusPouch fp) {
+                ++pouchcount;
+                addPouchFoci(fp.getInventory(item), pouchcount);
+            }
+        }
         for (int a = 0; a < 36; ++a) {
             ItemStack item = player.getInventory().items.get(a);
             if (item.getItem() instanceof ItemFocus f) {
@@ -85,18 +100,21 @@ public class GuiFocusRadial extends Screen {
             }
             if (item.getItem() instanceof ItemFocusPouch fp) {
                 ++pouchcount;
-                NonNullList<ItemStack> inv = fp.getInventory(item);
-                for (int q = 0; q < inv.size(); ++q) {
-                    ItemStack in = inv.get(q);
-                    if (in.getItem() instanceof ItemFocus f) {
-                        String sh = f.getSortingHelper(in);
-                        if (sh != null) {
-                            foci.put(sh, q + pouchcount * 1000);
-                            fociItem.put(sh, in.copy());
-                            fociScale.put(sh, 1.0f);
-                            fociHover.put(sh, false);
-                        }
-                    }
+                addPouchFoci(fp.getInventory(item), pouchcount);
+            }
+        }
+    }
+
+    private void addPouchFoci(NonNullList<ItemStack> inv, int pouchcount) {
+        for (int q = 0; q < inv.size(); ++q) {
+            ItemStack in = inv.get(q);
+            if (in.getItem() instanceof ItemFocus f) {
+                String sh = f.getSortingHelper(in);
+                if (sh != null) {
+                    foci.put(sh, q + pouchcount * 1000);
+                    fociItem.put(sh, in.copy());
+                    fociScale.put(sh, 1.0f);
+                    fociHover.put(sh, false);
                 }
             }
         }

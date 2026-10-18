@@ -289,6 +289,18 @@ public final class ConfigItems {
             thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.EPIC).durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE_DURABILITY))
                     .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
 
+    // Stage 9e-3: baubles, worn in the Curios slots.
+    public static final Map<String, DeferredItem<thaumcraft.common.items.baubles.ItemBaubles>> baubles = baubleVariants();
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemAmuletVis> amuletVisFound = ITEMS.registerItem("amulet_vis_found", p -> new thaumcraft.common.items.baubles.ItemAmuletVis(false, p.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemAmuletVis> amuletVis = ITEMS.registerItem("amulet_vis", p -> new thaumcraft.common.items.baubles.ItemAmuletVis(true, p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemVerdantCharm> verdantCharm = ITEMS.registerItem("verdant_charm", p -> new thaumcraft.common.items.baubles.ItemVerdantCharm(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemVoidseerCharm> voidseerCharm = ITEMS.registerItem("voidseer_charm", p -> new thaumcraft.common.items.baubles.ItemVoidseerCharm(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemCuriosityBand> curiosityBand = ITEMS.registerItem("curiosity_band", p -> new thaumcraft.common.items.baubles.ItemCuriosityBand(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemCloudRing> cloudRing = ITEMS.registerItem("cloud_ring", p -> new thaumcraft.common.items.baubles.ItemCloudRing(p.rarity(Rarity.RARE)));
+    public static final Map<String, DeferredItem<thaumcraft.common.items.consumables.ItemChunksEdible>> chunks = chunkVariants();
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemTripleMeatTreat> tripleMeatTreat = ITEMS.registerItem("triple_meat_treat", thaumcraft.common.items.consumables.ItemTripleMeatTreat::new);
+    public static final DeferredItem<thaumcraft.common.items.baubles.ItemCharmUndying> charmUndying = ITEMS.registerItem("charm_undying", p -> new thaumcraft.common.items.baubles.ItemCharmUndying(p.rarity(Rarity.RARE)));
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TABTC = CREATIVE_TABS.register("thaumcraft",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.thaumcraft"))
@@ -316,6 +328,24 @@ public final class ConfigItems {
                         }
                     })
                     .build());
+
+    private static Map<String, DeferredItem<thaumcraft.common.items.consumables.ItemChunksEdible>> chunkVariants() {
+        Map<String, DeferredItem<thaumcraft.common.items.consumables.ItemChunksEdible>> out = new LinkedHashMap<>();
+        for (String name : thaumcraft.common.items.consumables.ItemChunksEdible.VARIANTS) {
+            out.put(name, ITEMS.registerItem("chunk_" + name, thaumcraft.common.items.consumables.ItemChunksEdible::new));
+        }
+        return out;
+    }
+
+    private static Map<String, DeferredItem<thaumcraft.common.items.baubles.ItemBaubles>> baubleVariants() {
+        Map<String, DeferredItem<thaumcraft.common.items.baubles.ItemBaubles>> out = new LinkedHashMap<>();
+        String[] names = thaumcraft.common.items.baubles.ItemBaubles.VARIANTS;
+        for (int i = 0; i < names.length; ++i) {
+            int meta = i;
+            out.put(names[i], ITEMS.registerItem(names[i], p -> new thaumcraft.common.items.baubles.ItemBaubles(meta, meta >= 3 ? p.rarity(Rarity.UNCOMMON) : p)));
+        }
+        return out;
+    }
 
     private static Map<String, DeferredItem<thaumcraft.common.items.curios.ItemCurio>> curioVariants(String... names) {
         Map<String, DeferredItem<thaumcraft.common.items.curios.ItemCurio>> out = new LinkedHashMap<>();
