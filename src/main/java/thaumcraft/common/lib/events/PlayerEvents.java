@@ -122,4 +122,24 @@ public final class PlayerEvents {
             player.syncData(TCAttachments.ASPECTS);
         }
     }
+
+    /** Warp an item gives while worn or held: IWarpingGear plus the warp component (the 1.12 "TC.WARP" tag). */
+    public static int getFinalWarp(ItemStack stack, Player player) {
+        if (stack == null || stack.isEmpty()) {
+            return 0;
+        }
+        int warp = 0;
+        if (stack.getItem() instanceof thaumcraft.api.items.IWarpingGear armor) {
+            warp += armor.getWarp(stack, player);
+        }
+        warp += stack.getOrDefault(thaumcraft.common.registry.TCDataComponents.WARP.get(), 0);
+        return warp;
+    }
+
+    public static int getFinalDiscount(ItemStack stack, Player player) {
+        if (stack == null || stack.isEmpty() || !(stack.getItem() instanceof thaumcraft.api.items.IVisDiscountGear gear)) {
+            return 0;
+        }
+        return gear.getVisDiscount(stack, player);
+    }
 }

@@ -73,6 +73,7 @@ public class Thaumcraft {
         ConfigItems.ITEMS.register(modEventBus);
         ConfigItems.CREATIVE_TABS.register(modEventBus);
         TCDataComponents.DATA_COMPONENTS.register(modEventBus);
+        thaumcraft.common.registry.TCArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
         TCAttachments.ATTACHMENT_TYPES.register(modEventBus);
         TCBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         TCEntities.ENTITY_TYPES.register(modEventBus);

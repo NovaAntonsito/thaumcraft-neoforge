@@ -358,6 +358,82 @@
       "aspects": {
         "desiderium": 30
       }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_plate_chest"
+      ],
+      "base": "minecraft:iron_chestplate",
+      "aspects": {
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_robe_chest"
+      ],
+      "base": "minecraft:leather_chestplate",
+      "aspects": {
+        "praecantatio": 5,
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_plate_legs"
+      ],
+      "base": "minecraft:iron_leggings",
+      "aspects": {
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_robe_legs"
+      ],
+      "base": "minecraft:leather_leggings",
+      "aspects": {
+        "praecantatio": 5,
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_plate_helm"
+      ],
+      "base": "minecraft:iron_helmet",
+      "aspects": {
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_robe_helm"
+      ],
+      "base": "minecraft:leather_helmet",
+      "aspects": {
+        "praecantatio": 5,
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_boots"
+      ],
+      "base": "minecraft:iron_boots",
+      "aspects": {
+        "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_blade"
+      ],
+      "base": "minecraft:iron_sword",
+      "aspects": {
+        "alienis": 10,
+        "mortuus": 10
+      }
     }
   ]
 }

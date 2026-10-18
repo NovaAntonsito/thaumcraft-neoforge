@@ -1917,5 +1917,13 @@
   "entity.thaumcraft.pech.1": "Pech Mage",
   "entity.thaumcraft.pech.2": "Pech Stalker",
   "item.thaumcraft.pech_spawn_egg": "Pech Spawn Egg",
-  "item.thaumcraft.pech_wand": "Pech Wand"
+  "item.thaumcraft.pech_wand": "Pech Wand",
+  "item.thaumcraft.crimson_boots": "Crimson Cult Boots",
+  "item.thaumcraft.crimson_robe_helm": "Crimson Cult Hood",
+  "item.thaumcraft.crimson_robe_chest": "Crimson Cult Robe",
+  "item.thaumcraft.crimson_robe_legs": "Crimson Cult Leggings",
+  "item.thaumcraft.crimson_plate_helm": "Crimson Cult Helm",
+  "item.thaumcraft.crimson_plate_chest": "Crimson Cult Chestplate",
+  "item.thaumcraft.crimson_plate_legs": "Crimson Cult Greaves",
+  "item.thaumcraft.crimson_blade": "Crimson Blade"
 }

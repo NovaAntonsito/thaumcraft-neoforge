@@ -190,6 +190,12 @@ public class ThaumcraftClient {
     /** FluidPure: the water textures tinted 0x77FFCCAA (getColor of the original). */
     @SubscribeEvent
     static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
+                thaumcraft.client.renderers.models.gear.ModelKnightArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelKnightArmor::new),
+                ConfigItems.crimsonPlateHelm.get(), ConfigItems.crimsonPlateChest.get(), ConfigItems.crimsonPlateLegs.get());
+        event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
+                thaumcraft.client.renderers.models.gear.ModelRobe::createLayer, thaumcraft.client.renderers.models.gear.ModelRobe::new),
+                ConfigItems.crimsonRobeHelm.get(), ConfigItems.crimsonRobeChest.get(), ConfigItems.crimsonRobeLegs.get());
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
@@ -348,10 +354,13 @@ public class ThaumcraftClient {
             }
             event.getToolTip().add(Math.min(line++, event.getToolTip().size()), s.withStyle(ChatFormatting.GOLD));
         }
-        // TODO: getFinalWarp also counts IWarpingGear items.
-        int warp = stack.getOrDefault(TCDataComponents.WARP.get(), 0);
+        int warp = thaumcraft.common.lib.events.PlayerEvents.getFinalWarp(stack, event.getEntity());
         if (warp > 0) {
             event.getToolTip().add(Component.translatable("item.warping").append(" " + warp).withStyle(ChatFormatting.DARK_PURPLE));
+        }
+        int al = thaumcraft.common.lib.events.PlayerEvents.getFinalDiscount(stack, event.getEntity());
+        if (al > 0) {
+            event.getToolTip().add(Component.translatable("tc.visdiscount").append(": " + al + "%").withStyle(ChatFormatting.DARK_PURPLE));
         }
     }
 

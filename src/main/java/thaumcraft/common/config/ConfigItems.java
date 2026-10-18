@@ -118,6 +118,19 @@ public final class ConfigItems {
     public static final DeferredItem<thaumcraft.common.items.curios.ItemPechWand> pechWand = ITEMS.registerItem("pech_wand",
             thaumcraft.common.items.curios.ItemPechWand::new);
 
+    // Stage 9d-1: the crimson cult gear (ThaumcraftMaterials ARMORMAT_CULTIST_PLATE / ROBE, factors 18 and 17).
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateHelm = cultistPlate("crimson_plate_helm", net.minecraft.world.item.ArmorItem.Type.HELMET);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateChest = cultistPlate("crimson_plate_chest", net.minecraft.world.item.ArmorItem.Type.CHESTPLATE);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateLegs = cultistPlate("crimson_plate_legs", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistBoots> crimsonBoots = ITEMS.registerItem("crimson_boots",
+            p -> new thaumcraft.common.items.armor.ItemCultistBoots(p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(15))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> crimsonRobeHelm = cultistRobe("crimson_robe_helm", net.minecraft.world.item.ArmorItem.Type.HELMET);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> crimsonRobeChest = cultistRobe("crimson_robe_chest", net.minecraft.world.item.ArmorItem.Type.CHESTPLATE);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> crimsonRobeLegs = cultistRobe("crimson_robe_legs", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemCrimsonBlade> crimsonBlade = ITEMS.registerItem("crimson_blade",
+            p -> new thaumcraft.common.items.tools.ItemCrimsonBlade(p.rarity(Rarity.EPIC)));
+
     // Stage 9b.
     public static final DeferredItem<thaumcraft.common.items.consumables.ItemBottleTaint> bottleTaint =
             ITEMS.registerItem("bottle_taint", thaumcraft.common.items.consumables.ItemBottleTaint::new);
@@ -192,6 +205,18 @@ public final class ConfigItems {
                         }
                     })
                     .build());
+
+    private static DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> cultistPlate(String name, net.minecraft.world.item.ArmorItem.Type type) {
+        return ITEMS.registerItem(name, p -> new thaumcraft.common.items.armor.ItemCultistPlateArmor(
+                thaumcraft.common.registry.TCArmorMaterials.CULTIST_PLATE, type, p.rarity(Rarity.UNCOMMON)
+                        .durability(type.getDurability(thaumcraft.common.registry.TCArmorMaterials.CULTIST_PLATE_DURABILITY))));
+    }
+
+    private static DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> cultistRobe(String name, net.minecraft.world.item.ArmorItem.Type type) {
+        return ITEMS.registerItem(name, p -> new thaumcraft.common.items.armor.ItemCultistRobeArmor(
+                thaumcraft.common.registry.TCArmorMaterials.CULTIST_ROBE, type, p.rarity(Rarity.UNCOMMON)
+                        .durability(type.getDurability(thaumcraft.common.registry.TCArmorMaterials.CULTIST_ROBE_DURABILITY))));
+    }
 
     /** One placer item per seal: seal_blank places nothing, seal_pickup places "thaumcraft:pickup" and so on. */
     private static Map<String, DeferredItem<thaumcraft.common.golems.seals.ItemSealPlacer>> sealVariants(String... names) {
