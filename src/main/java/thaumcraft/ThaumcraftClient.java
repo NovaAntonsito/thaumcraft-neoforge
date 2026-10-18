@@ -211,6 +211,7 @@ public class ThaumcraftClient {
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, thaumcraft.client.gui.CasterHud.ID, thaumcraft.client.gui.CasterHud::render);
         event.registerAboveAll(NotificationsHud.ID, NotificationsHud::render);
         event.registerAbove(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud.ID, thaumcraft.client.gui.AnomalyHud::render);
+        event.wrapLayer(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud::pushBossBars);
     }
 
     /** Clients generate item aspects from the recipes the server sent. */

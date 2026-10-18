@@ -43,11 +43,14 @@ public final class AnomalyHud {
     static final int LAVENDER = 0xC8B4E0;
     static final int BORDER = 0xFF5A4466;
     private static long lastWarnedCycleEnd = -1L;
+    /** Where the panel was drawn last frame, so the boss bars can move below it. Bottom 0 when hidden. */
+    private static int lastLeft, lastRight, lastBottom;
 
     private AnomalyHud() {
     }
 
     public static void render(GuiGraphics g, DeltaTracker delta) {
+        lastBottom = 0;
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.hideGui || mc.level == null || mc.player == null) return;
         if (!AnomalyClientState.enabled || !Config.ANOMALY_SHOW_HUD.get()) return;
@@ -78,6 +81,9 @@ public final class AnomalyHud {
         int rows = active.size() + (info != null ? 1 : 0);
         int height = HEADER + (rows == 0 ? 0 : 3 + rows * ROW);
         panel(g, x, y, WIDTH, height);
+        lastLeft = x;
+        lastRight = x + WIDTH;
+        lastBottom = y + height;
 
         float pulse = warn ? 0.6f + 0.4f * (float) Math.sin((now + pt) * 0.4f) : 1.0f;
 
@@ -122,6 +128,22 @@ public final class AnomalyHud {
             ry += ROW;
         }
         chime(mc, warn, remaining);
+    }
+
+    /**
+     * Wraps the vanilla boss bar layer: when the panel covers the top middle of the screen, the bars are drawn
+     * that much lower so they do not overlap it.
+     */
+    public static net.minecraft.client.gui.LayeredDraw.Layer pushBossBars(net.minecraft.client.gui.LayeredDraw.Layer bossBars) {
+        return (g, delta) -> {
+            int half = 91; // BossHealthOverlay bars are 182 wide, centered
+            int mid = g.guiWidth() / 2;
+            int shift = lastBottom > 0 && lastLeft < mid + half && lastRight > mid - half ? lastBottom : 0;
+            g.pose().pushPose();
+            g.pose().translate(0.0f, shift, 0.0f);
+            bossBars.render(g, delta);
+            g.pose().popPose();
+        };
     }
 
     private static boolean holdsThaumometer(Minecraft mc) {
