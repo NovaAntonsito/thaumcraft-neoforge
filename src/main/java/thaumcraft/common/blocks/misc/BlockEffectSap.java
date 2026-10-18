@@ -24,7 +24,7 @@ import thaumcraft.common.lib.events.ServerEvents;
  * Port of BlockEffect for effect_sap, the sapping field the curse focus leaves on the ground. Entities inside it get
  * wither, slowness and hunger; it vanishes on its next random tick.
  * 1.21: a separate class, not marked as air (chunk sections never random tick air blocks). The original sparks are
- * drawn with dust particles until the FX stage; IEldritchMob is not ported yet, so eldritch mobs are not exempt.
+ * drawn with dust particles until the FX stage. Eldritch mobs are not harmed.
  */
 public class BlockEffectSap extends Block {
     public BlockEffectSap() {
@@ -44,7 +44,7 @@ public class BlockEffectSap extends Block {
 
     @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-        if (!world.isClientSide && entity instanceof LivingEntity le && !le.hasEffect(MobEffects.WITHER)) {
+        if (!world.isClientSide && !(entity instanceof thaumcraft.api.entities.IEldritchMob) && entity instanceof LivingEntity le && !le.hasEffect(MobEffects.WITHER)) {
             ServerEvents.addRunnableServer(world, () -> {
                 le.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 0, true, true));
                 le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, true, true));

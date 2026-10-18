@@ -57,6 +57,9 @@ public final class RenderEventHandler {
     public static float tagscale;
     @Nullable
     public static Entity thaumTarget;
+    public static boolean fogFiddled = false;
+    public static float fogTarget = 0.0f;
+    public static int fogDuration = 0;
 
     private RenderEventHandler() {
     }
@@ -287,5 +290,70 @@ public final class RenderEventHandler {
             renderer.renderLeftHand(pose, buffers, light, player);
         }
         pose.popPose();
+    }
+    // ---- Eldritch fog (playerTick / fogDensityEvent / PacketMiscEvent) ----
+
+    /** processMessage of PacketMiscEvent. */
+    public static void processMiscEvent(byte type) {
+        Player p = Minecraft.getInstance().player;
+        if (p == null) {
+            return;
+        }
+        switch (type) {
+            case 0 -> {
+                if (!Config.NOSTRESS.get()) {
+                    p.level().playLocalSound(p.getX(), p.getY(), p.getZ(), thaumcraft.common.lib.SoundsTC.HEARTBEAT.get(),
+                            net.minecraft.sounds.SoundSource.AMBIENT, 1.0f, 1.0f, false);
+                }
+            }
+            case 1 -> {
+                fogFiddled = true;
+                fogDuration = 2400;
+            }
+            case 2 -> {
+                fogFiddled = true;
+                if (fogDuration < 200) {
+                    fogDuration = 200;
+                }
+            }
+            default -> {
+            }
+        }
+    }
+
+    /** The fog part of playerTick: it thickens slowly and fades during its last 100 ticks. */
+    @SubscribeEvent
+    static void playerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent.Pre event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (!event.getEntity().level().isClientSide || event.getEntity() != mc.player) {
+            return;
+        }
+        if (fogFiddled) {
+            if (fogDuration < 100) {
+                fogTarget = 0.1f * (fogDuration / 100.0f);
+            } else if (fogTarget < 0.1f) {
+                fogTarget += 0.001f;
+            }
+            --fogDuration;
+            if (fogDuration < 0) {
+                fogFiddled = false;
+            }
+        }
+    }
+
+    /**
+     * fogDensityEvent. The original switched to exponential fog with density fogTarget; 1.21 fog is linear, so the far
+     * plane is pulled in to where that exponential fog was nearly opaque (3 / density), and the near plane with it.
+     */
+    @SubscribeEvent
+    static void fogDensityEvent(net.neoforged.neoforge.client.event.ViewportEvent.RenderFog event) {
+        if (fogFiddled && fogTarget > 0.0f && event.getType() == net.minecraft.world.level.material.FogType.NONE) {
+            float far = Math.min(event.getFarPlaneDistance(), 3.0f / fogTarget);
+            if (far < event.getFarPlaneDistance()) {
+                event.scaleNearPlaneDistance(far / event.getFarPlaneDistance());
+                event.setFarPlaneDistance(far);
+                event.setCanceled(true);
+            }
+        }
     }
 }

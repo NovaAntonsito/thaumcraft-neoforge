@@ -176,6 +176,12 @@ public final class ConfigItems {
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_CLERIC, 9438728, 8388608, p));
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistPortalLesserSpawnEgg = ITEMS.registerItem("cultist_portal_lesser_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_PORTAL_LESSER, 9438728, 6316242, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> eldritchGuardianSpawnEgg = ITEMS.registerItem("eldritch_guardian_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.ELDRITCH_GUARDIAN, 8421504, 0, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> eldritchCrabSpawnEgg = ITEMS.registerItem("eldritch_crab_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.ELDRITCH_CRAB, 8421504, 5570560, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> inhabitedZombieSpawnEgg = ITEMS.registerItem("inhabited_zombie_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.INHABITED_ZOMBIE, 8421504, 5570560, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =

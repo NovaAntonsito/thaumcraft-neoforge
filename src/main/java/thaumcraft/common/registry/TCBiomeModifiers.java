@@ -65,6 +65,7 @@ public final class TCBiomeModifiers {
                 case "fire_bat" -> Config.ALLOW_SPAWN_FIRE_BAT.get();
                 case "wisp" -> Config.ALLOW_SPAWN_WISP.get();
                 case "pech" -> Config.ALLOW_SPAWN_PECH.get();
+                case "elder" -> Config.ALLOW_SPAWN_ELDER.get();
                 case "halloween_fire_bat" -> {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());

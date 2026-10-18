@@ -50,7 +50,7 @@ public class EntityCultistKnight extends EntityCultist {
         goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         targetSelector.addGoal(1, new AICultistHurtByTarget(this, true));
         targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        // TODO: EntityEldritchGuardian (stage 9d-3) at priority 3.
+        targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, thaumcraft.common.entities.monster.EntityEldritchGuardian.class, true));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractIllager.class, true));
     }
 

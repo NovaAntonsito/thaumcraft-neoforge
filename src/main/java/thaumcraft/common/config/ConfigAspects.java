@@ -39,8 +39,8 @@ public final class ConfigAspects {
     /**
      * registerEntityTags: the aspects the thaumometer shows on creatures. The 1.12 entity names became entity
      * types; the elder guardian (an NBT flag on the guardian in 1.12) is its own type now.
-     * TODO: the Thaumcraft creatures (flux rift, firebat, pech, thaumic slime, brainy zombie, the rest of the taint, eldritch
-     * guardian, cultists, eldritch crab, wisp, golem...), once they are ported.
+     * TODO: the Thaumcraft creatures (flux rift, firebat, pech, thaumic slime, brainy zombie, the rest of the taint, wisp,
+     * golem...), once they are ported.
      */
     public static void registerEntityTags() {
         ThaumcraftApi.registerEntityTag(EntityType.ZOMBIE, new AspectList().add(Aspect.UNDEAD, 20).add(Aspect.MAN, 10).add(Aspect.EARTH, 5));
@@ -115,6 +115,9 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.MAGIC, 5), new EntityTagsNBT("PechType", 2));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.CULTIST_KNIGHT.get(), new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.MAN, 15).add(Aspect.AVERSION, 5));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.CULTIST_CLERIC.get(), new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.MAN, 15).add(Aspect.AVERSION, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_GUARDIAN.get(), new AspectList().add(Aspect.ELDRITCH, 20).add(Aspect.DEATH, 20).add(Aspect.UNDEAD, 20));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_CRAB.get(), new AspectList().add(Aspect.ELDRITCH, 10).add(Aspect.BEAST, 10).add(Aspect.TRAP, 10));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.INHABITED_ZOMBIE.get(), new AspectList().add(Aspect.ELDRITCH, 10).add(Aspect.UNDEAD, 10).add(Aspect.MAN, 5));
         for (Aspect tag : Aspect.aspects.values()) {
             ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.WISP.get(), new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new EntityTagsNBT("Type", tag.getTag()));
         }

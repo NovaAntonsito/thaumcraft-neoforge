@@ -381,5 +381,65 @@
       "thaumcraft:chant2",
       "thaumcraft:chant3"
     ]
+  },
+  "crabclaw": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:crabclaw",
+        "stream": false
+      }
+    ]
+  },
+  "crabdeath": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:crabdeath",
+        "stream": false
+      }
+    ]
+  },
+  "crabtalk": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:crabtalk1",
+      "thaumcraft:crabtalk2",
+      "thaumcraft:crabtalk3"
+    ]
+  },
+  "egdeath": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:egdeath",
+        "stream": false
+      }
+    ]
+  },
+  "egidle": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:egidle1",
+      "thaumcraft:egidle2"
+    ]
+  },
+  "egscreech": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:egscreech",
+        "stream": false
+      }
+    ]
+  },
+  "heartbeat": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "thaumcraft:heartbeat",
+        "stream": false
+      }
+    ]
   }
 }

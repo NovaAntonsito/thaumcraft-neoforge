@@ -20,7 +20,6 @@ public class ItemCultistPlateArmor extends ArmorItem {
 
     @Override
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        // TODO: EntityInhabitedZombie (stage 9d-3) wears zombie_plate_armor.png.
-        return TEXTURE;
+        return entity instanceof thaumcraft.common.entities.monster.EntityInhabitedZombie ? ZOMBIE_TEXTURE : TEXTURE;
     }
 }

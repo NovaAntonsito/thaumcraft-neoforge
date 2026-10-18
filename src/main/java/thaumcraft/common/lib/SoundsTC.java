@@ -62,6 +62,13 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> MONOLITH = register("monolith");
     public static final Supplier<SoundEvent> EGATTACK = register("egattack");
     public static final Supplier<SoundEvent> CHANT = register("chant");
+    public static final Supplier<SoundEvent> CRABCLAW = register("crabclaw");
+    public static final Supplier<SoundEvent> CRABDEATH = register("crabdeath");
+    public static final Supplier<SoundEvent> CRABTALK = register("crabtalk");
+    public static final Supplier<SoundEvent> EGIDLE = register("egidle");
+    public static final Supplier<SoundEvent> EGDEATH = register("egdeath");
+    public static final Supplier<SoundEvent> EGSCREECH = register("egscreech");
+    public static final Supplier<SoundEvent> HEARTBEAT = register("heartbeat");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);

@@ -76,7 +76,7 @@ public final class ConfigResearch {
     /**
      * The things the thaumometer learns from. The "![aspect]" triggers come first, as the original added them
      * when each aspect was created.
-     * TODO: the Thaumcraft mobs still missing (cultists, eldritch...), the ancient and eldritch stones,
+     * TODO: the Thaumcraft bosses (!ORBOSS), the ancient and eldritch stones,
      * primordial pearl and void seed, once they are ported. ScanSky (celestial notes)
      * waits for the celestial notes item.
      */
@@ -108,12 +108,16 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", thaumcraft.common.entities.monster.EntityWisp.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!ORMOB", thaumcraft.api.entities.IEldritchMob.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Wisp", thaumcraft.common.entities.monster.EntityWisp.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!ThaumSlime", thaumcraft.common.entities.monster.EntityThaumicSlime.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Firebat", thaumcraft.common.entities.monster.EntityFireBat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!BrainyZombie", thaumcraft.common.entities.monster.EntityBrainyZombie.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!EldritchCrab", thaumcraft.common.entities.monster.EntityEldritchCrab.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!EldritchCrab", thaumcraft.common.entities.monster.EntityInhabitedZombie.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Pech", thaumcraft.common.entities.monster.EntityPech.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!CrimsonCultist", thaumcraft.common.entities.monster.cult.EntityCultist.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!EldritchGuardian", thaumcraft.common.entities.monster.EntityEldritchGuardian.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintCrawler", thaumcraft.common.entities.monster.tainted.EntityTaintCrawler.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Taintacle", thaumcraft.common.entities.monster.tainted.EntityTaintacle.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintSeed", thaumcraft.common.entities.monster.tainted.EntityTaintSeed.class, true));

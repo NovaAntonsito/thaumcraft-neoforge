@@ -155,6 +155,10 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.CULTIST_CLERIC.get(), thaumcraft.client.renderers.entity.mob.RenderCultist::new);
         event.registerEntityRenderer(TCEntities.CULTIST_PORTAL_LESSER.get(), thaumcraft.client.renderers.entity.construct.RenderCultistPortalLesser::new);
         event.registerEntityRenderer(TCEntities.GOLEM_ORB.get(), thaumcraft.client.renderers.entity.projectile.RenderElectricOrb::new);
+        event.registerEntityRenderer(TCEntities.ELDRITCH_GUARDIAN.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchGuardian::new);
+        event.registerEntityRenderer(TCEntities.ELDRITCH_CRAB.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchCrab::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Zombie>) (Object) TCEntities.INHABITED_ZOMBIE.get(), thaumcraft.client.renderers.entity.mob.RenderInhabitedZombie::new);
+        event.registerEntityRenderer(TCEntities.ELDRITCH_ORB.get(), thaumcraft.client.renderers.entity.projectile.RenderEldritchOrb::new);
     }
 
     /** LayerTainted on every living renderer. */

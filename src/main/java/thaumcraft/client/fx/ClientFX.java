@@ -512,4 +512,16 @@ public final class ClientFX {
         world.addParticle(new net.minecraft.core.particles.DustColorTransitionOptions(new Vector3f(1.0f, 1.0f, 1.0f),
                 new Vector3f(0.6f, 0.0f, 0.0f), Math.min(4.0f, 3.0f + world.random.nextFloat() * 2.0f)), x, y, z, a, b, c);
     }
+    /** FXDispatcher.wispFXEG: the dark wisps that trail below an eldritch guardian. TODO: FXWispEG (stage 10); smoke for now. */
+    public static void wispFXEG(Level world, double x, double y, double z) {
+        RandomSource rand = world.random;
+        for (int a = 0; a < 2; ++a) {
+            world.addParticle(ParticleTypes.SMOKE, x, y, z, rand.nextGaussian() * 0.03, -0.05, rand.nextGaussian() * 0.03);
+        }
+    }
+
+    /** PacketFXSonic: the ripple an eldritch guardian screams from its head. TODO: FXSonic (stage 10); the sonic boom for now. */
+    public static void sonic(Entity source) {
+        source.level().addParticle(ParticleTypes.SONIC_BOOM, source.getX(), source.getY() + source.getEyeHeight(), source.getZ(), 0, 0, 0);
+    }
 }
