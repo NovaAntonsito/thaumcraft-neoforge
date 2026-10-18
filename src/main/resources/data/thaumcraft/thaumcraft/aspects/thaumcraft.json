@@ -361,11 +361,74 @@
     },
     {
       "items": [
+        "thaumcraft:loot_urn_common"
+      ],
+      "aspects": {
+        "desiderium": 10,
+        "terra": 2
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_urn_uncommon"
+      ],
+      "aspects": {
+        "desiderium": 20,
+        "terra": 2
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_urn_rare"
+      ],
+      "aspects": {
+        "desiderium": 30,
+        "terra": 2
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_crate_common"
+      ],
+      "aspects": {
+        "desiderium": 10,
+        "herba": 2
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_crate_uncommon"
+      ],
+      "aspects": {
+        "desiderium": 20,
+        "herba": 2
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_crate_rare"
+      ],
+      "aspects": {
+        "desiderium": 30,
+        "herba": 2
+      }
+    },
+    {
+      "items": [
         "thaumcraft:crimson_plate_chest"
       ],
       "base": "minecraft:iron_chestplate",
       "aspects": {
         "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_praetor_chest"
+      ],
+      "base": "minecraft:iron_chestplate",
+      "aspects": {
+        "alienis": 10
       }
     },
     {
@@ -389,6 +452,15 @@
     },
     {
       "items": [
+        "thaumcraft:crimson_praetor_legs"
+      ],
+      "base": "minecraft:iron_leggings",
+      "aspects": {
+        "alienis": 10
+      }
+    },
+    {
+      "items": [
         "thaumcraft:crimson_robe_legs"
       ],
       "base": "minecraft:leather_leggings",
@@ -404,6 +476,15 @@
       "base": "minecraft:iron_helmet",
       "aspects": {
         "alienis": 5
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_praetor_helm"
+      ],
+      "base": "minecraft:iron_helmet",
+      "aspects": {
+        "alienis": 10
       }
     },
     {
@@ -433,6 +514,30 @@
       "aspects": {
         "alienis": 10,
         "mortuus": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:banner_white",
+        "thaumcraft:banner_orange",
+        "thaumcraft:banner_magenta",
+        "thaumcraft:banner_lightblue",
+        "thaumcraft:banner_yellow",
+        "thaumcraft:banner_lime",
+        "thaumcraft:banner_pink",
+        "thaumcraft:banner_gray",
+        "thaumcraft:banner_silver",
+        "thaumcraft:banner_cyan",
+        "thaumcraft:banner_purple",
+        "thaumcraft:banner_blue",
+        "thaumcraft:banner_brown",
+        "thaumcraft:banner_green",
+        "thaumcraft:banner_red",
+        "thaumcraft:banner_black"
+      ],
+      "complex": true,
+      "aspects": {
+        "alienis": 5
       }
     },
     {

@@ -441,5 +441,14 @@
         "stream": false
       }
     ]
+  },
+  "urnbreak": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "thaumcraft:urnbreak",
+        "stream": false
+      }
+    ]
   }
 }

@@ -55,6 +55,9 @@
     "thaumcraft:potion_sprayer",
     "thaumcraft:everfull_urn",
     "thaumcraft:wand_workbench",
-    "thaumcraft:stone_porous"
+    "thaumcraft:stone_porous",
+    "thaumcraft:loot_urn_common",
+    "thaumcraft:loot_urn_uncommon",
+    "thaumcraft:loot_urn_rare"
   ]
 }

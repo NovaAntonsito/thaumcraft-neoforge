@@ -69,11 +69,15 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> EGDEATH = register("egdeath");
     public static final Supplier<SoundEvent> EGSCREECH = register("egscreech");
     public static final Supplier<SoundEvent> HEARTBEAT = register("heartbeat");
+    public static final Supplier<SoundEvent> URNBREAK = register("urnbreak");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);
     /** SoundsTC.CRYSTAL of the original: the block sound type of crystal clusters. */
     public static final SoundType SOUND_TYPE_CRYSTAL = new DeferredSoundType(0.5f, 1.0f, CRYSTAL, CRYSTAL, CRYSTAL, CRYSTAL, CRYSTAL);
+
+    /** SoundsTC.URN of the original: the block sound type of the loot urns. */
+    public static final SoundType SOUND_TYPE_URN = new DeferredSoundType(0.5f, 1.5f, URNBREAK, URNBREAK, URNBREAK, URNBREAK, URNBREAK);
 
     /** SoundsTC.GORE of the original: the block sound type of taint. */
     public static final SoundType SOUND_TYPE_GORE = new DeferredSoundType(0.5f, 1.0f, GORE, GORE, GORE, GORE, GORE);

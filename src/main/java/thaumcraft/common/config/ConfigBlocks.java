@@ -243,6 +243,22 @@ public final class ConfigBlocks {
     /** The dimensional tear of the rift focus. No item, like the original (no creative tab, nothing dropped). */
     public static final DeferredBlock<Block> hole = BLOCKS.register("hole", thaumcraft.common.blocks.misc.BlockHole::new);
 
+    // Stage 9d-4: the loot crates and urns, and the banners (the crimson cult one has no dye).
+    public static final DeferredBlock<Block> lootCrateCommon = register("loot_crate_common",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(false, thaumcraft.common.blocks.world.BlockLoot.LootType.COMMON));
+    public static final DeferredBlock<Block> lootCrateUncommon = register("loot_crate_uncommon",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(false, thaumcraft.common.blocks.world.BlockLoot.LootType.UNCOMMON));
+    public static final DeferredBlock<Block> lootCrateRare = register("loot_crate_rare",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(false, thaumcraft.common.blocks.world.BlockLoot.LootType.RARE));
+    public static final DeferredBlock<Block> lootUrnCommon = register("loot_urn_common",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(true, thaumcraft.common.blocks.world.BlockLoot.LootType.COMMON));
+    public static final DeferredBlock<Block> lootUrnUncommon = register("loot_urn_uncommon",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(true, thaumcraft.common.blocks.world.BlockLoot.LootType.UNCOMMON));
+    public static final DeferredBlock<Block> lootUrnRare = register("loot_urn_rare",
+            () -> new thaumcraft.common.blocks.world.BlockLoot(true, thaumcraft.common.blocks.world.BlockLoot.LootType.RARE));
+    public static final DeferredBlock<Block> bannerCrimsonCult = registerBanner("banner_crimson_cult", null);
+    public static final Map<DyeColor, DeferredBlock<Block>> banners = bannersDyed();
+
     /** BlockStoneTC: hardness 2, resistance 10 (6 in 1.21 units). Usable as beacon base (tag). */
     private static BlockBehaviour.Properties stoneProps() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
@@ -294,6 +310,21 @@ public final class ConfigBlocks {
         DeferredBlock<Block> holder = BLOCKS.register("jar_brain", BlockJarBrain::new);
         ConfigItems.ITEMS.register("jar_brain", () -> new BlockJarBrainItem(holder.get(), new Item.Properties()));
         return holder;
+    }
+
+    /** Banners use BlockBannerTCItem, which places them standing or on a wall and carries the aspect. */
+    private static DeferredBlock<Block> registerBanner(String name, DyeColor dye) {
+        DeferredBlock<Block> holder = BLOCKS.register(name, () -> new thaumcraft.common.blocks.basic.BlockBannerTC(dye));
+        ConfigItems.ITEMS.register(name, () -> new thaumcraft.common.blocks.basic.BlockBannerTCItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+
+    private static Map<DyeColor, DeferredBlock<Block>> bannersDyed() {
+        Map<DyeColor, DeferredBlock<Block>> out = new EnumMap<>(DyeColor.class);
+        for (DyeColor dye : DyeColor.values()) {
+            out.put(dye, registerBanner("banner_" + legacyDyeName(dye), dye));
+        }
+        return out;
     }
 
     /** Mirrors use BlockMirrorItem, which carries the link. */

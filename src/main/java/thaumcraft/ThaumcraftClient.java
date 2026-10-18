@@ -131,6 +131,7 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.FOCUS_MINE.get(), thaumcraft.client.renderers.entity.projectile.RenderFocusMine::new);
         event.registerEntityRenderer(TCEntities.SPELL_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderSpellBat::new);
         event.registerBlockEntityRenderer(TCBlockEntities.GOLEM_BUILDER.get(), thaumcraft.client.renderers.tile.TileGolemBuilderRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.BANNER.get(), thaumcraft.client.renderers.tile.TileBannerRenderer::new);
         event.registerEntityRenderer(TCEntities.GOLEM.get(), thaumcraft.common.golems.client.RenderThaumcraftGolem::new);
         event.registerEntityRenderer(TCEntities.GOLEM_DART.get(), thaumcraft.client.renderers.entity.projectile.RenderDart::new);
         event.registerEntityRenderer(TCEntities.FALLING_TAINT.get(), thaumcraft.client.renderers.entity.RenderFallingTaint::new);
@@ -159,6 +160,8 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.ELDRITCH_CRAB.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchCrab::new);
         event.registerEntityRenderer((net.minecraft.world.entity.EntityType<net.minecraft.world.entity.monster.Zombie>) (Object) TCEntities.INHABITED_ZOMBIE.get(), thaumcraft.client.renderers.entity.mob.RenderInhabitedZombie::new);
         event.registerEntityRenderer(TCEntities.ELDRITCH_ORB.get(), thaumcraft.client.renderers.entity.projectile.RenderEldritchOrb::new);
+        event.registerEntityRenderer(TCEntities.CULTIST_PORTAL_GREATER.get(), thaumcraft.client.renderers.entity.construct.RenderCultistPortalGreater::new);
+        event.registerEntityRenderer(TCEntities.CULTIST_LEADER.get(), thaumcraft.client.renderers.entity.mob.RenderCultistLeader::new);
     }
 
     /** LayerTainted on every living renderer. */
@@ -204,6 +207,9 @@ public class ThaumcraftClient {
         event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
                 thaumcraft.client.renderers.models.gear.ModelRobe::createLayer, thaumcraft.client.renderers.models.gear.ModelRobe::new),
                 ConfigItems.crimsonRobeHelm.get(), ConfigItems.crimsonRobeChest.get(), ConfigItems.crimsonRobeLegs.get());
+        event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
+                thaumcraft.client.renderers.models.gear.ModelLeaderArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelLeaderArmor::new),
+                ConfigItems.crimsonPraetorHelm.get(), ConfigItems.crimsonPraetorChest.get(), ConfigItems.crimsonPraetorLegs.get());
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
@@ -343,6 +349,19 @@ public class ThaumcraftClient {
             int color = 0xFF000000 | block.defaultMapColor().col;
             event.register((stack, tintIndex) -> color, block);
         }
+        // itemBannerColourHandler: layer 1 in the banner's map color, layer 2 (the symbol) in the aspect's color.
+        event.register((stack, tintIndex) -> {
+            int map = 0xFF000000 | ((net.minecraft.world.item.BlockItem) stack.getItem()).getBlock().defaultMapColor().col;
+            if (tintIndex == 1) {
+                return map;
+            }
+            if (tintIndex != 2) {
+                return 0xFFFFFFFF;
+            }
+            thaumcraft.api.aspects.Aspect aspect = stack.get(thaumcraft.common.registry.TCDataComponents.ASPECT_FILTER.get());
+            return aspect != null ? 0xFF000000 | aspect.getColor() : map;
+        }, java.util.stream.Stream.concat(java.util.stream.Stream.of(ConfigBlocks.bannerCrimsonCult), ConfigBlocks.banners.values().stream())
+                .map(DeferredBlock::get).toArray(Block[]::new));
     }
 
     private static Block[] dyedBlocks() {

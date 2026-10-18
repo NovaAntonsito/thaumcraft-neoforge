@@ -62,7 +62,7 @@ import thaumcraft.common.registry.TCMobEffects;
 public final class EntityEvents {
     /**
      * ConfigEntities.championModWhitelist: the mobs that can spawn as champions and how much likelier they are
-     * (level - 1 is taken off the roll). TODO: EldritchCrab:0 with the eldritch mobs.
+     * (level - 1 is taken off the roll).
      */
     public static final Map<Class<?>, Integer> championModWhitelist = new LinkedHashMap<>();
 
@@ -73,7 +73,9 @@ public final class EntityEvents {
         championModWhitelist.put(EnderMan.class, 0);
         championModWhitelist.put(Skeleton.class, 0);
         championModWhitelist.put(Witch.class, 1);
+        championModWhitelist.put(thaumcraft.common.entities.monster.EntityEldritchCrab.class, 0);
         championModWhitelist.put(EntityTaintacle.class, 2);
+        championModWhitelist.put(thaumcraft.common.entities.monster.EntityInhabitedZombie.class, 3);
     }
 
     private EntityEvents() {
@@ -151,8 +153,8 @@ public final class EntityEvents {
         boolean fakeplayer = killer instanceof FakePlayer;
         int looting = EntityUtils.getLootingLevel(world, event.getSource());
         int t = EntityUtils.getChampionMod(entity);
-        // TODO: not for EntityThaumcraftBoss (eldritch stage).
-        if (event.isRecentlyHit() && !fakeplayer && entity instanceof Monster && t >= 0 && t != 13) {
+        if (event.isRecentlyHit() && !fakeplayer && entity instanceof Monster && !(entity instanceof thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss)
+                && t >= 0 && t != 13) {
             int i = 5 + world.random.nextInt(3);
             while (i > 0) {
                 int j = ExperienceOrb.getExperienceValue(i);
@@ -211,8 +213,7 @@ public final class EntityEvents {
                 for (Map.Entry<Class<?>, Integer> e : championModWhitelist.entrySet()) {
                     if (e.getKey().isAssignableFrom(mob.getClass())) {
                         whitelisted = true;
-                        // TODO: bosses (EntityThaumcraftBoss) still count when champions are off.
-                        if (!allow) {
+                        if (!allow && !(mob instanceof thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss)) {
                             continue;
                         }
                         cc = Math.max(cc, e.getValue() - 1);

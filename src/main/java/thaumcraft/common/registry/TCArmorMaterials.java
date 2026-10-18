@@ -28,14 +28,24 @@ public final class TCArmorMaterials {
     public static final Holder<ArmorMaterial> CULTIST_ROBE = register("cultist_robe", 2, 4, 5, 2, 13,
             SoundEvents.ARMOR_EQUIP_CHAIN);
 
+    /** ARMORMAT_CULTIST_LEADER: factor 30, {3, 6, 7, 3}, enchantability 20, iron sound, toughness 1. */
+    public static final Holder<ArmorMaterial> CULTIST_LEADER = register("cultist_leader", 3, 6, 7, 3, 20,
+            SoundEvents.ARMOR_EQUIP_IRON, 1.0f);
+
     public static final int CULTIST_PLATE_DURABILITY = 18;
     public static final int CULTIST_ROBE_DURABILITY = 17;
+    public static final int CULTIST_LEADER_DURABILITY = 30;
 
     private TCArmorMaterials() {
     }
 
     private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
             Holder<net.minecraft.sounds.SoundEvent> sound) {
+        return register(name, boots, legs, chest, helmet, enchantability, sound, 0.0f);
+    }
+
+    private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
+            Holder<net.minecraft.sounds.SoundEvent> sound, float toughness) {
         EnumMap<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
         defense.put(ArmorItem.Type.BOOTS, boots);
         defense.put(ArmorItem.Type.LEGGINGS, legs);
@@ -45,6 +55,6 @@ public final class TCArmorMaterials {
         // The texture comes from getArmorTexture, the layer is only a fallback.
         List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, name)));
         return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantability, sound,
-                () -> Ingredient.of(Items.IRON_INGOT), layers, 0.0f, 0.0f));
+                () -> Ingredient.of(Items.IRON_INGOT), layers, toughness, 0.0f));
     }
 }

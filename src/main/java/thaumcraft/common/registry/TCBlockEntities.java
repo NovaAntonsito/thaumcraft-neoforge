@@ -232,6 +232,13 @@ public final class TCBlockEntities {
     public static final Supplier<BlockEntityType<thaumcraft.common.tiles.crafting.TileGolemBuilder>> GOLEM_BUILDER = BLOCK_ENTITIES.register("golem_builder",
             () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.crafting.TileGolemBuilder::new, ConfigBlocks.golemBuilder.get()).build(null));
 
+    /** One type for the crimson cult banner and the 16 dyed ones. */
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.misc.TileBanner>> BANNER = BLOCK_ENTITIES.register("banner",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.misc.TileBanner::new,
+                    java.util.stream.Stream.concat(java.util.stream.Stream.of(ConfigBlocks.bannerCrimsonCult),
+                            ConfigBlocks.banners.values().stream()).map(DeferredBlock::get).toArray(Block[]::new)).build(null));
+
     private TCBlockEntities() {
     }
 }

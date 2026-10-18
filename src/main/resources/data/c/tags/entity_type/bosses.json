@@ -1,5 +1,7 @@
 {
   "values": [
-    "thaumcraft:taintacle_giant"
+    "thaumcraft:taintacle_giant",
+    "thaumcraft:cultist_leader",
+    "thaumcraft:cultist_portal_greater"
   ]
 }

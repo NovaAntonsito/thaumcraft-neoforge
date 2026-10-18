@@ -88,16 +88,17 @@ public class EntityCultist extends Monster {
         }
     }
 
-    /** isOnSameTeam. TODO: EntityCultistLeader (stage 9d-4). */
+    /** isOnSameTeam. */
     @Override
     public boolean isAlliedTo(Entity el) {
-        return el instanceof EntityCultist || super.isAlliedTo(el);
+        return el instanceof EntityCultist || el instanceof thaumcraft.common.entities.monster.boss.EntityCultistLeader || super.isAlliedTo(el);
     }
 
-    /** canAttackClass. TODO: EntityCultistLeader (stage 9d-4). */
+    /** canAttackClass. */
     @Override
     public boolean canAttackType(EntityType<?> type) {
-        return type != TCEntities.CULTIST_CLERIC.get() && type != TCEntities.CULTIST_KNIGHT.get() && super.canAttackType(type);
+        return type != TCEntities.CULTIST_CLERIC.get() && type != TCEntities.CULTIST_LEADER.get() && type != TCEntities.CULTIST_KNIGHT.get()
+                && super.canAttackType(type);
     }
 
     /** spawnExplosionParticle: the red puff of a cultist coming out of a portal. */

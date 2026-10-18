@@ -109,6 +109,7 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!ORMOB", thaumcraft.api.entities.IEldritchMob.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!ORBOSS", thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Wisp", thaumcraft.common.entities.monster.EntityWisp.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!ThaumSlime", thaumcraft.common.entities.monster.EntityThaumicSlime.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Firebat", thaumcraft.common.entities.monster.EntityFireBat.class, true));

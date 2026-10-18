@@ -164,6 +164,17 @@ public final class EntityUtils {
     public static final AttributeModifier TAINTED_HEALTH = new AttributeModifier(rl("tainted_health"), 25.0, AttributeModifier.Operation.ADD_VALUE);
     public static final AttributeModifier TAINTED_DAMAGE = new AttributeModifier(rl("tainted_damage"), 0.5, AttributeModifier.Operation.ADD_VALUE);
 
+    /** HPBUFF[0-4] and DMGBUFF[0-4]: the extra health and damage a boss gets for each player past the first. */
+    public static final AttributeModifier[] HPBUFF = new AttributeModifier[5];
+    public static final AttributeModifier[] DMGBUFF = new AttributeModifier[5];
+
+    static {
+        for (int a = 0; a < 5; ++a) {
+            HPBUFF[a] = new AttributeModifier(rl("health_buff_" + (a + 1)), 50.0, AttributeModifier.Operation.ADD_VALUE);
+            DMGBUFF[a] = new AttributeModifier(rl("damage_buff_" + (a + 1)), 0.5, AttributeModifier.Operation.ADD_VALUE);
+        }
+    }
+
     private static ResourceLocation rl(String path) {
         return ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, path);
     }
@@ -190,11 +201,14 @@ public final class EntityUtils {
             type = 0;
         }
         apply(modai, ChampionModifier.mods[type].attributeMod);
-        // TODO: EntityThaumcraftBoss.generateName (eldritch stage) instead of the champion buffs.
-        apply(entity.getAttribute(Attributes.MAX_HEALTH), CHAMPION_HEALTH);
-        apply(entity.getAttribute(Attributes.ATTACK_DAMAGE), CHAMPION_DAMAGE);
-        entity.heal(25.0f);
-        entity.setCustomName(Component.empty().append(ChampionModifier.mods[type].getModNameLocalized()).append(" ").append(entity.getName()));
+        if (!(entity instanceof thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss boss)) {
+            apply(entity.getAttribute(Attributes.MAX_HEALTH), CHAMPION_HEALTH);
+            apply(entity.getAttribute(Attributes.ATTACK_DAMAGE), CHAMPION_DAMAGE);
+            entity.heal(25.0f);
+            entity.setCustomName(Component.empty().append(ChampionModifier.mods[type].getModNameLocalized()).append(" ").append(entity.getName()));
+        } else {
+            boss.generateName();
+        }
         if (persist) {
             entity.setPersistenceRequired();
         }

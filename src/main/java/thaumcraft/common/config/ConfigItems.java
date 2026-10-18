@@ -122,6 +122,10 @@ public final class ConfigItems {
     public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateHelm = cultistPlate("crimson_plate_helm", net.minecraft.world.item.ArmorItem.Type.HELMET);
     public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateChest = cultistPlate("crimson_plate_chest", net.minecraft.world.item.ArmorItem.Type.CHESTPLATE);
     public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> crimsonPlateLegs = cultistPlate("crimson_plate_legs", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
+    // Stage 9d-4: the crimson praetor armor (ARMORMAT_CULTIST_LEADER, factor 30).
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistLeaderArmor> crimsonPraetorHelm = cultistLeader("crimson_praetor_helm", net.minecraft.world.item.ArmorItem.Type.HELMET);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistLeaderArmor> crimsonPraetorChest = cultistLeader("crimson_praetor_chest", net.minecraft.world.item.ArmorItem.Type.CHESTPLATE);
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistLeaderArmor> crimsonPraetorLegs = cultistLeader("crimson_praetor_legs", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
     public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistBoots> crimsonBoots = ITEMS.registerItem("crimson_boots",
             p -> new thaumcraft.common.items.armor.ItemCultistBoots(p.rarity(Rarity.UNCOMMON)
                     .durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(15))));
@@ -182,6 +186,10 @@ public final class ConfigItems {
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.ELDRITCH_CRAB, 8421504, 5570560, p));
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> inhabitedZombieSpawnEgg = ITEMS.registerItem("inhabited_zombie_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.INHABITED_ZOMBIE, 8421504, 5570560, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistPortalGreaterSpawnEgg = ITEMS.registerItem("cultist_portal_greater_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_PORTAL_GREATER, 6842578, 32896, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistLeaderSpawnEgg = ITEMS.registerItem("cultist_leader_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_LEADER, 6842578, 9438728, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =
@@ -237,6 +245,12 @@ public final class ConfigItems {
         return ITEMS.registerItem(name, p -> new thaumcraft.common.items.armor.ItemCultistPlateArmor(
                 thaumcraft.common.registry.TCArmorMaterials.CULTIST_PLATE, type, p.rarity(Rarity.UNCOMMON)
                         .durability(type.getDurability(thaumcraft.common.registry.TCArmorMaterials.CULTIST_PLATE_DURABILITY))));
+    }
+
+    private static DeferredItem<thaumcraft.common.items.armor.ItemCultistLeaderArmor> cultistLeader(String name, net.minecraft.world.item.ArmorItem.Type type) {
+        return ITEMS.registerItem(name, p -> new thaumcraft.common.items.armor.ItemCultistLeaderArmor(
+                thaumcraft.common.registry.TCArmorMaterials.CULTIST_LEADER, type, p.rarity(Rarity.RARE)
+                        .durability(type.getDurability(thaumcraft.common.registry.TCArmorMaterials.CULTIST_LEADER_DURABILITY))));
     }
 
     private static DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> cultistRobe(String name, net.minecraft.world.item.ArmorItem.Type type) {

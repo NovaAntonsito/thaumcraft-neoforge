@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "thaumcraft:items/banner_stand",
+    "layer1": "thaumcraft:items/banner",
+    "layer2": "thaumcraft:items/banner_symbol"
+  }
+}
