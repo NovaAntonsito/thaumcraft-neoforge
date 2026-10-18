@@ -18,6 +18,7 @@ public final class TCRenderTypes extends RenderType {
     private static final Map<ResourceLocation, RenderType> SEAL = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> SEAL_XRAY = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> ENTITY_XRAY = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> ENTITY_GLOW = new HashMap<>();
 
     private TCRenderTypes(String name, VertexFormat format, VertexFormat.Mode mode, int bufferSize, boolean affectsCrumbling, boolean sortOnUpload,
                           Runnable setupState, Runnable clearState) {
@@ -57,6 +58,20 @@ public final class TCRenderTypes extends RenderType {
                         .setTextureState(new TextureStateShard(t, false, false))
                         .setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP)
                         .setOverlayState(OVERLAY).setDepthTestState(NO_DEPTH_TEST).setWriteMaskState(COLOR_WRITE)
+                        .createCompositeState(false)));
+    }
+
+    /**
+     * An entity model part added on top of the model (GL_SRC_ALPHA, GL_ONE), without depth writes. Used for the
+     * glowing eye of the eldritch warden.
+     */
+    public static RenderType entityGlow(ResourceLocation texture) {
+        return ENTITY_GLOW.computeIfAbsent(texture, t -> create("thaumcraft_entity_glow", DefaultVertexFormat.NEW_ENTITY,
+                VertexFormat.Mode.QUADS, 1536, true, true,
+                CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                        .setTextureState(new TextureStateShard(t, false, false))
+                        .setTransparencyState(LIGHTNING_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP)
+                        .setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE)
                         .createCompositeState(false)));
     }
 }

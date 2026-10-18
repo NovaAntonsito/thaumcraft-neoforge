@@ -179,6 +179,14 @@ public final class TCEntities {
     public static final Supplier<EntityType<thaumcraft.common.entities.monster.boss.EntityCultistLeader>> CULTIST_LEADER = ENTITY_TYPES.register("cultist_leader",
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.boss.EntityCultistLeader>of(thaumcraft.common.entities.monster.boss.EntityCultistLeader::new, MobCategory.MONSTER)
                     .sized(0.75f, 2.25f).clientTrackingRange(4).updateInterval(3).build("cultist_leader"));
+    /** ConfigEntities: "EldritchWarden", tracked up to 64 blocks, updates every 3 ticks. Eye height 3.1. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.boss.EntityEldritchWarden>> ELDRITCH_WARDEN = ENTITY_TYPES.register("eldritch_warden",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.boss.EntityEldritchWarden>of(thaumcraft.common.entities.monster.boss.EntityEldritchWarden::new, MobCategory.MONSTER)
+                    .sized(1.5f, 3.5f).eyeHeight(3.1f).clientTrackingRange(4).updateInterval(3).build("eldritch_warden"));
+    /** ConfigEntities: "EldritchGolem", tracked up to 64 blocks, updates every 3 ticks. Immune to fire; eye height 3 (3.33 headless). */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.boss.EntityEldritchGolem>> ELDRITCH_GOLEM = ENTITY_TYPES.register("eldritch_golem",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.boss.EntityEldritchGolem>of(thaumcraft.common.entities.monster.boss.EntityEldritchGolem::new, MobCategory.MONSTER)
+                    .sized(1.75f, 3.5f).eyeHeight(3.0f).fireImmune().clientTrackingRange(4).updateInterval(3).build("eldritch_golem"));
 
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
@@ -206,6 +214,8 @@ public final class TCEntities {
         event.put(INHABITED_ZOMBIE.get(), thaumcraft.common.entities.monster.EntityInhabitedZombie.createAttributes().build());
         event.put(CULTIST_PORTAL_GREATER.get(), thaumcraft.common.entities.monster.boss.EntityCultistPortalGreater.createAttributes().build());
         event.put(CULTIST_LEADER.get(), thaumcraft.common.entities.monster.boss.EntityCultistLeader.createAttributes().build());
+        event.put(ELDRITCH_WARDEN.get(), thaumcraft.common.entities.monster.boss.EntityEldritchWarden.createAttributes().build());
+        event.put(ELDRITCH_GOLEM.get(), thaumcraft.common.entities.monster.boss.EntityEldritchGolem.createAttributes().build());
     }
 
     /** Where the mobs that spawn on their own may appear (getCanSpawnHere of the original). */

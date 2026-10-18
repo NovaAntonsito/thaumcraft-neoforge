@@ -118,6 +118,8 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_GUARDIAN.get(), new AspectList().add(Aspect.ELDRITCH, 20).add(Aspect.DEATH, 20).add(Aspect.UNDEAD, 20));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_CRAB.get(), new AspectList().add(Aspect.ELDRITCH, 10).add(Aspect.BEAST, 10).add(Aspect.TRAP, 10));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.INHABITED_ZOMBIE.get(), new AspectList().add(Aspect.ELDRITCH, 10).add(Aspect.UNDEAD, 10).add(Aspect.MAN, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_WARDEN.get(), new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.DEATH, 40).add(Aspect.UNDEAD, 40));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.ELDRITCH_GOLEM.get(), new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.ENERGY, 40).add(Aspect.MECHANISM, 40));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.CULTIST_LEADER.get(), new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.AVERSION, 40).add(Aspect.MAN, 40));
         for (Aspect tag : Aspect.aspects.values()) {
             ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.WISP.get(), new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new EntityTagsNBT("Type", tag.getTag()));

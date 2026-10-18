@@ -190,6 +190,10 @@ public final class ConfigItems {
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_PORTAL_GREATER, 6842578, 32896, p));
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistLeaderSpawnEgg = ITEMS.registerItem("cultist_leader_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_LEADER, 6842578, 9438728, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> eldritchWardenSpawnEgg = ITEMS.registerItem("eldritch_warden_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.ELDRITCH_WARDEN, 6842578, 8421504, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> eldritchGolemSpawnEgg = ITEMS.registerItem("eldritch_golem_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.ELDRITCH_GOLEM, 6842578, 8947848, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =

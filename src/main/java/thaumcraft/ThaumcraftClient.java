@@ -162,6 +162,8 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.ELDRITCH_ORB.get(), thaumcraft.client.renderers.entity.projectile.RenderEldritchOrb::new);
         event.registerEntityRenderer(TCEntities.CULTIST_PORTAL_GREATER.get(), thaumcraft.client.renderers.entity.construct.RenderCultistPortalGreater::new);
         event.registerEntityRenderer(TCEntities.CULTIST_LEADER.get(), thaumcraft.client.renderers.entity.mob.RenderCultistLeader::new);
+        event.registerEntityRenderer(TCEntities.ELDRITCH_WARDEN.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchGuardian::new);
+        event.registerEntityRenderer(TCEntities.ELDRITCH_GOLEM.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchGolem::new);
     }
 
     /** LayerTainted on every living renderer. */

@@ -520,6 +520,20 @@ public final class ClientFX {
         }
     }
 
+    /**
+     * FXDispatcher.smokeSpiral: a puff that spirals around a point over its life, never below miny. TODO: FXSmokeSpiral
+     * (stage 10); for now dust of the same color on a random point of that sphere.
+     */
+    public static void smokeSpiral(Level world, double x, double y, double z, float rad, int start, int miny, int color) {
+        RandomSource rand = world.random;
+        float r1 = start + 720.0f * rand.nextFloat();
+        float r2 = 90.0f - 180.0f * rand.nextFloat();
+        double mX = -Mth.sin(r1 / 180.0f * 3.1415927f) * Mth.cos(r2 / 180.0f * 3.1415927f) * rad;
+        double mZ = Mth.cos(r1 / 180.0f * 3.1415927f) * Mth.cos(r2 / 180.0f * 3.1415927f) * rad;
+        double mY = -Mth.sin(r2 / 180.0f * 3.1415927f) * rad;
+        world.addParticle(new DustParticleOptions(rgb(color), 1.0f), x + mX, Math.max(y + mY, miny + 0.1f), z + mZ, 0, 0.01, 0);
+    }
+
     /** PacketFXSonic: the ripple an eldritch guardian screams from its head. TODO: FXSonic (stage 10); the sonic boom for now. */
     public static void sonic(Entity source) {
         source.level().addParticle(ParticleTypes.SONIC_BOOM, source.getX(), source.getY() + source.getEyeHeight(), source.getZ(), 0, 0, 0);

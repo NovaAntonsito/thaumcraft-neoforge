@@ -22,7 +22,7 @@ import thaumcraft.common.lib.events.ServerEvents;
 
 /**
  * Port of BlockEffect for effect_sap, the sapping field the curse focus leaves on the ground. Entities inside it get
- * wither, slowness and hunger; it vanishes on its next random tick.
+ * wither, slowness and hunger; it vanishes on its next random or scheduled tick.
  * 1.21: a separate class, not marked as air (chunk sections never random tick air blocks). The original sparks are
  * drawn with dust particles until the FX stage. Eldritch mobs are not harmed.
  */
@@ -51,6 +51,12 @@ public class BlockEffectSap extends Block {
                 le.addEffect(new MobEffectInstance(MobEffects.HUNGER, 40, 1, true, true));
             }, 0);
         }
+    }
+
+    /** updateTick ran on scheduled ticks as well: the eldritch warden schedules one for each sap block it lays. */
+    @Override
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource rand) {
+        world.removeBlock(pos, false);
     }
 
     @Override

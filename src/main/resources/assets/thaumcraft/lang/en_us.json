@@ -1977,5 +1977,11 @@
   "entity.thaumcraft.cultist_leader.custom": "Praetor %s the %s",
   "entity.thaumcraft.cultist_portal_greater": "Greater Crimson Portal",
   "item.thaumcraft.cultist_portal_greater_spawn_egg": "Greater Crimson Portal Spawn Egg",
-  "item.thaumcraft.cultist_leader_spawn_egg": "Crimson Praetor Spawn Egg"
+  "item.thaumcraft.cultist_leader_spawn_egg": "Crimson Praetor Spawn Egg",
+  "entity.thaumcraft.eldritch_warden": "Eldritch Warden",
+  "entity.thaumcraft.eldritch_warden.custom": "%s the %s",
+  "entity.thaumcraft.eldritch_golem": "Eldritch Construct",
+  "entity.thaumcraft.eldritch_golem.custom": "%s Eldritch Construct",
+  "item.thaumcraft.eldritch_warden_spawn_egg": "Eldritch Warden Spawn Egg",
+  "item.thaumcraft.eldritch_golem_spawn_egg": "Eldritch Construct Spawn Egg"
 }

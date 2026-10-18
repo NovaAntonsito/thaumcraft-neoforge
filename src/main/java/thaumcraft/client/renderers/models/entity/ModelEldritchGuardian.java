@@ -1,5 +1,8 @@
 package thaumcraft.client.renderers.models.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -10,11 +13,12 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Monster;
 import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
 
 /**
  * Port of ModelEldritchGuardian (128x64 texture): a hooded, armored figure with no legs. Its loincloth panels and
- * cloak sway, its arms bob and lift when it casts. The hood_eye cube is the glowing eye of the eldritch warden
- * (stage 9d-4) and stays hidden on the guardian.
+ * cloak sway, its arms bob and lift when it casts. The eldritch warden uses it too: the hood_eye cube is its glowing
+ * eye, hidden in the normal pass and drawn on its own by {@link #renderEye}.
  */
 public class ModelEldritchGuardian extends HierarchicalModel<Monster> {
     private final ModelPart root;
@@ -179,6 +183,16 @@ public class ModelEldritchGuardian extends HierarchicalModel<Monster> {
         return root;
     }
 
+    /** The warden's eye, scaled up by 1% so it sits over the hood. */
+    public void renderEye(PoseStack pose, VertexConsumer buffer, int light, int overlay) {
+        pose.pushPose();
+        pose.scale(1.01f, 1.01f, 1.01f);
+        hoodEye.visible = true;
+        hoodEye.render(pose, buffer, light, overlay);
+        hoodEye.visible = false;
+        pose.popPose();
+    }
+
     /** setRotationAngles; par3 is ticksExisted plus the partial tick. */
     @Override
     public void setupAnim(Monster entity, float par1, float par2, float par3, float par4, float par5) {
@@ -191,6 +205,10 @@ public class ModelEldritchGuardian extends HierarchicalModel<Monster> {
         if (entity instanceof EntityEldritchGuardian g) {
             alr = g.armLiftR;
             all = g.armLiftL;
+        }
+        if (entity instanceof EntityEldritchWarden w) {
+            alr = w.armLiftR;
+            all = w.armLiftL;
         }
         armL1.xRot = -1.0f - all + Mth.sin((par3 + 20) / 10.0f) * 0.08f;
         armR1.xRot = -1.0f - alr + Mth.sin(par3 / 10.0f) * 0.08f;
