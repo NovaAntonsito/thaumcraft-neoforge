@@ -1,0 +1,41 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "PRIMALCRUSHER",
+  "instability": 6,
+  "aspects": {
+    "terra": 75,
+    "instrumentum": 75,
+    "perditio": 50,
+    "vacuos": 50,
+    "aversio": 50,
+    "alienis": 50,
+    "desiderium": 50
+  },
+  "central": {
+    "item": "thaumcraft:primordial_pearl"
+  },
+  "components": [
+    {
+      "item": "thaumcraft:void_pick"
+    },
+    {
+      "item": "thaumcraft:void_shovel"
+    },
+    {
+      "item": "thaumcraft:elemental_pick"
+    },
+    {
+      "item": "thaumcraft:elemental_shovel"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:primal_crusher",
+    "count": 1,
+    "components": {
+      "thaumcraft:infusion_enchantments": {
+        "destructive": 1,
+        "refining": 1
+      }
+    }
+  }
+}

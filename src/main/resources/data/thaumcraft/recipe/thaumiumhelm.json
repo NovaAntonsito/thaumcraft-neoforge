@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thaumcraft:thaumium_stuff",
+  "pattern": [
+    "III",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/thaumium"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:thaumium_helm",
+    "count": 1
+  }
+}

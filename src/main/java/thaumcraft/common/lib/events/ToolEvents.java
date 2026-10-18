@@ -49,7 +49,7 @@ import thaumcraft.common.lib.network.fx.PacketFXScanSource;
  * <p>
  * The 1.12 HarvestDropsEvent work is split: area breaking (Destructive) runs on BreakEvent and the drop changes
  * (Collector, Lamplighter, rare earth) on BlockDropsEvent.
- * TODO: Refining (needs ore clusters) and Essence (needs entity aspects); the following item and slash FX.
+ * TODO: Essence (needs entity aspects); the following item and slash FX.
  */
 @EventBusSubscriber(modid = Thaumcraft.MODID)
 public final class ToolEvents {
@@ -237,6 +237,23 @@ public final class ToolEvents {
         if (!(event.getBreaker() instanceof Player player) || tool.isEmpty()) return;
         List<EnumInfusionEnchantment> list = EnumInfusionEnchantment.getInfusionEnchantments(tool);
         if (list.isEmpty() || !(silk || isToolEffective(tool, state))) return;
+        if (list.contains(EnumInfusionEnchantment.REFINING)) {
+            int fortune = 1 + EnumInfusionEnchantment.getInfusionEnchantmentLevel(tool, EnumInfusionEnchantment.REFINING);
+            float chance = fortune * 0.125f;
+            boolean b = false;
+            for (ItemEntity ei : event.getDrops()) {
+                ItemStack is = ei.getItem();
+                ItemStack smr = thaumcraft.common.lib.utils.Utils.findSpecialMiningResult(is, chance, world.random);
+                if (!ItemStack.isSameItem(is, smr)) {
+                    ei.setItem(smr);
+                    b = true;
+                }
+            }
+            if (b) {
+                world.playSound(null, pos, net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.2f,
+                        0.7f + world.random.nextFloat() * 0.2f);
+            }
+        }
         if (list.contains(EnumInfusionEnchantment.COLLECTOR) && !player.isShiftKeyDown()) {
             // TODO: EntityFollowingItem flies the drops to the player; here they appear at the player's feet.
             for (ItemEntity ei : event.getDrops()) {

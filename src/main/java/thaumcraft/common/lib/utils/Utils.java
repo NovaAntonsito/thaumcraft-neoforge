@@ -26,6 +26,36 @@ public final class Utils {
     private Utils() {
     }
 
+    /** One entry of specialMiningResult: a drop (an item or an item tag) that Refining can turn into another stack. */
+    private record SpecialMiningResult(Object in, ItemStack out, float chance) {
+    }
+
+    private static final java.util.ArrayList<SpecialMiningResult> specialMiningResults = new java.util.ArrayList<>();
+
+    /** addSpecialMiningResult: in is an Item or a TagKey of items (the 1.12 item and metadata, or ore dictionary name). */
+    public static void addSpecialMiningResult(Object in, ItemStack out, float chance) {
+        specialMiningResults.add(new SpecialMiningResult(in, out, chance));
+    }
+
+    /** findSpecialMiningResult: with the given chance, the drop becomes its special result, as many as were dropped. */
+    @SuppressWarnings("unchecked")
+    public static ItemStack findSpecialMiningResult(ItemStack is, float chance, RandomSource rand) {
+        ItemStack dropped = is.copy();
+        float r = rand.nextFloat();
+        for (SpecialMiningResult smr : specialMiningResults) {
+            boolean match = smr.in() instanceof Item item ? is.is(item)
+                    : smr.in() instanceof net.minecraft.tags.TagKey<?> tag && is.is((net.minecraft.tags.TagKey<Item>) tag);
+            if (match) {
+                if (r <= chance * smr.chance()) {
+                    dropped = smr.out().copy();
+                    dropped.setCount(dropped.getCount() * is.getCount());
+                }
+                break;
+            }
+        }
+        return dropped;
+    }
+
     /**
      * Block.isWood, canSustainLeaves or the "logWood" ore dictionary in 1.12. The minecraft:logs tag covers all three
      * (it includes the modded logs that are tagged c:/minecraft logs).

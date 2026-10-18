@@ -538,4 +538,33 @@ public final class ClientFX {
     public static void sonic(Entity source) {
         source.level().addParticle(ParticleTypes.SONIC_BOOM, source.getX(), source.getY() + source.getEyeHeight(), source.getZ(), 0, 0, 0);
     }
+
+    /** FXDispatcher.crucibleBubble: a small colored bubble. TODO: FXGeneric (stage 10); for now dust of the same color. */
+    public static void crucibleBubble(Level world, float x, float y, float z, float r, float g, float b) {
+        world.addParticle(new DustParticleOptions(new Vector3f(r, g, b), 0.6f), x, y, z, 0, 0.01, 0);
+    }
+
+    /**
+     * FXDispatcher.drawBamf: the puff of a block or tool appearing, on one face of a block. TODO: FXGeneric (stage 10);
+     * for now a few poofs, plus dust of the color.
+     */
+    public static void drawBamf(Level world, double x, double y, double z, int color, boolean sound, boolean flair) {
+        RandomSource rand = world.random;
+        DustParticleOptions dust = new DustParticleOptions(rgb(color), 1.0f);
+        for (int a = 0; a < 6 + (flair ? 4 : 0); ++a) {
+            double vx = (rand.nextFloat() - rand.nextFloat()) * 0.05;
+            double vy = rand.nextFloat() * 0.05;
+            double vz = (rand.nextFloat() - rand.nextFloat()) * 0.05;
+            world.addParticle(a % 2 == 0 ? ParticleTypes.POOF : dust, x + (rand.nextFloat() - 0.5) * 0.5, y, z + (rand.nextFloat() - 0.5) * 0.5, vx, vy, vz);
+        }
+        if (sound) {
+            world.playLocalSound(x, y, z, thaumcraft.common.lib.SoundsTC.POOF.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f,
+                    1.0f + (float) rand.nextGaussian() * 0.05f, false);
+        }
+    }
+
+    /** drawBamf at the middle of a block. */
+    public static void drawBamf(Level world, BlockPos p, int color, boolean sound, boolean flair) {
+        drawBamf(world, p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, color, sound, flair);
+    }
 }

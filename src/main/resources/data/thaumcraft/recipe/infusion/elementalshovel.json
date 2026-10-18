@@ -1,0 +1,47 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ELEMENTALTOOLS",
+  "instability": 1,
+  "aspects": {
+    "terra": 60,
+    "fabrico": 30
+  },
+  "central": {
+    "item": "thaumcraft:thaumium_shovel"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "terra": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "terra": 1
+        }
+      }
+    },
+    {
+      "item": "thaumcraft:nugget_rareearth"
+    },
+    {
+      "item": "thaumcraft:plank_greatwood"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:elemental_shovel",
+    "count": 1,
+    "components": {
+      "thaumcraft:infusion_enchantments": {
+        "destructive": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thaumcraft:void_stuff",
+  "pattern": [
+    "III",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/void"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:void_legs",
+    "count": 1
+  }
+}

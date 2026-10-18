@@ -32,6 +32,15 @@ public final class TCArmorMaterials {
     public static final Holder<ArmorMaterial> CULTIST_LEADER = register("cultist_leader", 3, 6, 7, 3, 20,
             SoundEvents.ARMOR_EQUIP_IRON, 1.0f);
 
+    /** ARMORMAT_THAUMIUM: factor 25, {2, 5, 6, 2}, enchantability 25, iron sound, toughness 1, repaired with thaumium. */
+    public static final Holder<ArmorMaterial> THAUMIUM = register("thaumium", 2, 5, 6, 2, 25, SoundEvents.ARMOR_EQUIP_IRON, 1.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("thaumium").get()));
+    /** ARMORMAT_VOID: factor 10, {3, 6, 8, 3}, enchantability 10, chain sound, toughness 1, repaired with void metal. */
+    public static final Holder<ArmorMaterial> VOID = register("void", 3, 6, 8, 3, 10, SoundEvents.ARMOR_EQUIP_CHAIN, 1.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("void").get()));
+
+    public static final int THAUMIUM_DURABILITY = 25;
+    public static final int VOID_DURABILITY = 10;
     public static final int CULTIST_PLATE_DURABILITY = 18;
     public static final int CULTIST_ROBE_DURABILITY = 17;
     public static final int CULTIST_LEADER_DURABILITY = 30;
@@ -46,6 +55,11 @@ public final class TCArmorMaterials {
 
     private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
             Holder<net.minecraft.sounds.SoundEvent> sound, float toughness) {
+        return register(name, boots, legs, chest, helmet, enchantability, sound, toughness, () -> Ingredient.of(Items.IRON_INGOT));
+    }
+
+    private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
+            Holder<net.minecraft.sounds.SoundEvent> sound, float toughness, java.util.function.Supplier<Ingredient> repair) {
         EnumMap<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
         defense.put(ArmorItem.Type.BOOTS, boots);
         defense.put(ArmorItem.Type.LEGGINGS, legs);
@@ -55,6 +69,6 @@ public final class TCArmorMaterials {
         // The texture comes from getArmorTexture, the layer is only a fallback.
         List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, name)));
         return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantability, sound,
-                () -> Ingredient.of(Items.IRON_INGOT), layers, toughness, 0.0f));
+                repair, layers, toughness, 0.0f));
     }
 }

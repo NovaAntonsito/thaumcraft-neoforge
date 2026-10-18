@@ -1,0 +1,43 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ELEMENTALTOOLS",
+  "instability": 1,
+  "aspects": {
+    "ordo": 30,
+    "herba": 30,
+    "perditio": 30
+  },
+  "central": {
+    "item": "thaumcraft:thaumium_hoe"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "ordo": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "perditio": 1
+        }
+      }
+    },
+    {
+      "item": "thaumcraft:nugget_rareearth"
+    },
+    {
+      "item": "thaumcraft:plank_greatwood"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:elemental_hoe",
+    "count": 1
+  }
+}

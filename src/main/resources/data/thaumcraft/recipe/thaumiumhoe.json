@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "thaumcraft:thaumium_stuff",
+  "pattern": [
+    "II",
+    "S ",
+    "S "
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/thaumium"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:thaumium_hoe",
+    "count": 1
+  }
+}

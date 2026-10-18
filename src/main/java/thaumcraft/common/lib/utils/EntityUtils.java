@@ -136,6 +136,18 @@ public final class EntityUtils {
         return false;
     }
 
+    /**
+     * resetFloatCounter: keeps the server from kicking a player for flying, while a tool holds them up.
+     * 1.21: the counter is private, so it is set by reflection.
+     */
+    public static void resetFloatCounter(net.minecraft.server.level.ServerPlayer player) {
+        try {
+            net.neoforged.fml.util.ObfuscationReflectionHelper.setPrivateValue(net.minecraft.server.network.ServerGamePacketListenerImpl.class,
+                    player.connection, 0, "aboveGroundTickCount");
+        } catch (Exception ignored) {
+        }
+    }
+
     public static <T extends Entity> List<T> getEntitiesInRange(Level world, BlockPos pos, @Nullable Entity entity, Class<? extends T> classEntity, double range) {
         return getEntitiesInRange(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, entity, classEntity, range);
     }

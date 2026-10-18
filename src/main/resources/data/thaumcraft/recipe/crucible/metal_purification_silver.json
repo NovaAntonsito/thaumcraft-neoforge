@@ -1,0 +1,24 @@
+{
+  "type": "thaumcraft:crucible",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/silver"
+      }
+    }
+  ],
+  "research": "METALPURIFICATION",
+  "catalyst": {
+    "tag": "c:ores/silver"
+  },
+  "aspects": {
+    "metallum": 5,
+    "ordo": 5
+  },
+  "result": {
+    "id": "thaumcraft:cluster_silver",
+    "count": 1
+  }
+}

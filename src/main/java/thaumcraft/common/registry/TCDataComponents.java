@@ -35,6 +35,10 @@ public final class TCDataComponents {
             DATA_COMPONENTS.registerComponentType("infusion_enchantments",
                     builder -> builder.persistent(EnumInfusionEnchantment.MAP_CODEC).networkSynchronized(EnumInfusionEnchantment.MAP_STREAM_CODEC.cast()));
 
+    /** The 3x3 orientation of the elemental shovel (0 flat, 1 upright, 2 sideways). Replaces the "or" NBT byte. */
+    public static final Supplier<DataComponentType<Byte>> SHOVEL_ORIENTATION = DATA_COMPONENTS.registerComponentType("shovel_orientation",
+            builder -> builder.persistent(com.mojang.serialization.Codec.BYTE).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BYTE.cast()));
+
     /** Warp the item gives its holder. Replaces the "TC.WARP" NBT byte. */
     public static final Supplier<DataComponentType<Integer>> WARP = DATA_COMPONENTS.registerComponentType("warp",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));

@@ -227,7 +227,8 @@ public class Thaumcraft {
     /**
      * ConfigRecipes.initializeSmelting: the infernal furnace's bonus nuggets. Ore dictionary names become c: tags.
      * Since 1.17 ores drop raw materials, so each metal's c:raw_materials tag gets the same bonus as its ore.
-     * Native clusters and meat chunks are not ported yet (TODO), so their bonuses are left out.
+     * Meat chunks are not ported yet (TODO), so their bonuses are left out.
+     * Also the special mining results of ModConfig (what Refining turns into clusters): each ore, and its raw material.
      */
     private static void registerSmeltingBonuses() {
         String[][] metals = {{"gold", null}, {"iron", null}, {"copper", "copper"}, {"tin", "tin"}, {"silver", "silver"}, {"lead", "lead"}};
@@ -239,6 +240,20 @@ public class Thaumcraft {
         }
         ThaumcraftApi.addSmeltingBonus(itemTag("ores/cinnabar"), new ItemStack(ConfigItems.nuggets.get("quicksilver").get()));
         ThaumcraftApi.addSmeltingBonus(itemTag("ores/quartz"), new ItemStack(ConfigItems.nuggets.get("quartz").get()));
+        String[][] clusterBonus = {{"iron", null}, {"gold", null}, {"cinnabar", "quicksilver"}, {"copper", "copper"}, {"tin", "tin"},
+                {"silver", "silver"}, {"lead", "lead"}, {"quartz", "quartz"}};
+        for (String[] c : clusterBonus) {
+            ItemStack nugget = c[1] == null ? new ItemStack(c[0].equals("gold") ? Items.GOLD_NUGGET : Items.IRON_NUGGET)
+                    : new ItemStack(ConfigItems.nuggets.get(c[1]).get());
+            ThaumcraftApi.addSmeltingBonus(new ItemStack(ConfigItems.clusters.get(c[0]).get()), nugget);
+        }
+        for (String m : new String[] {"iron", "gold", "copper", "tin", "silver", "lead"}) {
+            ItemStack cluster = new ItemStack(ConfigItems.clusters.get(m).get());
+            thaumcraft.common.lib.utils.Utils.addSpecialMiningResult(itemTag("ores/" + m), cluster, 1.0f);
+            thaumcraft.common.lib.utils.Utils.addSpecialMiningResult(itemTag("raw_materials/" + m), cluster, 1.0f);
+        }
+        thaumcraft.common.lib.utils.Utils.addSpecialMiningResult(itemTag("ores/cinnabar"), new ItemStack(ConfigItems.clusters.get("cinnabar").get()), 1.0f);
+        thaumcraft.common.lib.utils.Utils.addSpecialMiningResult(Items.QUARTZ, new ItemStack(ConfigItems.clusters.get("quartz").get()), 1.0f);
         ItemStack rare = new ItemStack(ConfigItems.nuggets.get("rareearth").get());
         Object[][] rareEarth = {{"ores/diamond", 0.025f}, {"ores/redstone", 0.01f}, {"ores/lapis", 0.01f}, {"ores/emerald", 0.025f},
                 {"ores/gold", 0.02f}, {"ores/iron", 0.01f}, {"ores/cinnabar", 0.025f}, {"ores/copper", 0.01f}, {"ores/tin", 0.01f},

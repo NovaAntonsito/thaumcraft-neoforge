@@ -58,6 +58,9 @@ public final class ConfigItems {
             "iron", "copper", "tin", "silver", "lead", "quicksilver", "thaumium", "void", "brass", "quartz", "rareearth");
 
     /** "brass","iron","thaumium","void" */
+    /** "iron","gold","copper","tin","silver","lead","cinnabar","quartz": the native clusters. */
+    public static final Map<String, DeferredItem<Item>> clusters = variants("cluster",
+            "iron", "gold", "copper", "tin", "silver", "lead", "cinnabar", "quartz");
     public static final Map<String, DeferredItem<Item>> plate = variants("plate", "brass", "iron", "thaumium", "void");
     public static final DeferredItem<Item> mechanismSimple = ITEMS.registerSimpleItem("mechanism_simple");
     public static final DeferredItem<Item> mechanismComplex = ITEMS.registerSimpleItem("mechanism_complex");
@@ -210,6 +213,48 @@ public final class ConfigItems {
             "guard_advanced", "lumber", "breaker", "use", "provider", "stock", "breaker_advanced");
 
     /** Port of CreativeTabThaumcraft. TODO icon: the original uses the goggles, not ported yet. */
+    // Stage 9e-1: thaumium, void and elemental tools, the primal crusher, thaumium and void armor.
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemThaumiumAxe> thaumiumAxe = ITEMS.registerItem("thaumium_axe", p -> new thaumcraft.common.items.tools.ItemThaumiumAxe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemThaumiumSword> thaumiumSword = ITEMS.registerItem("thaumium_sword", p -> new thaumcraft.common.items.tools.ItemThaumiumSword(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemThaumiumShovel> thaumiumShovel = ITEMS.registerItem("thaumium_shovel", p -> new thaumcraft.common.items.tools.ItemThaumiumShovel(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemThaumiumPickaxe> thaumiumPick = ITEMS.registerItem("thaumium_pick", p -> new thaumcraft.common.items.tools.ItemThaumiumPickaxe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemThaumiumHoe> thaumiumHoe = ITEMS.registerItem("thaumium_hoe", p -> new thaumcraft.common.items.tools.ItemThaumiumHoe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemVoidAxe> voidAxe = ITEMS.registerItem("void_axe", p -> new thaumcraft.common.items.tools.ItemVoidAxe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemVoidSword> voidSword = ITEMS.registerItem("void_sword", p -> new thaumcraft.common.items.tools.ItemVoidSword(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemVoidShovel> voidShovel = ITEMS.registerItem("void_shovel", p -> new thaumcraft.common.items.tools.ItemVoidShovel(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemVoidPickaxe> voidPick = ITEMS.registerItem("void_pick", p -> new thaumcraft.common.items.tools.ItemVoidPickaxe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemVoidHoe> voidHoe = ITEMS.registerItem("void_hoe", p -> new thaumcraft.common.items.tools.ItemVoidHoe(p));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemElementalAxe> elementalAxe = ITEMS.registerItem("elemental_axe", p -> new thaumcraft.common.items.tools.ItemElementalAxe(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemElementalSword> elementalSword = ITEMS.registerItem("elemental_sword", p -> new thaumcraft.common.items.tools.ItemElementalSword(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemElementalShovel> elementalShovel = ITEMS.registerItem("elemental_shovel", p -> new thaumcraft.common.items.tools.ItemElementalShovel(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemElementalPickaxe> elementalPick = ITEMS.registerItem("elemental_pick", p -> new thaumcraft.common.items.tools.ItemElementalPickaxe(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemElementalHoe> elementalHoe = ITEMS.registerItem("elemental_hoe", p -> new thaumcraft.common.items.tools.ItemElementalHoe(p.rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemPrimalCrusher> primalCrusher = ITEMS.registerItem("primal_crusher", p -> new thaumcraft.common.items.tools.ItemPrimalCrusher(p));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemThaumiumArmor> thaumiumHelm = ITEMS.registerItem("thaumium_helm", p -> new thaumcraft.common.items.armor.ItemThaumiumArmor(
+            thaumcraft.common.registry.TCArmorMaterials.THAUMIUM, net.minecraft.world.item.ArmorItem.Type.HELMET, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.HELMET.getDurability(thaumcraft.common.registry.TCArmorMaterials.THAUMIUM_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemThaumiumArmor> thaumiumChest = ITEMS.registerItem("thaumium_chest", p -> new thaumcraft.common.items.armor.ItemThaumiumArmor(
+            thaumcraft.common.registry.TCArmorMaterials.THAUMIUM, net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.CHESTPLATE.getDurability(thaumcraft.common.registry.TCArmorMaterials.THAUMIUM_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemThaumiumArmor> thaumiumLegs = ITEMS.registerItem("thaumium_legs", p -> new thaumcraft.common.items.armor.ItemThaumiumArmor(
+            thaumcraft.common.registry.TCArmorMaterials.THAUMIUM, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.THAUMIUM_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemThaumiumArmor> thaumiumBoots = ITEMS.registerItem("thaumium_boots", p -> new thaumcraft.common.items.armor.ItemThaumiumArmor(
+            thaumcraft.common.registry.TCArmorMaterials.THAUMIUM, net.minecraft.world.item.ArmorItem.Type.BOOTS, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(thaumcraft.common.registry.TCArmorMaterials.THAUMIUM_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidArmor> voidHelm = ITEMS.registerItem("void_helm", p -> new thaumcraft.common.items.armor.ItemVoidArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID, net.minecraft.world.item.ArmorItem.Type.HELMET, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.HELMET.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidArmor> voidChest = ITEMS.registerItem("void_chest", p -> new thaumcraft.common.items.armor.ItemVoidArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID, net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.CHESTPLATE.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidArmor> voidLegs = ITEMS.registerItem("void_legs", p -> new thaumcraft.common.items.armor.ItemVoidArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidArmor> voidBoots = ITEMS.registerItem("void_boots", p -> new thaumcraft.common.items.armor.ItemVoidArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID, net.minecraft.world.item.ArmorItem.Type.BOOTS, p.rarity(Rarity.UNCOMMON)
+                    .durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_DURABILITY))));
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TABTC = CREATIVE_TABS.register("thaumcraft",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.thaumcraft"))
@@ -227,6 +272,8 @@ public final class ConfigItems {
                                 if (Config.ALLOW_CHEAT_SHEET.getAsBoolean()) output.accept(item.get());
                             } else if (item.get() instanceof thaumcraft.common.golems.ItemGolemPlacer) {
                                 output.acceptAll(thaumcraft.common.golems.ItemGolemPlacer.creativeStacks(item.get()));
+                            } else if (item.get() instanceof thaumcraft.common.items.ISubItems sub) {
+                                sub.fillSubItems(output::accept);
                             } else if (item.get() instanceof ItemResearchNote) {
                                 // A blank note is useless: notes come from the thaumonomicon.
                             } else {

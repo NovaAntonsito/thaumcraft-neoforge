@@ -12,7 +12,7 @@ import thaumcraft.common.items.casters.CasterManager;
 
 /**
  * Port of PacketItemKeyToServer: key 1 (G) toggles the misc setting of the held caster; mod is 1 with ctrl and 2 with
- * shift. TODO: the elemental shovel orientation (when the elemental tools are ported).
+ * shift. With the elemental shovel in the main hand it turns its 3x3.
  */
 public record PacketItemKeyToServer(byte key, byte mod) implements CustomPacketPayload {
     public static final Type<PacketItemKeyToServer> TYPE = new Type<>(Thaumcraft.id("item_key"));
@@ -37,6 +37,10 @@ public record PacketItemKeyToServer(byte key, byte mod) implements CustomPacketP
         }
         if (!flag && message.key == 1 && player.getOffhandItem().getItem() instanceof ICaster) {
             CasterManager.toggleMisc(player.getOffhandItem(), player.level(), player, message.mod);
+        }
+        if (message.key == 1 && player.getMainHandItem().getItem() instanceof thaumcraft.common.items.tools.ItemElementalShovel) {
+            byte b = thaumcraft.common.items.tools.ItemElementalShovel.getOrientation(player.getMainHandItem());
+            thaumcraft.common.items.tools.ItemElementalShovel.setOrientation(player.getMainHandItem(), (byte) (b + 1));
         }
     }
 }
