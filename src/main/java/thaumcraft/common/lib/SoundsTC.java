@@ -48,6 +48,12 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> GORE = register("gore");
     public static final Supplier<SoundEvent> WISPLIVE = register("wisplive");
     public static final Supplier<SoundEvent> WISPDEAD = register("wispdead");
+    public static final Supplier<SoundEvent> PECH_IDLE = register("pech_idle");
+    public static final Supplier<SoundEvent> PECH_TRADE = register("pech_trade");
+    public static final Supplier<SoundEvent> PECH_DICE = register("pech_dice");
+    public static final Supplier<SoundEvent> PECH_HIT = register("pech_hit");
+    public static final Supplier<SoundEvent> PECH_DEATH = register("pech_death");
+    public static final Supplier<SoundEvent> PECH_CHARGE = register("pech_charge");
     public static final Supplier<SoundEvent> TENTACLE = register("tentacle");
     public static final Supplier<SoundEvent> SWARM = register("swarm");
     public static final Supplier<SoundEvent> SWARMATTACK = register("swarmattack");

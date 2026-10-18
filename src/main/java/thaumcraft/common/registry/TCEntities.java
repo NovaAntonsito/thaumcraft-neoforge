@@ -129,6 +129,11 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityMindSpider>of(thaumcraft.common.entities.monster.EntityMindSpider::new, MobCategory.MONSTER)
                     .sized(0.7f, 0.5f).eyeHeight(0.45f).clientTrackingRange(4).updateInterval(3).build("mind_spider"));
 
+    /** ConfigEntities: "Pech", tracked up to 64 blocks, updates every 3 ticks. Eye height is two thirds of its height. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityPech>> PECH = ENTITY_TYPES.register("pech",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityPech>of(thaumcraft.common.entities.monster.EntityPech::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.8f).eyeHeight(1.188f).clientTrackingRange(4).updateInterval(3).build("pech"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
@@ -146,6 +151,7 @@ public final class TCEntities {
         event.put(WISP.get(), thaumcraft.common.entities.monster.EntityWisp.createAttributes().build());
         event.put(FIRE_BAT.get(), thaumcraft.common.entities.monster.EntityFireBat.createAttributes().build());
         event.put(MIND_SPIDER.get(), thaumcraft.common.entities.monster.EntityMindSpider.createAttributes().build());
+        event.put(PECH.get(), thaumcraft.common.entities.monster.EntityPech.createAttributes().build());
     }
 
     /** Where the mobs that spawn on their own may appear (getCanSpawnHere of the original). */
@@ -158,6 +164,8 @@ public final class TCEntities {
                 thaumcraft.common.entities.monster.EntityFireBat::checkFireBatSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(WISP.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 thaumcraft.common.entities.monster.EntityWisp::checkWispSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(PECH.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND, net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                thaumcraft.common.entities.monster.EntityPech::checkPechSpawnRules, net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 
     private TCEntities() {

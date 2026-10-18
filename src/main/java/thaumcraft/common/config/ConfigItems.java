@@ -115,6 +115,8 @@ public final class ConfigItems {
             p -> new thaumcraft.common.items.curios.ItemLootBag(1, p));
     public static final DeferredItem<thaumcraft.common.items.curios.ItemLootBag> lootBagRare = ITEMS.registerItem("loot_bag_rare",
             p -> new thaumcraft.common.items.curios.ItemLootBag(2, p));
+    public static final DeferredItem<thaumcraft.common.items.curios.ItemPechWand> pechWand = ITEMS.registerItem("pech_wand",
+            thaumcraft.common.items.curios.ItemPechWand::new);
 
     // Stage 9b.
     public static final DeferredItem<thaumcraft.common.items.consumables.ItemBottleTaint> bottleTaint =
@@ -146,6 +148,9 @@ public final class ConfigItems {
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.FIRE_BAT, -16129, -806354944, p));
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> mindSpiderSpawnEgg = ITEMS.registerItem("mind_spider_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.MIND_SPIDER, 4996656, 4473924, p));
+    // Stage 9c-3.
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> pechSpawnEgg = ITEMS.registerItem("pech_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.PECH, -16129, -12582848, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =

@@ -1912,5 +1912,10 @@
   "entity.thaumcraft.firebat": "Firebat",
   "item.thaumcraft.firebat_spawn_egg": "Firebat Spawn Egg",
   "entity.thaumcraft.mind_spider": "Mind Spider",
-  "item.thaumcraft.mind_spider_spawn_egg": "Mind Spider Spawn Egg"
+  "item.thaumcraft.mind_spider_spawn_egg": "Mind Spider Spawn Egg",
+  "entity.thaumcraft.pech": "Pech Forager",
+  "entity.thaumcraft.pech.1": "Pech Mage",
+  "entity.thaumcraft.pech.2": "Pech Stalker",
+  "item.thaumcraft.pech_spawn_egg": "Pech Spawn Egg",
+  "item.thaumcraft.pech_wand": "Pech Wand"
 }

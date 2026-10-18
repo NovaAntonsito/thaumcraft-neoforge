@@ -76,8 +76,8 @@ public final class ConfigResearch {
     /**
      * The things the thaumometer learns from. The "![aspect]" triggers come first, as the original added them
      * when each aspect was created.
-     * TODO: the Thaumcraft mobs still missing (pech, cultists, eldritch...), the ancient and eldritch stones,
-     * primordial pearl, pech wand and void seed, once they are ported. ScanSky (celestial notes)
+     * TODO: the Thaumcraft mobs still missing (cultists, eldritch...), the ancient and eldritch stones,
+     * primordial pearl and void seed, once they are ported. ScanSky (celestial notes)
      * waits for the celestial notes item.
      */
     private static void initScannables() {
@@ -112,6 +112,7 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("!ThaumSlime", thaumcraft.common.entities.monster.EntityThaumicSlime.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Firebat", thaumcraft.common.entities.monster.EntityFireBat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!BrainyZombie", thaumcraft.common.entities.monster.EntityBrainyZombie.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!Pech", thaumcraft.common.entities.monster.EntityPech.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintCrawler", thaumcraft.common.entities.monster.tainted.EntityTaintCrawler.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!Taintacle", thaumcraft.common.entities.monster.tainted.EntityTaintacle.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintSeed", thaumcraft.common.entities.monster.tainted.EntityTaintSeed.class, true));
@@ -140,6 +141,7 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("!FluxRift", thaumcraft.common.entities.EntityFluxRift.class, true));
         ScanningManager.addScannableThing(new ScanItem("PRIMPEARL", new ItemStack(ConfigItems.primordialPearl.get())));
         ScanningManager.addScannableThing(new ScanItem("f_VOIDSEED", new ItemStack(ConfigItems.voidSeed.get())));
+        ScanningManager.addScannableThing(new ScanItem("!Pechwand", new ItemStack(ConfigItems.pechWand.get())));
         ScanningManager.addScannableThing(new ScanItem("!DRAGONBREATH", new ItemStack(Items.DRAGON_BREATH)));
         ScanningManager.addScannableThing(new ScanItem("!TOTEMUNDYING", new ItemStack(Items.TOTEM_OF_UNDYING)));
         ScanningManager.addScannableThing(new ScanBlock("f_TELEPORT", Blocks.NETHER_PORTAL, Blocks.END_PORTAL, Blocks.END_PORTAL_FRAME));

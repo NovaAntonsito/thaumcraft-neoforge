@@ -33,7 +33,7 @@ public final class TCBiomeModifiers {
             SERIALIZERS.register("config_spawns", () -> ConfigSpawns.CODEC);
 
     /**
-     * neoforge:add_spawns with a config option ("angry_zombie", "fire_bat", "wisp" or "halloween_fire_bat") and,
+     * neoforge:add_spawns with a config option ("angry_zombie", "fire_bat", "wisp", "pech" or "halloween_fire_bat") and,
      * like the brainy zombies of the original, optionally only in biomes that already have monsters.
      */
     public record ConfigSpawns(String option, boolean onlyWithMonsters, HolderSet<Biome> biomes,
@@ -64,6 +64,7 @@ public final class TCBiomeModifiers {
                 case "angry_zombie" -> Config.ALLOW_SPAWN_ANGRY_ZOMBIE.get();
                 case "fire_bat" -> Config.ALLOW_SPAWN_FIRE_BAT.get();
                 case "wisp" -> Config.ALLOW_SPAWN_WISP.get();
+                case "pech" -> Config.ALLOW_SPAWN_PECH.get();
                 case "halloween_fire_bat" -> {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());

@@ -155,6 +155,7 @@ public class Config {
     public static final ModConfigSpec.BooleanValue ALLOW_SPAWN_ANGRY_ZOMBIE = BUILDER.worldRestart().define("allowSpawnAngryZombie", true);
     public static final ModConfigSpec.BooleanValue ALLOW_SPAWN_FIRE_BAT = BUILDER.worldRestart().define("allowSpawnFireBat", true);
     public static final ModConfigSpec.BooleanValue ALLOW_SPAWN_WISP = BUILDER.worldRestart().define("allowSpawnWisp", true);
+    public static final ModConfigSpec.BooleanValue ALLOW_SPAWN_PECH = BUILDER.worldRestart().define("allowSpawnPech", true);
     public static final ModConfigSpec.BooleanValue GENERATE_MAGIC_FOREST = BUILDER.worldRestart().define("generateMagicForest", true);
     public static final ModConfigSpec.IntValue BIOME_MAGICAL_FOREST_WEIGHT = BUILDER
             .comment("Higher values increases number of magical forest biomes. If you are using biome",

@@ -1,0 +1,14 @@
+{
+  "type": "thaumcraft:config_spawns",
+  "option": "pech",
+  "only_with_monsters": true,
+  "biomes": "#c:is_magical",
+  "spawners": [
+    {
+      "type": "thaumcraft:pech",
+      "weight": 10,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

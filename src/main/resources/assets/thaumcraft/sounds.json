@@ -308,5 +308,45 @@
     "sounds": [
       "thaumcraft:wispdead"
     ]
+  },
+  "pech_idle": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_idle1",
+      "thaumcraft:pech_idle2",
+      "thaumcraft:pech_idle3"
+    ]
+  },
+  "pech_trade": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_trade"
+    ]
+  },
+  "pech_dice": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_dice"
+    ]
+  },
+  "pech_hit": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_hit1",
+      "thaumcraft:pech_hit2"
+    ]
+  },
+  "pech_death": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_death"
+    ]
+  },
+  "pech_charge": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:pech_charge1",
+      "thaumcraft:pech_charge2"
+    ]
   }
 }

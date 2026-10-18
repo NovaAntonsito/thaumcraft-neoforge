@@ -150,6 +150,7 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.WISP.get(), thaumcraft.client.renderers.entity.mob.RenderWisp::new);
         event.registerEntityRenderer(TCEntities.FIRE_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderFireBat::new);
         event.registerEntityRenderer(TCEntities.MIND_SPIDER.get(), thaumcraft.client.renderers.entity.mob.RenderMindSpider::new);
+        event.registerEntityRenderer(TCEntities.PECH.get(), thaumcraft.client.renderers.entity.mob.RenderPech::new);
     }
 
     /** LayerTainted on every living renderer. */
@@ -170,6 +171,7 @@ public class ThaumcraftClient {
     @SubscribeEvent
     static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(TCMenus.ARCANE_WORKBENCH.get(), GuiArcaneWorkbench::new);
+        event.register(TCMenus.PECH.get(), thaumcraft.client.gui.GuiPech::new);
         event.register(TCMenus.SMELTER.get(), GuiSmelter::new);
         event.register(TCMenus.RESEARCH_TABLE.get(), GuiResearchTable::new);
         event.register(TCMenus.DECONSTRUCTION_TABLE.get(), GuiDeconstructionTable::new);

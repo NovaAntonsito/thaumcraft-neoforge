@@ -110,6 +110,9 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.BRAINY_ZOMBIE.get(), new AspectList().add(Aspect.UNDEAD, 20).add(Aspect.MAN, 10).add(Aspect.MIND, 5).add(Aspect.AVERSION, 5));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.GIANT_BRAINY_ZOMBIE.get(), new AspectList().add(Aspect.UNDEAD, 25).add(Aspect.MAN, 15).add(Aspect.MIND, 5).add(Aspect.AVERSION, 10));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.MIND_SPIDER.get(), new AspectList().add(Aspect.FLUX, 5).add(Aspect.FIRE, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.DESIRE, 5), new EntityTagsNBT("PechType", 0));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.AVERSION, 5), new EntityTagsNBT("PechType", 1));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.MAGIC, 5), new EntityTagsNBT("PechType", 2));
         for (Aspect tag : Aspect.aspects.values()) {
             ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.WISP.get(), new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new EntityTagsNBT("Type", tag.getTag()));
         }

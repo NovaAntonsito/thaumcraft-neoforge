@@ -125,6 +125,7 @@ public class Thaumcraft {
             ConfigItems.registerFocusElements();
             ConfigResearch.init();
             ConfigLoot.postInitLoot();
+            thaumcraft.common.config.ConfigEntities.initPechTrades();
             // DustTriggerSimple(BOOKSHELF / CRAFTING_TABLE) and DustTriggerOre("bookshelf" / "workbench") of the original are one tag check.
             IDustTrigger.registerDustTrigger(new DustTriggerSimple("!gotdream",
                     state -> state.is(Tags.Blocks.BOOKSHELVES), () -> new ItemStack(ConfigItems.thaumonomicon.get())));
