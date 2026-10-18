@@ -108,6 +108,14 @@ public final class ConfigItems {
     public static final Map<String, DeferredItem<Item>> mind = variants("mind", "clockwork", "biothaumic");
     public static final DeferredItem<ItemHandMirror> handMirror = ITEMS.registerItem("hand_mirror", ItemHandMirror::new);
 
+    // Stage 9c.
+    public static final DeferredItem<thaumcraft.common.items.curios.ItemLootBag> lootBagCommon = ITEMS.registerItem("loot_bag_common",
+            p -> new thaumcraft.common.items.curios.ItemLootBag(0, p));
+    public static final DeferredItem<thaumcraft.common.items.curios.ItemLootBag> lootBagUncommon = ITEMS.registerItem("loot_bag_uncommon",
+            p -> new thaumcraft.common.items.curios.ItemLootBag(1, p));
+    public static final DeferredItem<thaumcraft.common.items.curios.ItemLootBag> lootBagRare = ITEMS.registerItem("loot_bag_rare",
+            p -> new thaumcraft.common.items.curios.ItemLootBag(2, p));
+
     // Stage 9b.
     public static final DeferredItem<thaumcraft.common.items.consumables.ItemBottleTaint> bottleTaint =
             ITEMS.registerItem("bottle_taint", thaumcraft.common.items.consumables.ItemBottleTaint::new);

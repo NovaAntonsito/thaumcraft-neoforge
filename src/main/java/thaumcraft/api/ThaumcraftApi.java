@@ -159,4 +159,23 @@ public class ThaumcraftApi {
     public static net.minecraft.world.item.ItemStack getSeed(net.minecraft.world.level.block.Block block) {
         return CommonInternals.seedList.get(block);
     }
+    /**
+     * Adds an item to the loot bags. Weight is how often it shows up (gold nuggets are 2500, diamonds 10 to 50);
+     * bagTypes are the bags it goes in: 0 common, 1 uncommon, 2 rare. Without bagTypes it goes in the common bag.
+     */
+    public static void addLootBagItem(ItemStack item, int weight, int... bagTypes) {
+        if (bagTypes == null || bagTypes.length == 0) {
+            thaumcraft.api.internal.WeightedRandomLoot.lootBagCommon.add(new thaumcraft.api.internal.WeightedRandomLoot(item, weight));
+        } else {
+            for (int rarity : bagTypes) {
+                switch (rarity) {
+                    case 0 -> thaumcraft.api.internal.WeightedRandomLoot.lootBagCommon.add(new thaumcraft.api.internal.WeightedRandomLoot(item, weight));
+                    case 1 -> thaumcraft.api.internal.WeightedRandomLoot.lootBagUncommon.add(new thaumcraft.api.internal.WeightedRandomLoot(item, weight));
+                    case 2 -> thaumcraft.api.internal.WeightedRandomLoot.lootBagRare.add(new thaumcraft.api.internal.WeightedRandomLoot(item, weight));
+                    default -> {
+                    }
+                }
+            }
+        }
+    }
 }

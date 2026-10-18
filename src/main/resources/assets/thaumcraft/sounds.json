@@ -288,5 +288,11 @@
       "thaumcraft:fly1",
       "thaumcraft:fly2"
     ]
+  },
+  "coins": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:coins"
+    ]
   }
 }

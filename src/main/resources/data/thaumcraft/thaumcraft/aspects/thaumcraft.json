@@ -334,6 +334,30 @@
         "terra": 5,
         "vacuos": 5
       }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_bag_common"
+      ],
+      "aspects": {
+        "desiderium": 10
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_bag_uncommon"
+      ],
+      "aspects": {
+        "desiderium": 20
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:loot_bag_rare"
+      ],
+      "aspects": {
+        "desiderium": 30
+      }
     }
   ]
 }

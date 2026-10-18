@@ -8,6 +8,17 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
+import thaumcraft.Thaumcraft;
+import thaumcraft.common.entities.monster.mods.ChampionModifier;
+import thaumcraft.common.registry.TCAttributes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
@@ -144,5 +155,74 @@ public final class EntityUtils {
         List<T> list = getEntitiesInRange(world, entity.getX(), entity.getY(), entity.getZ(), entity, classEntity, range);
         list.sort(Comparator.comparingDouble(e -> entity.position().distanceToSqr(e.position())));
         return list;
+    }
+    public static final AttributeModifier CHAMPION_HEALTH = new AttributeModifier(rl("champion_health"), 100.0, AttributeModifier.Operation.ADD_VALUE);
+    public static final AttributeModifier CHAMPION_DAMAGE = new AttributeModifier(rl("champion_damage"), 2.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static final AttributeModifier BOLDBUFF = new AttributeModifier(rl("bold_speed"), 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+    public static final AttributeModifier MIGHTYBUFF = new AttributeModifier(rl("mighty_damage"), 2.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    /** HPBUFF[5] and DMGBUFF[0] of the original, the only ones it used. */
+    public static final AttributeModifier TAINTED_HEALTH = new AttributeModifier(rl("tainted_health"), 25.0, AttributeModifier.Operation.ADD_VALUE);
+    public static final AttributeModifier TAINTED_DAMAGE = new AttributeModifier(rl("tainted_damage"), 0.5, AttributeModifier.Operation.ADD_VALUE);
+
+    private static ResourceLocation rl(String path) {
+        return ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, path);
+    }
+
+    /** The champion modifier of the mob: -2 not rolled yet, -1 normal, 0-12 champion, 13 tainted. */
+    public static int getChampionMod(LivingEntity entity) {
+        AttributeInstance cai = entity.getAttribute(TCAttributes.CHAMPION_MOD);
+        return cai == null ? -2 : (int) cai.getValue();
+    }
+
+    private static void apply(@Nullable AttributeInstance ai, AttributeModifier mod) {
+        if (ai == null) return;
+        ai.removeModifier(mod.id());
+        ai.addPermanentModifier(mod);
+    }
+
+    public static void makeChampion(Monster entity, boolean persist) {
+        AttributeInstance modai = entity.getAttribute(TCAttributes.CHAMPION_MOD);
+        if (modai == null || modai.getValue() > -2.0) {
+            return;
+        }
+        int type = entity.getRandom().nextInt(ChampionModifier.mods.length);
+        if (entity instanceof Creeper) {
+            type = 0;
+        }
+        apply(modai, ChampionModifier.mods[type].attributeMod);
+        // TODO: EntityThaumcraftBoss.generateName (eldritch stage) instead of the champion buffs.
+        apply(entity.getAttribute(Attributes.MAX_HEALTH), CHAMPION_HEALTH);
+        apply(entity.getAttribute(Attributes.ATTACK_DAMAGE), CHAMPION_DAMAGE);
+        entity.heal(25.0f);
+        entity.setCustomName(Component.empty().append(ChampionModifier.mods[type].getModNameLocalized()).append(" ").append(entity.getName()));
+        if (persist) {
+            entity.setPersistenceRequired();
+        }
+        switch (type) {
+            case 0 -> apply(entity.getAttribute(Attributes.MOVEMENT_SPEED), BOLDBUFF);
+            case 3 -> apply(entity.getAttribute(Attributes.ATTACK_DAMAGE), MIGHTYBUFF);
+            case 5 -> {
+                int bh = (int) entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue() / 2;
+                entity.setAbsorptionAmount(entity.getAbsorptionAmount() + bh);
+            }
+            default -> {
+            }
+        }
+    }
+
+    public static void makeTainted(LivingEntity target) {
+        AttributeInstance modai = target.getAttribute(TCAttributes.CHAMPION_MOD);
+        if (modai == null || modai.getValue() > -1.0) {
+            return;
+        }
+        int type = 13;
+        if (modai.getValue() == -1.0) {
+            apply(modai, ChampionModifier.ATTRIBUTE_MINUS_ONE);
+        }
+        apply(modai, ChampionModifier.mods[type].attributeMod);
+        apply(target.getAttribute(Attributes.MAX_HEALTH), TAINTED_HEALTH);
+        // Without an attack damage attribute the critter melee goal uses the size of the mob, like the original did.
+        apply(target.getAttribute(Attributes.ATTACK_DAMAGE), TAINTED_DAMAGE);
+        target.heal(25.0f);
     }
 }

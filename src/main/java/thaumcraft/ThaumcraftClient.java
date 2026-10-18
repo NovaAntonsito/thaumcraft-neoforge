@@ -144,6 +144,12 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.TAINT_SWARM.get(), net.minecraft.client.renderer.entity.NoopRenderer::new);
     }
 
+    /** LayerTainted on every living renderer. */
+    @SubscribeEvent
+    static void addLayers(net.neoforged.neoforge.client.event.EntityRenderersEvent.AddLayers event) {
+        thaumcraft.client.renderers.entity.mob.LayerTainted.addLayers(event);
+    }
+
     /** The particle sprites; the particles themselves are made in ClientFX. */
     @SubscribeEvent
     static void registerParticles(net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent event) {

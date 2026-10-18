@@ -38,6 +38,7 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> SCAN = register("scan");
     public static final Supplier<SoundEvent> TICKS = register("ticks");
     public static final Supplier<SoundEvent> CREAK = register("creak");
+    public static final Supplier<SoundEvent> COINS = register("coins");
     public static final Supplier<SoundEvent> SQUEEK = register("squeek");
     public static final Supplier<SoundEvent> TOOL = register("tool");
     public static final Supplier<SoundEvent> PUMP = register("pump");

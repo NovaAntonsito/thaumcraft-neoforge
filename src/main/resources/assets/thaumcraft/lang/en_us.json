@@ -1895,5 +1895,10 @@
   "effect.thaumcraft.vis_exhaust": "Flux Flu",
   "effect.thaumcraft.infectious_vis_exhaust": "Flux Phage",
   "death.attack.thaumcraft.taint": "%1$s was corrupted by Taint",
-  "death.attack.thaumcraft.taint.player": "%1$s was corrupted by Taint whilst fighting %2$s"
+  "death.attack.thaumcraft.taint.player": "%1$s was corrupted by Taint whilst fighting %2$s",
+  "item.thaumcraft.loot_bag_common": "Common Treasure",
+  "item.thaumcraft.loot_bag_uncommon": "Uncommon Treasure",
+  "item.thaumcraft.loot_bag_rare": "Rare Treasure",
+  "attribute.thaumcraft.mobmod": "Champion modifier",
+  "attribute.thaumcraft.mobmodtaint": "Tainted modifier"
 }

@@ -27,6 +27,7 @@ import thaumcraft.common.aspects.ObjectAspects;
 import thaumcraft.common.command.ThaumcraftCommand;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigLoot;
 import thaumcraft.common.config.ConfigAspects;
 import thaumcraft.common.config.ConfigResearch;
 import net.minecraft.world.item.ItemStack;
@@ -83,11 +84,13 @@ public class Thaumcraft {
         TCFluids.FLUIDS.register(modEventBus);
         TCMobEffects.MOB_EFFECTS.register(modEventBus);
         thaumcraft.common.registry.TCParticles.PARTICLE_TYPES.register(modEventBus);
+        thaumcraft.common.registry.TCAttributes.ATTRIBUTES.register(modEventBus);
         thaumcraft.common.registry.TCFeatures.FEATURES.register(modEventBus);
         modEventBus.addListener(Thaumcraft::onCommonSetup);
         modEventBus.addListener(Thaumcraft::onRegisterCapabilities);
         modEventBus.addListener(TCNetwork::register);
         modEventBus.addListener(TCEntities::registerAttributes);
+        modEventBus.addListener(thaumcraft.common.registry.TCAttributes::addToEntities);
 
         // Game bus: server events.
         NeoForge.EVENT_BUS.addListener(Thaumcraft::onAddReloadListeners);
@@ -119,6 +122,7 @@ public class Thaumcraft {
             ConfigAspects.registerEntityTags();
             ConfigItems.registerFocusElements();
             ConfigResearch.init();
+            ConfigLoot.postInitLoot();
             // DustTriggerSimple(BOOKSHELF / CRAFTING_TABLE) and DustTriggerOre("bookshelf" / "workbench") of the original are one tag check.
             IDustTrigger.registerDustTrigger(new DustTriggerSimple("!gotdream",
                     state -> state.is(Tags.Blocks.BOOKSHELVES), () -> new ItemStack(ConfigItems.thaumonomicon.get())));

@@ -451,4 +451,44 @@ public final class ClientFX {
     public static boolean isParticleAlive(Object particle) {
         return particle instanceof net.minecraft.client.particle.Particle p && p.isAlive();
     }
+    /**
+     * The champion modifier motes (FXDispatcher.drawGenericParticles over a random point of the mob). TODO: FXGeneric
+     * (stage 10); for now dust of the same color and size. heightFrac limits how high on the mob it can appear.
+     */
+    public static void championMote(net.minecraft.world.entity.LivingEntity e, float heightFrac, double vy, float r, float g, float b, float scale) {
+        Level world = e.level();
+        RandomSource rand = world.random;
+        AABB bb = e.getBoundingBox();
+        double x = bb.minX + rand.nextFloat() * e.getBbWidth();
+        double y = bb.minY + rand.nextFloat() * e.getBbHeight() * heightFrac;
+        double z = bb.minZ + rand.nextFloat() * e.getBbWidth();
+        world.addParticle(new DustParticleOptions(new Vector3f(r, g, b), Mth.clamp(scale, 0.2f, 4.0f)), x, y, z, 0, vy, 0);
+    }
+
+    /** ChampionModBold: FXDispatcher.spark over the lower third of the mob. */
+    public static void championSpark(net.minecraft.world.entity.LivingEntity e, float heightFrac, float r, float g, float b) {
+        RandomSource rand = e.level().random;
+        AABB bb = e.getBoundingBox();
+        spark(bb.minX + rand.nextFloat() * e.getBbWidth(), bb.minY + rand.nextFloat() * e.getBbHeight() * heightFrac,
+                bb.minZ + rand.nextFloat() * e.getBbWidth(), r, g, b);
+    }
+
+    /** ChampionModFire: the original drew flame sprites; vanilla flames stand in for them. */
+    public static void championFlame(net.minecraft.world.entity.LivingEntity e) {
+        RandomSource rand = e.level().random;
+        AABB bb = e.getBoundingBox();
+        e.level().addParticle(ParticleTypes.FLAME, bb.minX + rand.nextFloat() * e.getBbWidth(), bb.minY + rand.nextFloat() * e.getBbHeight(),
+                bb.minZ + rand.nextFloat() * e.getBbWidth(), 0, 0.03, 0);
+    }
+
+    /** FXDispatcher.slimeJumpFX: slime bits around the feet of the mob. TODO: FXBreakingFade (stage 10). */
+    public static void slimeJump(net.minecraft.world.entity.LivingEntity e) {
+        Level world = e.level();
+        RandomSource rand = world.random;
+        float f = rand.nextFloat() * (float) Math.PI * 2.0f;
+        float f2 = rand.nextFloat() * 0.5f + 0.5f;
+        float w = e.getBbWidth();
+        world.addParticle(new net.minecraft.core.particles.ItemParticleOption(ParticleTypes.ITEM, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SLIME_BALL)),
+                e.getX() + Mth.sin(f) * w * 0.5f * f2, e.getBoundingBox().minY, e.getZ() + Mth.cos(f) * w * 0.5f * f2, 0, 0, 0);
+    }
 }

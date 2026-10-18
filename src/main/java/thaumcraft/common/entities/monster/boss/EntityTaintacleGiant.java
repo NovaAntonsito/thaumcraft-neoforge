@@ -38,7 +38,7 @@ import thaumcraft.common.registry.TCEntities;
  * Port of EntityTaintacleGiant: the taint boss of the eldritch dungeons. A huge taintacle with a purple boss bar that
  * slowly heals. A single hit over 35 is capped at 35 and enrages it for 10 seconds (regeneration, strength, haste).
  * The last one alive within 48 blocks drops a primordial pearl. It never despawns and breathes under water (tag).
- * TODO: it spawns as a champion (EntityUtils.makeChampion, stage 9c), and it has no spawn place until the Outer Lands.
+ * It spawns as a champion. TODO: it has no spawn place until the Outer Lands.
  */
 public class EntityTaintacleGiant extends EntityTaintacle implements IEldritchMob {
     private static final EntityDataAccessor<Integer> AGGRO = SynchedEntityData.defineId(EntityTaintacleGiant.class, EntityDataSerializers.INT);
@@ -76,7 +76,7 @@ public class EntityTaintacleGiant extends EntityTaintacle implements IEldritchMo
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance diff, MobSpawnType reason, @Nullable SpawnGroupData data) {
-        // TODO stage 9c: EntityUtils.makeChampion(this, true).
+        EntityUtils.makeChampion(this, true);
         return data;
     }
 
