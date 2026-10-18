@@ -24,7 +24,7 @@ public final class TCFeatures {
     /** generateVegetation: greatwood and silverwood trees, and cinderpearls in hot deserts. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> VEGETATION = FEATURES.register("vegetation",
             () -> new ThaumcraftWorldGenerator.VegetationFeature(NoneFeatureConfiguration.CODEC));
-    /** generateSurface: the lesser crimson portals. TODO: the mounds (stage 9d-4). */
+    /** generateSurface: the barrows and the lesser crimson portals. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRUCTURES = FEATURES.register("structures",
             () -> new ThaumcraftWorldGenerator.StructuresFeature(NoneFeatureConfiguration.CODEC));
     /** BiomeGenMagicalForest.decorate, placed by the magical forest biome. */

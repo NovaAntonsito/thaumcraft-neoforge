@@ -211,8 +211,9 @@ public final class ThaumcraftWorldGenerator {
     }
 
     /**
-     * generateSurface: 1 chunk in 500 gets a lesser crimson portal on the surface (the mounds, 1 in 100, are tried first).
-     * The top block must be ground, rock, sand or snow; in 1.12 grass had a material of its own, so not on grass.
+     * generateSurface: 1 chunk in 100 tries a barrow (WorldGenMound), and 1 in 500 of the rest gets a lesser crimson
+     * portal on the surface.
+     * The portal's top block must be ground, rock, sand or snow; in 1.12 grass had a material of its own, so not on grass.
      */
     public static void generateSurface(WorldGenLevel world, RandomSource random, int chunkX, int chunkZ) {
         int randPosX = chunkX * 16 + 8 + Mth.nextInt(random, -4, 4);
@@ -220,7 +221,7 @@ public final class ThaumcraftWorldGenerator {
         BlockPos p = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, new BlockPos(randPosX, 0, randPosZ)).below(9);
         if (p.getY() < world.getMaxBuildHeight()) {
             if (random.nextInt(100) == 0) {
-                // TODO: WorldGenMound (stage 9d-4).
+                new thaumcraft.common.world.objects.WorldGenMound().generate(world, random, p);
             } else if (random.nextInt(500) == 0) {
                 BlockPos p2 = p.above(8);
                 BlockState bs = world.getBlockState(p2);
