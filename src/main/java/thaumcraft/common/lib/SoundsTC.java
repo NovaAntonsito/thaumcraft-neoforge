@@ -46,6 +46,9 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> CRYSTAL = register("crystal");
     public static final Supplier<SoundEvent> GORE = register("gore");
     public static final Supplier<SoundEvent> TENTACLE = register("tentacle");
+    public static final Supplier<SoundEvent> SWARM = register("swarm");
+    public static final Supplier<SoundEvent> SWARMATTACK = register("swarmattack");
+    public static final Supplier<SoundEvent> FLY = register("fly");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);

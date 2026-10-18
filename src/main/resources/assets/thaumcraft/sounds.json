@@ -264,5 +264,29 @@
       "thaumcraft:tentacle2",
       "thaumcraft:tentacle3"
     ]
+  },
+  "swarm": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:swarm1",
+      "thaumcraft:swarm2",
+      "thaumcraft:swarm3"
+    ]
+  },
+  "swarmattack": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:swarmattack",
+        "stream": false
+      }
+    ]
+  },
+  "fly": {
+    "category": "ambient",
+    "sounds": [
+      "thaumcraft:fly1",
+      "thaumcraft:fly2"
+    ]
   }
 }

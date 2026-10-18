@@ -30,9 +30,8 @@ import thaumcraft.common.lib.utils.BlockUtils;
 
 /**
  * Port of BlockTaintFeature ("Swollen Taint"): the glowing orbs taint grows where leaves touched a taint log. They
- * spread fibres, and one on top of an upright taint log can turn into a taint geyser. Breaking one releases flux.
- * Silk touch keeps it.
- * TODO: a third of the time breaking one lets out a taint crawler instead (stage 9b-2).
+ * spread fibres, and one on top of an upright taint log can turn into a taint geyser. Breaking one releases flux,
+ * or a third of the time lets out a taint crawler. Silk touch keeps it.
  */
 public class BlockTaintFeature extends Block implements ITaintBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
@@ -65,8 +64,13 @@ public class BlockTaintFeature extends Block implements ITaintBlock {
     @Override
     protected void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!world.isClientSide && !state.is(newState.getBlock())) {
-            // TODO stage 9b-2: if (world.random.nextFloat() < 0.333f) a taint crawler crawls out instead.
-            AuraHelper.polluteAura(world, pos, 1.0f, true);
+            if (world.random.nextFloat() < 0.333f) {
+                net.minecraft.world.entity.Entity e = new thaumcraft.common.entities.monster.tainted.EntityTaintCrawler(world);
+                e.moveTo(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, world.random.nextInt(360), 0.0f);
+                world.addFreshEntity(e);
+            } else {
+                AuraHelper.polluteAura(world, pos, 1.0f, true);
+            }
         }
         super.onRemove(state, world, pos, newState, isMoving);
     }

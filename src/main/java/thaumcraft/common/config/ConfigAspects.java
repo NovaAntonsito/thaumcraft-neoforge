@@ -96,11 +96,15 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(EntityType.PARROT, new AspectList().add(Aspect.BEAST, 5).add(Aspect.FLIGHT, 5).add(Aspect.SENSES, 5));
         ThaumcraftApi.registerEntityTag(EntityType.STRAY, new AspectList().add(Aspect.UNDEAD, 20).add(Aspect.MAN, 5).add(Aspect.TRAP, 5));
         ThaumcraftApi.registerEntityTag(EntityType.VEX, new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.FLIGHT, 5).add(Aspect.MAGIC, 5).add(Aspect.MAN, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINTACLE.get(), new AspectList().add(Aspect.FLUX, 15).add(Aspect.BEAST, 10));
         // The original registers the taint seeds twice; the second entries are the ones that count.
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED.get(), new AspectList().add(Aspect.FLUX, 20).add(Aspect.AURA, 10).add(Aspect.PLANT, 5));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME.get(), new AspectList().add(Aspect.FLUX, 25).add(Aspect.AURA, 15).add(Aspect.PLANT, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINTACLE_SMALL.get(), new AspectList().add(Aspect.FLUX, 5).add(Aspect.BEAST, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SWARM.get(), new AspectList().add(Aspect.FLUX, 15).add(Aspect.AIR, 5));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED.get(), new AspectList().add(Aspect.PLANT, 20).add(Aspect.BEAST, 20).add(Aspect.FLUX, 20));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME.get(), new AspectList().add(Aspect.PLANT, 30).add(Aspect.BEAST, 30).add(Aspect.FLUX, 30));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.TAINTACLE_GIANT.get(), new AspectList().add(Aspect.ELDRITCH, 40).add(Aspect.BEAST, 40).add(Aspect.FLUX, 40));
     }
 
     /** Per item and potion, like the per-PotionType registerObjectTag calls of the original loop. */

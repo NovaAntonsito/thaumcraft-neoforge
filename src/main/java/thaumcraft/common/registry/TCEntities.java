@@ -74,12 +74,42 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime>of(thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime::new, MobCategory.MONSTER)
                     .sized(2.0f, 2.0f).clientTrackingRange(4).updateInterval(20).build("taint_seed_prime"));
 
+    /** ConfigEntities: "TaintCrawler", tracked up to 64 blocks, updates every 3 ticks. Eye height 0.1. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintCrawler>> TAINT_CRAWLER = ENTITY_TYPES.register("taint_crawler",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintCrawler>of(thaumcraft.common.entities.monster.tainted.EntityTaintCrawler::new, MobCategory.MONSTER)
+                    .sized(0.5f, 0.4f).eyeHeight(0.1f).clientTrackingRange(4).updateInterval(3).build("taint_crawler"));
+
+    /** ConfigEntities: "Taintacle", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintacle>> TAINTACLE = ENTITY_TYPES.register("taintacle",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintacle>of(thaumcraft.common.entities.monster.tainted.EntityTaintacle::new, MobCategory.MONSTER)
+                    .sized(0.8f, 3.0f).clientTrackingRange(4).updateInterval(3).build("taintacle"));
+
+    /** ConfigEntities: "TaintacleTiny" (Taint Tendril), tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintacleSmall>> TAINTACLE_SMALL = ENTITY_TYPES.register("taintacle_tiny",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintacleSmall>of(thaumcraft.common.entities.monster.tainted.EntityTaintacleSmall::new, MobCategory.MONSTER)
+                    .sized(0.22f, 1.0f).clientTrackingRange(4).updateInterval(3).build("taintacle_tiny"));
+
+    /** ConfigEntities: "TaintSwarm", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.tainted.EntityTaintSwarm>> TAINT_SWARM = ENTITY_TYPES.register("taint_swarm",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.tainted.EntityTaintSwarm>of(thaumcraft.common.entities.monster.tainted.EntityTaintSwarm::new, MobCategory.MONSTER)
+                    .sized(2.0f, 2.0f).clientTrackingRange(4).updateInterval(3).build("taint_swarm"));
+
+    /** ConfigEntities: "TaintacleGiant", tracked up to 96 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.boss.EntityTaintacleGiant>> TAINTACLE_GIANT = ENTITY_TYPES.register("taintacle_giant",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.boss.EntityTaintacleGiant>of(thaumcraft.common.entities.monster.boss.EntityTaintacleGiant::new, MobCategory.MONSTER)
+                    .sized(1.1f, 6.0f).clientTrackingRange(6).updateInterval(3).build("taintacle_giant"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
         event.put(SPELL_BAT.get(), thaumcraft.common.entities.monster.EntitySpellBat.createAttributes().build());
         event.put(TAINT_SEED.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSeed.createAttributes().build());
         event.put(TAINT_SEED_PRIME.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSeedPrime.createAttributes().build());
+        event.put(TAINT_CRAWLER.get(), thaumcraft.common.entities.monster.tainted.EntityTaintCrawler.createAttributes().build());
+        event.put(TAINTACLE.get(), thaumcraft.common.entities.monster.tainted.EntityTaintacle.createAttributes().build());
+        event.put(TAINTACLE_SMALL.get(), thaumcraft.common.entities.monster.tainted.EntityTaintacleSmall.createAttributes().build());
+        event.put(TAINT_SWARM.get(), thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.createAttributes().build());
+        event.put(TAINTACLE_GIANT.get(), thaumcraft.common.entities.monster.boss.EntityTaintacleGiant.createAttributes().build());
     }
 
     private TCEntities() {

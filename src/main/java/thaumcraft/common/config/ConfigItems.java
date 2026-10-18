@@ -116,6 +116,14 @@ public final class ConfigItems {
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_SEED, 10618530, 4465237, p));
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintSeedPrimeSpawnEgg = ITEMS.registerItem("taint_seed_prime_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_SEED_PRIME, 10618530, 5583718, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintCrawlerSpawnEgg = ITEMS.registerItem("taint_crawler_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_CRAWLER, 10618530, 3158064, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintacleSpawnEgg = ITEMS.registerItem("taintacle_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINTACLE, 10618530, 4469572, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintSwarmSpawnEgg = ITEMS.registerItem("taint_swarm_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINT_SWARM, 10618530, 16744576, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> taintacleGiantSpawnEgg = ITEMS.registerItem("taintacle_giant_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.TAINTACLE_GIANT, 6842578, 10618530, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =

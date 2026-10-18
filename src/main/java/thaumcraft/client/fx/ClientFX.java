@@ -409,4 +409,46 @@ public final class ClientFX {
         world.addParticle(new net.minecraft.core.particles.ItemParticleOption(ParticleTypes.ITEM, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SLIME_BALL)),
                 x + Mth.sin(f) * spread * f2, y, z + Mth.cos(f) * spread * f2, rand.nextGaussian() * 0.1, rand.nextDouble() * 0.2, rand.nextGaussian() * 0.1);
     }
+
+    /**
+     * FXDispatcher.tentacleAriseFX: bits of slime and of the ground thrown up while a taintacle rises. TODO:
+     * FXBreakingFade tinted purple (stage 10); for now slime ball item particles.
+     */
+    public static void tentacleArise(Entity e) {
+        Level world = e.level();
+        RandomSource rand = world.random;
+        float h = e.getBbHeight();
+        for (int j = 0; j < 2.0f * h; ++j) {
+            float f = rand.nextFloat() * (float) Math.PI * h;
+            float f2 = rand.nextFloat() * 0.5f + 0.5f;
+            float f3 = Mth.sin(f) * h * 0.25f * f2;
+            float f4 = Mth.cos(f) * h * 0.25f * f2;
+            world.addParticle(new net.minecraft.core.particles.ItemParticleOption(ParticleTypes.ITEM, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SLIME_BALL)),
+                    e.getX() + f3, e.getY(), e.getZ() + f4, 0, 0, 0);
+            BlockState below = world.getBlockState(e.blockPosition().below());
+            if (!below.isAir()) {
+                f = rand.nextFloat() * (float) Math.PI * h;
+                f2 = rand.nextFloat() * 0.5f + 0.5f;
+                f3 = Mth.sin(f) * h * 0.25f * f2;
+                f4 = Mth.cos(f) * h * 0.25f * f2;
+                world.addParticle(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK, below), e.getX() + f3, e.getY(), e.getZ() + f4, 0, 0, 0);
+            }
+        }
+    }
+
+    /** FXDispatcher.swarmParticleFX: one more FXSwarm somewhere within 2 blocks of its swarm. */
+    public static Object swarmParticle(Entity target, float speed, float turnSpeed, float gravity) {
+        ClientLevel world = (ClientLevel) target.level();
+        RandomSource rand = world.random;
+        thaumcraft.client.fx.particles.FXSwarm fx = new thaumcraft.client.fx.particles.FXSwarm(world,
+                target.getX() + (rand.nextFloat() - rand.nextFloat()) * 2.0f, target.getY() + (rand.nextFloat() - rand.nextFloat()) * 2.0f,
+                target.getZ() + (rand.nextFloat() - rand.nextFloat()) * 2.0f, target, 0.8f + rand.nextFloat() * 0.2f, rand.nextFloat() * 0.4f,
+                1.0f - rand.nextFloat() * 0.2f, speed, turnSpeed, gravity);
+        Minecraft.getInstance().particleEngine.add(fx);
+        return fx;
+    }
+
+    public static boolean isParticleAlive(Object particle) {
+        return particle instanceof net.minecraft.client.particle.Particle p && p.isAlive();
+    }
 }

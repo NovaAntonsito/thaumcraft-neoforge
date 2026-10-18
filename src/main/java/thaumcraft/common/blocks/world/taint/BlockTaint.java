@@ -37,8 +37,7 @@ import thaumcraft.common.registry.TCMobEffects;
 /**
  * Port of BlockTaint: crusted taint, tainted soil, tainted rock and the taint geyser. Away from a taint seed they
  * wither (rock to porous stone, soil to dirt, crust and geyser to flux goo). Tainted rock spreads fibres, loose
- * crust falls, and the geyser pollutes the aura.
- * TODO: the geyser's taint swarm (stage 9b-2).
+ * crust falls, and the geyser pollutes the aura or lets out a taint swarm.
  */
 public class BlockTaint extends Block implements ITaintBlock {
     static final Random r = new Random(System.currentTimeMillis());
@@ -92,9 +91,12 @@ public class BlockTaint extends Block implements ITaintBlock {
                 }
             }
         } else if (state.is(ConfigBlocks.taintGeyser.get())) {
-            // TODO stage 9b-2: with 20% chance, a player within 32 blocks and no taint swarm within 32, a swarm
-            // spawns 1.25 blocks above instead of polluting.
-            if (AuraHelper.getFlux(world, pos) < 2.0f) {
+            if (world.random.nextFloat() < 0.2 && world.hasNearbyAlivePlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 32.0)
+                    && thaumcraft.common.lib.utils.EntityUtils.getEntitiesInRange(world, pos, null, thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.class, 32.0).isEmpty()) {
+                net.minecraft.world.entity.Entity e = new thaumcraft.common.entities.monster.tainted.EntityTaintSwarm(world);
+                e.moveTo(pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f, world.random.nextInt(360), 0.0f);
+                world.addFreshEntity(e);
+            } else if (AuraHelper.getFlux(world, pos) < 2.0f) {
                 AuraHelper.polluteAura(world, pos, 0.25f, true);
             }
         }

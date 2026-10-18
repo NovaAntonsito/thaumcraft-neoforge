@@ -40,7 +40,7 @@ import thaumcraft.common.world.aura.AuraHandler;
  * Port of EntityTaintSeed: the rooted heart of a taint outbreak. It never moves. While the aura has flux it keeps
  * spreading fibres around itself (every tick while boosted by a flux rift), and it poisons everything close with
  * taint. Without flux it starves. Taint blocks only survive near a seed (TaintHelper keeps the list).
- * TODO: the small taintacles it raises under its target (stage 9b-2), and the eldritch biome checks.
+ * When its target stands on taint it raises taint tendrils next to it (EntityTaintacle.spawnTentacles).
  */
 public class EntityTaintSeed extends Monster implements ITaintedMob {
     public int boost = 0;
@@ -154,7 +154,7 @@ public class EntityTaintSeed extends Monster implements ITaintedMob {
                 if (tickFlag) {
                     LivingEntity target = getTarget();
                     if (target != null && distanceToSqr(target) < getArea() * 256 && getSensing().hasLineOfSight(target)) {
-                        spawnTentacles(target);
+                        EntityTaintacle.spawnTentacles(this, target, getSoundVolume(), getVoicePitch());
                     }
                     List<LivingEntity> list = EntityUtils.getEntitiesInRange(level(), blockPosition(), this, LivingEntity.class, getArea() * 4);
                     for (LivingEntity elb : list) {
@@ -179,13 +179,6 @@ public class EntityTaintSeed extends Monster implements ITaintedMob {
                         0.1f + 0.01f * random.nextFloat(), random.nextGaussian() * 0.05f, 2.0f);
             }
         }
-    }
-
-    /**
-     * Raises a small taintacle under the target when it stands on taint.
-     * TODO stage 9b-2: EntityTaintacleSmall, the tentacle sound, and the eldritch biome variant.
-     */
-    protected void spawnTentacles(Entity entity) {
     }
 
     @Override

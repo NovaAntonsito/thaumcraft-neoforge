@@ -136,6 +136,21 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.BOTTLE_TAINT.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(TCEntities.TAINT_SEED.get(), thaumcraft.client.renderers.entity.mob.RenderTaintSeed::new);
         event.registerEntityRenderer(TCEntities.TAINT_SEED_PRIME.get(), thaumcraft.client.renderers.entity.mob.RenderTaintSeed::new);
+        event.registerEntityRenderer(TCEntities.TAINT_CRAWLER.get(), thaumcraft.client.renderers.entity.mob.RenderTaintCrawler::new);
+        event.registerEntityRenderer(TCEntities.TAINTACLE.get(), ctx -> new thaumcraft.client.renderers.entity.mob.RenderTaintacle(ctx, 0.6f, 10));
+        event.registerEntityRenderer(TCEntities.TAINTACLE_SMALL.get(), ctx -> new thaumcraft.client.renderers.entity.mob.RenderTaintacle(ctx, 0.2f, 6));
+        event.registerEntityRenderer(TCEntities.TAINTACLE_GIANT.get(), ctx -> new thaumcraft.client.renderers.entity.mob.RenderTaintacle(ctx, 1.0f, 14));
+        // RenderTaintSwarm drew nothing: the swarm is its particles.
+        event.registerEntityRenderer(TCEntities.TAINT_SWARM.get(), net.minecraft.client.renderer.entity.NoopRenderer::new);
+    }
+
+    /** The particle sprites; the particles themselves are made in ClientFX. */
+    @SubscribeEvent
+    static void registerParticles(net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(thaumcraft.common.registry.TCParticles.SWARM.get(), sprites -> {
+            thaumcraft.client.fx.particles.FXSwarm.sprites = sprites;
+            return (type, level, x, y, z, dx, dy, dz) -> null;
+        });
     }
 
     @SubscribeEvent

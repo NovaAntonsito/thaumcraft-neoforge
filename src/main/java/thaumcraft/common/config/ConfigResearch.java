@@ -102,9 +102,13 @@ public final class ConfigResearch {
         ScanningManager.addScannableThing(new ScanEntity("f_BAT", Bat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Bat.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Parrot.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("f_FLY", thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Ghast.class, true));
         ScanningManager.addScannableThing(new ScanEntity("f_FLY", Blaze.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!TaintCrawler", thaumcraft.common.entities.monster.tainted.EntityTaintCrawler.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!Taintacle", thaumcraft.common.entities.monster.tainted.EntityTaintacle.class, true));
         ScanningManager.addScannableThing(new ScanEntity("!TaintSeed", thaumcraft.common.entities.monster.tainted.EntityTaintSeed.class, true));
+        ScanningManager.addScannableThing(new ScanEntity("!TaintSwarm", thaumcraft.common.entities.monster.tainted.EntityTaintSwarm.class, true));
         Block[] crystals = {ConfigBlocks.crystalAir.get(), ConfigBlocks.crystalFire.get(), ConfigBlocks.crystalWater.get(),
                 ConfigBlocks.crystalEarth.get(), ConfigBlocks.crystalOrder.get(), ConfigBlocks.crystalEntropy.get(), ConfigBlocks.crystalTaint.get()};
         Block[] ores = new Block[crystals.length + 2];

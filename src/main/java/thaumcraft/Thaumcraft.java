@@ -82,6 +82,7 @@ public class Thaumcraft {
         TCFluids.FLUID_TYPES.register(modEventBus);
         TCFluids.FLUIDS.register(modEventBus);
         TCMobEffects.MOB_EFFECTS.register(modEventBus);
+        thaumcraft.common.registry.TCParticles.PARTICLE_TYPES.register(modEventBus);
         thaumcraft.common.registry.TCFeatures.FEATURES.register(modEventBus);
         modEventBus.addListener(Thaumcraft::onCommonSetup);
         modEventBus.addListener(Thaumcraft::onRegisterCapabilities);
