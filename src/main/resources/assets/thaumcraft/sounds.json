@@ -459,5 +459,14 @@
         "stream": false
       }
     ]
+  },
+  "whispers": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "thaumcraft:whispers",
+        "stream": false
+      }
+    ]
   }
 }

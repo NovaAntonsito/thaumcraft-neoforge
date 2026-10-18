@@ -102,4 +102,28 @@ public final class Utils {
         };
         return quality < items.length ? items[quality] : null;
     }
+
+    /** Whether point x lies in the cone with apex t, axis towards b (its length is the cone's) and the given aperture. */
+    public static boolean isLyingInCone(double[] x, double[] t, double[] b, float aperture) {
+        double halfAperture = aperture / 2.0f;
+        double[] apexToXVect = dif(t, x);
+        double[] axisVect = dif(t, b);
+        boolean isInInfiniteCone = dotProd(apexToXVect, axisVect) / magn(apexToXVect) / magn(axisVect) > Math.cos(halfAperture);
+        if (!isInInfiniteCone) {
+            return false;
+        }
+        return dotProd(apexToXVect, axisVect) / magn(axisVect) < magn(axisVect);
+    }
+
+    public static double dotProd(double[] a, double[] b) {
+        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    }
+
+    public static double[] dif(double[] a, double[] b) {
+        return new double[] { a[0] - b[0], a[1] - b[1], a[2] - b[2] };
+    }
+
+    public static double magn(double[] a) {
+        return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
+    }
 }

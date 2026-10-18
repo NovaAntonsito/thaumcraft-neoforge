@@ -29,18 +29,56 @@ import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ResearchNoteManager;
 
-/** Partial port of PlayerEvents: the research hooks (knowledge sync, the crystal, the dream and the book). */
+/** Partial port of PlayerEvents: the research hooks (knowledge sync, the crystal, the dream and the book) and warp. */
 @EventBusSubscriber(modid = Thaumcraft.MODID)
 public final class PlayerEvents {
     private PlayerEvents() {
     }
 
-    /** livingTick: knowledge changed by ResearchManager is sent once a second. */
+    /** livingTick: knowledge changed by ResearchManager is sent once a second, and warp does its work. */
     @SubscribeEvent
     public static void livingTick(PlayerTickEvent.Post event) {
-        if (event.getEntity() instanceof ServerPlayer player && player.tickCount % 20 == 0
-                && ResearchManager.syncList.remove(player.getUUID()) != null) {
-            PacketSyncKnowledge.sync(player);
+        if (event.getEntity() instanceof ServerPlayer player) {
+            if (player.tickCount % 20 == 0 && ResearchManager.syncList.remove(player.getUUID()) != null) {
+                PacketSyncKnowledge.sync(player);
+            }
+            handleWarp(player);
+        }
+    }
+
+    /** A warp event every 2000 ticks (not in wuss mode, nor under warp ward), and Deadly Gaze every second. */
+    private static void handleWarp(Player player) {
+        if (!Config.WUSS_MODE.get() && player.tickCount > 0 && player.tickCount % 2000 == 0
+                && !player.hasEffect(thaumcraft.common.registry.TCMobEffects.WARP_WARD)) {
+            WarpEvents.checkWarpEvent(player);
+        }
+        if (player.tickCount % 20 == 0 && player.hasEffect(thaumcraft.common.registry.TCMobEffects.DEATH_GAZE)) {
+            WarpEvents.checkDeathGaze(player);
+        }
+    }
+
+    /**
+     * finishedUsingItem: under Unnatural Hunger, rotten flesh or a zombie brain takes a level and 30 seconds off it;
+     * other food does nothing for it. The lighter effect has no cure left but those foods.
+     */
+    @SubscribeEvent
+    public static void finishedUsingItem(net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent.Finish event) {
+        net.minecraft.world.entity.LivingEntity entity = event.getEntity();
+        if (!entity.level().isClientSide && entity.hasEffect(thaumcraft.common.registry.TCMobEffects.UNNATURAL_HUNGER)) {
+            if (event.getItem().is(Items.ROTTEN_FLESH) || event.getItem().is(thaumcraft.common.config.ConfigItems.brain.get())) {
+                net.minecraft.world.effect.MobEffectInstance pe = entity.getEffect(thaumcraft.common.registry.TCMobEffects.UNNATURAL_HUNGER);
+                int amp = pe.getAmplifier() - 1;
+                int duration = pe.getDuration() - 600;
+                entity.removeEffect(thaumcraft.common.registry.TCMobEffects.UNNATURAL_HUNGER);
+                if (duration > 0 && amp >= 0) {
+                    pe = new net.minecraft.world.effect.MobEffectInstance(thaumcraft.common.registry.TCMobEffects.UNNATURAL_HUNGER, duration, amp, true, false);
+                    pe.getCures().clear();
+                    entity.addEffect(pe);
+                }
+                entity.sendSystemMessage(Component.translatable("warp.text.hunger.2").withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.ITALIC));
+            } else if (event.getItem().has(net.minecraft.core.component.DataComponents.FOOD)) {
+                entity.sendSystemMessage(Component.translatable("warp.text.hunger.1").withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC));
+            }
         }
     }
 

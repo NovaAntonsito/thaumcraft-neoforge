@@ -248,4 +248,15 @@ public final class EntityUtils {
         }
         return 0;
     }
+
+    /** Whether ent2's middle lies in the cone of the given aperture (radians) and length along ent's line of sight. */
+    public static boolean isVisibleTo(float fov, Entity ent, Entity ent2, float range) {
+        double[] x = { ent2.getX(), ent2.getBoundingBox().minY + ent2.getBbHeight() / 2.0f, ent2.getZ() };
+        double[] t = { ent.getX(), ent.getBoundingBox().minY + ent.getEyeHeight(), ent.getZ() };
+        Vec3 q = ent.getLookAngle();
+        q = new Vec3(q.x * range, q.y * range, q.z * range);
+        Vec3 l = q.add(ent.getX(), ent.getBoundingBox().minY + ent.getEyeHeight(), ent.getZ());
+        double[] b = { l.x, l.y, l.z };
+        return Utils.isLyingInCone(x, t, b, fov);
+    }
 }

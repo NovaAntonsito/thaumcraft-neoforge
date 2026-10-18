@@ -20,6 +20,10 @@ public class Config {
             .comment("Setting this to false will disable the emote particles golems show when working or getting stuck.")
             .define("showGolemEmotes", true);
 
+    public static final ModConfigSpec.BooleanValue DISABLE_SHADERS = BUILDER
+            .comment("This setting will disable certain thaumcraft shaders for those who experience FPS drops.")
+            .define("disableShaders", false);
+
     public static final ModConfigSpec.BooleanValue NOSTRESS = BUILDER
             .comment("Set to true to disable anxiety triggers like the heartbeat sound.")
             .define("nostress", false);

@@ -12,10 +12,7 @@ public final class InternalMethodHandler {
     private InternalMethodHandler() {
     }
 
-    /**
-     * Adds warp of the given type to a player and syncs it.
-     * TODO: the original also sends PacketWarpMessage (the chat line and sound).
-     */
+    /** Adds warp of the given type to a player, tells them (PacketWarpMessage) and syncs it. */
     public static void addWarpToPlayer(Player player, int amount, PlayerWarp.EnumWarpType type) {
         if (amount == 0 || player.level().isClientSide) {
             return;
@@ -26,6 +23,14 @@ public final class InternalMethodHandler {
             amount = cur;
         }
         pw.add(type, amount);
+        if (player instanceof net.minecraft.server.level.ServerPlayer sp) {
+            byte t = switch (type) {
+                case PERMANENT -> (byte) 0;
+                case NORMAL -> (byte) 1;
+                case TEMPORARY -> (byte) 2;
+            };
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp, new thaumcraft.common.lib.network.playerdata.PacketWarpMessage(amount, t));
+        }
         if (amount > 0) {
             pw.setCounter(pw.get(PlayerWarp.EnumWarpType.TEMPORARY) + pw.get(PlayerWarp.EnumWarpType.PERMANENT)
                     + pw.get(PlayerWarp.EnumWarpType.NORMAL));

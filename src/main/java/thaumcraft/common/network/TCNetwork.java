@@ -77,6 +77,8 @@ public final class TCNetwork {
                         thaumcraft.common.lib.network.fx.PacketFXSonic::handle)
                 .playToClient(thaumcraft.common.lib.network.misc.PacketMiscEvent.TYPE, thaumcraft.common.lib.network.misc.PacketMiscEvent.STREAM_CODEC,
                         thaumcraft.common.lib.network.misc.PacketMiscEvent::handle)
+                .playToClient(thaumcraft.common.lib.network.playerdata.PacketWarpMessage.TYPE, thaumcraft.common.lib.network.playerdata.PacketWarpMessage.STREAM_CODEC,
+                        thaumcraft.common.lib.network.playerdata.PacketWarpMessage::handle)
                 .playToServer(thaumcraft.common.lib.network.misc.PacketItemKeyToServer.TYPE, thaumcraft.common.lib.network.misc.PacketItemKeyToServer.STREAM_CODEC,
                         thaumcraft.common.lib.network.misc.PacketItemKeyToServer::handle)
                 .playToServer(thaumcraft.common.lib.network.misc.PacketFocusChangeToServer.TYPE, thaumcraft.common.lib.network.misc.PacketFocusChangeToServer.STREAM_CODEC,

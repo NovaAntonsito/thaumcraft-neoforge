@@ -1983,5 +1983,10 @@
   "entity.thaumcraft.eldritch_golem": "Eldritch Construct",
   "entity.thaumcraft.eldritch_golem.custom": "%s Eldritch Construct",
   "item.thaumcraft.eldritch_warden_spawn_egg": "Eldritch Warden Spawn Egg",
-  "item.thaumcraft.eldritch_golem_spawn_egg": "Eldritch Construct Spawn Egg"
+  "item.thaumcraft.eldritch_golem_spawn_egg": "Eldritch Construct Spawn Egg",
+  "effect.thaumcraft.unnatural_hunger": "Unnatural Hunger",
+  "effect.thaumcraft.death_gaze": "Deadly Gaze",
+  "effect.thaumcraft.blurred_vision": "Blurred Vision",
+  "effect.thaumcraft.sun_scorned": "Sun Scorned",
+  "effect.thaumcraft.thaumarhia": "Thaumorrhea"
 }
