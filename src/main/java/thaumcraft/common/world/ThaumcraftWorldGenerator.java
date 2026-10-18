@@ -221,7 +221,10 @@ public final class ThaumcraftWorldGenerator {
         BlockPos p = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, new BlockPos(randPosX, 0, randPosZ)).below(9);
         if (p.getY() < world.getMaxBuildHeight()) {
             if (random.nextInt(100) == 0) {
-                new thaumcraft.common.world.objects.WorldGenMound().generate(world, random, p);
+                if (new thaumcraft.common.world.objects.WorldGenMound().generate(world, random, p)) {
+                    // Not in the original: remembered for /thaumcraft locate barrow (the entrance, on the west side).
+                    thaumcraft.common.world.objects.MoundLocations.record(world.getLevel().dimension(), p.offset(0, 9, 9));
+                }
             } else if (random.nextInt(500) == 0) {
                 BlockPos p2 = p.above(8);
                 BlockState bs = world.getBlockState(p2);

@@ -18,6 +18,12 @@ Con esto se cierra la 9d-4. Vuelven los túmulos del original: lomas de pasto co
 - No salen en mundos planos ni si apagás `generateStructure`.
 - Los chunks que no tienen túmulo siguen con su chance de 1 en 500 de tener un portal carmesí menor, como antes.
 
+## Comando para encontrarlos
+
+- `/thaumcraft locate barrow` te dice el túmulo más cercano: coordenadas de la entrada, distancia y cuántos se conocen.
+- Hacé clic en las coordenadas y te escribe el `/tp` para ir.
+- Esto no está en el original. Solo conoce los túmulos que se generan desde que se agregó, así que en un mundo viejo tenés que ir a tierras nuevas.
+
 ## Diferencias con el original
 
 - **Cómo está guardado**: el original eran 2400 líneas de "poné este bloque acá". Acá son los mismos bloques puestos como capas de letras. El resultado es el mismo.

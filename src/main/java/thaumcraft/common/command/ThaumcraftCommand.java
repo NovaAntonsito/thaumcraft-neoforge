@@ -60,6 +60,7 @@ import thaumcraft.common.lib.network.playerdata.PacketAspectPool;
  * <li>/thaumcraft warp add &lt;player&gt; &lt;permanent|normal|temporary&gt; &lt;amount&gt;</li>
  * <li>/thaumcraft findore &lt;amber|cinnabar|quartz&gt; [radius in chunks]: teleports to the nearest one.</li>
  * <li>/thaumcraft research list | &lt;player&gt; &lt;list|all|reset|&lt;research&gt;&gt; | &lt;player&gt; revoke &lt;research&gt; (original)</li>
+ * <li>/thaumcraft locate barrow: the nearest known barrow, with a link to teleport there (not in the original)</li>
  * <li>/thaumcraft reload: re-reads the research files (original)</li>
  * <li>/thaumcraft aspects &lt;player&gt; research &lt;aspect|all&gt; | add|set &lt;aspect|all&gt; &lt;amount&gt;: the aspect pool (Reborn's /oldresearch)</li>
  * </ul>
@@ -68,8 +69,33 @@ public final class ThaumcraftCommand {
     private ThaumcraftCommand() {
     }
 
+    /** The nearest barrow recorded by MoundLocations, as vanilla /locate shows it. */
+    private static int locateBarrow(CommandSourceStack source) {
+        ServerLevel level = source.getLevel();
+        thaumcraft.common.world.objects.MoundLocations data = thaumcraft.common.world.objects.MoundLocations.get(level);
+        BlockPos from = BlockPos.containing(source.getPosition());
+        BlockPos b = data.nearest(from);
+        if (b == null) {
+            source.sendFailure(Component.literal("No barrow known in this dimension yet. Barrows are recorded as new chunks generate, so explore new land and try again."));
+            return 0;
+        }
+        int dist = net.minecraft.util.Mth.floor(Math.sqrt(from.distSqr(new BlockPos(b.getX(), from.getY(), b.getZ()))));
+        Component coords = net.minecraft.network.chat.ComponentUtils.wrapInSquareBrackets(
+                Component.translatable("chat.coordinates", b.getX(), b.getY(), b.getZ())).withStyle(style -> style.withColor(ChatFormatting.GREEN)
+                .withClickEvent(new net.minecraft.network.chat.ClickEvent(net.minecraft.network.chat.ClickEvent.Action.SUGGEST_COMMAND,
+                        "/tp @s " + b.getX() + " " + b.getY() + " " + b.getZ()))
+                .withHoverEvent(new net.minecraft.network.chat.HoverEvent(net.minecraft.network.chat.HoverEvent.Action.SHOW_TEXT,
+                        Component.translatable("chat.coordinates.tooltip"))));
+        source.sendSuccess(() -> Component.literal("The nearest barrow is at ").append(coords)
+                .append(" (" + dist + " blocks away, " + data.count() + " known)"), false);
+        return dist;
+    }
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("thaumcraft")
+                .then(Commands.literal("locate")
+                        .requires(src -> src.hasPermission(2))
+                        .then(Commands.literal("barrow").executes(ctx -> locateBarrow(ctx.getSource()))))
                 .then(Commands.literal("findore")
                         .requires(src -> src.hasPermission(2))
                         .then(Commands.argument("ore", StringArgumentType.word())
