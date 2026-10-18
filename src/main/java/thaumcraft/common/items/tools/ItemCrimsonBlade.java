@@ -21,12 +21,9 @@ import thaumcraft.api.items.IWarpingGear;
 
 /** The crimson blade: mends itself, saps whoever it hits (weakness and hunger) and gives 2 warp. */
 public class ItemCrimsonBlade extends SwordItem implements IWarpingGear {
-    /**
-     * toolMatCrimsonVoid: level 4, 200 uses, speed 8, damage 3.5, enchantability 20.
-     * TODO: repaired with void metal ingots, not ported yet.
-     */
+    /** toolMatCrimsonVoid: level 4, 200 uses, speed 8, damage 3.5, enchantability 20, repaired with void metal. */
     public static final Tier CRIMSON_VOID = new SimpleTier(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 200, 8.0f, 3.5f, 20,
-            () -> Ingredient.EMPTY);
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("void").get()));
 
     public ItemCrimsonBlade(Properties properties) {
         super(CRIMSON_VOID, properties.attributes(SwordItem.createAttributes(CRIMSON_VOID, 3, -2.4f)));

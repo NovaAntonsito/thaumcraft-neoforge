@@ -506,4 +506,10 @@ public final class ClientFX {
     public static void drawWispParticles(Level world, double x, double y, double z, int color) {
         world.addParticle(new DustParticleOptions(rgb(color), 0.5f + world.random.nextFloat() * 0.3f), x, y, z, 0, 0, 0);
     }
+
+    /** FXDispatcher.cultistSpawn: a big puff going from white to dark red. TODO: FXGeneric (stage 10); dust for now. */
+    public static void cultistSpawn(Level world, double x, double y, double z, double a, double b, double c) {
+        world.addParticle(new net.minecraft.core.particles.DustColorTransitionOptions(new Vector3f(1.0f, 1.0f, 1.0f),
+                new Vector3f(0.6f, 0.0f, 0.0f), Math.min(4.0f, 3.0f + world.random.nextFloat() * 2.0f)), x, y, z, a, b, c);
+    }
 }

@@ -1925,5 +1925,19 @@
   "item.thaumcraft.crimson_plate_helm": "Crimson Cult Helm",
   "item.thaumcraft.crimson_plate_chest": "Crimson Cult Chestplate",
   "item.thaumcraft.crimson_plate_legs": "Crimson Cult Greaves",
-  "item.thaumcraft.crimson_blade": "Crimson Blade"
+  "item.thaumcraft.crimson_blade": "Crimson Blade",
+  "entity.thaumcraft.cultist_knight": "Crimson Knight",
+  "entity.thaumcraft.cultist_cleric": "Crimson Cleric",
+  "entity.thaumcraft.cultist_portal_lesser": "Lesser Crimson Portal",
+  "entity.thaumcraft.golem_orb": "Energy Orb",
+  "item.thaumcraft.cultist_knight_spawn_egg": "Crimson Knight Spawn Egg",
+  "item.thaumcraft.cultist_cleric_spawn_egg": "Crimson Cleric Spawn Egg",
+  "item.thaumcraft.cultist_portal_lesser_spawn_egg": "Lesser Crimson Portal Spawn Egg",
+  "item.thaumcraft.curio_arcane": "Arcane Curiosity",
+  "item.thaumcraft.curio_preserved": "Preserved Curiosity",
+  "item.thaumcraft.curio_ancient": "Ancient Curiosity",
+  "item.thaumcraft.curio_eldritch": "Eldritch Curiosity",
+  "item.thaumcraft.curio_knowledge": "Illuminating Curiosity",
+  "item.thaumcraft.curio_twisted": "Twisted Curiosity",
+  "item.thaumcraft.crimson_rites": "Crimson Rites"
 }

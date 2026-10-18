@@ -134,6 +134,24 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityPech>of(thaumcraft.common.entities.monster.EntityPech::new, MobCategory.MONSTER)
                     .sized(0.6f, 1.8f).eyeHeight(1.188f).clientTrackingRange(4).updateInterval(3).build("pech"));
 
+    // Stage 9d-2: the crimson cult.
+    /** ConfigEntities: "CultistKnight", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.cult.EntityCultistKnight>> CULTIST_KNIGHT = ENTITY_TYPES.register("cultist_knight",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.cult.EntityCultistKnight>of(thaumcraft.common.entities.monster.cult.EntityCultistKnight::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.8f).clientTrackingRange(4).updateInterval(3).build("cultist_knight"));
+    /** ConfigEntities: "CultistCleric", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.cult.EntityCultistCleric>> CULTIST_CLERIC = ENTITY_TYPES.register("cultist_cleric",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.cult.EntityCultistCleric>of(thaumcraft.common.entities.monster.cult.EntityCultistCleric::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.8f).clientTrackingRange(4).updateInterval(3).build("cultist_cleric"));
+    /** ConfigEntities: "CultistPortalLesser", tracked up to 64 blocks, updates every 20 ticks. Immune to fire. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser>> CULTIST_PORTAL_LESSER = ENTITY_TYPES.register("cultist_portal_lesser",
+            () -> EntityType.Builder.<thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser>of(thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser::new, MobCategory.MONSTER)
+                    .sized(1.5f, 3.0f).fireImmune().clientTrackingRange(4).updateInterval(20).build("cultist_portal_lesser"));
+    /** ConfigEntities: "GolemOrb", tracked up to 64 blocks, updates every 3 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.projectile.EntityGolemOrb>> GOLEM_ORB = ENTITY_TYPES.register("golem_orb",
+            () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityGolemOrb>of(thaumcraft.common.entities.projectile.EntityGolemOrb::new, MobCategory.MISC)
+                    .sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(3).build("golem_orb"));
+
     /** Attributes of the living entities above. */
     public static void registerAttributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(GOLEM.get(), thaumcraft.common.golems.EntityThaumcraftGolem.createAttributes().build());
@@ -152,6 +170,9 @@ public final class TCEntities {
         event.put(FIRE_BAT.get(), thaumcraft.common.entities.monster.EntityFireBat.createAttributes().build());
         event.put(MIND_SPIDER.get(), thaumcraft.common.entities.monster.EntityMindSpider.createAttributes().build());
         event.put(PECH.get(), thaumcraft.common.entities.monster.EntityPech.createAttributes().build());
+        event.put(CULTIST_KNIGHT.get(), thaumcraft.common.entities.monster.cult.EntityCultistKnight.createAttributes().build());
+        event.put(CULTIST_CLERIC.get(), thaumcraft.common.entities.monster.cult.EntityCultistCleric.createAttributes().build());
+        event.put(CULTIST_PORTAL_LESSER.get(), thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser.createAttributes().build());
     }
 
     /** Where the mobs that spawn on their own may appear (getCanSpawnHere of the original). */

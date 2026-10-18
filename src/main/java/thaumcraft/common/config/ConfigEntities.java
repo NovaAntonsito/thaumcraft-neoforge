@@ -24,7 +24,7 @@ import thaumcraft.common.entities.monster.EntityPech;
  * The pech part of ConfigEntities.initEntities: what pechs value and what each kind trades. A trade is {value 1 to 5,
  * stack}; enchanted books are made when traded (a Function of the registries), since enchantments are data now.
  * <p>
- * TODO: native clusters, thaumium tools, cloth robes, the knowledge fragment curio, the vis amulet, the bauble and the
+ * TODO: native clusters, thaumium tools, cloth robes, the vis amulet, the bauble and the
  * eldritch eye, once they are ported. Until then forager trades of value 1 and mage trades of value 4 give nothing.
  */
 public final class ConfigEntities {
@@ -42,6 +42,7 @@ public final class ConfigEntities {
         forInv.add(Arrays.asList(3, new ItemStack(Items.GOLDEN_APPLE)));
         forInv.add(Arrays.asList(5, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
         forInv.add(Arrays.asList(5, new ItemStack(ConfigBlocks.saplingSilverwood.get())));
+        forInv.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));
         EntityPech.tradeInventory.put(0, forInv);
         ArrayList<List<Object>> forMag = new ArrayList<>();
         forMag.add(Arrays.asList(1, crystal(Aspect.AIR)));
@@ -60,6 +61,7 @@ public final class ConfigEntities {
         forMag.add(Arrays.asList(3, new ItemStack(Items.GOLDEN_APPLE)));
         forMag.add(Arrays.asList(5, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
         forMag.add(Arrays.asList(5, new ItemStack(ConfigItems.pechWand.get())));
+        forMag.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));
         // As in the original, the totem went to the forager list.
         forInv.add(Arrays.asList(5, new ItemStack(Items.TOTEM_OF_UNDYING)));
         EntityPech.tradeInventory.put(1, forMag);
@@ -81,6 +83,7 @@ public final class ConfigEntities {
         forInv.add(Arrays.asList(4, new ItemStack(Items.SPECTRAL_ARROW)));
         forArc.add(Arrays.asList(5, book(Enchantments.FLAME)));
         forArc.add(Arrays.asList(5, book(Enchantments.INFINITY)));
+        forArc.add(Arrays.asList(5, new ItemStack(ConfigItems.curio.get("knowledge").get())));
         EntityPech.tradeInventory.put(2, forArc);
     }
 

@@ -434,6 +434,70 @@
         "alienis": 10,
         "mortuus": 10
       }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_arcane"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "praecantatio": 15
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_preserved"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "bestia": 15
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_ancient"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "mortuus": 15
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_eldritch"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "alienis": 15
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_knowledge"
+      ],
+      "aspects": {
+        "cognitio": 30
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:curio_twisted"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "vitium": 15
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:crimson_rites"
+      ],
+      "aspects": {
+        "cognitio": 15,
+        "alienis": 5,
+        "spiritus": 5,
+        "praecantatio": 5
+      }
     }
   ]
 }

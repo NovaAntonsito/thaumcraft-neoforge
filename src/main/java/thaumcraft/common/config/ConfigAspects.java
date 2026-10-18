@@ -113,6 +113,8 @@ public final class ConfigAspects {
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.DESIRE, 5), new EntityTagsNBT("PechType", 0));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.AVERSION, 5), new EntityTagsNBT("PechType", 1));
         ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.PECH.get(), new AspectList().add(Aspect.MAN, 10).add(Aspect.AURA, 5).add(Aspect.EXCHANGE, 10).add(Aspect.MAGIC, 5), new EntityTagsNBT("PechType", 2));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.CULTIST_KNIGHT.get(), new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.MAN, 15).add(Aspect.AVERSION, 5));
+        ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.CULTIST_CLERIC.get(), new AspectList().add(Aspect.ELDRITCH, 5).add(Aspect.MAN, 15).add(Aspect.AVERSION, 5));
         for (Aspect tag : Aspect.aspects.values()) {
             ThaumcraftApi.registerEntityTag(thaumcraft.common.registry.TCEntities.WISP.get(), new AspectList().add(tag, 5).add(Aspect.AURA, 5).add(Aspect.FLIGHT, 5), new EntityTagsNBT("Type", tag.getTag()));
         }

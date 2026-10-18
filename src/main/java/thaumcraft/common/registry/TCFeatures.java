@@ -9,7 +9,7 @@ import thaumcraft.Thaumcraft;
 import thaumcraft.common.world.ThaumcraftWorldGenerator;
 
 /**
- * The world generation of ThaumcraftWorldGenerator (an IWorldGenerator in 1.12) as two features that run once per
+ * The world generation of ThaumcraftWorldGenerator (an IWorldGenerator in 1.12) as features that run once per
  * chunk. Biome modifiers in data/thaumcraft/neoforge/biome_modifier add them to the overworld biomes.
  */
 public final class TCFeatures {
@@ -24,6 +24,9 @@ public final class TCFeatures {
     /** generateVegetation: greatwood and silverwood trees, and cinderpearls in hot deserts. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> VEGETATION = FEATURES.register("vegetation",
             () -> new ThaumcraftWorldGenerator.VegetationFeature(NoneFeatureConfiguration.CODEC));
+    /** generateSurface: the lesser crimson portals. TODO: the mounds (stage 9d-4). */
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRUCTURES = FEATURES.register("structures",
+            () -> new ThaumcraftWorldGenerator.StructuresFeature(NoneFeatureConfiguration.CODEC));
     /** BiomeGenMagicalForest.decorate, placed by the magical forest biome. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> MAGICAL_FOREST = FEATURES.register("magical_forest",
             () -> new thaumcraft.common.world.biomes.BiomeGenMagicalForest(NoneFeatureConfiguration.CODEC));

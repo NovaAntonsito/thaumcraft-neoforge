@@ -348,5 +348,38 @@
       "thaumcraft:pech_charge1",
       "thaumcraft:pech_charge2"
     ]
+  },
+  "shock": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:shock1",
+      "thaumcraft:shock2"
+    ]
+  },
+  "monolith": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "thaumcraft:monolith",
+        "stream": false
+      }
+    ]
+  },
+  "egattack": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "thaumcraft:egattack",
+        "stream": false
+      }
+    ]
+  },
+  "chant": {
+    "category": "hostile",
+    "sounds": [
+      "thaumcraft:chant1",
+      "thaumcraft:chant2",
+      "thaumcraft:chant3"
+    ]
   }
 }

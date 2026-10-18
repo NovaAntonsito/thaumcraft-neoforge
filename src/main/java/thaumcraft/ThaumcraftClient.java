@@ -151,6 +151,10 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.FIRE_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderFireBat::new);
         event.registerEntityRenderer(TCEntities.MIND_SPIDER.get(), thaumcraft.client.renderers.entity.mob.RenderMindSpider::new);
         event.registerEntityRenderer(TCEntities.PECH.get(), thaumcraft.client.renderers.entity.mob.RenderPech::new);
+        event.registerEntityRenderer(TCEntities.CULTIST_KNIGHT.get(), thaumcraft.client.renderers.entity.mob.RenderCultist::new);
+        event.registerEntityRenderer(TCEntities.CULTIST_CLERIC.get(), thaumcraft.client.renderers.entity.mob.RenderCultist::new);
+        event.registerEntityRenderer(TCEntities.CULTIST_PORTAL_LESSER.get(), thaumcraft.client.renderers.entity.construct.RenderCultistPortalLesser::new);
+        event.registerEntityRenderer(TCEntities.GOLEM_ORB.get(), thaumcraft.client.renderers.entity.projectile.RenderElectricOrb::new);
     }
 
     /** LayerTainted on every living renderer. */

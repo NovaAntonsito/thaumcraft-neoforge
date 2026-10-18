@@ -148,6 +148,7 @@ public class Config {
     public static final ModConfigSpec.BooleanValue GENERATE_QUARTZ = BUILDER.define("generateQuartz", true);
     public static final ModConfigSpec.BooleanValue GENERATE_CRYSTALS = BUILDER.define("generateCrystals", true);
     public static final ModConfigSpec.BooleanValue GENERATE_TREES = BUILDER.define("generateTrees", true);
+    public static final ModConfigSpec.BooleanValue GENERATE_STRUCTURE = BUILDER.define("generateStructure", true);
     public static final ModConfigSpec.BooleanValue ALLOW_CHAMPION_MOBS = BUILDER
             .comment("Setting this to false will disable spawning champion mobs. Even when false they will still",
                     "have a greatly reduced chance of spawning in certain dangerous places.")

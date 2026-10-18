@@ -36,7 +36,7 @@ import thaumcraft.common.world.objects.WorldGenSilverwoodTrees;
  *   <li>The dimension and biome blacklists are the biome modifiers' biome lists (data/thaumcraft/neoforge/biome_modifier).</li>
  *   <li>The regen options are not ported: chunks that already exist are not generated again.</li>
  *   <li>Heights use the original's absolute values (cinnabar below y 51, quartz below y 64), as 1.12 worlds started at 0.</li>
- *   <li>Aura generation stays in ChunkEvents (stage 2). Mounds and cultist portals come with the eldritch stage.</li>
+ *   <li>Aura generation stays in ChunkEvents (stage 2). Mounds come with the bosses (stage 9d-4).</li>
  * </ul>
  */
 public final class ThaumcraftWorldGenerator {
@@ -206,6 +206,59 @@ public final class ThaumcraftWorldGenerator {
             }
             BlockPos origin = context.origin();
             generateVegetation(context.level(), context.random(), origin.getX() >> 4, origin.getZ() >> 4);
+            return true;
+        }
+    }
+
+    /**
+     * generateSurface: 1 chunk in 500 gets a lesser crimson portal on the surface (the mounds, 1 in 100, are tried first).
+     * The top block must be ground, rock, sand or snow; in 1.12 grass had a material of its own, so not on grass.
+     */
+    public static void generateSurface(WorldGenLevel world, RandomSource random, int chunkX, int chunkZ) {
+        int randPosX = chunkX * 16 + 8 + Mth.nextInt(random, -4, 4);
+        int randPosZ = chunkZ * 16 + 8 + Mth.nextInt(random, -4, 4);
+        BlockPos p = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, new BlockPos(randPosX, 0, randPosZ)).below(9);
+        if (p.getY() < world.getMaxBuildHeight()) {
+            if (random.nextInt(100) == 0) {
+                // TODO: WorldGenMound (stage 9d-4).
+            } else if (random.nextInt(500) == 0) {
+                BlockPos p2 = p.above(8);
+                BlockState bs = world.getBlockState(p2);
+                if (isPortalGround(bs)) {
+                    thaumcraft.common.entities.monster.cult.EntityCultistPortalLesser eg =
+                            thaumcraft.common.registry.TCEntities.CULTIST_PORTAL_LESSER.get().create(world.getLevel());
+                    if (eg != null) {
+                        eg.setPos(p2.getX() + 0.5, p2.getY() + 1, p2.getZ() + 0.5);
+                        eg.finalizeSpawn(world, world.getCurrentDifficultyAt(p2), net.minecraft.world.entity.MobSpawnType.STRUCTURE, null);
+                        world.addFreshEntity(eg);
+                    }
+                }
+            }
+        }
+    }
+
+    /** Material.GROUND, ROCK, SAND or SNOW. */
+    private static boolean isPortalGround(BlockState bs) {
+        return bs.is(net.minecraft.world.level.block.Blocks.DIRT) || bs.is(net.minecraft.world.level.block.Blocks.COARSE_DIRT)
+                || bs.is(net.minecraft.world.level.block.Blocks.PODZOL) || bs.is(net.minecraft.world.level.block.Blocks.FARMLAND)
+                || bs.is(net.minecraft.world.level.block.Blocks.CLAY) || bs.is(net.minecraft.world.level.block.Blocks.GRAVEL)
+                || bs.is(BlockTags.SAND) || bs.is(BlockTags.BASE_STONE_OVERWORLD) || bs.is(BlockTags.TERRACOTTA)
+                || bs.is(Tags.Blocks.ORES) || bs.is(net.minecraft.world.level.block.Blocks.SNOW);
+    }
+
+    /** generateSurface, once per chunk; not in flat worlds. */
+    public static class StructuresFeature extends Feature<NoneFeatureConfiguration> {
+        public StructuresFeature(Codec<NoneFeatureConfiguration> codec) {
+            super(codec);
+        }
+
+        @Override
+        public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+            if (!Config.GENERATE_STRUCTURE.get() || isFlat(context)) {
+                return false;
+            }
+            BlockPos origin = context.origin();
+            generateSurface(context.level(), context.random(), origin.getX() >> 4, origin.getZ() >> 4);
             return true;
         }
     }

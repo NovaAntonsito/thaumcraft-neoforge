@@ -130,6 +130,11 @@ public final class ConfigItems {
     public static final DeferredItem<thaumcraft.common.items.armor.ItemCultistRobeArmor> crimsonRobeLegs = cultistRobe("crimson_robe_legs", net.minecraft.world.item.ArmorItem.Type.LEGGINGS);
     public static final DeferredItem<thaumcraft.common.items.tools.ItemCrimsonBlade> crimsonBlade = ITEMS.registerItem("crimson_blade",
             p -> new thaumcraft.common.items.tools.ItemCrimsonBlade(p.rarity(Rarity.EPIC)));
+    /** ItemCurio: one item per 1.12 variant. The rites are the crimson cult's book. */
+    public static final Map<String, DeferredItem<thaumcraft.common.items.curios.ItemCurio>> curio = curioVariants(
+            "arcane", "preserved", "ancient", "eldritch", "knowledge", "twisted");
+    public static final DeferredItem<thaumcraft.common.items.curios.ItemCurio> crimsonRites = ITEMS.registerItem("crimson_rites",
+            p -> new thaumcraft.common.items.curios.ItemCurio(6, p));
 
     // Stage 9b.
     public static final DeferredItem<thaumcraft.common.items.consumables.ItemBottleTaint> bottleTaint =
@@ -164,6 +169,13 @@ public final class ConfigItems {
     // Stage 9c-3.
     public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> pechSpawnEgg = ITEMS.registerItem("pech_spawn_egg",
             p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.PECH, -16129, -12582848, p));
+    // Stage 9d-2.
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistKnightSpawnEgg = ITEMS.registerItem("cultist_knight_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_KNIGHT, 9438728, 128, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistClericSpawnEgg = ITEMS.registerItem("cultist_cleric_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_CLERIC, 9438728, 8388608, p));
+    public static final DeferredItem<net.neoforged.neoforge.common.DeferredSpawnEggItem> cultistPortalLesserSpawnEgg = ITEMS.registerItem("cultist_portal_lesser_spawn_egg",
+            p -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(thaumcraft.common.registry.TCEntities.CULTIST_PORTAL_LESSER, 9438728, 6316242, p));
 
     // Stage 8a.
     public static final DeferredItem<thaumcraft.common.golems.ItemGolemPlacer> golemPlacer =
@@ -205,6 +217,15 @@ public final class ConfigItems {
                         }
                     })
                     .build());
+
+    private static Map<String, DeferredItem<thaumcraft.common.items.curios.ItemCurio>> curioVariants(String... names) {
+        Map<String, DeferredItem<thaumcraft.common.items.curios.ItemCurio>> out = new LinkedHashMap<>();
+        for (int i = 0; i < names.length; ++i) {
+            int meta = i;
+            out.put(names[i], ITEMS.registerItem("curio_" + names[i], p -> new thaumcraft.common.items.curios.ItemCurio(meta, p)));
+        }
+        return out;
+    }
 
     private static DeferredItem<thaumcraft.common.items.armor.ItemCultistPlateArmor> cultistPlate(String name, net.minecraft.world.item.ArmorItem.Type type) {
         return ITEMS.registerItem(name, p -> new thaumcraft.common.items.armor.ItemCultistPlateArmor(

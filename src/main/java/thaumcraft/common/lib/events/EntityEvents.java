@@ -167,6 +167,17 @@ public final class EntityEvents {
             event.getDrops().add(new ItemEntity(world, entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(),
                     new ItemStack(ConfigItems.brain.get())));
         }
+        // The crimson rites: 1 in 4, 1 in 20 once the cult is researched, 1 in 50 while carrying a copy.
+        if (entity instanceof thaumcraft.common.entities.monster.cult.EntityCultist && !fakeplayer && killer instanceof net.minecraft.world.entity.player.Player p) {
+            int c = thaumcraft.api.capabilities.ThaumcraftCapabilities.getKnowledge(p).isResearchKnown("!CrimsonCultist@2") ? 20 : 4;
+            if (p.getInventory().contains(new ItemStack(ConfigItems.crimsonRites.get()))) {
+                c = 50;
+            }
+            if (world.random.nextInt(c) == 0) {
+                event.getDrops().add(new ItemEntity(world, entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(),
+                        new ItemStack(ConfigItems.crimsonRites.get())));
+            }
+        }
     }
 
     @SubscribeEvent

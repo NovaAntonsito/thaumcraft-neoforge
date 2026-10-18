@@ -58,6 +58,10 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> SWARM = register("swarm");
     public static final Supplier<SoundEvent> SWARMATTACK = register("swarmattack");
     public static final Supplier<SoundEvent> FLY = register("fly");
+    public static final Supplier<SoundEvent> SHOCK = register("shock");
+    public static final Supplier<SoundEvent> MONOLITH = register("monolith");
+    public static final Supplier<SoundEvent> EGATTACK = register("egattack");
+    public static final Supplier<SoundEvent> CHANT = register("chant");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);
