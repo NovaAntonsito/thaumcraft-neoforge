@@ -39,7 +39,7 @@ import thaumcraft.common.registry.TCTags;
  * Port of TileCrucible. Holds up to 1000 mB of water and the melted aspects.
  * Heat rises while a heat source ({@link TCTags#CRUCIBLE_HEATERS}) is below; above 150 it boils and melts items.
  */
-public class TileCrucible extends BlockEntity {
+public class TileCrucible extends BlockEntity implements thaumcraft.api.aspects.IAspectContainer {
     public static final String SPECIAL_ITEM_TAG = "thaumcraft.special_item";
 
     public short heat;
@@ -315,7 +315,39 @@ public class TileCrucible extends BlockEntity {
         return super.triggerEvent(i, j);
     }
 
+    // IAspectContainer: only so goggles of revealing show the melted aspects; nothing can be put in or taken out.
+
+    @Override
     public AspectList getAspects() {
         return aspects;
+    }
+
+    @Override
+    public void setAspects(AspectList aspects) {
+    }
+
+    @Override
+    public int addToContainer(Aspect tag, int amount) {
+        return 0;
+    }
+
+    @Override
+    public boolean takeFromContainer(Aspect tag, int amount) {
+        return false;
+    }
+
+    @Override
+    public boolean doesContainerContainAmount(Aspect tag, int amount) {
+        return false;
+    }
+
+    @Override
+    public int containerContains(Aspect tag) {
+        return 0;
+    }
+
+    @Override
+    public boolean doesContainerAccept(Aspect tag) {
+        return true;
     }
 }

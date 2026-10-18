@@ -81,7 +81,7 @@ import thaumcraft.common.tiles.devices.TileStabilizer;
  * pillars and pedestals, matrix speed and cost upgrades, the instability stabilizer, XP recipes (recipeType 1),
  * and the FXDispatcher effects (stage 10).
  */
-public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithCaster, IAspectContainer {
+public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api.items.IGogglesDisplayExtended, IInteractWithCaster, IAspectContainer {
     private static final DecimalFormat myFormatter = new DecimalFormat("#######.##");
 
     private final List<BlockPos> pedestals = new ArrayList<>();
@@ -757,6 +757,7 @@ public class TileInfusionMatrix extends TileThaumcraft implements IInteractWithC
     }
 
     /** IGogglesDisplayExtended.getIGogglesText: the stability readout. */
+    @Override
     public List<Component> getIGogglesText() {
         List<Component> out = new ArrayList<>();
         out.add(Component.translatable("stability." + getStability().name()).withStyle(ChatFormatting.BOLD));

@@ -37,7 +37,8 @@ import thaumcraft.common.registry.TCRecipes;
  *  "result": {"id": "thaumcraft:mirror"}}
  * </pre>
  * Without "central" any item fits the middle pedestal (the original Ingredient.EMPTY).
- * The 1.12 recipes could also output an NBT tag to set on the central item; those use their own recipe class.
+ * The 1.12 recipes could also output an NBT tag to set on the central item: with "keep_central": true the central
+ * item is kept and gets the components of "result" (the fortress masks and goggles).
  */
 public class InfusionRecipe implements Recipe<InfusionRecipe.Input> {
     /** The central item and the items on the surrounding pedestals. */
@@ -60,9 +61,16 @@ public class InfusionRecipe implements Recipe<InfusionRecipe.Input> {
     public final Ingredient sourceInput;
     protected final NonNullList<Ingredient> components;
     public final ItemStack recipeOutput;
+    public final boolean keepCentral;
 
     public InfusionRecipe(String group, String research, int instability, AspectList aspects, Ingredient sourceInput,
                           List<Ingredient> components, ItemStack recipeOutput) {
+        this(group, research, instability, aspects, sourceInput, components, recipeOutput, false);
+    }
+
+    public InfusionRecipe(String group, String research, int instability, AspectList aspects, Ingredient sourceInput,
+                          List<Ingredient> components, ItemStack recipeOutput, boolean keepCentral) {
+        this.keepCentral = keepCentral;
         this.group = group;
         this.research = research;
         this.instability = instability;
@@ -107,6 +115,11 @@ public class InfusionRecipe implements Recipe<InfusionRecipe.Input> {
 
     /** The item that replaces the central one. */
     public ItemStack getRecipeOutput(@Nullable Player player, ItemStack input, List<ItemStack> comps) {
+        if (keepCentral) {
+            ItemStack out = input.copyWithCount(1);
+            out.applyComponents(recipeOutput.getComponentsPatch());
+            return out;
+        }
         return recipeOutput.copy();
     }
 
@@ -176,7 +189,8 @@ public class InfusionRecipe implements Recipe<InfusionRecipe.Input> {
                 AspectList.CODEC.fieldOf("aspects").forGetter(r -> r.aspects),
                 Ingredient.CODEC.optionalFieldOf("central", Ingredient.EMPTY).forGetter(r -> r.sourceInput),
                 Ingredient.CODEC_NONEMPTY.listOf().fieldOf("components").forGetter(r -> r.components),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.recipeOutput)
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.recipeOutput),
+                Codec.BOOL.optionalFieldOf("keep_central", false).forGetter(r -> r.keepCentral)
         ).apply(i, InfusionRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, List<Ingredient>> COMPONENTS_STREAM_CODEC =
@@ -190,9 +204,10 @@ public class InfusionRecipe implements Recipe<InfusionRecipe.Input> {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, r.sourceInput);
             COMPONENTS_STREAM_CODEC.encode(buf, r.components);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, r.recipeOutput);
+            ByteBufCodecs.BOOL.encode(buf, r.keepCentral);
         }, buf -> new InfusionRecipe(ByteBufCodecs.STRING_UTF8.decode(buf), ByteBufCodecs.STRING_UTF8.decode(buf),
                 ByteBufCodecs.VAR_INT.decode(buf), AspectList.STREAM_CODEC.decode(buf), Ingredient.CONTENTS_STREAM_CODEC.decode(buf),
-                COMPONENTS_STREAM_CODEC.decode(buf), ItemStack.OPTIONAL_STREAM_CODEC.decode(buf)));
+                COMPONENTS_STREAM_CODEC.decode(buf), ItemStack.OPTIONAL_STREAM_CODEC.decode(buf), ByteBufCodecs.BOOL.decode(buf)));
 
         @Override
         public MapCodec<InfusionRecipe> codec() {

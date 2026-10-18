@@ -54,6 +54,11 @@ public final class TCEntities {
             () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityGolemDart>of(thaumcraft.common.entities.projectile.EntityGolemDart::new, MobCategory.MISC)
                     .sized(0.2f, 0.2f).clientTrackingRange(4).updateInterval(20).build("golem_dart"));
 
+    /** ConfigEntities: "Grapple", tracked up to 64 blocks, updates every 20 ticks. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.projectile.EntityGrapple>> GRAPPLE = ENTITY_TYPES.register("grapple",
+            () -> EntityType.Builder.<thaumcraft.common.entities.projectile.EntityGrapple>of(thaumcraft.common.entities.projectile.EntityGrapple::new, MobCategory.MISC)
+                    .sized(0.1f, 0.1f).clientTrackingRange(4).updateInterval(20).build("grapple"));
+
     /** ConfigEntities: "FallingTaint", tracked up to 64 blocks, updates every 3 ticks. */
     public static final Supplier<EntityType<thaumcraft.common.entities.EntityFallingTaint>> FALLING_TAINT = ENTITY_TYPES.register("falling_taint",
             () -> EntityType.Builder.<thaumcraft.common.entities.EntityFallingTaint>of(thaumcraft.common.entities.EntityFallingTaint::new, MobCategory.MISC)

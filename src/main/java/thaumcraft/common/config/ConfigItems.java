@@ -255,10 +255,44 @@ public final class ConfigItems {
             thaumcraft.common.registry.TCArmorMaterials.VOID, net.minecraft.world.item.ArmorItem.Type.BOOTS, p.rarity(Rarity.UNCOMMON)
                     .durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_DURABILITY))));
 
+    // Stage 9e-2: the grappler, the sanity checker, goggles, robes, traveller boots, fortress and void robe armor.
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemSanityChecker> sanityChecker = ITEMS.registerItem("sanity_checker", p -> new thaumcraft.common.items.tools.ItemSanityChecker(p.stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemGrappleGun> grappleGun = ITEMS.registerItem("grapple_gun", p -> new thaumcraft.common.items.tools.ItemGrappleGun(p.stacksTo(1).rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<Item> grappleGunTip = ITEMS.registerSimpleItem("grapple_gun_tip");
+    public static final DeferredItem<Item> grappleGunSpool = ITEMS.registerSimpleItem("grapple_gun_spool");
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemGoggles> goggles = ITEMS.registerItem("goggles", p -> new thaumcraft.common.items.armor.ItemGoggles(
+            thaumcraft.common.registry.TCArmorMaterials.SPECIAL, p.durability(350).rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemRobeArmor> clothChest = ITEMS.registerItem("cloth_chest", p -> new thaumcraft.common.items.armor.ItemRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.SPECIAL_ROBE, net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, p.rarity(Rarity.UNCOMMON).durability(net.minecraft.world.item.ArmorItem.Type.CHESTPLATE.getDurability(thaumcraft.common.registry.TCArmorMaterials.SPECIAL_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemRobeArmor> clothLegs = ITEMS.registerItem("cloth_legs", p -> new thaumcraft.common.items.armor.ItemRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.SPECIAL_ROBE, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.UNCOMMON).durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.SPECIAL_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemRobeArmor> clothBoots = ITEMS.registerItem("cloth_boots", p -> new thaumcraft.common.items.armor.ItemRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.SPECIAL_ROBE, net.minecraft.world.item.ArmorItem.Type.BOOTS, p.rarity(Rarity.UNCOMMON).durability(net.minecraft.world.item.ArmorItem.Type.BOOTS.getDurability(thaumcraft.common.registry.TCArmorMaterials.SPECIAL_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemBootsTraveller> travellerBoots = ITEMS.registerItem("traveller_boots", p -> new thaumcraft.common.items.armor.ItemBootsTraveller(
+            thaumcraft.common.registry.TCArmorMaterials.SPECIAL, p.durability(350).rarity(Rarity.RARE)));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemFortressArmor> fortressHelm = ITEMS.registerItem("fortress_helm", p -> new thaumcraft.common.items.armor.ItemFortressArmor(
+            thaumcraft.common.registry.TCArmorMaterials.FORTRESS, net.minecraft.world.item.ArmorItem.Type.HELMET, p.rarity(Rarity.RARE).durability(net.minecraft.world.item.ArmorItem.Type.HELMET.getDurability(thaumcraft.common.registry.TCArmorMaterials.FORTRESS_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemFortressArmor> fortressChest = ITEMS.registerItem("fortress_chest", p -> new thaumcraft.common.items.armor.ItemFortressArmor(
+            thaumcraft.common.registry.TCArmorMaterials.FORTRESS, net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, p.rarity(Rarity.RARE).durability(net.minecraft.world.item.ArmorItem.Type.CHESTPLATE.getDurability(thaumcraft.common.registry.TCArmorMaterials.FORTRESS_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemFortressArmor> fortressLegs = ITEMS.registerItem("fortress_legs", p -> new thaumcraft.common.items.armor.ItemFortressArmor(
+            thaumcraft.common.registry.TCArmorMaterials.FORTRESS, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.RARE).durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.FORTRESS_DURABILITY))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidRobeArmor> voidRobeHelm = ITEMS.registerItem("void_robe_helm", p -> new thaumcraft.common.items.armor.ItemVoidRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE, net.minecraft.world.item.ArmorItem.Type.HELMET, p.rarity(Rarity.EPIC).durability(net.minecraft.world.item.ArmorItem.Type.HELMET.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidRobeArmor> voidRobeChest = ITEMS.registerItem("void_robe_chest", p -> new thaumcraft.common.items.armor.ItemVoidRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE, net.minecraft.world.item.ArmorItem.Type.CHESTPLATE, p.rarity(Rarity.EPIC).durability(net.minecraft.world.item.ArmorItem.Type.CHESTPLATE.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+    public static final DeferredItem<thaumcraft.common.items.armor.ItemVoidRobeArmor> voidRobeLegs = ITEMS.registerItem("void_robe_legs", p -> new thaumcraft.common.items.armor.ItemVoidRobeArmor(
+            thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE, net.minecraft.world.item.ArmorItem.Type.LEGGINGS, p.rarity(Rarity.EPIC).durability(net.minecraft.world.item.ArmorItem.Type.LEGGINGS.getDurability(thaumcraft.common.registry.TCArmorMaterials.VOID_ROBE_DURABILITY))
+                    .component(net.minecraft.core.component.DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR, false))));
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TABTC = CREATIVE_TABS.register("thaumcraft",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.thaumcraft"))
-                    .icon(() -> new ItemStack(ingots.get("thaumium").get()))
+                    .icon(() -> new ItemStack(goggles.get()))
                     .displayItems((params, output) -> {
                         for (DeferredHolder<Item, ? extends Item> item : ITEMS.getEntries()) {
                             if (item.get() instanceof ItemCrystalEssence crystal) {

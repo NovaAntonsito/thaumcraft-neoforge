@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import thaumcraft.common.tiles.devices.TileArcaneEar;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +51,8 @@ import thaumcraft.common.lib.research.ScanManager;
 /**
  * Partial port of RenderEventHandler with Reborn's patches: the aspects of scanned things. Item tooltips in
  * container screens and tags floating over the creature or block the thaumometer points at are shown only once
- * the thing has been scanned (isThingStillScannable is false).
+ * the thing has been scanned (isThingStillScannable is false). With goggles of revealing, the essentia of containers
+ * and the extra text of blocks like the infusion matrix.
  */
 @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT)
 public final class RenderEventHandler {
@@ -97,6 +99,9 @@ public final class RenderEventHandler {
         Minecraft mc = Minecraft.getInstance();
         if (!(mc.getCameraEntity() instanceof Player player) || mc.level == null) return;
         drawRelayText(mc, event.getPoseStack(), event.getCamera().getPosition());
+        if (thaumcraft.common.lib.utils.EntityUtils.hasGoggles(player)) {
+            drawGogglesInfo(mc, event.getPoseStack(), event.getCamera().getPosition());
+        }
         boolean holding = player.getMainHandItem().getItem() instanceof ItemThaumometer
                 || player.getOffhandItem().getItem() instanceof ItemThaumometer;
         if (!holding) {
@@ -143,8 +148,59 @@ public final class RenderEventHandler {
         buffers.endBatch();
     }
 
+    /**
+     * The goggles part of blockHighlight: the extra text of IGogglesDisplayExtended blocks (drawn through the
+     * block), the aspects of an IAspectContainer and the note of a note block or arcane ear.
+     * 1.21: the note block's note is in its block state, so the original's PacketNote request is not needed.
+     */
+    private static void drawGogglesInfo(Minecraft mc, PoseStack pose, Vec3 cam) {
+        if (!(mc.hitResult instanceof BlockHitResult hit) || hit.getType() != HitResult.Type.BLOCK) return;
+        BlockPos pos = hit.getBlockPos();
+        net.minecraft.world.level.block.entity.BlockEntity te = mc.level.getBlockEntity(pos);
+        MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+        thaumcraft.api.items.IGogglesDisplayExtended extended = te instanceof thaumcraft.api.items.IGogglesDisplayExtended e ? e
+                : mc.level.getBlockState(pos).getBlock() instanceof thaumcraft.api.items.IGogglesDisplayExtended b ? b : null;
+        if (extended != null) {
+            Vec3 v = extended.getIGogglesTextOffset();
+            java.util.List<net.minecraft.network.chat.Component> sa = extended.getIGogglesText();
+            // As in the original, a block entity's lines go down and a block's lines go up.
+            float sign = te instanceof thaumcraft.api.items.IGogglesDisplayExtended ? -1.0f : 1.0f;
+            float to = 0.0f;
+            for (net.minecraft.network.chat.Component line : sa) {
+                drawTextInAir(pose, buffers, cam, pos.getX() + v.x, pos.getY() + v.y + sign * (to - sa.size() / 2.0f) / 5.5f, pos.getZ() + v.z, line,
+                        Font.DisplayMode.SEE_THROUGH);
+                ++to;
+            }
+        }
+        boolean spaceAbove = mc.level.isEmptyBlock(pos.above());
+        if (te != null) {
+            int note = -1;
+            if (te instanceof TileArcaneEar ear) {
+                note = ear.note;
+            } else if (te instanceof thaumcraft.api.aspects.IAspectContainer container && container.getAspects() != null && container.getAspects().size() > 0) {
+                if (tagscale < 0.3f) {
+                    tagscale += 0.031f - tagscale / 10.0f;
+                }
+                drawTagsOnContainer(pose, buffers, cam, pos.getX(), pos.getY() + (spaceAbove ? 0.4f : 0.0f), pos.getZ(), container.getAspects(),
+                        spaceAbove ? Direction.UP : hit.getDirection());
+            }
+            if (note >= 0) {
+                drawTextInAir(pose, buffers, cam, pos.getX(), pos.getY() + 1, pos.getZ(), "Note: " + note);
+            }
+        } else if (mc.level.getBlockState(pos).getBlock() instanceof net.minecraft.world.level.block.NoteBlock) {
+            drawTextInAir(pose, buffers, cam, pos.getX(), pos.getY() + 1, pos.getZ(),
+                    "Note: " + mc.level.getBlockState(pos).getValue(net.minecraft.world.level.block.NoteBlock.NOTE));
+        }
+        buffers.endBatch();
+    }
+
     /** drawTextInAir: a line of text at the middle of a block spot, turned toward the viewer. */
     public static void drawTextInAir(PoseStack pose, MultiBufferSource buffers, Vec3 cam, double x, double y, double z, String text) {
+        drawTextInAir(pose, buffers, cam, x, y, z, net.minecraft.network.chat.Component.literal(text), Font.DisplayMode.NORMAL);
+    }
+
+    public static void drawTextInAir(PoseStack pose, MultiBufferSource buffers, Vec3 cam, double x, double y, double z,
+                                     net.minecraft.network.chat.Component text, Font.DisplayMode mode) {
         pose.pushPose();
         pose.translate(-cam.x + x + 0.5, -cam.y + y + 0.5, -cam.z + z + 0.5);
         float xd = (float) (cam.x - (x + 0.5));
@@ -155,7 +211,7 @@ public final class RenderEventHandler {
         pose.scale(0.0125f, -0.0125f, 0.0125f);
         Font font = Minecraft.getInstance().font;
         int sw = font.width(text);
-        font.drawInBatch(text, 1 - sw / 2.0f, 1.0f, 0xFFFFFF, true, pose.last().pose(), buffers, Font.DisplayMode.NORMAL, 0,
+        font.drawInBatch(text, 1 - sw / 2.0f, 1.0f, 0xFFFFFF, true, pose.last().pose(), buffers, mode, 0,
                 LightTexture.FULL_BRIGHT);
         pose.popPose();
     }

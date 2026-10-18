@@ -15,7 +15,8 @@ import thaumcraft.api.items.IWarpingGear;
 
 /**
  * Void metal armor: mends itself and gives 1 warp. Repaired with void metal by its material.
- * 1.21: inventoryTick runs for the armor slots too, so it covers onArmorTick and onUpdate of 1.12.
+ * 1.21: inventoryTick runs for the armor slots too, so it covers onArmorTick and onUpdate of 1.12. As in the original,
+ * worn pieces mend twice as fast (both ran for them).
  */
 public class ItemVoidArmor extends ArmorItem implements IWarpingGear {
     private static final ResourceLocation TEXTURE_1 = Thaumcraft.id("textures/entity/armor/void_1.png");
@@ -33,8 +34,12 @@ public class ItemVoidArmor extends ArmorItem implements IWarpingGear {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
-        if (!level.isClientSide && stack.isDamaged() && entity.tickCount % 20 == 0 && entity instanceof LivingEntity) {
+        if (!level.isClientSide && stack.isDamaged() && entity.tickCount % 20 == 0 && entity instanceof LivingEntity living) {
             stack.setDamageValue(stack.getDamageValue() - 1);
+            // onArmorTick mended worn pieces once more.
+            if (stack.isDamaged() && living.getItemBySlot(getEquipmentSlot()) == stack) {
+                stack.setDamageValue(stack.getDamageValue() - 1);
+            }
         }
     }
 

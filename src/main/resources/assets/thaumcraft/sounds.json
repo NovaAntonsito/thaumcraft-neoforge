@@ -468,5 +468,13 @@
         "stream": false
       }
     ]
+  },
+  "ice": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:ice1",
+      "thaumcraft:ice2",
+      "thaumcraft:ice3"
+    ]
   }
 }

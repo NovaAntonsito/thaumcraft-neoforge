@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "UNLOCKINFUSION",
+  "vis": 100,
+  "pattern": [
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "thaumcraft:fabric"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:cloth_boots",
+    "count": 1
+  }
+}

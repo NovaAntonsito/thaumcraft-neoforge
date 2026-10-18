@@ -144,6 +144,83 @@ public final class EntityEvents {
         }
     }
 
+    /**
+     * The fortress masks of entityHurt: the sipping fiend heals its wearer a little when they strike, the angry ghost
+     * withers whoever strikes its wearer. The chance grows with the damage.
+     * Then the part of the original ISpecialArmor that vanilla armor has no counterpart for: fortress and void robe
+     * pieces stop defense/35 of magic damage each.
+     */
+    @SubscribeEvent
+    public static void gearHurt(LivingIncomingDamageEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.level().isClientSide) {
+            return;
+        }
+        if (event.getSource().getEntity() instanceof Player leecher
+                && thaumcraft.common.items.armor.ItemFortressArmor.getMask(leecher.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD)) == 2
+                && leecher.level().random.nextFloat() < event.getAmount() / 12.0f) {
+            leecher.heal(1.0f);
+        }
+        if (entity instanceof Player player && event.getSource().getEntity() instanceof LivingEntity attacker
+                && thaumcraft.common.items.armor.ItemFortressArmor.getMask(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD)) == 1
+                && player.level().random.nextFloat() < event.getAmount() / 10.0f) {
+            attacker.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.WITHER, 80));
+        }
+        if (event.getSource().is(net.minecraft.tags.DamageTypeTags.WITCH_RESISTANT_TO)
+                && !event.getSource().is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            double ratio = 0.0;
+            for (ItemStack piece : entity.getArmorSlots()) {
+                if (piece.getItem() instanceof thaumcraft.common.items.armor.ItemFortressArmor
+                        || piece.getItem() instanceof thaumcraft.common.items.armor.ItemVoidRobeArmor) {
+                    ratio += ((net.minecraft.world.item.ArmorItem) piece.getItem()).getDefense() / 35.0;
+                }
+            }
+            if (ratio > 0.0) {
+                event.setAmount((float) (event.getAmount() * (1.0 - Math.min(1.0, ratio))));
+            }
+        }
+    }
+
+    /**
+     * The set bonus of ItemFortressArmor.getProperties: every fortress piece worn adds 1 armor and 1 toughness,
+     * and 1 more armor for each masked piece. 1.21: transient attribute modifiers, refreshed when the armor changes.
+     */
+    @SubscribeEvent
+    public static void fortressSet(net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent event) {
+        if (!event.getSlot().isArmor()) {
+            return;
+        }
+        LivingEntity entity = event.getEntity();
+        int q = 0;
+        int masks = 0;
+        for (net.minecraft.world.entity.EquipmentSlot slot : new net.minecraft.world.entity.EquipmentSlot[] {
+                net.minecraft.world.entity.EquipmentSlot.LEGS, net.minecraft.world.entity.EquipmentSlot.CHEST, net.minecraft.world.entity.EquipmentSlot.HEAD }) {
+            ItemStack piece = entity.getItemBySlot(slot);
+            if (piece.getItem() instanceof thaumcraft.common.items.armor.ItemFortressArmor) {
+                ++q;
+                if (piece.has(thaumcraft.common.registry.TCDataComponents.FORTRESS_MASK.get())) {
+                    ++masks;
+                }
+            }
+        }
+        setBonus(entity.getAttribute(Attributes.ARMOR), FORTRESS_ARMOR, q * (1 + masks));
+        setBonus(entity.getAttribute(Attributes.ARMOR_TOUGHNESS), FORTRESS_TOUGHNESS, q);
+    }
+
+    private static final net.minecraft.resources.ResourceLocation FORTRESS_ARMOR = Thaumcraft.id("fortress_set_armor");
+    private static final net.minecraft.resources.ResourceLocation FORTRESS_TOUGHNESS = Thaumcraft.id("fortress_set_toughness");
+
+    private static void setBonus(AttributeInstance attribute, net.minecraft.resources.ResourceLocation id, int amount) {
+        if (attribute == null) {
+            return;
+        }
+        attribute.removeModifier(id);
+        if (amount > 0) {
+            attribute.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(id, amount,
+                    net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+        }
+    }
+
     @SubscribeEvent
     public static void livingDrops(LivingDropsEvent event) {
         LivingEntity entity = event.getEntity();

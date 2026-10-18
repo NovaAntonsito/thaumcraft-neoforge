@@ -180,6 +180,15 @@ public class Thaumcraft {
         registerGolemPress();
         registerInfernalFurnace();
         registerSmeltingBonuses();
+        registerRobeWashing();
+    }
+
+    /** ItemRobeArmor and ItemVoidRobeArmor.onItemUseFirst: a water cauldron washes the dye out. */
+    private static void registerRobeWashing() {
+        for (net.minecraft.world.item.Item robe : new net.minecraft.world.item.Item[] { ConfigItems.clothChest.get(), ConfigItems.clothLegs.get(),
+                ConfigItems.clothBoots.get(), ConfigItems.voidRobeHelm.get(), ConfigItems.voidRobeChest.get(), ConfigItems.voidRobeLegs.get() }) {
+            net.minecraft.core.cauldron.CauldronInteraction.WATER.map().put(robe, net.minecraft.core.cauldron.CauldronInteraction.DYED_ITEM);
+        }
     }
 
     /** ConfigRecipes.initializeAlchemyRecipes: two alchemical constructs over a crucible, facing the player. */

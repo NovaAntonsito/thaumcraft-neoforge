@@ -76,6 +76,10 @@ public final class WarpEvents {
             warpCounter -= (int) Math.max(5.0, Math.sqrt(warpCounter) * 2.0 - gearWarp * 2);
             wc.setCounter(warpCounter);
             int eff = world.random.nextInt(warp) + gearWarp;
+            // The grinning devil mask softens the event.
+            if (thaumcraft.common.items.armor.ItemFortressArmor.getMask(player.getItemBySlot(EquipmentSlot.HEAD)) == 0) {
+                eff -= 2 + world.random.nextInt(4);
+            }
             if (player instanceof ServerPlayer sp) {
                 PacketDistributor.sendToPlayer(sp, new PacketMiscEvent(PacketMiscEvent.WARP_EVENT));
             }

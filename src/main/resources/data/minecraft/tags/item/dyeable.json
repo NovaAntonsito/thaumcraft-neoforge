@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:cloth_chest",
+    "thaumcraft:cloth_legs",
+    "thaumcraft:cloth_boots",
+    "thaumcraft:void_robe_helm",
+    "thaumcraft:void_robe_chest",
+    "thaumcraft:void_robe_legs"
+  ]
+}

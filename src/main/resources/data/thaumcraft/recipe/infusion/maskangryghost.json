@@ -1,0 +1,41 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "FORTRESSMASK",
+  "instability": 8,
+  "aspects": {
+    "perditio": 80,
+    "mortuus": 80,
+    "praemunio": 20
+  },
+  "central": {
+    "item": "thaumcraft:fortress_helm"
+  },
+  "components": [
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "tag": "c:plates/iron"
+    },
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "item": "minecraft:poisonous_potato"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    {
+      "tag": "c:plates/iron"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:fortress_helm",
+    "count": 1,
+    "components": {
+      "thaumcraft:fortress_mask": 1
+    }
+  },
+  "keep_central": true
+}

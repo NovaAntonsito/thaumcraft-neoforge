@@ -137,6 +137,45 @@ public final class EntityUtils {
     }
 
     /**
+     * hasGoggles: the held item or a worn piece of armor reveals essentia contents and the like.
+     * The bauble slots are checked once Curios is in (stage 9e-3).
+     */
+    public static boolean hasGoggles(@Nullable Entity e) {
+        if (!(e instanceof net.minecraft.world.entity.player.Player viewer)) {
+            return false;
+        }
+        if (viewer.getMainHandItem().getItem() instanceof thaumcraft.api.items.IGoggles g && g.showIngamePopups(viewer.getMainHandItem(), viewer)) {
+            return true;
+        }
+        for (net.minecraft.world.item.ItemStack stack : viewer.getInventory().armor) {
+            if (stack.getItem() instanceof thaumcraft.api.items.IGoggles g && g.showIngamePopups(stack, viewer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** hasRevealer: the held items or a worn piece of armor would show nodes. */
+    @SuppressWarnings("deprecation")
+    public static boolean hasRevealer(@Nullable Entity e) {
+        if (!(e instanceof net.minecraft.world.entity.player.Player viewer)) {
+            return false;
+        }
+        if (viewer.getMainHandItem().getItem() instanceof thaumcraft.api.items.IRevealer r && r.showNodes(viewer.getMainHandItem(), viewer)) {
+            return true;
+        }
+        if (viewer.getOffhandItem().getItem() instanceof thaumcraft.api.items.IRevealer r && r.showNodes(viewer.getOffhandItem(), viewer)) {
+            return true;
+        }
+        for (net.minecraft.world.item.ItemStack stack : viewer.getInventory().armor) {
+            if (stack.getItem() instanceof thaumcraft.api.items.IRevealer r && r.showNodes(stack, viewer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * resetFloatCounter: keeps the server from kicking a player for flying, while a tool holds them up.
      * 1.21: the counter is private, so it is set by reflection.
      */

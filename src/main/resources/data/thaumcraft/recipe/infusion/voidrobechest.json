@@ -1,0 +1,39 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "VOIDROBEARMOR",
+  "instability": 6,
+  "aspects": {
+    "metallum": 35,
+    "praemunio": 35,
+    "potentia": 25,
+    "alienis": 25,
+    "vacuos": 35
+  },
+  "central": {
+    "item": "thaumcraft:void_chest"
+  },
+  "components": [
+    {
+      "item": "thaumcraft:cloth_chest"
+    },
+    {
+      "tag": "c:plates/void"
+    },
+    {
+      "tag": "c:plates/void"
+    },
+    {
+      "item": "thaumcraft:salis_mundus"
+    },
+    {
+      "item": "thaumcraft:fabric"
+    },
+    {
+      "tag": "c:leathers"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:void_robe_chest",
+    "count": 1
+  }
+}

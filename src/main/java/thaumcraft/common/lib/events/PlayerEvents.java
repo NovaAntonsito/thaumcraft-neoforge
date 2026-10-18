@@ -61,6 +61,22 @@ public final class PlayerEvents {
      * finishedUsingItem: under Unnatural Hunger, rotten flesh or a zombie brain takes a level and 30 seconds off it;
      * other food does nothing for it. The lighter effect has no cure left but those foods.
      */
+    /** handleSpeedMods of livingTick: the traveller boots' step height goes away when sneaking or without them. */
+    @SubscribeEvent
+    public static void speedMods(PlayerTickEvent.Post event) {
+        thaumcraft.common.items.armor.ItemBootsTraveller.handleSpeedMods(event.getEntity());
+    }
+
+    /** playerJumps: charged traveller boots jump higher. */
+    @SubscribeEvent
+    public static void playerJumps(net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent event) {
+        if (event.getEntity() instanceof net.minecraft.world.entity.player.Player player
+                && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).getItem() instanceof thaumcraft.common.items.armor.ItemBootsTraveller
+                && thaumcraft.api.items.RechargeHelper.getCharge(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET)) > 0) {
+            player.setDeltaMovement(player.getDeltaMovement().add(0.0, 0.2750000059604645, 0.0));
+        }
+    }
+
     @SubscribeEvent
     public static void finishedUsingItem(net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent.Finish event) {
         net.minecraft.world.entity.LivingEntity entity = event.getEntity();

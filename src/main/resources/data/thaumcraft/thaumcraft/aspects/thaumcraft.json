@@ -250,6 +250,16 @@
     },
     {
       "items": [
+        "thaumcraft:goggles"
+      ],
+      "complex": true,
+      "aspects": {
+        "sensus": 10,
+        "auram": 10
+      }
+    },
+    {
+      "items": [
         "thaumcraft:primordial_pearl"
       ],
       "aspects": {

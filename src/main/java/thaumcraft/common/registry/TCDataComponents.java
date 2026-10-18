@@ -109,4 +109,18 @@ public final class TCDataComponents {
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
     public static final Supplier<DataComponentType<Integer>> AREA_DIM = DATA_COMPONENTS.registerComponentType("area_dim",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+
+    // Stage 9e-2.
+    /** ItemGrappleGun "loaded": a hook is out (the model shows the gun without it). */
+    public static final Supplier<DataComponentType<Boolean>> GRAPPLE_LOADED = DATA_COMPONENTS.registerComponentType("grapple_loaded",
+            builder -> builder.persistent(com.mojang.serialization.Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
+    /** ItemBootsTraveller "energy": seconds left before the boots use up another point of charge. */
+    public static final Supplier<DataComponentType<Integer>> BOOTS_ENERGY = DATA_COMPONENTS.registerComponentType("boots_energy",
+            builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+    /** ItemFortressArmor "mask": 0 grinning devil, 1 angry ghost, 2 sipping fiend. */
+    public static final Supplier<DataComponentType<Integer>> FORTRESS_MASK = DATA_COMPONENTS.registerComponentType("fortress_mask",
+            builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+    /** ItemFortressArmor "goggles": the helm has goggles of revealing. */
+    public static final Supplier<DataComponentType<Boolean>> FORTRESS_GOGGLES = DATA_COMPONENTS.registerComponentType("fortress_goggles",
+            builder -> builder.persistent(com.mojang.serialization.Codec.BOOL).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
 }

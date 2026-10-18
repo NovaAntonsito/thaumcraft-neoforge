@@ -1,0 +1,41 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "FORTRESSMASK",
+  "instability": 8,
+  "aspects": {
+    "cognitio": 80,
+    "victus": 80,
+    "praemunio": 20
+  },
+  "central": {
+    "item": "thaumcraft:fortress_helm"
+  },
+  "components": [
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "tag": "c:plates/iron"
+    },
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "item": "thaumcraft:shimmerleaf"
+    },
+    {
+      "item": "thaumcraft:brain"
+    },
+    {
+      "tag": "c:plates/iron"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:fortress_helm",
+    "count": 1,
+    "components": {
+      "thaumcraft:fortress_mask": 0
+    }
+  },
+  "keep_central": true
+}

@@ -4,6 +4,9 @@
     "thaumcraft:void_chest",
     "thaumcraft:crimson_plate_chest",
     "thaumcraft:crimson_robe_chest",
-    "thaumcraft:crimson_praetor_chest"
+    "thaumcraft:crimson_praetor_chest",
+    "thaumcraft:cloth_chest",
+    "thaumcraft:fortress_chest",
+    "thaumcraft:void_robe_chest"
   ]
 }

@@ -2020,5 +2020,21 @@
   "item.thaumcraft.cluster_silver": "Native Silver Cluster",
   "item.thaumcraft.cluster_lead": "Native Lead Cluster",
   "item.thaumcraft.cluster_cinnabar": "Native Cinnabar Cluster",
-  "item.thaumcraft.cluster_quartz": "Native Quartz Cluster"
+  "item.thaumcraft.cluster_quartz": "Native Quartz Cluster",
+  "item.thaumcraft.sanity_checker": "Sanity Checker",
+  "item.thaumcraft.grapple_gun": "Arcane Grappler",
+  "item.thaumcraft.grapple_gun_tip": "Grappler Head",
+  "item.thaumcraft.grapple_gun_spool": "Grappler Spool",
+  "item.thaumcraft.goggles": "Goggles of Revealing",
+  "item.thaumcraft.cloth_chest": "Thaumaturge's Robe",
+  "item.thaumcraft.cloth_legs": "Thaumaturge's Leggings",
+  "item.thaumcraft.cloth_boots": "Thaumaturge's Boots",
+  "item.thaumcraft.traveller_boots": "Boots of the Traveller",
+  "item.thaumcraft.fortress_helm": "Thaumium Fortress Helm",
+  "item.thaumcraft.fortress_chest": "Thaumium Fortress Cuirass",
+  "item.thaumcraft.fortress_legs": "Thaumium Fortress Thigh Guards",
+  "item.thaumcraft.void_robe_helm": "Void Thaumaturge Hood",
+  "item.thaumcraft.void_robe_chest": "Void Thaumaturge Robe",
+  "item.thaumcraft.void_robe_legs": "Void Thaumaturge Leggings",
+  "entity.thaumcraft.grapple": "Grapple"
 }

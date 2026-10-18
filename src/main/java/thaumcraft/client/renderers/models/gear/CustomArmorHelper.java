@@ -21,6 +21,12 @@ public final class CustomArmorHelper {
     }
 
     public static IClientItemExtensions extensions(Function<Boolean, LayerDefinition> layer, Function<ModelPart, ? extends HumanoidModel<?>> factory) {
+        return extensions(layer, factory, -1);
+    }
+
+    /** With defaultDyeColor >= 0, the color of the dyed layer when the stack has none (ItemArmor.getColor of the original). */
+    public static IClientItemExtensions extensions(Function<Boolean, LayerDefinition> layer, Function<ModelPart, ? extends HumanoidModel<?>> factory,
+            int defaultDyeColor) {
         return new IClientItemExtensions() {
             private HumanoidModel<?> model1;
             private HumanoidModel<?> model2;
@@ -28,16 +34,28 @@ public final class CustomArmorHelper {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
                 ArmorItem.Type type = stack.getItem() instanceof ArmorItem armor ? armor.getType() : ArmorItem.Type.HELMET;
+                HumanoidModel<?> model;
                 if (type == ArmorItem.Type.CHESTPLATE || type == ArmorItem.Type.BOOTS) {
                     if (model1 == null) {
                         model1 = factory.apply(layer.apply(true).bakeRoot());
                     }
-                    return model1;
+                    model = model1;
+                } else {
+                    if (model2 == null) {
+                        model2 = factory.apply(layer.apply(false).bakeRoot());
+                    }
+                    model = model2;
                 }
-                if (model2 == null) {
-                    model2 = factory.apply(layer.apply(false).bakeRoot());
+                if (model instanceof ModelCustomArmor custom) {
+                    custom.prepare(entity);
                 }
-                return model2;
+                return model;
+            }
+
+            @Override
+            public int getDefaultDyeColor(ItemStack stack) {
+                return defaultDyeColor >= 0 ? net.minecraft.util.FastColor.ARGB32.opaque(
+                        net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, defaultDyeColor)) : IClientItemExtensions.super.getDefaultDyeColor(stack);
             }
         };
     }

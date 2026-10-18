@@ -41,6 +41,10 @@ public class ModelCustomArmor extends HumanoidModel<LivingEntity> {
         return riding ? 0.0f : Math.min(rightLeg.xRot, leftLeg.xRot);
     }
 
+    /** Called when the model is picked for a wearer, before rendering: parts that depend on what they wear. */
+    public void prepare(LivingEntity entity) {
+    }
+
     /** Called before rendering, with the pose already copied from the wearer. */
     protected void animateCloth(float c) {
     }

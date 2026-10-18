@@ -39,6 +39,25 @@ public final class TCArmorMaterials {
     public static final Holder<ArmorMaterial> VOID = register("void", 3, 6, 8, 3, 10, SoundEvents.ARMOR_EQUIP_CHAIN, 1.0f,
             () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("void").get()));
 
+    /** ARMORMAT_SPECIAL: factor 25, {1, 2, 3, 1}, enchantability 25, leather sound, toughness 1 (goggles, traveller boots). */
+    public static final Holder<ArmorMaterial> SPECIAL = register("special", 1, 2, 3, 1, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.fabric.get()));
+    /**
+     * ARMORMAT_SPECIAL for the robes. 1.21: the dyed layer and its overlay come from the material,
+     * so the dyeable robes have a copy of it with two layers.
+     */
+    public static final Holder<ArmorMaterial> SPECIAL_ROBE = register("special_robe", 1, 2, 3, 1, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.fabric.get()), true);
+    /** ARMORMAT_FORTRESS: factor 40, {3, 6, 7, 3}, enchantability 25, iron sound, toughness 3, repaired with thaumium. */
+    public static final Holder<ArmorMaterial> FORTRESS = register("fortress", 3, 6, 7, 3, 25, SoundEvents.ARMOR_EQUIP_IRON, 3.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("thaumium").get()));
+    /** ARMORMAT_VOIDROBE: factor 18, {4, 7, 9, 4}, enchantability 10, leather sound, toughness 2, repaired with void metal. */
+    public static final Holder<ArmorMaterial> VOID_ROBE = register("void_robe", 4, 7, 9, 4, 10, SoundEvents.ARMOR_EQUIP_LEATHER, 2.0f,
+            () -> Ingredient.of(thaumcraft.common.config.ConfigItems.ingots.get("void").get()), true);
+
+    public static final int SPECIAL_DURABILITY = 25;
+    public static final int FORTRESS_DURABILITY = 40;
+    public static final int VOID_ROBE_DURABILITY = 18;
     public static final int THAUMIUM_DURABILITY = 25;
     public static final int VOID_DURABILITY = 10;
     public static final int CULTIST_PLATE_DURABILITY = 18;
@@ -60,6 +79,11 @@ public final class TCArmorMaterials {
 
     private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
             Holder<net.minecraft.sounds.SoundEvent> sound, float toughness, java.util.function.Supplier<Ingredient> repair) {
+        return register(name, boots, legs, chest, helmet, enchantability, sound, toughness, repair, false);
+    }
+
+    private static Holder<ArmorMaterial> register(String name, int boots, int legs, int chest, int helmet, int enchantability,
+            Holder<net.minecraft.sounds.SoundEvent> sound, float toughness, java.util.function.Supplier<Ingredient> repair, boolean dyeable) {
         EnumMap<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
         defense.put(ArmorItem.Type.BOOTS, boots);
         defense.put(ArmorItem.Type.LEGGINGS, legs);
@@ -67,7 +91,9 @@ public final class TCArmorMaterials {
         defense.put(ArmorItem.Type.HELMET, helmet);
         defense.put(ArmorItem.Type.BODY, chest);
         // The texture comes from getArmorTexture, the layer is only a fallback.
-        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, name)));
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, name);
+        List<ArmorMaterial.Layer> layers = dyeable ? List.of(new ArmorMaterial.Layer(id, "", true), new ArmorMaterial.Layer(id, "_overlay", false))
+                : List.of(new ArmorMaterial.Layer(id));
         return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantability, sound,
                 repair, layers, toughness, 0.0f));
     }

@@ -61,7 +61,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import thaumcraft.client.gui.EssentiaHud;
 import thaumcraft.client.gui.GuiResearchTable;
 import thaumcraft.client.renderers.tile.TileResearchTableRenderer;
 import thaumcraft.common.items.consumables.ItemResearchNote;
@@ -129,6 +128,7 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.FOCUS_PROJECTILE.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_CLOUD.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_MINE.get(), thaumcraft.client.renderers.entity.projectile.RenderFocusMine::new);
+        event.registerEntityRenderer(TCEntities.GRAPPLE.get(), thaumcraft.client.renderers.entity.projectile.RenderGrapple::new);
         event.registerEntityRenderer(TCEntities.SPELL_BAT.get(), thaumcraft.client.renderers.entity.mob.RenderSpellBat::new);
         event.registerBlockEntityRenderer(TCBlockEntities.GOLEM_BUILDER.get(), thaumcraft.client.renderers.tile.TileGolemBuilderRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.BANNER.get(), thaumcraft.client.renderers.tile.TileBannerRenderer::new);
@@ -212,6 +212,21 @@ public class ThaumcraftClient {
         event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
                 thaumcraft.client.renderers.models.gear.ModelLeaderArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelLeaderArmor::new),
                 ConfigItems.crimsonPraetorHelm.get(), ConfigItems.crimsonPraetorChest.get(), ConfigItems.crimsonPraetorLegs.get());
+        event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
+                thaumcraft.client.renderers.models.gear.ModelFortressArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelFortressArmor::new),
+                ConfigItems.fortressHelm.get(), ConfigItems.fortressChest.get(), ConfigItems.fortressLegs.get());
+        event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
+                thaumcraft.client.renderers.models.gear.ModelRobe::createLayer, thaumcraft.client.renderers.models.gear.ModelRobe::new,
+                thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR),
+                ConfigItems.voidRobeHelm.get(), ConfigItems.voidRobeChest.get(), ConfigItems.voidRobeLegs.get());
+        // The thaumaturge's robes use the plain biped model, only the default color is theirs.
+        event.registerItem(new net.neoforged.neoforge.client.extensions.common.IClientItemExtensions() {
+            @Override
+            public int getDefaultDyeColor(ItemStack stack) {
+                return net.minecraft.util.FastColor.ARGB32.opaque(net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack,
+                        thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR));
+            }
+        }, ConfigItems.clothChest.get(), ConfigItems.clothLegs.get(), ConfigItems.clothBoots.get());
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
@@ -238,8 +253,8 @@ public class ThaumcraftClient {
 
     @SubscribeEvent
     static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.CROSSHAIR, EssentiaHud.ID, EssentiaHud::render);
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, ThaumometerHud.ID, ThaumometerHud::render);
+        event.registerAbove(VanillaGuiLayers.CROSSHAIR, thaumcraft.client.gui.SanityHud.ID, thaumcraft.client.gui.SanityHud::render);
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, thaumcraft.client.gui.CasterHud.ID, thaumcraft.client.gui.CasterHud::render);
         event.registerAboveAll(NotificationsHud.ID, NotificationsHud::render);
         event.registerAbove(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud.ID, thaumcraft.client.gui.AnomalyHud::render);
@@ -366,6 +381,15 @@ public class ThaumcraftClient {
                 .map(DeferredBlock::get).toArray(Block[]::new));
     }
 
+    /** itemArmorColourHandler: the first layer of the robes in their dyed color. */
+    @SubscribeEvent
+    static void registerArmorColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : net.minecraft.util.FastColor.ARGB32.opaque(
+                net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, thaumcraft.common.items.armor.ItemRobeArmor.DEFAULT_COLOR)),
+                ConfigItems.voidRobeChest.get(), ConfigItems.voidRobeHelm.get(), ConfigItems.voidRobeLegs.get(),
+                ConfigItems.clothChest.get(), ConfigItems.clothLegs.get(), ConfigItems.clothBoots.get());
+    }
+
     private static Block[] dyedBlocks() {
         return java.util.stream.Stream.concat(ConfigBlocks.candles.values().stream(), ConfigBlocks.nitor.values().stream())
                 .map(DeferredBlock::get).toArray(Block[]::new);
@@ -424,6 +448,8 @@ public class ThaumcraftClient {
             // Reborn's discovery model (metadata 64): a solved note.
             ItemProperties.register(ConfigItems.researchNote.get(), Thaumcraft.id("complete"),
                     (stack, level, entity, seed) -> ItemResearchNote.isComplete(stack) ? 1.0f : 0.0f);
+            ItemProperties.register(ConfigItems.grappleGun.get(), Thaumcraft.id("type"),
+                    (stack, level, entity, seed) -> thaumcraft.common.items.tools.ItemGrappleGun.isLoaded(stack) ? 1.0f : 0.0f);
             ItemProperties.register(ConfigItems.label.get(), Thaumcraft.id("filled"),
                     (stack, level, entity, seed) -> ConfigItems.label.get().getAspects(stack) != null ? 1.0f : 0.0f);
             // The pearl wears down: pearl, nodule, mote.
