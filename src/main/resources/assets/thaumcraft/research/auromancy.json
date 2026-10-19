@@ -1269,6 +1269,35 @@
           ]
         }
       ]
+    },
+    {
+      "key": "AURAATLAS",
+      "name": "research.AURAATLAS.title",
+      "icons": [
+        "thaumcraft:aura_atlas"
+      ],
+      "parents": [
+        "NODES"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -8,
+        0
+      ],
+      "stages": [
+        {
+          "text": "research.AURAATLAS.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.AURAATLAS.stage.2",
+          "recipes": [
+            "thaumcraft:aura_atlas"
+          ]
+        }
+      ]
     }
   ]
 }

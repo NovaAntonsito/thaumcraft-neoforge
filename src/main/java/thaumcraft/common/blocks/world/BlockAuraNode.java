@@ -80,6 +80,14 @@ public class BlockAuraNode extends BaseEntityBlock {
 
     @Nullable
     @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock()) && level instanceof net.minecraft.server.level.ServerLevel sl) {
+            thaumcraft.common.world.aura.AuraNodeRegistry.remove(sl, pos);
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TileAuraNode(pos, state);
     }

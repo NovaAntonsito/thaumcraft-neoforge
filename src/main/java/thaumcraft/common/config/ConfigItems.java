@@ -85,6 +85,8 @@ public final class ConfigItems {
     public static final DeferredItem<BucketItem> purifyingFluidBucket = ITEMS.registerItem("purifying_fluid_bucket",
             p -> new BucketItem(TCFluids.PURIFYING.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final DeferredItem<ItemThaumometer> thaumometer = ITEMS.registerItem("thaumometer", ItemThaumometer::new);
+    // Not in Thaumcraft 4 (dream branch): a map of the aura, its nodes and anomalies.
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemAuraAtlas> auraAtlas = ITEMS.registerItem("aura_atlas", thaumcraft.common.items.tools.ItemAuraAtlas::new);
     public static final DeferredItem<ItemResonator> resonator = ITEMS.registerItem("resonator", ItemResonator::new);
     public static final DeferredItem<ItemAlumentum> alumentum = ITEMS.registerItem("alumentum", ItemAlumentum::new);
     public static final DeferredItem<ItemCaster> casterBasic = ITEMS.registerItem("caster_basic", p -> new ItemCaster(0, p));

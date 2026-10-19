@@ -70,6 +70,16 @@ public final class ClientPacketHandlers {
     }
 
     /** PacketAuraToClient.onMessage: HudHandler.currentAura for the thaumometer's bar. */
+    /** The aura atlas (dream branch): the first packet opens its screen, later ones refresh it. */
+    public static void auraAtlas(thaumcraft.common.lib.network.misc.PacketAuraAtlasToClient msg) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.screen instanceof thaumcraft.client.gui.GuiAuraAtlas atlas) {
+            atlas.update(msg);
+        } else if (msg.open()) {
+            mc.setScreen(new thaumcraft.client.gui.GuiAuraAtlas(msg));
+        }
+    }
+
     public static void auraToClient(short base, float vis, float flux) {
         ThaumometerHud.auraBase = base;
         ThaumometerHud.auraVis = vis;

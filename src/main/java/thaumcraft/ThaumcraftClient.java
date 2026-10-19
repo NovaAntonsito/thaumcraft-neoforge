@@ -317,6 +317,8 @@ public class ThaumcraftClient {
         // Reborn's research note colors: layer 1 (the overlay) takes the note's color.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF000000 | ItemResearchNote.getColor(stack) : 0xFFFFFFFF,
                 ConfigItems.researchNote.get());
+        // The aura atlas (dream branch): a research note whose overlay is vis violet.
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF9A60D0 : 0xFFFFFFFF, ConfigItems.auraAtlas.get());
         // Phials and labels: the overlay layer. Jars: the essentia inside the item model (tintindex 1).
         event.register((stack, tintIndex) -> tintIndex == 1 ? aspectColor(ConfigItems.phial.get().getAspects(stack)) : -1,
                 ConfigItems.phial.get());

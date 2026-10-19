@@ -1,0 +1,32 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "AURAATLAS",
+  "vis": 25,
+  "crystals": {
+    "aer": 1,
+    "ordo": 1
+  },
+  "pattern": [
+    "PQP",
+    "PTP",
+    "PIP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "Q": {
+      "item": "thaumcraft:quicksilver"
+    },
+    "T": {
+      "item": "thaumcraft:thaumometer"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:aura_atlas",
+    "count": 1
+  }
+}

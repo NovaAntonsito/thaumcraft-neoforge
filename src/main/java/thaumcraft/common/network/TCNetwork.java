@@ -54,6 +54,10 @@ public final class TCNetwork {
                 .playToClient(PacketAspectDiscovery.TYPE, PacketAspectDiscovery.STREAM_CODEC, PacketAspectDiscovery::handle)
                 .playToClient(PacketAspectDiscoveryError.TYPE, PacketAspectDiscoveryError.STREAM_CODEC, PacketAspectDiscoveryError::handle)
                 .playToClient(PacketAuraToClient.TYPE, PacketAuraToClient.STREAM_CODEC, PacketAuraToClient::handle)
+                .playToClient(thaumcraft.common.lib.network.misc.PacketAuraAtlasToClient.TYPE, thaumcraft.common.lib.network.misc.PacketAuraAtlasToClient.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketAuraAtlasToClient::handle)
+                .playToServer(thaumcraft.common.lib.network.misc.PacketAuraAtlasRequestToServer.TYPE, thaumcraft.common.lib.network.misc.PacketAuraAtlasRequestToServer.STREAM_CODEC,
+                        thaumcraft.common.lib.network.misc.PacketAuraAtlasRequestToServer::handle)
                 .playToClient(thaumcraft.common.anomaly.PacketAnomalySync.TYPE, thaumcraft.common.anomaly.PacketAnomalySync.STREAM_CODEC,
                         thaumcraft.common.anomaly.PacketAnomalySync::handle)
                 .playToClient(thaumcraft.common.anomaly.PacketAnomalyChoice.TYPE, thaumcraft.common.anomaly.PacketAnomalyChoice.STREAM_CODEC,

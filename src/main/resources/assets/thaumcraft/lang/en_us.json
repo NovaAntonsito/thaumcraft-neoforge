@@ -2257,5 +2257,18 @@
   "block.thaumcraft.node_stabilizer_advanced": "Advanced Node Stabilizer",
   "block.thaumcraft.node_transducer": "Node Transducer",
   "tc.anomaly.node_convergence": "Node Convergence",
-  "tc.anomaly.node_convergence.desc": "Aura nodes have gathered in one place, and they swell while the convergence lasts. When it passes, the lesser nodes fall into the greatest one. Follow the column of light."
+  "tc.anomaly.node_convergence.desc": "Aura nodes have gathered in one place, and they swell while the convergence lasts. When it passes, the lesser nodes fall into the greatest one. Follow the column of light.",
+  "item.thaumcraft.aura_atlas": "Aura Atlas",
+  "item.thaumcraft.aura_atlas.text": "A map of the aura around you",
+  "tc.atlas.legend": "Violet: vis   Dark purple: flux",
+  "tc.atlas.chunk": "Around %s, %s",
+  "tc.atlas.unknown": "Too far to sense",
+  "tc.atlas.vis": "Vis: %s / %s",
+  "tc.atlas.flux": "Flux: %s",
+  "tc.atlas.pos": "At %s, %s, %s",
+  "tc.atlas.energized": "Energized",
+  "tc.atlas.anomaly": "Ends in %s",
+  "research.AURAATLAS.title": "Aura Atlas",
+  "research.AURAATLAS.stage.1": "Charting the aura. The thaumometer shows me the aura where I stand, but I have to walk the land to learn its shape. If its lens were bound to a sheet of paper treated with quicksilver, it might keep a record of what it senses around me.",
+  "research.AURAATLAS.stage.2": "The §5Aura Atlas§0 is a map of the aura around its holder, eight chunks in every direction.<BR>Each chunk is tinted §5violet§0 by how much vis it holds compared to its base, and darkened by the flux that taints it. Chunks too far away to sense are left blank.<LINE>Every aura node the world has ever revealed is drawn where it lies, in the color of its strongest aspect. Hovering over one shows its type and aspects.<BR>Anomalies that strike a single place are marked with a star, green for the helpful ones, red for the dangerous and gold for the rest.<BR>The map keeps itself up to date for as long as I hold it open."
 }

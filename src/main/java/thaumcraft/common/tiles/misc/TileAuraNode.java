@@ -91,7 +91,16 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
         node.tick();
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level instanceof net.minecraft.server.level.ServerLevel sl) thaumcraft.common.world.aura.AuraNodeRegistry.update(sl, this);
+    }
+
     private void tick() {
+        if (level instanceof net.minecraft.server.level.ServerLevel sl && (count + worldPosition.hashCode()) % 200 == 0) {
+            thaumcraft.common.world.aura.AuraNodeRegistry.update(sl, this);
+        }
         if (energized) {
             ++count;
             if (!level.isClientSide) energizedTick();
