@@ -75,6 +75,9 @@ public final class ConfigItems {
 
     public static final DeferredItem<ItemScribingTools> scribingTools = ITEMS.registerItem("scribing_tools", ItemScribingTools::new);
     public static final DeferredItem<ItemResearchNote> researchNote = ITEMS.registerItem("research_note", ItemResearchNote::new);
+    // Dream branch: a note that leads to a place in the world.
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemCartographicNote> cartographicNote =
+            ITEMS.registerItem("cartographic_note", thaumcraft.common.items.consumables.ItemCartographicNote::new);
 
     public static final DeferredItem<ItemMagicDust> salisMundus = ITEMS.registerItem("salis_mundus", ItemMagicDust::new);
 

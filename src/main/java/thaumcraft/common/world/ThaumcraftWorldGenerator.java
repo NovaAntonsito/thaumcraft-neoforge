@@ -238,6 +238,9 @@ public final class ThaumcraftWorldGenerator {
                 ring.width = 11 + random.nextInt(6) * 2;
                 ring.height = 11 + random.nextInt(6) * 2;
                 if (ring.generate(world, random, p.above(8))) {
+                    // Dream branch: remembered for the cartographic notes.
+                    thaumcraft.common.world.objects.StructureLocations.record(world.getLevel().dimension(),
+                            thaumcraft.common.world.objects.StructureLocations.ELDRITCH_RING, p.above(8));
                     thaumcraft.common.world.dim.MazeHandler.startMaze(chunkX, chunkZ, ring.width, ring.height, random.nextLong());
                 }
             } else if (random.nextInt(500) == 0) {

@@ -75,6 +75,11 @@ public class MoundLocations extends SavedData {
         return best;
     }
 
+    /** Every known barrow (dream branch: the cartographic notes pick from them). */
+    public List<BlockPos> all() {
+        return barrows;
+    }
+
     public int count() {
         return barrows.size();
     }

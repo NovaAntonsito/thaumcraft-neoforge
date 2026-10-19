@@ -316,7 +316,7 @@ public class ThaumcraftClient {
         }, ConfigItems.crystalEssence.get());
         // Reborn's research note colors: layer 1 (the overlay) takes the note's color.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF000000 | ItemResearchNote.getColor(stack) : 0xFFFFFFFF,
-                ConfigItems.researchNote.get());
+                ConfigItems.researchNote.get(), ConfigItems.cartographicNote.get());
         // The aura atlas (dream branch): a research note whose overlay is vis violet.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF9A60D0 : 0xFFFFFFFF, ConfigItems.auraAtlas.get());
         // Phials and labels: the overlay layer. Jars: the essentia inside the item model (tintindex 1).
@@ -486,6 +486,8 @@ public class ThaumcraftClient {
                     (stack, level, entity, seed) -> ConfigItems.casterBasic.get().getFocus(stack) != null ? 1.0f : 0.0f);
             // Reborn's discovery model (metadata 64): a solved note.
             ItemProperties.register(ConfigItems.researchNote.get(), Thaumcraft.id("complete"),
+                    (stack, level, entity, seed) -> ItemResearchNote.isComplete(stack) ? 1.0f : 0.0f);
+            ItemProperties.register(ConfigItems.cartographicNote.get(), Thaumcraft.id("complete"),
                     (stack, level, entity, seed) -> ItemResearchNote.isComplete(stack) ? 1.0f : 0.0f);
             ItemProperties.register(ConfigItems.grappleGun.get(), Thaumcraft.id("type"),
                     (stack, level, entity, seed) -> thaumcraft.common.items.tools.ItemGrappleGun.isLoaded(stack) ? 1.0f : 0.0f);
