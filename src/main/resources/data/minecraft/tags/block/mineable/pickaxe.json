@@ -58,6 +58,12 @@
     "thaumcraft:stone_porous",
     "thaumcraft:loot_urn_common",
     "thaumcraft:loot_urn_uncommon",
-    "thaumcraft:loot_urn_rare"
+    "thaumcraft:loot_urn_rare",
+    "thaumcraft:eldritch_stone_glowing",
+    "thaumcraft:obsidian_tile",
+    "thaumcraft:eldritch_altar",
+    "thaumcraft:eldritch_obelisk",
+    "thaumcraft:eldritch_obelisk_body",
+    "thaumcraft:eldritch_cap"
   ]
 }

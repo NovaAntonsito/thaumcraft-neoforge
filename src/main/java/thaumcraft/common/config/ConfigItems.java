@@ -107,6 +107,8 @@ public final class ConfigItems {
     // Stage 6b.
     public static final DeferredItem<ItemPrimordialPearl> primordialPearl = ITEMS.registerItem("primordial_pearl", ItemPrimordialPearl::new);
     public static final DeferredItem<Item> voidSeed = ITEMS.registerSimpleItem("void_seed");
+    public static final DeferredItem<thaumcraft.common.items.eldritch.ItemEldritchEye> eldritchEye = ITEMS.registerItem("eldritch_eye", thaumcraft.common.items.eldritch.ItemEldritchEye::new);
+    public static final DeferredItem<thaumcraft.common.items.eldritch.ItemObeliskPlacer> obeliskPlacer = ITEMS.registerItem("obelisk_placer", thaumcraft.common.items.eldritch.ItemObeliskPlacer::new);
     /** "clockwork","biothaumic" */
     public static final Map<String, DeferredItem<Item>> mind = variants("mind", "clockwork", "biothaumic");
     public static final DeferredItem<ItemHandMirror> handMirror = ITEMS.registerItem("hand_mirror", ItemHandMirror::new);

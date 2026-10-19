@@ -2087,5 +2087,18 @@
   "item.thaumcraft.chunk_fish": "Fish Nugget",
   "item.thaumcraft.chunk_rabbit": "Rabbit Nugget",
   "item.thaumcraft.chunk_mutton": "Mutton Nugget",
-  "item.thaumcraft.triple_meat_treat": "Triple Meat Treat"
+  "item.thaumcraft.triple_meat_treat": "Triple Meat Treat",
+  "block.thaumcraft.eldritch_altar": "Eldritch Altar",
+  "block.thaumcraft.eldritch_obelisk": "Eldritch Obelisk",
+  "block.thaumcraft.eldritch_obelisk_body": "Eldritch Obelisk",
+  "block.thaumcraft.eldritch_cap": "Eldritch Capstone",
+  "block.thaumcraft.eldritch_stone_glowing": "Glowing Crusted Stone",
+  "block.thaumcraft.obsidian_tile": "Obsidian Tile",
+  "item.thaumcraft.eldritch_eye": "Eldritch Eye",
+  "item.thaumcraft.eldritch_eye.text": "It seems to be watching you.",
+  "item.thaumcraft.obelisk_placer": "Eldritch Obelisk Placer",
+  "item.thaumcraft.obelisk_placer.text": "Creative Mode Only",
+  "research.OCULUS.title": "Opening the Eye",
+  "research.OCULUS.stage.1": "I will show them, I will show them all!",
+  "research.OCULUS.stage.2": "It was all so simple - you are amazed the Crimson Cultists have never discovered this.<BR>To perform the ritual you simply need to place four Eldritch Eyes on the specially marked keystone found at one of the strange altars where you first discovered the cult."
 }

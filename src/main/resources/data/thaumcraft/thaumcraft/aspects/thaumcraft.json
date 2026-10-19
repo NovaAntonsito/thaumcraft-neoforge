@@ -656,6 +656,28 @@
         "victus": 10,
         "desiderium": 10
       }
+    },
+    {
+      "items": [
+        "thaumcraft:eldritch_eye"
+      ],
+      "aspects": {
+        "alienis": 5,
+        "auram": 3,
+        "praecantatio": 3,
+        "sensus": 3,
+        "spiritus": 3
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:eldritch_stone_glowing"
+      ],
+      "aspects": {
+        "lux": 1,
+        "terra": 1,
+        "alienis": 1
+      }
     }
   ]
 }

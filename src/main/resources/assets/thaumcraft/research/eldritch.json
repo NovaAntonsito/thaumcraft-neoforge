@@ -166,6 +166,43 @@
           ]
         }
       ]
+    },
+    {
+      "key": "OCULUS",
+      "name": "research.OCULUS.title",
+      "icons": [
+        "thaumcraft:eldritch_eye"
+      ],
+      "category": "ELDRITCH",
+      "location": [
+        -3,
+        3
+      ],
+      "parents": [
+        "CrimsonRites",
+        "BASEELDRITCH"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN",
+        "SPIKY"
+      ],
+      "stages": [
+        {
+          "text": "research.OCULUS.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;ELDRITCH;1",
+            "THEORY;ELDRITCH;1"
+          ],
+          "warp": 6
+        },
+        {
+          "text": "research.OCULUS.stage.2",
+          "recipes": [
+            "thaumcraft:EldritchEye"
+          ]
+        }
+      ]
     }
   ]
 }

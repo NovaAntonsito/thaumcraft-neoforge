@@ -207,6 +207,19 @@ public final class ConfigBlocks {
     /** The invisible blocks that make up the infernal furnace shell. No items. */
     public static final DeferredBlock<Block> placeholderNetherbrick = BLOCKS.register("placeholder_brick", BlockPlaceholder::new);
     public static final DeferredBlock<Block> placeholderObsidian = BLOCKS.register("placeholder_obsidian", BlockPlaceholder::new);
+
+    // Stage 12b: the eldritch altars of TC4 (BlockEldritch metas 0-4) and the obsidian tile (BlockCosmeticSolid meta 1).
+    public static final DeferredBlock<Block> eldritchAltar = BLOCKS.register("eldritch_altar",
+            () -> new thaumcraft.common.blocks.eldritch.BlockEldritch(thaumcraft.common.blocks.eldritch.BlockEldritch.Type.ALTAR));
+    public static final DeferredBlock<Block> eldritchObelisk = BLOCKS.register("eldritch_obelisk",
+            () -> new thaumcraft.common.blocks.eldritch.BlockEldritch(thaumcraft.common.blocks.eldritch.BlockEldritch.Type.OBELISK));
+    public static final DeferredBlock<Block> eldritchObeliskBody = BLOCKS.register("eldritch_obelisk_body",
+            () -> new thaumcraft.common.blocks.eldritch.BlockEldritch(thaumcraft.common.blocks.eldritch.BlockEldritch.Type.OBELISK_BODY));
+    public static final DeferredBlock<Block> eldritchCap = BLOCKS.register("eldritch_cap",
+            () -> new thaumcraft.common.blocks.eldritch.BlockEldritch(thaumcraft.common.blocks.eldritch.BlockEldritch.Type.CAP));
+    public static final DeferredBlock<Block> eldritchStoneGlowing = register("eldritch_stone_glowing", thaumcraft.common.blocks.eldritch.BlockEldritchStone::new);
+    public static final DeferredBlock<Block> obsidianTile = register("obsidian_tile", () -> new Block(BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_BLACK).strength(30.0f, 999.0f).sound(SoundType.STONE).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> condenser = register("condenser", BlockCondenser::new);
     public static final DeferredBlock<Block> condenserLattice = register("condenser_lattice", () -> new BlockCondenserLattice(false));
     public static final DeferredBlock<Block> condenserLatticeDirty = register("condenser_lattice_dirty", () -> new BlockCondenserLattice(true));

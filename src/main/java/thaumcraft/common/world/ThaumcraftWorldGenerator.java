@@ -211,8 +211,8 @@ public final class ThaumcraftWorldGenerator {
     }
 
     /**
-     * generateSurface: 1 chunk in 100 tries a barrow (WorldGenMound), and 1 in 500 of the rest gets a lesser crimson
-     * portal on the surface.
+     * generateSurface: 1 chunk in 100 tries a barrow (WorldGenMound), 1 in 66 of the rest an eldritch altar ring (from
+     * TC4, which TC6 left out), and 1 in 500 of the rest gets a lesser crimson portal on the surface.
      * The portal's top block must be ground, rock, sand or snow; in 1.12 grass had a material of its own, so not on grass.
      */
     public static void generateSurface(WorldGenLevel world, RandomSource random, int chunkX, int chunkZ) {
@@ -225,6 +225,15 @@ public final class ThaumcraftWorldGenerator {
                     // Not in the original: remembered for /thaumcraft locate barrow (the entrance, on the west side).
                     thaumcraft.common.world.objects.MoundLocations.record(world.getLevel().dimension(), p.offset(0, 9, 9));
                 }
+            } else if (random.nextInt(66) == 0) {
+                // TC4: an eldritch altar ring. Its node above the obelisk does not exist in TC6.
+                thaumcraft.common.world.objects.WorldGenEldritchRing ring = new thaumcraft.common.world.objects.WorldGenEldritchRing();
+                ring.chunkX = chunkX;
+                ring.chunkZ = chunkZ;
+                ring.width = 11 + random.nextInt(6) * 2;
+                ring.height = 11 + random.nextInt(6) * 2;
+                ring.generate(world, random, p.above(8));
+                // TODO 12c: when generated, start the maze for it in the Outer Lands (MazeThread).
             } else if (random.nextInt(500) == 0) {
                 BlockPos p2 = p.above(8);
                 BlockState bs = world.getBlockState(p2);

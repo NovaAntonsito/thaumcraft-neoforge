@@ -7,7 +7,7 @@ import thaumcraft.common.entities.monster.cult.EntityCultistCleric;
 
 /**
  * Keeps a ritualist cleric still in front of its altar. It stops being a ritualist once it is more than 4 blocks
- * from home. TODO: also when the home block is no longer the eldritch altar (BlocksTC.eldritch, not ported yet).
+ * from home, or once the home block is no longer the eldritch altar.
  */
 public class AIAltarFocus extends Goal {
     private final EntityCultistCleric entity;
@@ -30,7 +30,8 @@ public class AIAltarFocus extends Goal {
     @Override
     public void tick() {
         if (entity.hasRestriction() && entity.tickCount % 40 == 0
-                && entity.getRestrictCenter().distToCenterSqr(entity.getX(), entity.getY(), entity.getZ()) > 16.0) {
+                && (entity.getRestrictCenter().distToCenterSqr(entity.getX(), entity.getY(), entity.getZ()) > 16.0
+                || !entity.level().getBlockState(entity.getRestrictCenter()).is(thaumcraft.common.config.ConfigBlocks.eldritchAltar.get()))) {
             entity.setIsRitualist(false);
         }
     }
