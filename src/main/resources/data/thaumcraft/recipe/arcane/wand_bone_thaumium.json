@@ -1,0 +1,28 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "WANDS",
+  "vis": 72,
+  "pattern": [
+    "  C",
+    " R ",
+    "C  "
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:wand_cap_thaumium"
+    },
+    "R": {
+      "item": "thaumcraft:wand_rod_bone"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand",
+    "count": 1,
+    "components": {
+      "thaumcraft:wand_parts": {
+        "rod": "bone",
+        "cap": "thaumium"
+      }
+    }
+  }
+}

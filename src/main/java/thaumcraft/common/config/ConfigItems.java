@@ -88,6 +88,14 @@ public final class ConfigItems {
     public static final DeferredItem<ItemResonator> resonator = ITEMS.registerItem("resonator", ItemResonator::new);
     public static final DeferredItem<ItemAlumentum> alumentum = ITEMS.registerItem("alumentum", ItemAlumentum::new);
     public static final DeferredItem<ItemCaster> casterBasic = ITEMS.registerItem("caster_basic", p -> new ItemCaster(0, p));
+    // Not in Thaumcraft 6: the wands of Thaumcraft 4 (dream branch). Rods and caps are plain parts; wood is a stick.
+    public static final DeferredItem<thaumcraft.common.items.casters.wands.ItemWand> wand = ITEMS.registerItem("wand", thaumcraft.common.items.casters.wands.ItemWand::new);
+    /** "greatwood","obsidian","blaze","ice","quartz","bone","reed","silverwood" */
+    public static final Map<String, DeferredItem<Item>> wandRods = variants("wand_rod",
+            "greatwood", "obsidian", "blaze", "ice", "quartz", "bone", "reed", "silverwood");
+    /** The usable caps, then the inert ones that infusion charges. */
+    public static final Map<String, DeferredItem<Item>> wandCaps = variants("wand_cap",
+            "iron", "copper", "gold", "silver", "thaumium", "void", "silver_inert", "thaumium_inert", "void_inert");
     public static final DeferredItem<thaumcraft.common.items.casters.ItemFocus> focus1 =
             ITEMS.registerItem("focus_1", p -> new thaumcraft.common.items.casters.ItemFocus(15, p));
     public static final DeferredItem<thaumcraft.common.items.casters.ItemFocus> focus2 =

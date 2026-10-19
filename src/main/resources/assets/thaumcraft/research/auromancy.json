@@ -765,6 +765,290 @@
           ]
         }
       ]
+    },
+    {
+      "key": "WANDS",
+      "name": "research.WANDS.title",
+      "icons": [
+        "thaumcraft:wand"
+      ],
+      "parents": [
+        "BASEAUROMANCY"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -3,
+        -3
+      ],
+      "stages": [
+        {
+          "text": "research.WANDS.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.WANDS.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_iron",
+            "thaumcraft:wand_wood_iron"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CAP_gold",
+      "name": "research.CAP_gold.title",
+      "icons": [
+        "thaumcraft:wand_cap_gold"
+      ],
+      "parents": [
+        "WANDS"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -2
+      ],
+      "stages": [
+        {
+          "text": "research.CAP_gold.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.CAP_gold.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_gold",
+            "thaumcraft:wand_wood_gold"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CAP_copper",
+      "name": "research.CAP_copper.title",
+      "icons": [
+        "thaumcraft:wand_cap_copper"
+      ],
+      "parents": [
+        "WANDS"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -4
+      ],
+      "stages": [
+        {
+          "text": "research.CAP_copper.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.CAP_copper.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_copper",
+            "thaumcraft:wand_wood_copper"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ROD_greatwood",
+      "name": "research.ROD_greatwood.title",
+      "icons": [
+        "thaumcraft:wand_rod_greatwood"
+      ],
+      "parents": [
+        "WANDS"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -3,
+        -5
+      ],
+      "stages": [
+        {
+          "text": "research.ROD_greatwood.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1",
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.ROD_greatwood.stage.2",
+          "recipes": [
+            "thaumcraft:wand_rod_greatwood",
+            "thaumcraft:wand_greatwood_iron"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CAP_silver",
+      "name": "research.CAP_silver.title",
+      "icons": [
+        "thaumcraft:wand_cap_silver"
+      ],
+      "parents": [
+        "CAP_gold",
+        "INFUSION"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -7,
+        -2
+      ],
+      "stages": [
+        {
+          "text": "research.CAP_silver.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1",
+            "THEORY;INFUSION;1"
+          ]
+        },
+        {
+          "text": "research.CAP_silver.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_silver_inert",
+            "thaumcraft:wand_cap_silver"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CAP_thaumium",
+      "name": "research.CAP_thaumium.title",
+      "icons": [
+        "thaumcraft:wand_cap_thaumium"
+      ],
+      "parents": [
+        "CAP_gold",
+        "INFUSION"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -7,
+        -4
+      ],
+      "stages": [
+        {
+          "text": "research.CAP_thaumium.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1",
+            "THEORY;INFUSION;1"
+          ]
+        },
+        {
+          "text": "research.CAP_thaumium.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_thaumium_inert",
+            "thaumcraft:wand_cap_thaumium"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ROD_primal",
+      "name": "research.ROD_primal.title",
+      "icons": [
+        "thaumcraft:wand_rod_obsidian"
+      ],
+      "parents": [
+        "ROD_greatwood",
+        "INFUSION"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -6
+      ],
+      "stages": [
+        {
+          "text": "research.ROD_primal.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;2",
+            "THEORY;INFUSION;1"
+          ]
+        },
+        {
+          "text": "research.ROD_primal.stage.2",
+          "recipes": [
+            "thaumcraft:wand_rod_obsidian",
+            "thaumcraft:wand_rod_blaze",
+            "thaumcraft:wand_rod_ice",
+            "thaumcraft:wand_rod_quartz",
+            "thaumcraft:wand_rod_bone",
+            "thaumcraft:wand_rod_reed"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ROD_silverwood",
+      "name": "research.ROD_silverwood.title",
+      "icons": [
+        "thaumcraft:wand_rod_silverwood"
+      ],
+      "parents": [
+        "ROD_primal"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -5,
+        -8
+      ],
+      "stages": [
+        {
+          "text": "research.ROD_silverwood.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;2",
+            "THEORY;INFUSION;2"
+          ]
+        },
+        {
+          "text": "research.ROD_silverwood.stage.2",
+          "recipes": [
+            "thaumcraft:wand_rod_silverwood",
+            "thaumcraft:wand_silverwood_iron"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CAP_void",
+      "name": "research.CAP_void.title",
+      "icons": [
+        "thaumcraft:wand_cap_void"
+      ],
+      "parents": [
+        "CAP_thaumium",
+        "BASEELDRITCH"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -9,
+        -4
+      ],
+      "stages": [
+        {
+          "text": "research.CAP_void.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;2",
+            "THEORY;ELDRITCH;1"
+          ]
+        },
+        {
+          "text": "research.CAP_void.stage.2",
+          "recipes": [
+            "thaumcraft:wand_cap_void_inert",
+            "thaumcraft:wand_cap_void"
+          ]
+        }
+      ]
     }
   ]
 }

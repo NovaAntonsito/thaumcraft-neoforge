@@ -62,6 +62,16 @@ public final class TCDataComponents {
     public static final Supplier<DataComponentType<Integer>> CHARGE = DATA_COMPONENTS.registerComponentType("charge",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
 
+    /** Not in Thaumcraft 6: the rod and cap of a wand. */
+    public static final Supplier<DataComponentType<thaumcraft.common.items.casters.wands.WandParts>> WAND_PARTS =
+            DATA_COMPONENTS.registerComponentType("wand_parts", builder -> builder
+                    .persistent(thaumcraft.common.items.casters.wands.WandParts.CODEC)
+                    .networkSynchronized(thaumcraft.common.items.casters.wands.WandParts.STREAM_CODEC));
+
+    /** Not in Thaumcraft 6: the fraction of a vis a wand holds beyond its whole charge. */
+    public static final Supplier<DataComponentType<Float>> WAND_FRACTION = DATA_COMPONENTS.registerComponentType("wand_fraction",
+            builder -> builder.persistent(com.mojang.serialization.Codec.FLOAT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.FLOAT.cast()));
+
     /** The packed parts of a golem placer. Replaces the "props" NBT long of ItemGolemPlacer. */
     public static final Supplier<DataComponentType<Long>> GOLEM_PROPS = DATA_COMPONENTS.registerComponentType("golem_props",
             builder -> builder.persistent(com.mojang.serialization.Codec.LONG).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_LONG.cast()));

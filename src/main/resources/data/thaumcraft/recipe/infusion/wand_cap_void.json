@@ -1,0 +1,32 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "CAP_void",
+  "instability": 8,
+  "aspects": {
+    "potentia": 18,
+    "vacuos": 18,
+    "alienis": 18,
+    "auram": 18
+  },
+  "central": {
+    "item": "thaumcraft:wand_cap_void_inert"
+  },
+  "components": [
+    {
+      "item": "thaumcraft:salis_mundus"
+    },
+    {
+      "item": "thaumcraft:salis_mundus"
+    },
+    {
+      "item": "thaumcraft:salis_mundus"
+    },
+    {
+      "item": "thaumcraft:salis_mundus"
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_cap_void",
+    "count": 1
+  }
+}

@@ -227,6 +227,15 @@ public class ThaumcraftClient {
                 return renderer;
             }
         }, ConfigItems.thaumonomicon.get(), ConfigItems.thaumonomiconCheat.get());
+        event.registerItem(new net.neoforged.neoforge.client.extensions.common.IClientItemExtensions() {
+            private thaumcraft.client.renderers.item.WandRenderer renderer;
+
+            @Override
+            public net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) renderer = new thaumcraft.client.renderers.item.WandRenderer();
+                return renderer;
+            }
+        }, ConfigItems.wand.get());
         event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
                 thaumcraft.client.renderers.models.gear.ModelKnightArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelKnightArmor::new),
                 ConfigItems.crimsonPlateHelm.get(), ConfigItems.crimsonPlateChest.get(), ConfigItems.crimsonPlateLegs.get());

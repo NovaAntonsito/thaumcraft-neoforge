@@ -1,0 +1,37 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_primal",
+  "instability": 3,
+  "aspects": {
+    "perditio": 12,
+    "praecantatio": 6,
+    "exanimis": 6
+  },
+  "central": {
+    "item": "minecraft:bone"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "perditio": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_bone",
+    "count": 1
+  }
+}

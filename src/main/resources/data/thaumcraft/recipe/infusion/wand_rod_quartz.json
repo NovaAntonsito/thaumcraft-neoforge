@@ -1,0 +1,37 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_primal",
+  "instability": 3,
+  "aspects": {
+    "ordo": 12,
+    "praecantatio": 6,
+    "vitreus": 6
+  },
+  "central": {
+    "item": "minecraft:quartz_block"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "ordo": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_quartz",
+    "count": 1
+  }
+}

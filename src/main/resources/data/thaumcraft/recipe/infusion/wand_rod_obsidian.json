@@ -1,0 +1,37 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_primal",
+  "instability": 3,
+  "aspects": {
+    "terra": 12,
+    "praecantatio": 6,
+    "tenebrae": 6
+  },
+  "central": {
+    "item": "minecraft:obsidian"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "terra": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_obsidian",
+    "count": 1
+  }
+}

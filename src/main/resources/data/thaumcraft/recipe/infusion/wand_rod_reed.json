@@ -1,0 +1,37 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_primal",
+  "instability": 3,
+  "aspects": {
+    "aer": 12,
+    "praecantatio": 6,
+    "motus": 6
+  },
+  "central": {
+    "item": "minecraft:sugar_cane"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "aer": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_reed",
+    "count": 1
+  }
+}
