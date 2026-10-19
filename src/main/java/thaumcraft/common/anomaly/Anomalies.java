@@ -99,6 +99,8 @@ public final class Anomalies {
 
     /** Runaway focus: foci cost half, but every cast has a random side effect. */
     public static final AnomalyType RUNAWAY_FOCUS = register(new AnomalyRunawayFocus());
+    /** Dream branch: needs the aura nodes of Thaumcraft 4. */
+    public static final AnomalyType NODE_CONVERGENCE = register(new AnomalyNodeConvergence());
 
     private Anomalies() {
     }

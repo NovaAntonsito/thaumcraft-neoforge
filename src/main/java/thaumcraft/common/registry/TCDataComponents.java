@@ -63,6 +63,10 @@ public final class TCDataComponents {
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
 
     /** Not in Thaumcraft 6: the rod and cap of a wand. */
+    /** Not in Thaumcraft 6: the node inside a node jar (the dream branch's ItemJarNode). */
+    public static final Supplier<DataComponentType<thaumcraft.api.nodes.NodeData>> NODE_DATA = DATA_COMPONENTS.registerComponentType("node_data",
+            builder -> builder.persistent(thaumcraft.api.nodes.NodeData.CODEC).networkSynchronized(thaumcraft.api.nodes.NodeData.STREAM_CODEC.cast()));
+
     public static final Supplier<DataComponentType<thaumcraft.common.items.casters.wands.WandParts>> WAND_PARTS =
             DATA_COMPONENTS.registerComponentType("wand_parts", builder -> builder
                     .persistent(thaumcraft.common.items.casters.wands.WandParts.CODEC)

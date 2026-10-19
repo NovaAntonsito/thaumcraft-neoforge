@@ -33,6 +33,7 @@ import thaumcraft.common.tiles.misc.TileAuraNode;
 public class TileAuraNodeRenderer implements BlockEntityRenderer<TileAuraNode> {
     public static final ResourceLocation NODE_TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumcraft", "textures/misc/nodes.png");
     private static final int FRAMES = 32;
+    private static final ResourceLocation LIGHTNING_RING = ResourceLocation.fromNamespaceAndPath("thaumcraft", "textures/misc/lightningringv.png");
 
     public TileAuraNodeRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -41,6 +42,27 @@ public class TileAuraNodeRenderer implements BlockEntityRenderer<TileAuraNode> {
     public void render(TileAuraNode tile, float partialTicks, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
         Entity viewer = Minecraft.getInstance().cameraEntity;
         if (viewer == null) return;
+        if (tile.isEnergized()) {
+            // TileNodeEnergizedRenderer: always seen, with a ring of lightning around it.
+            renderNode(pose, buffers, viewer, 64.0, true, false, 1.0f, tile.getBlockPos().getX(), tile.getBlockPos().getY(),
+                    tile.getBlockPos().getZ(), tile.getAspectsBase(), tile.getNodeType(), tile.getNodeModifier());
+            int frames = 16;
+            int i = (int) ((System.nanoTime() / 40000000L + tile.getBlockPos().getX()) % frames);
+            pose.pushPose();
+            pose.translate(0.5, 0.5, 0.5);
+            pose.mulPose(Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+            Matrix4f m = pose.last().pose();
+            VertexConsumer vc = buffers.getBuffer(TCRenderTypes.node(LIGHTNING_RING, true, false));
+            float f1 = i / (float) frames;
+            float f2 = (i + 1) / (float) frames;
+            float s = 0.33f;
+            vc.addVertex(m, -s, -s, 0).setUv(f2, 1).setColor(1.0f, 1.0f, 1.0f, 0.9f);
+            vc.addVertex(m, -s, s, 0).setUv(f2, 0).setColor(1.0f, 1.0f, 1.0f, 0.9f);
+            vc.addVertex(m, s, s, 0).setUv(f1, 0).setColor(1.0f, 1.0f, 1.0f, 0.9f);
+            vc.addVertex(m, s, -s, 0).setUv(f1, 1).setColor(1.0f, 1.0f, 1.0f, 0.9f);
+            pose.popPose();
+            return;
+        }
         double viewDistance = 64.0;
         boolean condition = false;
         boolean depthIgnore = false;

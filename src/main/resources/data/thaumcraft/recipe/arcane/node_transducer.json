@@ -1,0 +1,36 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "VISPOWER",
+  "vis": 50,
+  "crystals": {
+    "ignis": 1,
+    "aer": 1,
+    "perditio": 1
+  },
+  "pattern": [
+    "RCR",
+    "ISI",
+    "RAR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "thaumcraft:node_stabilizer"
+    },
+    "A": {
+      "tag": "thaumcraft:nitor"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:node_transducer",
+    "count": 1
+  }
+}

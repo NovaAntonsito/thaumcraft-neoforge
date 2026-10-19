@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -125,8 +126,20 @@ public class ItemWand extends ItemCaster implements IRechargable, thaumcraft.com
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         Player player = context.getPlayer();
-        if (player != null && context.getLevel().getBlockEntity(context.getClickedPos()) instanceof TileAuraNode) {
+        if (player == null) return super.onItemUseFirst(stack, context);
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (world.getBlockEntity(pos) instanceof TileAuraNode node && !node.isEnergized()) {
             player.startUsingItem(context.getHand());
+            return InteractionResult.SUCCESS;
+        }
+        if (world.getBlockEntity(pos) instanceof thaumcraft.common.tiles.misc.TileJarNode) {
+            NodeJarHelper.releaseNode(world, pos, player);
+            return InteractionResult.SUCCESS;
+        }
+        if (NodeJarHelper.isJarPart(world.getBlockState(pos)) && thaumcraft.api.capabilities.ThaumcraftCapabilities.knowsResearch(player, "NODEJAR")
+                && NodeJarHelper.createNodeJar(stack, player, world, pos)) {
+            player.swing(context.getHand());
             return InteractionResult.SUCCESS;
         }
         return super.onItemUseFirst(stack, context);

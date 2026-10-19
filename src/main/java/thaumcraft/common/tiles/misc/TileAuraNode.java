@@ -61,6 +61,10 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
     @Nullable
     String id = null;
     byte nodeLock = 0;
+    /** TileNodeEnergized: a transducer turned the node into a steady source of vis ({@link #energizedTick}). */
+    boolean energized = false;
+    /** The vis an energized node gives, in hundredths of a vis per tick (centivis), per primal. */
+    AspectList visBase = new AspectList();
     boolean catchUp = false;
     /** Client side: the player draining the node with a wand, for the vis stream. */
     @Nullable
@@ -88,6 +92,11 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
     }
 
     private void tick() {
+        if (energized) {
+            ++count;
+            if (!level.isClientSide) energizedTick();
+            return;
+        }
         boolean change = false;
         change = handleHungryNodeFirst(change);
         ++count;
@@ -230,10 +239,19 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
     /** With goggles: the kind of node, as the Thaumcraft 4 thaumometer named it. */
     @Override
     public List<net.minecraft.network.chat.Component> getIGogglesText() {
+        if (energized) {
+            return List.of(describe(nodeType, nodeModifier).get(0),
+                    net.minecraft.network.chat.Component.translatable("tc.node.energized", visBase.visSize()).withStyle(net.minecraft.ChatFormatting.GOLD));
+        }
+        return describe(nodeType, nodeModifier);
+    }
+
+    /** "Bright Sinister Node", from the nodetype and nodemod names of Thaumcraft 4. */
+    public static List<net.minecraft.network.chat.Component> describe(NodeType type, @Nullable NodeModifier mod) {
         net.minecraft.network.chat.MutableComponent name = net.minecraft.network.chat.Component.translatable("tc.node.name",
-                net.minecraft.network.chat.Component.translatable("nodetype." + nodeType.name() + ".name"));
-        if (nodeModifier != null) {
-            name = net.minecraft.network.chat.Component.translatable("nodemod." + nodeModifier.name() + ".name").append(" ").append(name);
+                net.minecraft.network.chat.Component.translatable("nodetype." + type.name() + ".name"));
+        if (mod != null) {
+            name = net.minecraft.network.chat.Component.translatable("nodemod." + mod.name() + ".name").append(" ").append(name);
         }
         return List.of(name.withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE));
     }
@@ -261,6 +279,8 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
         aspects = AspectList.CODEC.parse(NbtOps.INSTANCE, tag.get("Aspects")).result().orElseGet(AspectList::new);
         aspectsBase = AspectList.CODEC.parse(NbtOps.INSTANCE, tag.get("AspectsBase")).result().orElseGet(AspectList::new);
         drainColor = tag.getInt("draincolor");
+        energized = tag.getBoolean("energized");
+        visBase = AspectList.CODEC.parse(NbtOps.INSTANCE, tag.get("AEB")).result().orElseGet(AspectList::new);
     }
 
     @Override
@@ -270,6 +290,8 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
         AspectList.CODEC.encodeStart(NbtOps.INSTANCE, aspects).result().ifPresent(t -> tag.put("Aspects", t));
         AspectList.CODEC.encodeStart(NbtOps.INSTANCE, aspectsBase).result().ifPresent(t -> tag.put("AspectsBase", t));
         tag.putInt("draincolor", drainColor);
+        tag.putBoolean("energized", energized);
+        AspectList.CODEC.encodeStart(NbtOps.INSTANCE, visBase).result().ifPresent(t -> tag.put("AEB", t));
     }
 
     // ---- Wand tapping ----
@@ -280,6 +302,7 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
      * the last point of each aspect is left unless sneaking. Returns false when the player stopped looking at it.
      */
     public boolean onUsingWandTick(ItemStack wandstack, Player player, int count) {
+        if (energized) return false;
         HitResult mop = player.pick(player.blockInteractionRange(), 1.0f, false);
         if (!(mop instanceof BlockHitResult bhr) || mop.getType() != HitResult.Type.BLOCK || !bhr.getBlockPos().equals(worldPosition)) {
             drainEntity = null;
@@ -387,7 +410,7 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
         if (!(level.getBlockEntity(op) instanceof TileAuraNode other) || level.getBlockState(op).getBlock() != ConfigBlocks.auraNode.get()) {
             return change;
         }
-        if (other.getLock() > 0) {
+        if (other.getLock() > 0 || other.isEnergized()) {
             return change;
         }
         int ndavg = (other.getAspects().visSize() + other.getAspectsBase().visSize()) / 2;
@@ -484,7 +507,7 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
     }
 
     /** One point back into a random aspect that is below its base. */
-    private boolean regenerateOne() {
+    public boolean regenerateOne() {
         AspectList al = new AspectList();
         for (Aspect aspect : aspects.getAspects()) {
             if (aspects.getAmount(aspect) < getNodeVisBase(aspect)) al.add(aspect, 1);
@@ -640,11 +663,115 @@ public class TileAuraNode extends TileThaumcraft implements INode, thaumcraft.ap
     }
 
     /**
-     * checkLock: a node stabilizer below the node slows its regeneration and stops it from draining or being
-     * drained. The stabilizers come with the node jar; until then nodes are never locked.
+     * checkLock: an unpowered node stabilizer right below the node slows its regeneration (twice, or twenty times for
+     * the advanced one) and stops it from draining other nodes or being drained.
      */
     public void checkLock() {
-        nodeLock = 0;
+        if ((count <= 1 || count % 50 == 0) && getBlockState().getBlock() == ConfigBlocks.auraNode.get()) {
+            byte oldLock = nodeLock;
+            nodeLock = 0;
+            BlockPos below = worldPosition.below();
+            if (!level.hasNeighborSignal(below)) {
+                BlockState bs = level.getBlockState(below);
+                if (bs.is(ConfigBlocks.nodeStabilizer.get())) nodeLock = 1;
+                else if (bs.is(ConfigBlocks.nodeStabilizerAdvanced.get())) nodeLock = 2;
+            }
+            if (oldLock != nodeLock) regeneration = -1;
+        }
+    }
+
+    // ---- Energized nodes (TileNodeEnergized) ----
+
+    public boolean isEnergized() {
+        return energized;
+    }
+
+    /**
+     * The transducer's conversion. On: the aspects become the vis the node will give (setupNode) and the node stops
+     * acting like a node. Off: the node comes back with its base aspects, all of them empty.
+     */
+    public void setEnergized(boolean on) {
+        energized = on;
+        if (on) {
+            setupNode();
+        } else {
+            visBase = new AspectList();
+            aspects = aspectsBase.copy();
+            for (Aspect a : aspects.getAspects()) aspects.reduce(a, aspects.getAmount(a));
+            regeneration = -1;
+        }
+        setChanged();
+        syncTile(false);
+    }
+
+    /** setupNode: the square root of each primal in the base aspects, raised or lowered by the brightness. */
+    public void setupNode() {
+        visBase = new AspectList();
+        AspectList temp = AspectHelper.reduceToPrimals(aspectsBase);
+        for (Aspect aspect : temp.getAspects()) {
+            int amt = temp.getAmount(aspect);
+            if (nodeModifier == NodeModifier.BRIGHT) amt = (int) (amt * 1.2f);
+            if (nodeModifier == NodeModifier.PALE) amt = (int) (amt * 0.8f);
+            if (nodeModifier == NodeModifier.FADING) amt = (int) (amt * 0.5f);
+            amt = (int) Math.floor(Math.sqrt(amt));
+            if (nodeType == NodeType.UNSTABLE) amt += level.random.nextInt(5) - 2;
+            if (amt >= 1) visBase.merge(aspect, amt);
+        }
+        setChanged();
+        syncTile(false);
+    }
+
+    /**
+     * TileNodeEnergized.updateEntity, plus what Thaumcraft 4 did with its centivis: there are no vis relays here, so
+     * every second the node pours its vis into the chunk aura, up to twice the aura base. It blows up when its
+     * stabilizer or transducer is gone or the stabilizer is switched off (BlockAiry.onNeighborBlockChange).
+     */
+    private void energizedTick() {
+        if (nodeType == NodeType.UNSTABLE && level.random.nextInt(500) == 1) {
+            visBase = new AspectList();
+        }
+        if (visBase.size() == 0 && aspectsBase.size() > 0) {
+            setupNode();
+        }
+        if (count % 10 == 0) {
+            BlockPos below = worldPosition.below();
+            boolean stabilized = !level.hasNeighborSignal(below) && (level.getBlockState(below).is(ConfigBlocks.nodeStabilizer.get())
+                    || level.getBlockState(below).is(ConfigBlocks.nodeStabilizerAdvanced.get()));
+            if (!stabilized || !level.getBlockState(worldPosition.above()).is(ConfigBlocks.nodeTransducer.get())) {
+                explodify(level, worldPosition);
+                return;
+            }
+        }
+        if (count % 20 == 0) {
+            float cap = AuraHelper.getAuraBase(level, worldPosition) * 2.0f;
+            float vis = AuraHelper.getVis(level, worldPosition);
+            float add = visBase.visSize() * 20 / 100.0f;
+            if (vis < cap && add > 0) {
+                AuraHelper.addVis(level, worldPosition, Math.min(add, cap - vis));
+            }
+        }
+    }
+
+    public AspectList getVisBase() {
+        return visBase;
+    }
+
+    /**
+     * BlockAiry.explodify: the node bursts. An explosion, flux goo below it and, as there is no flux gas in
+     * Thaumcraft 6, a burst of flux into the aura.
+     */
+    public static void explodify(Level world, BlockPos pos) {
+        if (world.isClientSide) return;
+        world.removeBlock(pos, false);
+        world.explode(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3.0f, Level.ExplosionInteraction.BLOCK);
+        for (int a = 0; a < 50; ++a) {
+            BlockPos p = pos.offset(world.random.nextInt(8) - world.random.nextInt(8), world.random.nextInt(8) - world.random.nextInt(8),
+                    world.random.nextInt(8) - world.random.nextInt(8));
+            if (p.getY() < pos.getY() && world.isEmptyBlock(p)) {
+                world.setBlock(p, ConfigBlocks.fluxGoo.get().defaultBlockState(), 3);
+            }
+        }
+        AuraHelper.polluteAura(world, pos, 25.0f, true);
     }
 
     @Override

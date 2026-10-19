@@ -1150,6 +1150,125 @@
           "text": "research.NODEPRESERVE.stage.2"
         }
       ]
+    },
+    {
+      "key": "NODEJAR",
+      "name": "research.NODEJAR.title",
+      "icons": [
+        "thaumcraft:jar_node"
+      ],
+      "parents": [
+        "NODEPRESERVE"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -12,
+        4
+      ],
+      "stages": [
+        {
+          "text": "research.NODEJAR.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1",
+            "THEORY;AUROMANCY;2"
+          ]
+        },
+        {
+          "text": "research.NODEJAR.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "NODESTABILIZER",
+      "name": "research.NODESTABILIZER.title",
+      "icons": [
+        "thaumcraft:node_stabilizer"
+      ],
+      "parents": [
+        "NODEPRESERVE"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        0
+      ],
+      "stages": [
+        {
+          "text": "research.NODESTABILIZER.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1",
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.NODESTABILIZER.stage.2",
+          "recipes": [
+            "thaumcraft:node_stabilizer"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "NODESTABILIZERADV",
+      "name": "research.NODESTABILIZERADV.title",
+      "icons": [
+        "thaumcraft:node_stabilizer_advanced"
+      ],
+      "parents": [
+        "NODESTABILIZER",
+        "INFUSION"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -12,
+        -1
+      ],
+      "stages": [
+        {
+          "text": "research.NODESTABILIZERADV.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;2",
+            "THEORY;INFUSION;1"
+          ]
+        },
+        {
+          "text": "research.NODESTABILIZERADV.stage.2",
+          "recipes": [
+            "thaumcraft:node_stabilizer_advanced"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "VISPOWER",
+      "name": "research.VISPOWER.title",
+      "icons": [
+        "thaumcraft:node_transducer"
+      ],
+      "parents": [
+        "NODESTABILIZER"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        -2
+      ],
+      "stages": [
+        {
+          "text": "research.VISPOWER.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;2",
+            "THEORY;AUROMANCY;2"
+          ],
+          "warp": 1
+        },
+        {
+          "text": "research.VISPOWER.stage.2",
+          "recipes": [
+            "thaumcraft:node_transducer"
+          ]
+        }
+      ]
     }
   ]
 }

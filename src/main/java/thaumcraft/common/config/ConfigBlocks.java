@@ -268,6 +268,14 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> essentiaTerminal = register("essentia_terminal", thaumcraft.common.blocks.essentia.BlockEssentiaTerminal::new);
     /** Not in Thaumcraft 6: the aura node of Thaumcraft 4 (dream branch). No item. */
     public static final DeferredBlock<Block> auraNode = BLOCKS.register("aura_node", thaumcraft.common.blocks.world.BlockAuraNode::new);
+    /** Not in Thaumcraft 6: the node jar, node stabilizers and node transducer of Thaumcraft 4 (dream branch). */
+    public static final DeferredBlock<Block> jarNode = registerJarNode();
+    public static final DeferredBlock<Block> nodeStabilizer = register("node_stabilizer",
+            () -> new thaumcraft.common.blocks.misc.BlockNodeStabilizer(thaumcraft.common.blocks.misc.BlockNodeStabilizer.Kind.STABILIZER));
+    public static final DeferredBlock<Block> nodeStabilizerAdvanced = register("node_stabilizer_advanced",
+            () -> new thaumcraft.common.blocks.misc.BlockNodeStabilizer(thaumcraft.common.blocks.misc.BlockNodeStabilizer.Kind.ADVANCED));
+    public static final DeferredBlock<Block> nodeTransducer = register("node_transducer",
+            () -> new thaumcraft.common.blocks.misc.BlockNodeStabilizer(thaumcraft.common.blocks.misc.BlockNodeStabilizer.Kind.TRANSDUCER));
     /** The purifying fluid; its item is the bucket (ConfigItems.purifyingFluidBucket). */
     public static final DeferredBlock<BlockFluidPure> purifyingFluid = BLOCKS.register("purifying_fluid", BlockFluidPure::new);
 
@@ -373,6 +381,13 @@ public final class ConfigBlocks {
     private static DeferredBlock<Block> registerJarBrain() {
         DeferredBlock<Block> holder = BLOCKS.register("jar_brain", BlockJarBrain::new);
         ConfigItems.ITEMS.register("jar_brain", () -> new BlockJarBrainItem(holder.get(), new Item.Properties()));
+        return holder;
+    }
+
+    /** The node jar uses BlockJarNodeItem, which carries the node. */
+    private static DeferredBlock<Block> registerJarNode() {
+        DeferredBlock<Block> holder = BLOCKS.register("jar_node", thaumcraft.common.blocks.essentia.BlockJarNode::new);
+        ConfigItems.ITEMS.register("jar_node", () -> new thaumcraft.common.blocks.essentia.BlockJarNodeItem(holder.get(), new Item.Properties()));
         return holder;
     }
 

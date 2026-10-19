@@ -385,6 +385,27 @@
           "text": "tc.anomaly.runaway_focus.desc"
         }
       ]
+    },
+    {
+      "key": "!anomaly_node_convergence",
+      "name": "tc.anomaly.node_convergence",
+      "icons": [
+        "thaumcraft:jar_node"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -4,
+        -7
+      ],
+      "meta": [
+        "HEX",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "tc.anomaly.node_convergence.desc"
+        }
+      ]
     }
   ]
 }
