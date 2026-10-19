@@ -284,8 +284,8 @@ public class ThaumcraftClient {
         event.wrapLayer(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud::pushBossBars);
     }
 
-    /** Clients generate item aspects from the recipes the server sent. */
-    @SubscribeEvent
+    /** Clients generate item aspects from the recipes the server sent. First, so JEI sees them when it loads. */
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.HIGHEST)
     static void onRecipesUpdated(RecipesUpdatedEvent event) {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null) {

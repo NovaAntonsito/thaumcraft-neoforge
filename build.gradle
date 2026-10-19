@@ -45,6 +45,22 @@ repositories {
             includeGroup 'com.github.glitchfiend'
         }
     }
+    // JEI (recipe viewer; EMI also loads JEI plugins).
+    maven {
+        name = 'Jared'
+        url = 'https://maven.blamejared.com/'
+        content {
+            includeGroup 'mezz.jei'
+        }
+    }
+    // Jade (what the player is looking at), from Modrinth.
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
     // Curios (bauble slots: amulet, ring, belt, head and charm).
     maven {
         name = 'Illusive Soulworks'
@@ -154,12 +170,12 @@ dependencies {
     localRuntime("net.createmod.ponder:Ponder-NeoForge-${minecraft_version}:${ponder_version}") { transitive = false }
     localRuntime("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}") { transitive = false }
 
-    // Example optional mod dependency with JEI
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    // JEI and Jade are optional: compiled against their APIs, present in dev runs, not required to load the mod.
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "maven.modrinth:jade:${jade_version}"
+    localRuntime "maven.modrinth:jade:${jade_version}"
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar

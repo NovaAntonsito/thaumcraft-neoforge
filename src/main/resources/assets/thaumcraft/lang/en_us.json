@@ -2125,5 +2125,19 @@
   "entity.thaumcraft.permanent_item": "Item",
   "research.OUTERREV.title": "Revelations in the Outer Lands",
   "research.OUTERREV.stage.1": "Things are not what they seem",
-  "research.OUTERREV.stage.2": "Your suspicions have been confirmed. This is not the home of the race you have come to call the Eldritch. This place is something else entirely and you do not believe it exists in what you understand as being \"reality\" - it is as much a mental construct as a physical one, but what mind can contain this?<BR>You have been able to decipher only a small number of the symbols, but you are sure this place is a trap - a place to test visitors and weed out the weak. For what purpose you are not sure."
+  "research.OUTERREV.stage.2": "Your suspicions have been confirmed. This is not the home of the race you have come to call the Eldritch. This place is something else entirely and you do not believe it exists in what you understand as being \"reality\" - it is as much a mental construct as a physical one, but what mind can contain this?<BR>You have been able to decipher only a small number of the symbols, but you are sure this place is a trap - a place to test visitors and weed out the weak. For what purpose you are not sure.",
+  "tc.jei.aspect.components": "Made of %s and %s",
+  "tc.jei.aspect.primal": "Primal aspect",
+  "tc.jei.aspect_sources": "Aspect Sources",
+  "tc.jei.aspect_sources.count": "%s items",
+  "tc.jei.aspect_sources.page": "%s items, page %s of %s",
+  "tc.jei.aspect_combination": "Aspect Combination",
+  "tc.jade.label": "Label: %s",
+  "tc.jade.suction": "Suction: %s (%s)",
+  "tc.jade.suction.any": "any",
+  "tc.jade.vis": "Vis: %s / %s",
+  "tc.jade.flux": "Flux: %s",
+  "config.jade.plugin_thaumcraft.essentia": "Essentia",
+  "config.jade.plugin_thaumcraft.aura": "Vis and Flux (goggles)",
+  "config.jade.plugin_thaumcraft.block_aspects": "Block Aspects (goggles)"
 }
