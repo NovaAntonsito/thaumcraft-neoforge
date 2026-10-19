@@ -838,6 +838,36 @@
           ]
         }
       ]
+    },
+    {
+      "key": "ESSENTIATERMINAL",
+      "name": "research.ESSENTIATERMINAL.title",
+      "icons": [
+        "thaumcraft:essentia_terminal"
+      ],
+      "parents": [
+        "TUBES"
+      ],
+      "category": "ALCHEMY",
+      "location": [
+        8,
+        -2
+      ],
+      "stages": [
+        {
+          "text": "research.ESSENTIATERMINAL.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;ALCHEMY;1",
+            "THEORY;ARTIFICE;1"
+          ]
+        },
+        {
+          "text": "research.ESSENTIATERMINAL.stage.2",
+          "recipes": [
+            "thaumcraft:essentia_terminal"
+          ]
+        }
+      ]
     }
   ]
 }

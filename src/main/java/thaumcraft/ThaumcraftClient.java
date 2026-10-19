@@ -208,6 +208,7 @@ public class ThaumcraftClient {
         event.register(TCMenus.FOCAL_MANIPULATOR.get(), GuiFocalManipulator::new);
         event.register(TCMenus.FOCUS_POUCH.get(), thaumcraft.client.gui.GuiFocusPouch::new);
         event.register(TCMenus.POTION_SPRAYER.get(), GuiPotionSprayer::new);
+        event.register(TCMenus.ESSENTIA_TERMINAL.get(), thaumcraft.client.gui.GuiEssentiaTerminal::new);
         event.register(TCMenus.GOLEM_BUILDER.get(), thaumcraft.client.gui.GuiGolemBuilder::new);
         event.register(TCMenus.SEAL.get(), thaumcraft.common.golems.client.gui.SealBaseGUI::new);
         event.register(TCMenus.LOGISTICS.get(), thaumcraft.client.gui.GuiLogistics::new);

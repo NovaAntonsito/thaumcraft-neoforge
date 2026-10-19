@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "north": "thaumcraft:blocks/dioptra_top",
+    "south": "thaumcraft:blocks/smelter_aux",
+    "east": "thaumcraft:blocks/smelter_aux",
+    "west": "thaumcraft:blocks/smelter_aux",
+    "up": "thaumcraft:blocks/smelter_aux",
+    "down": "thaumcraft:blocks/smelter_aux",
+    "particle": "thaumcraft:blocks/smelter_aux"
+  }
+}

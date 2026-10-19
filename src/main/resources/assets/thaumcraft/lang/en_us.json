@@ -2139,5 +2139,16 @@
   "tc.jade.flux": "Flux: %s",
   "config.jade.plugin_thaumcraft.essentia": "Essentia",
   "config.jade.plugin_thaumcraft.aura": "Vis and Flux (goggles)",
-  "config.jade.plugin_thaumcraft.block_aspects": "Block Aspects (goggles)"
+  "config.jade.plugin_thaumcraft.block_aspects": "Block Aspects (goggles)",
+  "block.thaumcraft.essentia_terminal": "Essentia Terminal",
+  "tc.terminal.fill": "Fill",
+  "tc.terminal.deposit": "Deposit",
+  "tc.terminal.deposit.tip": "Empty every filled phial you carry into the jars",
+  "tc.terminal.amount": "%s essentia (%s phials)",
+  "tc.terminal.jars": "Jars: %s",
+  "tc.terminal.nojars": "No jars connected",
+  "tc.terminal.empty": "The jars are empty",
+  "research.ESSENTIATERMINAL.title": "Essentia Terminal",
+  "research.ESSENTIATERMINAL.stage.1": "Carrying phials back and forth between your jars is tiresome. If the tubes can move essentia from one jar to another, surely a single device could see into every jar they reach and draw from any of them at will.",
+  "research.ESSENTIATERMINAL.stage.2": "The essentia terminal sees every jar connected to it through tubes, however they point. It shows how much of each aspect your network holds and fills empty phials from your inventory with any of them. It can also empty all the filled phials you carry back into the jars, first into those already holding that essentia, then into labelled jars and finally into empty ones.<BR>A closed valve cuts the network. The terminal never moves essentia through the tubes on its own."
 }

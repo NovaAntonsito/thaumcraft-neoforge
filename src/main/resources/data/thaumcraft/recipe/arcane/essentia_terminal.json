@@ -1,0 +1,35 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "ESSENTIATERMINAL",
+  "vis": 50,
+  "crystals": {
+    "aqua": 1,
+    "ordo": 1
+  },
+  "pattern": [
+    "BTB",
+    "PGP",
+    "BMB"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:plates/brass"
+    },
+    "T": {
+      "item": "thaumcraft:tube"
+    },
+    "P": {
+      "item": "thaumcraft:phial"
+    },
+    "G": {
+      "item": "thaumcraft:mirrored_glass"
+    },
+    "M": {
+      "item": "thaumcraft:metal_alchemical"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:essentia_terminal",
+    "count": 1
+  }
+}

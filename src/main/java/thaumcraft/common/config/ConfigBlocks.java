@@ -264,6 +264,8 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> spa = register("spa", BlockSpa::new);
     public static final DeferredBlock<Block> potionSprayer = register("potion_sprayer", BlockPotionSprayer::new);
     public static final DeferredBlock<Block> everfullUrn = register("everfull_urn", BlockWaterJug::new);
+    /** Not in Thaumcraft: the essentia terminal of the dream branch. */
+    public static final DeferredBlock<Block> essentiaTerminal = register("essentia_terminal", thaumcraft.common.blocks.essentia.BlockEssentiaTerminal::new);
     /** The purifying fluid; its item is the bucket (ConfigItems.purifyingFluidBucket). */
     public static final DeferredBlock<BlockFluidPure> purifyingFluid = BLOCKS.register("purifying_fluid", BlockFluidPure::new);
 
