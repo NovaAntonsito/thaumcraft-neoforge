@@ -35,6 +35,8 @@ public final class GenWorld {
     final ArrayList<BlockPos> crabSpawner = new ArrayList<>();
     final ArrayList<BlockPos> decoUrn = new ArrayList<>();
     private final BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
+    /** Dream branch: set by {@link MazeExport}, which keeps the blocks and leaves the entities out. */
+    boolean exporting;
 
     private static Map<Block, OldBlocks> byBlock;
 
@@ -126,6 +128,7 @@ public final class GenWorld {
     }
 
     public void spawnEntityInWorld(Entity entity) {
+        if (exporting) return;
         level.addFreshEntity(entity);
     }
 
