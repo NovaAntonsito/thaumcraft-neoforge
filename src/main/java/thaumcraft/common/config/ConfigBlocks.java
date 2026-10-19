@@ -237,11 +237,9 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> eldritchStoneGlyphed = register("eldritch_stone_glyphed",
             () -> new thaumcraft.common.blocks.eldritch.BlockEldritchStone(net.minecraft.util.valueproviders.UniformInt.of(1, 4)));
     public static final DeferredBlock<Block> ancientDoorway = register("ancient_doorway", () -> eldritchSolid(-1.0f, 3600000.0f, 12, null));
-    public static final DeferredBlock<Block> ancientLock = register("ancient_lock", () -> eldritchSolid(-1.0f, 3600000.0f, 5, null));
-    public static final DeferredBlock<Block> crustedOpening = register("crusted_opening",
-            () -> eldritchSolid(15.0f, 30.0f, 4, net.minecraft.util.valueproviders.UniformInt.of(6, 10)));
-    public static final DeferredBlock<Block> runedStone = register("runed_stone",
-            () -> eldritchSolid(15.0f, 30.0f, 0, net.minecraft.util.valueproviders.UniformInt.of(1, 4)));
+    public static final DeferredBlock<Block> ancientLock = register("ancient_lock", thaumcraft.common.blocks.eldritch.BlockEldritchLock::new);
+    public static final DeferredBlock<Block> crustedOpening = register("crusted_opening", thaumcraft.common.blocks.eldritch.BlockEldritchCrabSpawner::new);
+    public static final DeferredBlock<Block> runedStone = register("runed_stone", thaumcraft.common.blocks.eldritch.BlockEldritchTrap::new);
     public static final DeferredBlock<Block> eldritchNothing = BLOCKS.register("eldritch_nothing", thaumcraft.common.blocks.eldritch.BlockEldritchNothing::new);
     public static final DeferredBlock<Block> eldritchNothingExposed = BLOCKS.register("eldritch_nothing_exposed", thaumcraft.common.blocks.eldritch.BlockEldritchNothing.Exposed::new);
     public static final DeferredBlock<Block> eldritchImpassable = BLOCKS.register("eldritch_impassable", thaumcraft.common.blocks.eldritch.BlockEldritchImpassable::new);
@@ -314,12 +312,17 @@ public final class ConfigBlocks {
      * BlockEldritch metas 7-10: no mob spawns. Hardness -1 is unbreakable; the resistances are the original's
      * getExplosionResistance values (Float.MAX_VALUE as the bedrock-like 3600000). With xp, it drops that much.
      */
-    private static Block eldritchSolid(float hardness, float resistance, int light,
+    public static Block eldritchSolid(float hardness, float resistance, int light,
             net.minecraft.util.valueproviders.IntProvider xp) {
-        BlockBehaviour.Properties p = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(hardness, resistance)
+        BlockBehaviour.Properties p = eldritchSolidProps(hardness, resistance, light);
+        return xp != null ? new net.minecraft.world.level.block.DropExperienceBlock(xp, p) : new Block(p);
+    }
+
+    /** The properties of {@link #eldritchSolid}. */
+    public static BlockBehaviour.Properties eldritchSolidProps(float hardness, float resistance, int light) {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(hardness, resistance)
                 .sound(SoundType.STONE).lightLevel(st -> light).requiresCorrectToolForDrops()
                 .isValidSpawn(thaumcraft.common.blocks.eldritch.BlockEldritchStone::never);
-        return xp != null ? new net.minecraft.world.level.block.DropExperienceBlock(xp, p) : new Block(p);
     }
 
     private static Block stone() {

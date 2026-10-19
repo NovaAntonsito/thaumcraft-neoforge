@@ -109,6 +109,9 @@ public final class ConfigItems {
     public static final DeferredItem<Item> voidSeed = ITEMS.registerSimpleItem("void_seed");
     public static final DeferredItem<thaumcraft.common.items.eldritch.ItemEldritchEye> eldritchEye = ITEMS.registerItem("eldritch_eye", thaumcraft.common.items.eldritch.ItemEldritchEye::new);
     public static final DeferredItem<thaumcraft.common.items.eldritch.ItemObeliskPlacer> obeliskPlacer = ITEMS.registerItem("obelisk_placer", thaumcraft.common.items.eldritch.ItemObeliskPlacer::new);
+    // Stage 12d: TC4's ItemEldritchObject meta 2 and ItemResource meta 9.
+    public static final DeferredItem<thaumcraft.common.items.eldritch.ItemRunedTablet> runedTablet = ITEMS.registerItem("runed_tablet", thaumcraft.common.items.eldritch.ItemRunedTablet::new);
+    public static final DeferredItem<thaumcraft.common.items.eldritch.ItemKnowledgeFragment> knowledgeFragment = ITEMS.registerItem("knowledge_fragment", thaumcraft.common.items.eldritch.ItemKnowledgeFragment::new);
     /** "clockwork","biothaumic" */
     public static final Map<String, DeferredItem<Item>> mind = variants("mind", "clockwork", "biothaumic");
     public static final DeferredItem<ItemHandMirror> handMirror = ITEMS.registerItem("hand_mirror", ItemHandMirror::new);

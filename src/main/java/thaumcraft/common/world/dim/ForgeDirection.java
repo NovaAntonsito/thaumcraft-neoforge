@@ -4,7 +4,7 @@ package thaumcraft.common.world.dim;
  * The 1.7 ForgeDirection, kept for the maze generators: their stair metas depend on its ordinals
  * (DOWN, UP, NORTH, SOUTH, WEST, EAST, UNKNOWN).
  */
-enum ForgeDirection {
+public enum ForgeDirection {
     DOWN(0, -1, 0),
     UP(0, 1, 0),
     NORTH(0, 0, -1),

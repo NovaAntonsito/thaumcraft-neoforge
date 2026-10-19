@@ -62,7 +62,7 @@ public class GenBossRoom extends GenCommon {
             switch (PAT_DOORWAY[a][b]) {
                case 1:
                   placeBlock(world, xx, y + 2 + b, zz, 16, cell);
-                  // TODO 12d: TileEldritchLock.setFacing((byte)dir.ordinal()).
+                  world.setFacing(xx, y + 2 + b, zz, dir);
                   break;
                case 2:
                   placeBlock(world, xx, y + 2 + b, zz, 15, cell);

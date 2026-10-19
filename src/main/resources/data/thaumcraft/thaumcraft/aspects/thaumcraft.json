@@ -688,6 +688,34 @@
         "terra": 1,
         "alienis": 1
       }
+    },
+    {
+      "items": [
+        "thaumcraft:knowledge_fragment"
+      ],
+      "aspects": {
+        "cognitio": 8
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:runed_tablet"
+      ],
+      "aspects": {
+        "vinculum": 4,
+        "cognitio": 4,
+        "machina": 4
+      }
+    },
+    {
+      "items": [
+        "thaumcraft:eldritch_stone_glyphed"
+      ],
+      "aspects": {
+        "cognitio": 2,
+        "terra": 1,
+        "alienis": 1
+      }
     }
   ]
 }

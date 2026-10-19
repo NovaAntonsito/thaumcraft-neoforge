@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import thaumcraft.common.blocks.eldritch.BlockEldritchNothing;
@@ -26,7 +27,7 @@ import thaumcraft.common.config.ConfigBlocks;
  * The 1.7 World calls the maze generators make, over the chunk being decorated. It also holds GenCommon's
  * decoration lists, which were static in the original: features now run on several threads at once.
  */
-final class GenWorld {
+public final class GenWorld {
     final WorldGenLevel level;
     final RandomSource rand;
     final Difficulty difficultySetting;
@@ -37,7 +38,7 @@ final class GenWorld {
 
     private static Map<Block, OldBlocks> byBlock;
 
-    GenWorld(WorldGenLevel level, RandomSource rand) {
+    public GenWorld(WorldGenLevel level, RandomSource rand) {
         this.level = level;
         this.rand = rand;
         this.difficultySetting = level.getDifficulty();
@@ -47,7 +48,7 @@ final class GenWorld {
         return mpos.set(x, y, z);
     }
 
-    boolean isAirBlock(int x, int y, int z) {
+    public boolean isAirBlock(int x, int y, int z) {
         return level.isEmptyBlock(at(x, y, z));
     }
 
@@ -56,7 +57,7 @@ final class GenWorld {
         return level.getBlockState(p).isSolidRender(level, p);
     }
 
-    OldBlocks getBlock(int x, int y, int z) {
+    public OldBlocks getBlock(int x, int y, int z) {
         BlockState s = level.getBlockState(at(x, y, z));
         if (s.isAir()) {
             return OldBlocks.air;
@@ -64,16 +65,16 @@ final class GenWorld {
         return blocks().getOrDefault(s.getBlock(), OldBlocks.other);
     }
 
-    BlockEntity getTileEntity(int x, int y, int z) {
+    public BlockEntity getTileEntity(int x, int y, int z) {
         return level.getBlockEntity(at(x, y, z));
     }
 
-    void setBlock(int x, int y, int z, OldBlocks block) {
+    public void setBlock(int x, int y, int z, OldBlocks block) {
         setBlock(x, y, z, block, 0, 3);
     }
 
     /** The flags are ignored: world generation never notifies neighbours. */
-    void setBlock(int x, int y, int z, OldBlocks block, int meta, int flags) {
+    public void setBlock(int x, int y, int z, OldBlocks block, int meta, int flags) {
         BlockPos p = at(x, y, z).immutable();
         BlockState s = state(block, meta);
         if (block == OldBlocks.blockTaintFibres) {
@@ -100,7 +101,19 @@ final class GenWorld {
         }
     }
 
-    void spawnEntityInWorld(Entity entity) {
+    /**
+     * setFacing on the lock or the crab spawner just placed there. The 1.21 blocks keep it in their state, so their
+     * models show the facing side.
+     */
+    public void setFacing(int x, int y, int z, ForgeDirection dir) {
+        BlockPos p = at(x, y, z).immutable();
+        BlockState s = level.getBlockState(p);
+        if (s.hasProperty(BlockStateProperties.FACING)) {
+            level.setBlock(p, s.setValue(BlockStateProperties.FACING, Direction.from3DDataValue(dir.ordinal())), Block.UPDATE_CLIENTS);
+        }
+    }
+
+    public void spawnEntityInWorld(Entity entity) {
         level.addFreshEntity(entity);
     }
 
@@ -136,7 +149,7 @@ final class GenWorld {
     }
 
     /** BlockUtils.isAdjacentToSolidBlock. */
-    boolean isAdjacentToSolidBlock(int x, int y, int z) {
+    public boolean isAdjacentToSolidBlock(int x, int y, int z) {
         for (Direction d : Direction.values()) {
             BlockPos n = new BlockPos(x, y, z).relative(d);
             if (level.getBlockState(n).isFaceSturdy(level, n, d.getOpposite())) {
@@ -147,7 +160,7 @@ final class GenWorld {
     }
 
     /** The 1.7 block and meta as a 1.21 block state. */
-    BlockState state(OldBlocks block, int meta) {
+    public BlockState state(OldBlocks block, int meta) {
         return switch (block) {
             case air -> Blocks.AIR.defaultBlockState();
             case bedrock -> Blocks.BEDROCK.defaultBlockState();
@@ -201,6 +214,8 @@ final class GenWorld {
                 default -> ConfigBlocks.crystalEntropy.get().defaultBlockState();
             };
             case blockTaintFibres -> ConfigBlocks.taintFibre.get().defaultBlockState();
+            // 0 crusted taint, 1 tainted soil.
+            case blockTaint -> (meta == 1 ? ConfigBlocks.taintSoil : ConfigBlocks.taintCrust).get().defaultBlockState();
             case blockEldritchPortal -> ConfigBlocks.eldritchPortal.get().defaultBlockState();
             case other -> Blocks.STONE.defaultBlockState();
         };

@@ -2118,5 +2118,12 @@
   "block.thaumcraft.eldritch_portal": "Eldritch Portal",
   "research.ENTEROUTER.title": "The Outer Lands",
   "research.ENTEROUTER.stage.1": "You are not quite sure what you were expecting when you stepped through the Oculus, but this strange structure of crumbling stone and twisted passageways was not it.<BR>Something is not quite right here - this structure was not designed for any practical purpose you can discern... unless that purpose was for it to be a deadly maze.<BR>Strange energies abound and your magic seems to act strangely in this alien environment. Even the other denizens you encounter seem out of place here.",
-  "block.thaumcraft.eldritch_nothing_exposed": "Nothing"
+  "block.thaumcraft.eldritch_nothing_exposed": "Nothing",
+  "item.thaumcraft.runed_tablet": "Runed Tablet",
+  "item.thaumcraft.runed_tablet.text": "It seems to be part of something larger.",
+  "item.thaumcraft.knowledge_fragment": "Knowledge Fragment",
+  "entity.thaumcraft.permanent_item": "Item",
+  "research.OUTERREV.title": "Revelations in the Outer Lands",
+  "research.OUTERREV.stage.1": "Things are not what they seem",
+  "research.OUTERREV.stage.2": "Your suspicions have been confirmed. This is not the home of the race you have come to call the Eldritch. This place is something else entirely and you do not believe it exists in what you understand as being \"reality\" - it is as much a mental construct as a physical one, but what mind can contain this?<BR>You have been able to decipher only a small number of the symbols, but you are sure this place is a trap - a place to test visitors and weed out the weak. For what purpose you are not sure."
 }

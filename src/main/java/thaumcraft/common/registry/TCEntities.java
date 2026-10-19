@@ -162,6 +162,10 @@ public final class TCEntities {
     public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityEldritchGuardian>> ELDRITCH_GUARDIAN = ENTITY_TYPES.register("eldritch_guardian",
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityEldritchGuardian>of(thaumcraft.common.entities.monster.EntityEldritchGuardian::new, MobCategory.MONSTER)
                     .sized(0.8f, 2.25f).eyeHeight(2.1f).clientTrackingRange(4).updateInterval(3).build("eldritch_guardian"));
+    /** ConfigEntities: "PermanentItem", tracked up to 64 blocks, updates every 20 ticks. The size of a dropped item. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.EntityPermanentItem>> PERMANENT_ITEM = ENTITY_TYPES.register("permanent_item",
+            () -> EntityType.Builder.<thaumcraft.common.entities.EntityPermanentItem>of(thaumcraft.common.entities.EntityPermanentItem::new, MobCategory.MISC)
+                    .sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(20).build("permanent_item"));
     /** ConfigEntities: "EldritchCrab", tracked up to 64 blocks, updates every 3 ticks. */
     public static final Supplier<EntityType<thaumcraft.common.entities.monster.EntityEldritchCrab>> ELDRITCH_CRAB = ENTITY_TYPES.register("eldritch_crab",
             () -> EntityType.Builder.<thaumcraft.common.entities.monster.EntityEldritchCrab>of(thaumcraft.common.entities.monster.EntityEldritchCrab::new, MobCategory.MONSTER)

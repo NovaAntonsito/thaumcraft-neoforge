@@ -1,0 +1,9 @@
+{
+  "loader": "neoforge:obj",
+  "model": "thaumcraft:models/obj/crabvent.obj",
+  "flip_v": true,
+  "textures": {
+    "texture": "thaumcraft:models/crabvent",
+    "particle": "thaumcraft:blocks/crust"
+  }
+}

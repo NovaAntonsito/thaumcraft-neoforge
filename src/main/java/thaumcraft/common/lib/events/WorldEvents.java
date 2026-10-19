@@ -2,10 +2,13 @@ package thaumcraft.common.lib.events;
 
 import java.util.List;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.level.NoteBlockEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -13,7 +16,12 @@ import thaumcraft.Thaumcraft;
 import thaumcraft.common.golems.seals.SealHandler;
 import thaumcraft.common.golems.tasks.TaskHandler;
 import thaumcraft.common.tiles.devices.TileArcaneEar;
+import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
+import thaumcraft.common.world.dim.Cell;
+import thaumcraft.common.world.dim.CellLoc;
 import thaumcraft.common.world.dim.MazeData;
+import thaumcraft.common.world.dim.MazeHandler;
+import thaumcraft.common.world.dim.OuterLands;
 
 /**
  * Partial port of WorldEvents (noteEvent, worldUnload), TC4's EventHandlerWorld maze load and of the ServerEvents world tick: note blocks played this tick are kept
@@ -22,6 +30,29 @@ import thaumcraft.common.world.dim.MazeData;
 @EventBusSubscriber(modid = Thaumcraft.MODID)
 public final class WorldEvents {
     private WorldEvents() {
+    }
+
+    /**
+     * EventHandlerWorld.placeBlockEvent: in the Outer Lands, outside creative, nothing can be placed in a boss room
+     * while a boss is within 32 blocks. EntityMultiPlaceEvent is an EntityPlaceEvent, so this covers both.
+     */
+    @SubscribeEvent
+    public static void placeBlockEvent(BlockEvent.EntityPlaceEvent event) {
+        if (event.getLevel() instanceof Level level && isNearActiveBoss(level, event.getEntity() instanceof Player p ? p : null, event.getPos())) {
+            event.setCanceled(true);
+        }
+    }
+
+    private static boolean isNearActiveBoss(Level world, Player player, BlockPos pos) {
+        if (OuterLands.is(world) && player != null && !player.getAbilities().instabuild) {
+            Cell c = MazeHandler.getFromHashMap(new CellLoc(pos.getX() >> 4, pos.getZ() >> 4));
+            if (c != null && c.feature >= 2 && c.feature <= 5) {
+                List<EntityThaumcraftBoss> list = thaumcraft.common.lib.utils.EntityUtils.getEntitiesInRange(world, pos.getX(), pos.getY(), pos.getZ(),
+                        null, EntityThaumcraftBoss.class, 32.0);
+                return !list.isEmpty();
+            }
+        }
+        return false;
     }
 
     @SubscribeEvent

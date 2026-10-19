@@ -106,6 +106,7 @@ public class ThaumcraftClient {
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_OBELISK.get(), thaumcraft.client.renderers.tile.TileEldritchObeliskRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_NOTHING.get(), thaumcraft.client.renderers.tile.TileEldritchNothingRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_PORTAL.get(), thaumcraft.client.renderers.tile.TileEldritchPortalRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_LOCK.get(), thaumcraft.client.renderers.tile.TileEldritchLockRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.JAR.get(), TileJarRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.JAR_VOID.get(), TileJarRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ALEMBIC.get(), TileAlembicRenderer::new);
@@ -129,6 +130,7 @@ public class ThaumcraftClient {
         event.registerBlockEntityRenderer(TCBlockEntities.FOCAL_MANIPULATOR.get(), thaumcraft.client.renderers.tile.TileFocalManipulatorRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.HOLE.get(), thaumcraft.client.renderers.tile.TileHoleRenderer::new);
         event.registerEntityRenderer(TCEntities.ALUMENTUM.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(TCEntities.PERMANENT_ITEM.get(), net.minecraft.client.renderer.entity.ItemEntityRenderer::new);
         event.registerEntityRenderer(TCEntities.FLUX_RIFT.get(), RenderFluxRift::new);
         event.registerEntityRenderer(TCEntities.FOCUS_PROJECTILE.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_CLOUD.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);

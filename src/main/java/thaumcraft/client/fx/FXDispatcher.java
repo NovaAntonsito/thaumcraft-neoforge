@@ -628,6 +628,36 @@ public final class FXDispatcher {
         }
     }
 
+    /** TC4 ClientProxy.blockSparkle: rising sparkles in and just around a block; colour -9999 is random. */
+    public static void blockSparkle(int x, int y, int z, int c, int count) {
+        if (getWorld() == null) return;
+        float r = (c >> 16 & 255) / 255.0f;
+        float g = (c >> 8 & 255) / 255.0f;
+        float b = (c & 255) / 255.0f;
+        for (int a = 0; a < count; ++a) {
+            if (c == -9999) {
+                r = 0.33f + rand().nextFloat() * 0.67f;
+                g = 0.33f + rand().nextFloat() * 0.67f;
+                b = 0.33f + rand().nextFloat() * 0.67f;
+            }
+            drawGenericParticles(x - 0.1f + rand().nextFloat() * 1.2f, y - 0.1f + rand().nextFloat() * 1.2f, z - 0.1f + rand().nextFloat() * 1.2f,
+                    0.0, rand().nextFloat() * 0.02, 0.0, r - 0.2f + rand().nextFloat() * 0.4f, g - 0.2f + rand().nextFloat() * 0.4f,
+                    b - 0.2f + rand().nextFloat() * 0.4f, 0.9f, false, 320, 16, 1, 5 + rand().nextInt(8), rand().nextInt(10),
+                    0.7f + rand().nextFloat() * 0.4f, 0.0f, 0);
+        }
+    }
+
+    /**
+     * TC4 ClientProxy.nodeBolt between two points: a type 0 lightning bolt (purple, 0.6 0.3 0.6), drawn with the bolt
+     * beam, and the zap sound of PacketFXBlockZap.
+     */
+    public static void nodeBolt(float x, float y, float z, float x2, float y2, float z2) {
+        if (getWorld() == null) return;
+        arcBolt(x, y, z, x2, y2, z2, 0.6f, 0.3f, 0.6f, 0.5f);
+        getWorld().playLocalSound(x, y, z, thaumcraft.common.lib.SoundsTC.ZAP.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.1f,
+                1.0f + rand().nextFloat() * 0.2f, false);
+    }
+
     public static void sparkle(float x, float y, float z, float r, float g, float b) {
         if (getWorld() == null) return;
         if (rand().nextInt(6) < 4) {

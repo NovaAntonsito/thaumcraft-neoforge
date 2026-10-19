@@ -1,7 +1,62 @@
 {
-  "variants": {
-    "": {
-      "model": "thaumcraft:block/crusted_opening"
+  "multipart": [
+    {
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent"
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "thaumcraft:block/crusted_opening_vent",
+        "x": 90
+      }
     }
-  }
+  ]
 }

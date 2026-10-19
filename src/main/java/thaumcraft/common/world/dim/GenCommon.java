@@ -279,7 +279,12 @@ public class GenCommon {
          int exp = world.countExposedSides(cc.getX(), cc.getY(), cc.getZ());
          if (exp == 1 && !world.isBlockAdjacentToAtleast(cc.getX(), cc.getY(), cc.getZ(), OldBlocks.blockEldritch, 32767, 1)) {
             world.setBlock(cc.getX(), cc.getY(), cc.getZ(), OldBlocks.blockEldritch, 9, 3);
-            // TODO 12d: TileEldritchCrabSpawner.setFacing toward the first air side.
+            for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+               if (world.isAirBlock(cc.getX() + dir.offsetX, cc.getY() + dir.offsetY, cc.getZ() + dir.offsetZ)) {
+                  world.setFacing(cc.getX(), cc.getY(), cc.getZ(), dir);
+                  break;
+               }
+            }
          }
       }
 

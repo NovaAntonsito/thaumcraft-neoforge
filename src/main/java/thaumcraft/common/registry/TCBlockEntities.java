@@ -257,4 +257,13 @@ public final class TCBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchPortal>> ELDRITCH_PORTAL = BLOCK_ENTITIES.register("eldritch_portal",
             () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchPortal::new, ConfigBlocks.eldritchPortal.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchLock>> ELDRITCH_LOCK = BLOCK_ENTITIES.register("eldritch_lock",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchLock::new, ConfigBlocks.ancientLock.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchCrabSpawner>> ELDRITCH_CRAB_SPAWNER = BLOCK_ENTITIES.register("eldritch_crab_spawner",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchCrabSpawner::new, ConfigBlocks.crustedOpening.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchTrap>> ELDRITCH_TRAP = BLOCK_ENTITIES.register("eldritch_trap",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchTrap::new, ConfigBlocks.runedStone.get()).build(null));
 }

@@ -5,6 +5,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.ItemStack;
+import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.entities.EntityPermanentItem;
 import thaumcraft.common.entities.monster.EntityEldritchGuardian;
 import thaumcraft.common.lib.utils.EntityUtils;
 import thaumcraft.common.registry.TCEntities;
@@ -85,7 +88,9 @@ public class GenKeyRoom extends GenCommon {
 
       GenCommon.generateConnections(world, random, cx, cz, y, cell, 3, true);
       world.setBlock(x + 8, y + 2, z + 8, OldBlocks.blockEldritch, 3, 3);
-      // TODO 12d: the Runed Tablet (ItemEldritchObject 2) as an EntityPermanentItem at x + 8.5, y + 3.5, z + 8.5.
+      EntityPermanentItem entityitem = new EntityPermanentItem(world.level.getLevel(), (double)x + (double)8.5F, (double)y + (double)3.5F, (double)z + (double)8.5F, new ItemStack(ConfigItems.runedTablet.get()));
+      entityitem.setDeltaMovement(0.0F, 0.0F, 0.0F);
+      world.spawnEntityInWorld(entityitem);
       int zz = 2 + (world.difficultySetting == Difficulty.HARD ? 2 : (world.difficultySetting == Difficulty.NORMAL ? 1 : 0));
 
       for(int qq = 0; qq < zz; ++qq) {

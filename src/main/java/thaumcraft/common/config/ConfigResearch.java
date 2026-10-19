@@ -131,6 +131,8 @@ public final class ConfigResearch {
         System.arraycopy(crystals, 0, ores, 2, crystals.length);
         ScanningManager.addScannableThing(new ScanBlock("ORE", ores));
         ScanningManager.addScannableThing(new ScanBlock("!OREAMBER", ConfigBlocks.oreAmber.get()));
+        // TC4's OUTERREV item triggers: Glyphed Stone and Runed Stone.
+        ScanningManager.addScannableThing(new ScanBlock("!OUTERREV", ConfigBlocks.eldritchStoneGlyphed.get(), ConfigBlocks.runedStone.get()));
         ScanningManager.addScannableThing(new ScanBlock("!ORECINNABAR", ConfigBlocks.oreCinnabar.get()));
         ScanningManager.addScannableThing(new ScanBlock("!ORECRYSTAL", crystals));
         ScanningManager.addScannableThing(new ScanBlock("PLANTS", ConfigBlocks.logGreatwood.get(), ConfigBlocks.logSilverwood.get(),
