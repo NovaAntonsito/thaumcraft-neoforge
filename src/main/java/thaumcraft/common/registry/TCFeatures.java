@@ -30,4 +30,7 @@ public final class TCFeatures {
     /** BiomeGenMagicalForest.decorate, placed by the magical forest biome. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> MAGICAL_FOREST = FEATURES.register("magical_forest",
             () -> new thaumcraft.common.world.biomes.BiomeGenMagicalForest(NoneFeatureConfiguration.CODEC));
+    /** The Outer Lands maze, placed by the eldritch biome. */
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> OUTER_LANDS_MAZE = FEATURES.register("outer_lands_maze",
+            () -> new thaumcraft.common.world.dim.MazeFeature(NoneFeatureConfiguration.CODEC));
 }

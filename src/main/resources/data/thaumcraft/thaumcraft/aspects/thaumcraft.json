@@ -678,6 +678,16 @@
         "terra": 1,
         "alienis": 1
       }
+    },
+    {
+      "items": [
+        "thaumcraft:ancient_stone",
+        "thaumcraft:ancient_rock"
+      ],
+      "aspects": {
+        "terra": 1,
+        "alienis": 1
+      }
     }
   ]
 }

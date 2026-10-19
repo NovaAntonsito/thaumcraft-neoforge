@@ -293,10 +293,15 @@ public final class EntityEvents {
                 if (world.getDifficulty() == Difficulty.HARD) {
                     c -= (allow ? 2 : 0);
                 }
-                // TODO: -3 in the Outer Lands.
+                if (thaumcraft.common.world.dim.OuterLands.is(world)) {
+                    c -= 3;
+                }
                 Holder<Biome> bg = world.getBiome(mob.blockPosition());
                 if (bg.is(Tags.Biomes.IS_SPOOKY) || bg.is(BiomeTags.IS_NETHER) || bg.is(BiomeTags.IS_END)) {
                     c -= (allow ? 2 : 1);
+                }
+                if (isDangerousLocation(world, net.minecraft.core.BlockPos.containing(Math.ceil(mob.getX()), Math.ceil(mob.getY()), Math.ceil(mob.getZ())))) {
+                    c -= (allow ? 10 : 3);
                 }
                 int cc = 0;
                 boolean whitelisted = false;
@@ -318,5 +323,15 @@ public final class EntityEvents {
                 }
             }
         }
+    }
+
+    /** TC4: the key rooms and libraries of the Outer Lands maze. */
+    private static boolean isDangerousLocation(Level world, net.minecraft.core.BlockPos pos) {
+        if (thaumcraft.common.world.dim.OuterLands.is(world)) {
+            thaumcraft.common.world.dim.Cell c = thaumcraft.common.world.dim.MazeHandler.getFromHashMap(
+                    new thaumcraft.common.world.dim.CellLoc(pos.getX() >> 4, pos.getZ() >> 4));
+            return c != null && (c.feature == 6 || c.feature == 8);
+        }
+        return false;
     }
 }

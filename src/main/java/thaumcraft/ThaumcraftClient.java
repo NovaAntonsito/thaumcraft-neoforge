@@ -104,6 +104,8 @@ public class ThaumcraftClient {
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_ALTAR.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.altar());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_CAP.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.cap());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_OBELISK.get(), thaumcraft.client.renderers.tile.TileEldritchObeliskRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_NOTHING.get(), thaumcraft.client.renderers.tile.TileEldritchNothingRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_PORTAL.get(), thaumcraft.client.renderers.tile.TileEldritchPortalRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.JAR.get(), TileJarRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.JAR_VOID.get(), TileJarRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ALEMBIC.get(), TileAlembicRenderer::new);
@@ -167,6 +169,12 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.CULTIST_LEADER.get(), thaumcraft.client.renderers.entity.mob.RenderCultistLeader::new);
         event.registerEntityRenderer(TCEntities.ELDRITCH_WARDEN.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchGuardian::new);
         event.registerEntityRenderer(TCEntities.ELDRITCH_GOLEM.get(), thaumcraft.client.renderers.entity.mob.RenderEldritchGolem::new);
+    }
+
+    /** The Outer Lands sky and fog (dimension_type effects "thaumcraft:outer_lands"). */
+    @SubscribeEvent
+    static void registerDimensionEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
+        event.register(Thaumcraft.id("outer_lands"), new thaumcraft.client.lib.OuterLandsEffects());
     }
 
     /** LayerTainted on every living renderer. */

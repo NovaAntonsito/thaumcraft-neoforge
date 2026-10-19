@@ -203,6 +203,30 @@
           ]
         }
       ]
+    },
+    {
+      "key": "ENTEROUTER",
+      "name": "research.ENTEROUTER.title",
+      "icons": [
+        "thaumcraft:textures/research/r_outer.png"
+      ],
+      "category": "ELDRITCH",
+      "location": [
+        -3,
+        4
+      ],
+      "parents": [
+        "OCULUS"
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.ENTEROUTER.stage.1"
+        }
+      ]
     }
   ]
 }

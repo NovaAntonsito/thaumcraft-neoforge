@@ -13,20 +13,29 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import thaumcraft.api.aura.AuraHelper;
+import thaumcraft.api.casters.IInteractWithCaster;
+import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.entities.monster.cult.EntityCultist;
 import thaumcraft.common.entities.monster.cult.EntityCultistCleric;
 import thaumcraft.common.entities.monster.cult.EntityCultistKnight;
 import thaumcraft.common.registry.TCBlockEntities;
 import thaumcraft.common.registry.TCEntities;
 import thaumcraft.common.tiles.TileThaumcraft;
+import thaumcraft.common.world.dim.MazeHandler;
 
 /**
  * Port of TC4's TileEldritchAltar, the keystone under the obelisk. It holds up to four Eldritch Eyes.
  * As a spawner it first raises four ritualist clerics around itself and then guards them with knights while any
  * cleric lives (type 0), or keeps calling eldritch guardians (type 1, also from the third eye on).
  */
-public class TileEldritchAltar extends TileThaumcraft {
+public class TileEldritchAltar extends TileThaumcraft implements IInteractWithCaster {
     private boolean spawner = false;
     private boolean open = false;
     private boolean spawnedClerics = false;
@@ -200,11 +209,42 @@ public class TileEldritchAltar extends TileThaumcraft {
     }
 
     /**
-     * True when a maze for this altar already exists in the Outer Lands; otherwise the original starts generating one
+     * True when a maze for this altar already exists in the Outer Lands; otherwise this starts generating one
      * (a random 15-29 by 15-29 cell maze around these chunk coordinates) and returns false.
-     * TODO: the maze comes with the Outer Lands dimension (stage 12c).
      */
     public boolean checkForMaze() {
+        int w = 15 + level.random.nextInt(8) * 2;
+        int h = 15 + level.random.nextInt(8) * 2;
+        if (!MazeHandler.mazesInRange(worldPosition.getX() >> 4, worldPosition.getZ() >> 4, w, h)) {
+            MazeHandler.startMaze(worldPosition.getX() >> 4, worldPosition.getZ() >> 4, w, h, level.random.nextLong());
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * WandManager.createOculus. TC4 needed a dark aura node above the keystone and 100 vis of each primal from the
+     * wand. 1.12 has neither, so here the caster's gauntlet opens it with 100 vis from the chunk's aura (Anton's
+     * choice). Still needs all four eyes and the maze already started (the eyes start it).
+     */
+    @Override
+    public boolean onCasterRightClick(Level world, ItemStack casterStack, Player player, BlockPos pos, Direction side, InteractionHand hand) {
+        if (world.isClientSide) {
+            return false;
+        }
+        BlockPos above = worldPosition.above();
+        if (getEyes() == 4 && !isOpen() && world.getBlockState(above).isAir() && checkForMaze()
+                && AuraHelper.getVis(world, worldPosition) >= OCULUS_VIS) {
+            AuraHelper.drainVis(world, worldPosition, OCULUS_VIS, false);
+            world.playSound(null, worldPosition, SoundsTC.WAND.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+            setOpen(true);
+            world.setBlockAndUpdate(above, ConfigBlocks.eldritchPortal.get().defaultBlockState());
+            setChanged();
+            syncTile(false);
+            return true;
+        }
         return false;
     }
+
+    private static final float OCULUS_VIS = 100.0f;
 }

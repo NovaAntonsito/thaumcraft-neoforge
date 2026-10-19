@@ -232,8 +232,9 @@ public final class ThaumcraftWorldGenerator {
                 ring.chunkZ = chunkZ;
                 ring.width = 11 + random.nextInt(6) * 2;
                 ring.height = 11 + random.nextInt(6) * 2;
-                ring.generate(world, random, p.above(8));
-                // TODO 12c: when generated, start the maze for it in the Outer Lands (MazeThread).
+                if (ring.generate(world, random, p.above(8))) {
+                    thaumcraft.common.world.dim.MazeHandler.startMaze(chunkX, chunkZ, ring.width, ring.height, random.nextLong());
+                }
             } else if (random.nextInt(500) == 0) {
                 BlockPos p2 = p.above(8);
                 BlockState bs = world.getBlockState(p2);

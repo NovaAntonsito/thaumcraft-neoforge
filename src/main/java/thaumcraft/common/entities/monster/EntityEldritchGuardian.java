@@ -50,7 +50,8 @@ import thaumcraft.common.network.TCNetwork;
  * The eldritch guardian: a ghostly warden of the places where reality is thin. Up close it strikes hard; from afar it
  * hurls eldritch orbs or, now and then, screeches (wither and temporary warp). While one is around, nearby players
  * are wrapped in fog. It takes half damage from magic.
- * The outer lands (bonus absorption there, and no fog) are not ported. 1.21: undead and smite come from entity type
+ * In the Outer Lands it spawns with absorption of half its health, which slowly comes back, and brings no fog.
+ * 1.21: absorption is capped by an attribute, so its cap is its health (Outer Lands plus warded champion). Undead and smite come from entity type
  * tags, and the eye height (2.1) is set on the entity type. Its melee attack was meant to set the target on fire
  * when it burned empty handed, but the original compared the held item with null, which never happens, so it never did.
  */
@@ -86,7 +87,30 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
                 .add(Attributes.MAX_HEALTH, 50.0)
                 .add(Attributes.FOLLOW_RANGE, 40.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
-                .add(Attributes.ATTACK_DAMAGE, 7.0);
+                .add(Attributes.ATTACK_DAMAGE, 7.0)
+                .add(Attributes.MAX_ABSORPTION, 50.0);
+    }
+
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(ServerLevelAccessor world, net.minecraft.world.DifficultyInstance difficulty,
+            MobSpawnType reason, @javax.annotation.Nullable net.minecraft.world.entity.SpawnGroupData data) {
+        data = super.finalizeSpawn(world, difficulty, reason, data);
+        if (thaumcraft.common.world.dim.OuterLands.is(world.getLevel())) {
+            int bh = (int) getAttribute(Attributes.MAX_HEALTH).getBaseValue() / 2;
+            setAbsorptionAmount(getAbsorptionAmount() + bh);
+        }
+        return data;
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (thaumcraft.common.world.dim.OuterLands.is(level()) && invulnerableTime <= 0 && tickCount % 25 == 0) {
+            int bh = (int) getAttribute(Attributes.MAX_HEALTH).getBaseValue() / 2;
+            if (getAbsorptionAmount() < bh) {
+                setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
+            }
+        }
     }
 
     @Override
@@ -121,7 +145,8 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
             float x = (float) (getX() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             float z = (float) (getZ() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             thaumcraft.client.fx.FXDispatcher.wispFXEG(x, (float) (getY() + 0.22 * getBbHeight()), z, this);
-        } else if ((tickCount == 0 || tickCount % 100 == 0) && level().getDifficulty() != Difficulty.EASY) {
+        } else if (!thaumcraft.common.world.dim.OuterLands.is(level()) && (tickCount == 0 || tickCount % 100 == 0)
+                && level().getDifficulty() != Difficulty.EASY) {
             double d6 = (level().getDifficulty() == Difficulty.HARD) ? 576.0 : 256.0;
             for (Player entityplayer1 : level().players()) {
                 if (entityplayer1.isAlive() && entityplayer1 instanceof ServerPlayer sp && entityplayer1.distanceToSqr(getX(), getY(), getZ()) < d6) {

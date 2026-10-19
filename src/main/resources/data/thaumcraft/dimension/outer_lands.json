@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:outer_lands",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "thaumcraft:eldritch",
+      "layers": [
+        {
+          "block": "minecraft:air",
+          "height": 1
+        }
+      ],
+      "lakes": false,
+      "features": true,
+      "structure_overrides": []
+    }
+  }
+}

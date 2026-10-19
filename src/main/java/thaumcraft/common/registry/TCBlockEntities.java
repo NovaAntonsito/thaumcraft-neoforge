@@ -251,4 +251,10 @@ public final class TCBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchCap>> ELDRITCH_CAP = BLOCK_ENTITIES.register("eldritch_cap",
             () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchCap::new, ConfigBlocks.eldritchCap.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchNothing>> ELDRITCH_NOTHING = BLOCK_ENTITIES.register("eldritch_nothing",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchNothing::new, ConfigBlocks.eldritchNothingExposed.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.eldritch.TileEldritchPortal>> ELDRITCH_PORTAL = BLOCK_ENTITIES.register("eldritch_portal",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.eldritch.TileEldritchPortal::new, ConfigBlocks.eldritchPortal.get()).build(null));
 }

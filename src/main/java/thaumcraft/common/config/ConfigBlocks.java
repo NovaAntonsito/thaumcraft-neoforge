@@ -220,6 +220,32 @@ public final class ConfigBlocks {
     public static final DeferredBlock<Block> eldritchStoneGlowing = register("eldritch_stone_glowing", thaumcraft.common.blocks.eldritch.BlockEldritchStone::new);
     public static final DeferredBlock<Block> obsidianTile = register("obsidian_tile", () -> new Block(BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_BLACK).strength(30.0f, 999.0f).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    // Stage 12c: the Outer Lands maze. TC4's BlockCosmeticSolid metas 11-15 and its stairs and slab, BlockEldritch
+    // metas 5 and 7-10, BlockEldritchNothing, BlockAiry meta 12 and BlockEldritchPortal.
+    public static final DeferredBlock<Block> ancientStone = register("ancient_stone", () -> new Block(ancientProps()));
+    /** Meta 13: the same stone, but nothing spawns on it. */
+    public static final DeferredBlock<Block> ancientStoneNospawn = register("ancient_stone_nospawn",
+            () -> new Block(ancientProps().isValidSpawn(thaumcraft.common.blocks.eldritch.BlockEldritchStone::never)));
+    public static final DeferredBlock<Block> ancientRock = register("ancient_rock", () -> new Block(ancientProps()));
+    public static final DeferredBlock<Block> crustedStone = register("crusted_stone", () -> new Block(ancientProps().lightLevel(s -> 4)));
+    public static final DeferredBlock<Block> ancientPedestal = register("ancient_pedestal", () -> new Block(ancientProps()));
+    /** BlockCosmeticStairs(blockCosmeticSolid, 11): the stone's hardness and resistance. */
+    public static final DeferredBlock<Block> ancientStairs = register("ancient_stone_stairs",
+            () -> new net.minecraft.world.level.block.StairBlock(ancientStone.get().defaultBlockState(), ancientProps()));
+    public static final DeferredBlock<Block> ancientSlab = register("ancient_stone_slab",
+            () -> new net.minecraft.world.level.block.SlabBlock(ancientProps()));
+    public static final DeferredBlock<Block> eldritchStoneGlyphed = register("eldritch_stone_glyphed",
+            () -> new thaumcraft.common.blocks.eldritch.BlockEldritchStone(net.minecraft.util.valueproviders.UniformInt.of(1, 4)));
+    public static final DeferredBlock<Block> ancientDoorway = register("ancient_doorway", () -> eldritchSolid(-1.0f, 3600000.0f, 12, null));
+    public static final DeferredBlock<Block> ancientLock = register("ancient_lock", () -> eldritchSolid(-1.0f, 3600000.0f, 5, null));
+    public static final DeferredBlock<Block> crustedOpening = register("crusted_opening",
+            () -> eldritchSolid(15.0f, 30.0f, 4, net.minecraft.util.valueproviders.UniformInt.of(6, 10)));
+    public static final DeferredBlock<Block> runedStone = register("runed_stone",
+            () -> eldritchSolid(15.0f, 30.0f, 0, net.minecraft.util.valueproviders.UniformInt.of(1, 4)));
+    public static final DeferredBlock<Block> eldritchNothing = BLOCKS.register("eldritch_nothing", thaumcraft.common.blocks.eldritch.BlockEldritchNothing::new);
+    public static final DeferredBlock<Block> eldritchNothingExposed = BLOCKS.register("eldritch_nothing_exposed", thaumcraft.common.blocks.eldritch.BlockEldritchNothing.Exposed::new);
+    public static final DeferredBlock<Block> eldritchImpassable = BLOCKS.register("eldritch_impassable", thaumcraft.common.blocks.eldritch.BlockEldritchImpassable::new);
+    public static final DeferredBlock<Block> eldritchPortal = BLOCKS.register("eldritch_portal", thaumcraft.common.blocks.eldritch.BlockEldritchPortal::new);
     public static final DeferredBlock<Block> condenser = register("condenser", BlockCondenser::new);
     public static final DeferredBlock<Block> condenserLattice = register("condenser_lattice", () -> new BlockCondenserLattice(false));
     public static final DeferredBlock<Block> condenserLatticeDirty = register("condenser_lattice_dirty", () -> new BlockCondenserLattice(true));
@@ -276,6 +302,24 @@ public final class ConfigBlocks {
     private static BlockBehaviour.Properties stoneProps() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
                 .requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE);
+    }
+
+    /** BlockCosmeticSolid's maze stones: hardness 2, resistance 10 (6 in 1.21 units). */
+    private static BlockBehaviour.Properties ancientProps() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM)
+                .requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE);
+    }
+
+    /**
+     * BlockEldritch metas 7-10: no mob spawns. Hardness -1 is unbreakable; the resistances are the original's
+     * getExplosionResistance values (Float.MAX_VALUE as the bedrock-like 3600000). With xp, it drops that much.
+     */
+    private static Block eldritchSolid(float hardness, float resistance, int light,
+            net.minecraft.util.valueproviders.IntProvider xp) {
+        BlockBehaviour.Properties p = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(hardness, resistance)
+                .sound(SoundType.STONE).lightLevel(st -> light).requiresCorrectToolForDrops()
+                .isValidSpawn(thaumcraft.common.blocks.eldritch.BlockEldritchStone::never);
+        return xp != null ? new net.minecraft.world.level.block.DropExperienceBlock(xp, p) : new Block(p);
     }
 
     private static Block stone() {

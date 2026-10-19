@@ -59,8 +59,8 @@ public class WorldGenEldritchRing {
         int i = pos.getX();
         int j = pos.getY();
         int k = pos.getZ();
-        // TODO 12c: also no maze already in range (MazeHandler.mazesInRange).
-        if (!locationIsValidSpawn(world, i - 3, j, k - 3) || !locationIsValidSpawn(world, i, j, k) || !locationIsValidSpawn(world, i + 3, j, k)
+        if (thaumcraft.common.world.dim.MazeHandler.mazesInRange(chunkX, chunkZ, width, height)
+                || !locationIsValidSpawn(world, i - 3, j, k - 3) || !locationIsValidSpawn(world, i, j, k) || !locationIsValidSpawn(world, i + 3, j, k)
                 || !locationIsValidSpawn(world, i + 3, j, k + 3) || !locationIsValidSpawn(world, i, j, k + 3)) {
             return false;
         }

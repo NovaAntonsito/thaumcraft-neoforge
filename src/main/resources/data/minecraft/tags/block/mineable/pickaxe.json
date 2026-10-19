@@ -64,6 +64,16 @@
     "thaumcraft:eldritch_altar",
     "thaumcraft:eldritch_obelisk",
     "thaumcraft:eldritch_obelisk_body",
-    "thaumcraft:eldritch_cap"
+    "thaumcraft:eldritch_cap",
+    "thaumcraft:ancient_stone",
+    "thaumcraft:ancient_stone_nospawn",
+    "thaumcraft:ancient_rock",
+    "thaumcraft:crusted_stone",
+    "thaumcraft:ancient_pedestal",
+    "thaumcraft:ancient_stone_stairs",
+    "thaumcraft:ancient_stone_slab",
+    "thaumcraft:eldritch_stone_glyphed",
+    "thaumcraft:crusted_opening",
+    "thaumcraft:runed_stone"
   ]
 }

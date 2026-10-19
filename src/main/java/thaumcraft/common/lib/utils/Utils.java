@@ -192,4 +192,12 @@ public final class Utils {
         double dz = to.z - from.z;
         return dx * dx + dy * dy + dz * dz;
     }
+
+    public static boolean getBit(int value, int bit) {
+        return (value & 1 << bit) != 0;
+    }
+
+    public static int setBit(int value, int bit) {
+        return value | 1 << bit;
+    }
 }

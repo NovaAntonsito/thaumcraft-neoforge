@@ -43,6 +43,18 @@ public final class PlayerEvents {
                 PacketSyncKnowledge.sync(player);
             }
             handleWarp(player);
+            breakFlight(player);
+        }
+    }
+
+    /** TC4 EventHandlerEntity.livingTick: no flying in the Outer Lands outside creative, checked once a second. */
+    private static void breakFlight(ServerPlayer player) {
+        if (thaumcraft.common.world.dim.OuterLands.is(player.level()) && !player.getAbilities().instabuild
+                && player.tickCount % 20 == 0 && player.getAbilities().flying) {
+            player.getAbilities().flying = false;
+            player.onUpdateAbilities();
+            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("tc.break.fly")
+                    .withStyle(net.minecraft.ChatFormatting.ITALIC, net.minecraft.ChatFormatting.GRAY));
         }
     }
 

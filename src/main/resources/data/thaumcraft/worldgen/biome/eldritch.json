@@ -39,5 +39,18 @@
   },
   "spawn_costs": {},
   "carvers": {},
-  "features": []
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "thaumcraft:outer_lands_maze"
+    ]
+  ]
 }
