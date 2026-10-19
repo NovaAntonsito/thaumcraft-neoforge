@@ -40,8 +40,8 @@ import thaumcraft.common.tiles.crafting.TileCrucible;
 
 /**
  * Port of FXDispatcher, the client effects. The original was an instance (FXDispatcher.INSTANCE); these are static.
- * TODO (stage 10b): the beams and streams (beamCont, beamBore, essentiaTrailFx, boreTrailFx, waterTrailFx,
- * voidStreak, arcLightning, arcBolt), blockWard, drawPedestalShield and the GUI sparkles (drawSimpleSparkleGui).
+ * Left out: beamCont, beamBore, boreTrailFx and blockWard (nothing in Thaumcraft 6 calls them) and the GUI sparkles
+ * (drawSimpleSparkleGui).
  */
 public final class FXDispatcher {
     private FXDispatcher() {
@@ -839,6 +839,82 @@ public final class FXDispatcher {
                 addVanilla(fb2);
             }
         }
+    }
+
+    // ---- beams and streams ----
+
+    public static void essentiaTrailFx(BlockPos p1, BlockPos p2, int count, int color, float scale, int ext) {
+        if (getWorld() == null) return;
+        thaumcraft.client.fx.other.FXEssentiaStream fb = new thaumcraft.client.fx.other.FXEssentiaStream(getWorld(), p1.getX() + 0.5, p1.getY() + 0.5,
+                p1.getZ() + 0.5, p2.getX() + 0.5, p2.getY() + 0.5, p2.getZ() + 0.5, count, color, scale, ext, 0.0);
+        ParticleEngine.addEffect(getWorld(), fb);
+    }
+
+    public static void waterTrailFx(BlockPos p1, BlockPos p2, int count, int color, float scale) {
+        if (getWorld() == null) return;
+        thaumcraft.client.fx.other.FXEssentiaStream fb = new thaumcraft.client.fx.other.FXEssentiaStream(getWorld(), p1.getX() + 0.5, p1.getY() + 0.66,
+                p1.getZ() + 0.5, p2.getX() + 0.5, p2.getY() + 0.5, p2.getZ() + 0.5, count, color, scale, 0, 0.2);
+        ParticleEngine.addEffect(getWorld(), fb);
+    }
+
+    public static void voidStreak(double x, double y, double z, double x2, double y2, double z2, int seed, float scale) {
+        if (getWorld() == null) return;
+        ParticleEngine.addEffect(getWorld(), new thaumcraft.client.fx.other.FXVoidStream(getWorld(), x, y, z, x2, y2, z2, seed, scale));
+    }
+
+    public static void arcLightning(double x, double y, double z, double tx, double ty, double tz, float r, float g, float b, float h) {
+        if (getWorld() == null) return;
+        if (h <= 0.0f) {
+            h = 0.1f;
+        }
+        ParticleEngine.addEffectAlways(getWorld(), new thaumcraft.client.fx.beams.FXArc(getWorld(), x, y, z, tx, ty, tz, r, g, b, h));
+    }
+
+    public static void arcBolt(double x, double y, double z, double tx, double ty, double tz, float r, float g, float b, float width) {
+        if (getWorld() == null) return;
+        ParticleEngine.addEffectAlways(getWorld(), new thaumcraft.client.fx.beams.FXBolt(getWorld(), x, y, z, tx, ty, tz, r, g, b, width));
+    }
+
+    public static void drawPedestalShield(BlockPos pos) {
+        if (getWorld() == null) return;
+        ParticleEngine.addEffectAlways(getWorld(),
+                new thaumcraft.client.fx.other.FXShieldRunes(getWorld(), pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, null, 8, 0.0f, 90.0f));
+    }
+
+    /** PacketFXShield.onMessage: the rune flash on an entity, facing the attacker (-1 all round, -2 below, -3 above). */
+    public static void shieldRunes(Entity p, int targetId) {
+        ClientLevel world = getWorld();
+        if (world == null || p == null) return;
+        float pitch = 0.0f;
+        float yaw = 0.0f;
+        if (targetId >= 0) {
+            Entity t = world.getEntity(targetId);
+            if (t != null) {
+                double d0 = p.getX() - t.getX();
+                double d2 = (p.getBoundingBox().minY + p.getBoundingBox().maxY) / 2.0 - (t.getBoundingBox().minY + t.getBoundingBox().maxY) / 2.0;
+                double d3 = p.getZ() - t.getZ();
+                double d4 = Math.sqrt(d0 * d0 + d3 * d3);
+                yaw = (float) (Math.atan2(d3, d0) * 180.0 / Math.PI) - 90.0f;
+                pitch = (float) (-(Math.atan2(d2, d4) * 180.0 / Math.PI));
+            } else {
+                pitch = 90.0f;
+                yaw = 0.0f;
+            }
+            ParticleEngine.addEffectAlways(world, new thaumcraft.client.fx.other.FXShieldRunes(world, p.getX(), p.getY(), p.getZ(), p, 8, yaw, pitch));
+        } else if (targetId == -1) {
+            ParticleEngine.addEffectAlways(world, new thaumcraft.client.fx.other.FXShieldRunes(world, p.getX(), p.getY(), p.getZ(), p, 8, 0.0f, 90.0f));
+            ParticleEngine.addEffectAlways(world, new thaumcraft.client.fx.other.FXShieldRunes(world, p.getX(), p.getY(), p.getZ(), p, 8, 0.0f, 270.0f));
+        } else if (targetId == -2) {
+            ParticleEngine.addEffectAlways(world, new thaumcraft.client.fx.other.FXShieldRunes(world, p.getX(), p.getY(), p.getZ(), p, 8, 0.0f, 270.0f));
+        } else if (targetId == -3) {
+            ParticleEngine.addEffectAlways(world, new thaumcraft.client.fx.other.FXShieldRunes(world, p.getX(), p.getY(), p.getZ(), p, 8, 0.0f, 90.0f));
+        }
+    }
+
+    /** PacketFXSonic.onMessage. */
+    public static void sonic(Entity p) {
+        if (getWorld() == null || p == null) return;
+        ParticleEngine.addEffectAlways(getWorld(), new thaumcraft.client.fx.other.FXSonic(getWorld(), p.getX(), p.getY(), p.getZ(), p, 10));
     }
 
     public static void essentiaDropFx(double x, double y, double z, float r, float g, float b, float alpha) {

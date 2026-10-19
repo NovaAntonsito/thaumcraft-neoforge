@@ -7,7 +7,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import thaumcraft.Thaumcraft;
-import thaumcraft.client.fx.ClientFX;
 
 /** Port of PacketFXBlockArc: an arc of lightning from the center of a block to a point. */
 public record PacketFXBlockArc(BlockPos pos, float tx, float ty, float tz, float r, float g, float b) implements CustomPacketPayload {
@@ -40,6 +39,7 @@ public record PacketFXBlockArc(BlockPos pos, float tx, float ty, float tz, float
     }
 
     public static void handle(PacketFXBlockArc msg, IPayloadContext context) {
-        ClientFX.arcLightning(msg.tx, msg.ty, msg.tz, msg.pos.getX() + 0.5, msg.pos.getY() + 0.5, msg.pos.getZ() + 0.5, msg.r, msg.g, msg.b);
+        thaumcraft.client.fx.FXDispatcher.arcLightning(msg.tx, msg.ty, msg.tz, msg.pos.getX() + 0.5, msg.pos.getY() + 0.5, msg.pos.getZ() + 0.5, msg.r,
+                msg.g, msg.b, 0.5f);
     }
 }

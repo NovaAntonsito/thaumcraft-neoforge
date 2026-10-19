@@ -35,8 +35,6 @@ import thaumcraft.client.fx.particles.FXGeneric;
 /**
  * Client side of the FX packets. Stands in for the original FXDispatcher.
  * The effects themselves are in FXDispatcher; these are the packet handlers and the thaumometer.
- * TODO (stage 10b): essentiaTrail, arcLightning, voidStreak, waterTrail and sonic are beams and streams in the original
- * (FXEssentiaStream, FXArc, FXVoidStream, FXSonic); vanilla particles stand in for them.
  */
 public final class ClientFX {
     private ClientFX() {
@@ -46,22 +44,30 @@ public final class ClientFX {
         return new Vector3f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f);
     }
 
-    /** essentiaTrailFx: a line of colored dust from the source to the target. The matrix target is one block lower. */
-    public static void essentiaTrail(BlockPos from, BlockPos to, int color) {
+    /** EssentiaHandler.sourceFX: the essentia flows waiting for the next client tick, by source, target and color. */
+    private static final java.util.Map<String, BlockPos[]> essentiaSources = new java.util.LinkedHashMap<>();
+    private static final java.util.Map<String, int[]> essentiaSourceData = new java.util.HashMap<>();
+    private static int tickCount;
+
+    /** PacketFXEssentiaSource.onMessage: start is the tile drawing the essentia, end its source. */
+    public static void essentiaSource(BlockPos start, BlockPos end, int color, int ext) {
+        String key = start.getX() + ":" + start.getY() + ":" + start.getZ() + ":" + end.getX() + ":" + end.getY() + ":" + end.getZ() + ":" + color;
+        if (!essentiaSources.containsKey(key)) {
+            essentiaSources.put(key, new BlockPos[] { start, end });
+            essentiaSourceData.put(key, new int[] { color, ext });
+        }
+    }
+
+    /** RenderEventHandler.clientWorldTick: one essentia stream per queued flow; the matrix draws from below itself. */
+    public static void tickEssentiaSources() {
+        ++tickCount;
         ClientLevel world = Minecraft.getInstance().level;
         if (world == null) return;
-        if (world.getBlockEntity(to) instanceof TileInfusionMatrix) {
-            to = to.below();
-        }
-        DustParticleOptions dust = new DustParticleOptions(rgb(color), 0.8f);
-        double x1 = from.getX() + 0.5, y1 = from.getY() + 0.5, z1 = from.getZ() + 0.5;
-        double dx = to.getX() + 0.5 - x1, dy = to.getY() + 0.5 - y1, dz = to.getZ() + 0.5 - z1;
-        int steps = Math.max(4, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 4));
-        RandomSource rand = world.random;
-        for (int i = 0; i <= steps; ++i) {
-            double f = i / (double) steps;
-            double arc = Math.sin(f * Math.PI) * 0.5;
-            world.addParticle(dust, x1 + dx * f + rand.nextGaussian() * 0.03, y1 + dy * f + arc, z1 + dz * f + rand.nextGaussian() * 0.03, 0, 0, 0);
+        for (String fxk : essentiaSources.keySet().toArray(new String[0])) {
+            BlockPos[] fx = essentiaSources.remove(fxk);
+            int[] data = essentiaSourceData.remove(fxk);
+            int mod = world.getBlockEntity(fx[0]) instanceof TileInfusionMatrix ? -1 : 0;
+            FXDispatcher.essentiaTrailFx(fx[1], fx[0].above(mod), tickCount, data[0], 0.1f, data[1]);
         }
     }
 
@@ -71,25 +77,6 @@ public final class ClientFX {
         if (world == null) return;
         if (world.getBlockEntity(matrix) instanceof TileInfusionMatrix tile) {
             tile.addSourceFX(source, color, world.getBlockEntity(source) instanceof thaumcraft.common.tiles.crafting.TilePedestal ? 60 : 15);
-        }
-    }
-
-    /** arcLightning: a jagged line of sparks. */
-    public static void arcLightning(double x, double y, double z, double tx, double ty, double tz, float r, float g, float b) {
-        ClientLevel world = Minecraft.getInstance().level;
-        if (world == null) return;
-        DustParticleOptions dust = new DustParticleOptions(new Vector3f(r, g, b), 0.6f);
-        double dx = tx - x, dy = ty - y, dz = tz - z;
-        int steps = Math.max(4, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 5));
-        RandomSource rand = world.random;
-        for (int i = 0; i <= steps; ++i) {
-            double f = i / (double) steps;
-            double jitter = Math.sin(f * Math.PI) * 0.15;
-            double px = x + dx * f + rand.nextGaussian() * jitter;
-            double py = y + dy * f + rand.nextGaussian() * jitter;
-            double pz = z + dz * f + rand.nextGaussian() * jitter;
-            world.addParticle(dust, px, py, pz, 0, 0, 0);
-            if (rand.nextInt(3) == 0) world.addParticle(ParticleTypes.ELECTRIC_SPARK, px, py, pz, 0, 0, 0);
         }
     }
 
@@ -224,38 +211,6 @@ public final class ClientFX {
         return world.clip(new ClipContext(start, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, player));
     }
 
-    /**
-     * FXDispatcher.voidStreak: a dark streak pulled from a flux rift into the void siphon. TODO: FXVoidStream
-     * (stage 10b); for now reverse portal particles along the line.
-     */
-    public static void voidStreak(Level world, double x, double y, double z, double tx, double ty, double tz) {
-        double dx = tx - x, dy = ty - y, dz = tz - z;
-        int steps = Math.max(4, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 3));
-        RandomSource rand = world.random;
-        for (int i = 0; i <= steps; ++i) {
-            double f = i / (double) steps;
-            world.addParticle(ParticleTypes.REVERSE_PORTAL, x + dx * f + rand.nextGaussian() * 0.05, y + dy * f + rand.nextGaussian() * 0.05,
-                    z + dz * f + rand.nextGaussian() * 0.05, dx * 0.01, dy * 0.01, dz * 0.01);
-        }
-    }
-
-    /** FXDispatcher.waterTrailFx: a stream of water drops from the everfull urn. TODO: FXEssentiaStream (stage 10b). */
-    public static void waterTrail(BlockPos from, BlockPos to) {
-        ClientLevel world = Minecraft.getInstance().level;
-        if (world == null) return;
-        double x1 = from.getX() + 0.5, y1 = from.getY() + 1.0, z1 = from.getZ() + 0.5;
-        double dx = to.getX() + 0.5 - x1, dy = to.getY() + 1.0 - y1, dz = to.getZ() + 0.5 - z1;
-        int steps = Math.max(4, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 4));
-        RandomSource rand = world.random;
-        for (int i = 0; i <= steps; ++i) {
-            double f = i / (double) steps;
-            // An arc: the stream rises over the middle.
-            double arc = Math.sin(f * Math.PI) * 0.75;
-            world.addParticle(ParticleTypes.SPLASH, x1 + dx * f + rand.nextGaussian() * 0.03, y1 + dy * f + arc, z1 + dz * f + rand.nextGaussian() * 0.03,
-                    0.0, 0.0, 0.0);
-        }
-    }
-
     /** FXDispatcher.swarmParticleFX: one more FXSwarm somewhere within 2 blocks of its swarm. */
     public static Object swarmParticle(Entity target, float speed, float turnSpeed, float gravity) {
         ClientLevel world = (ClientLevel) target.level();
@@ -270,10 +225,6 @@ public final class ClientFX {
 
     public static boolean isParticleAlive(Object particle) {
         return particle instanceof net.minecraft.client.particle.Particle p && p.isAlive();
-    }
-    /** PacketFXSonic: the ripple an eldritch guardian screams from its head. TODO: FXSonic (stage 10); the sonic boom for now. */
-    public static void sonic(Entity source) {
-        source.level().addParticle(ParticleTypes.SONIC_BOOM, source.getX(), source.getY() + source.getEyeHeight(), source.getZ(), 0, 0, 0);
     }
 
 }

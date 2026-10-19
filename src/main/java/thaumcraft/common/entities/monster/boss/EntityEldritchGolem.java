@@ -39,7 +39,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import thaumcraft.api.entities.IEldritchMob;
-import thaumcraft.client.fx.ClientFX;
 import thaumcraft.common.blocks.world.BlockLoot;
 import thaumcraft.common.entities.ai.combat.AILongRangeAttack;
 import thaumcraft.common.entities.monster.mods.ChampionModifier;
@@ -312,8 +311,8 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
                 thaumcraft.client.fx.FXDispatcher.drawVentParticles((float) getX() + v.x * 0.4, (float) getY() + getEyeHeight() - 1.25f,
                         (float) getZ() + v.z * 0.4, 0.0, 0.001, 0.0, 5592405, 4.0f);
                 if (arcing > 0) {
-                    ClientFX.arcLightning(getX(), getY() + getBbHeight() / 2.0f, getZ(), ax + 0.5, ay + 1, az + 0.5,
-                            0.65f + random.nextFloat() * 0.1f, 1.0f, 1.0f);
+                    thaumcraft.client.fx.FXDispatcher.arcLightning(getX(), getY() + getBbHeight() / 2.0f, getZ(), ax + 0.5, ay + 1, az + 0.5,
+                            0.65f + random.nextFloat() * 0.1f, 1.0f, 1.0f, 1.0f - arcing / 10.0f);
                     --arcing;
                 }
             }

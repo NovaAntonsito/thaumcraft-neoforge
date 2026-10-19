@@ -39,6 +39,17 @@ public abstract class FXBase extends Particle {
         return 0;
     }
 
+    /**
+     * Beams, streams and models that the original drew with their own texture and GL state in the middle of the
+     * particle pass. The engine draws them after the sheet particles with renderCustom.
+     */
+    public boolean isCustomRender() {
+        return false;
+    }
+
+    public void renderCustom(net.minecraft.client.renderer.MultiBufferSource buffers, Camera cam, float pt) {
+    }
+
     @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.CUSTOM;

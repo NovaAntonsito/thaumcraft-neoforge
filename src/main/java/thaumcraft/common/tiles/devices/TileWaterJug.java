@@ -20,7 +20,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import thaumcraft.api.aura.AuraHelper;
-import thaumcraft.client.fx.ClientFX;
 import thaumcraft.common.registry.TCBlockEntities;
 import thaumcraft.common.tiles.TileThaumcraft;
 
@@ -150,7 +149,7 @@ public class TileWaterJug extends TileThaumcraft {
         if (level.isClientSide) {
             if (tcount > 0) {
                 if (tcount % 5 == 0) {
-                    ClientFX.waterTrail(worldPosition, zonePos(worldPosition, zc));
+                    thaumcraft.client.fx.FXDispatcher.waterTrailFx(worldPosition, zonePos(worldPosition, zc), counter, 2650102, 0.1f);
                 }
                 --tcount;
             }

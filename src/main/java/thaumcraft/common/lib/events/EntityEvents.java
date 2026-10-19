@@ -129,7 +129,20 @@ public final class EntityEvents {
             Entity source = event.getSource().getEntity();
             if (t >= 0 || mob instanceof IEldritchMob) {
                 if ((t == 5 || mob instanceof IEldritchMob) && mob.getAbsorptionAmount() > 0.0f) {
-                    // TODO: PacketFXShield and the runicShieldCharge sound (runic shielding, stage 10).
+                    int target2 = -1;
+                    if (source != null) {
+                        target2 = source.getId();
+                    }
+                    if (event.getSource().is(net.minecraft.world.damagesource.DamageTypes.FALL)) {
+                        target2 = -2;
+                    }
+                    if (event.getSource().is(net.minecraft.world.damagesource.DamageTypes.FALLING_BLOCK)) {
+                        target2 = -3;
+                    }
+                    thaumcraft.common.network.TCNetwork.sendToAllAround(mob.level(), mob.getX(), mob.getY(), mob.getZ(), 32.0,
+                            new thaumcraft.common.lib.network.fx.PacketFXShield(mob.getId(), target2));
+                    // As in the original the sound has no entry in sounds.json (it is listed as "runicshieldecharge"), so it is silent.
+                    mob.playSound(thaumcraft.common.lib.SoundsTC.RUNICSHIELDCHARGE.get(), 0.66f, 1.1f + mob.getRandom().nextFloat() * 0.1f);
                 } else if (t >= 0 && ChampionModifier.mods[t].type == 2 && source instanceof LivingEntity attacker) {
                     event.setAmount(ChampionModifier.mods[t].effect.performEffect(mob, attacker, event.getSource(), event.getAmount()));
                 }

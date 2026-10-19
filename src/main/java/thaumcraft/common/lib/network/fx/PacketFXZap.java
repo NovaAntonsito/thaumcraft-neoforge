@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import thaumcraft.Thaumcraft;
-import thaumcraft.client.fx.ClientFX;
 
 /**
  * Port of PacketFXZap: the bolt focus arc. 1.21: drawn with the existing lightning arc (the width is kept in the
@@ -33,7 +32,7 @@ public record PacketFXZap(Vec3 source, Vec3 target, int color, float width) impl
 
     public static void handle(PacketFXZap message, IPayloadContext context) {
         Color c = new Color(message.color);
-        ClientFX.arcLightning(message.source.x, message.source.y, message.source.z, message.target.x, message.target.y, message.target.z,
-                c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f);
+        thaumcraft.client.fx.FXDispatcher.arcBolt(message.source.x, message.source.y, message.source.z, message.target.x, message.target.y,
+                message.target.z, c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, message.width);
     }
 }

@@ -7,7 +7,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import thaumcraft.Thaumcraft;
-import thaumcraft.client.fx.ClientFX;
 
 /** Port of PacketFXSonic: the screech ripple of an eldritch guardian, drawn at the head of the source entity. */
 public record PacketFXSonic(int source) implements CustomPacketPayload {
@@ -24,7 +23,7 @@ public record PacketFXSonic(int source) implements CustomPacketPayload {
     public static void handle(PacketFXSonic message, IPayloadContext context) {
         Entity p = context.player().level().getEntity(message.source);
         if (p != null) {
-            ClientFX.sonic(p);
+            thaumcraft.client.fx.FXDispatcher.sonic(p);
         }
     }
 }

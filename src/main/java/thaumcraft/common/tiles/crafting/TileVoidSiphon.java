@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import thaumcraft.client.fx.ClientFX;
 import thaumcraft.common.blocks.crafting.BlockVoidSiphon;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.entities.EntityFluxRift;
@@ -132,8 +131,8 @@ public class TileVoidSiphon extends TileThaumcraft implements WorldlyContainer {
         if (i == 5) {
             if (level.isClientSide) {
                 for (EntityFluxRift fr : getValidRifts()) {
-                    ClientFX.voidStreak(level, fr.getX(), fr.getY(), fr.getZ(), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5625,
-                            worldPosition.getZ() + 0.5);
+                    thaumcraft.client.fx.FXDispatcher.voidStreak(fr.getX(), fr.getY(), fr.getZ(), worldPosition.getX() + 0.5,
+                            worldPosition.getY() + 0.5625f, worldPosition.getZ() + 0.5, j, 0.04f);
                 }
             }
             return true;

@@ -19,6 +19,10 @@ public final class TCRenderTypes extends RenderType {
     private static final Map<ResourceLocation, RenderType> SEAL_XRAY = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> ENTITY_XRAY = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> ENTITY_GLOW = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> BEAM = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> BEAM_ADDITIVE = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> RUNES = new HashMap<>();
+    private static final Map<ResourceLocation, RenderType> RUNES_ADDITIVE = new HashMap<>();
 
     private TCRenderTypes(String name, VertexFormat format, VertexFormat.Mode mode, int bufferSize, boolean affectsCrumbling, boolean sortOnUpload,
                           Runnable setupState, Runnable clearState) {
@@ -73,5 +77,31 @@ public final class TCRenderTypes extends RenderType {
                         .setTransparencyState(LIGHTNING_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP)
                         .setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE)
                         .createCompositeState(false)));
+    }
+
+    /**
+     * The beams and streams of the particle engine (arcs, bolts, essentia and void streams): POSITION_TEX_COLOR quads,
+     * culling off, no depth writes, blended normally or added on top. The texture repeats along the beam.
+     */
+    public static RenderType beam(ResourceLocation texture, boolean additive) {
+        return (additive ? BEAM_ADDITIVE : BEAM).computeIfAbsent(texture, t -> create(additive ? "thaumcraft_beam_additive" : "thaumcraft_beam",
+                DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 1536, false, false,
+                CompositeState.builder().setShaderState(new ShaderStateShard(net.minecraft.client.renderer.GameRenderer::getPositionTexColorShader))
+                        .setTextureState(new TextureStateShard(t, false, false))
+                        .setTransparencyState(additive ? LIGHTNING_TRANSPARENCY : TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL)
+                        .setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
+    }
+
+    /**
+     * The rune shields and the sonic ripple (the hemis model): entity quads with the blurred animated textures,
+     * culling off, no depth writes, full bright, blended normally or added on top.
+     */
+    public static RenderType runes(ResourceLocation texture, boolean additive) {
+        return (additive ? RUNES_ADDITIVE : RUNES).computeIfAbsent(texture, t -> create(additive ? "thaumcraft_runes_additive" : "thaumcraft_runes",
+                DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, true,
+                CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
+                        .setTextureState(new TextureStateShard(t, true, false))
+                        .setTransparencyState(additive ? LIGHTNING_TRANSPARENCY : TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL)
+                        .setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
     }
 }

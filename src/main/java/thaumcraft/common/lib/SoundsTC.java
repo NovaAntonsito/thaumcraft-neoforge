@@ -73,6 +73,7 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> URNBREAK = register("urnbreak");
     public static final Supplier<SoundEvent> JACOBS = register("jacobs");
     public static final Supplier<SoundEvent> WHISPERS = register("whispers");
+    public static final Supplier<SoundEvent> RUNICSHIELDCHARGE = register("runicshieldcharge");
 
     /** SoundsTC.JAR of the original: the block sound type of jars. */
     public static final SoundType SOUND_TYPE_JAR = new DeferredSoundType(0.5f, 1.0f, JAR, JAR, JAR, JAR, JAR);

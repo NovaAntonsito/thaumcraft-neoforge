@@ -156,4 +156,40 @@ public final class Utils {
     public static double magn(double[] a) {
         return Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
     }
+
+    /** The launch velocity of an arc from one point to another rising heightGain at most (used by FXArc). */
+    public static net.minecraft.world.phys.Vec3 calculateVelocity(net.minecraft.world.phys.Vec3 from, net.minecraft.world.phys.Vec3 to, double heightGain,
+                                                                double gravity) {
+        double endGain = to.y - from.y;
+        double horizDist = Math.sqrt(distanceSquared2d(from, to));
+        double gain = heightGain;
+        double maxGain = (gain > endGain + gain) ? gain : (endGain + gain);
+        double a = -horizDist * horizDist / (4.0 * maxGain);
+        double b = horizDist;
+        double c = -endGain;
+        double slope = -b / (2.0 * a) - Math.sqrt(b * b - 4.0 * a * c) / (2.0 * a);
+        double vy = Math.sqrt(maxGain * gravity);
+        double vh = vy / slope;
+        double dx = to.x - from.x;
+        double dz = to.z - from.z;
+        double mag = Math.sqrt(dx * dx + dz * dz);
+        double dirx = dx / mag;
+        double dirz = dz / mag;
+        double vx = vh * dirx;
+        double vz = vh * dirz;
+        return new net.minecraft.world.phys.Vec3(vx, vy, vz);
+    }
+
+    public static double distanceSquared2d(net.minecraft.world.phys.Vec3 from, net.minecraft.world.phys.Vec3 to) {
+        double dx = to.x - from.x;
+        double dz = to.z - from.z;
+        return dx * dx + dz * dz;
+    }
+
+    public static double distanceSquared3d(net.minecraft.world.phys.Vec3 from, net.minecraft.world.phys.Vec3 to) {
+        double dx = to.x - from.x;
+        double dy = to.y - from.y;
+        double dz = to.z - from.z;
+        return dx * dx + dy * dy + dz * dz;
+    }
 }

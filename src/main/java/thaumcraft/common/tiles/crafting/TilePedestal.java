@@ -140,7 +140,6 @@ public class TilePedestal extends TileThaumcraft implements Container {
     /**
      * Client effects sent with level.blockEvent: 11 when instability knocks the item off, 12 when infusion
      * finishes, 5 for the stabilizer shield.
-     * TODO: drawPedestalShield (stage 10b).
      */
     @Override
     public boolean triggerEvent(int i, int j) {
@@ -157,6 +156,9 @@ public class TilePedestal extends TileThaumcraft implements Container {
             return true;
         }
         if (i == 5) {
+            if (level != null && level.isClientSide) {
+                thaumcraft.client.fx.FXDispatcher.drawPedestalShield(worldPosition);
+            }
             return true;
         }
         return super.triggerEvent(i, j);

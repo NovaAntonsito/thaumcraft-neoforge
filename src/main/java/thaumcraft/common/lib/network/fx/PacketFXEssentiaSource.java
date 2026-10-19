@@ -28,7 +28,6 @@ public record PacketFXEssentiaSource(BlockPos pos, byte dx, byte dy, byte dz, in
     }
 
     public static void handle(PacketFXEssentiaSource msg, IPayloadContext context) {
-        BlockPos source = msg.pos.offset(-msg.dx, -msg.dy, -msg.dz);
-        ClientFX.essentiaTrail(source, msg.pos, msg.color);
+        thaumcraft.client.fx.ClientFX.essentiaSource(msg.pos, msg.pos.offset(-msg.dx, -msg.dy, -msg.dz), msg.color, msg.ext);
     }
 }

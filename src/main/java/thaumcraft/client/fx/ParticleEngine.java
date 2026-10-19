@@ -22,6 +22,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
@@ -101,6 +102,14 @@ public final class ParticleEngine {
         parts.add(fx);
     }
 
+    /** For the effects the original gave to the vanilla effect renderer (arcs, bolts, shields): no random skipping. */
+    public static void addEffectAlways(Level level, Particle fx) {
+        if (Minecraft.getInstance().level == null || !sync()) return;
+        List<Particle> parts = particles[layerOf(fx)];
+        if (parts.size() >= getParticleLimit()) parts.remove(0);
+        parts.add(fx);
+    }
+
     public static void addEffectWithDelay(Level level, Particle fx, int delay) {
         if (!sync()) return;
         particlesDelayed.add(new ParticleDelay(fx, delay));
@@ -109,6 +118,7 @@ public final class ParticleEngine {
     @SubscribeEvent
     static void updateParticles(ClientTickEvent.Pre event) {
         if (!sync()) return;
+        ClientFX.tickEssentiaSources();
         Iterator<ParticleDelay> i = particlesDelayed.iterator();
         List<Particle> ready = new ArrayList<>();
         while (i.hasNext()) {
@@ -179,6 +189,17 @@ public final class ParticleEngine {
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         light.turnOffLightLayer();
+        MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+        boolean drew = false;
+        for (int layer = LAYERS - 1; layer >= 0; --layer) {
+            for (Particle particle : particles[layer]) {
+                if (particle instanceof FXBase b && b.isCustomRender()) {
+                    b.renderCustom(buffers, camera, frame);
+                    drew = true;
+                }
+            }
+        }
+        if (drew) buffers.endBatch();
     }
 
     private static final class ParticleDelay {
