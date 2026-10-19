@@ -21,6 +21,10 @@
     {
       "type": "single",
       "resource": "thaumcraft:models/chesthungry"
+    },
+    {
+      "type": "single",
+      "resource": "thaumcraft:models/crabvent"
     }
   ]
 }
