@@ -104,17 +104,22 @@ public class EntityTaintacle extends Monster implements ITaintedMob {
     }
 
     /**
-     * Raises a taint tendril next to the target when it stands on taint. Shared with the taint seeds.
-     * TODO: the eldritch biome also allows it, and turns the air under the target into taint fibre (Outer Lands).
+     * Raises a taint tendril next to the target when it stands on taint or in the Outer Lands biome. Shared with the
+     * taint seeds. In the Outer Lands it also grows taint fibre where the target stands.
      */
     public static void spawnTentacles(Mob source, Entity entity, float volume, float pitch) {
         Level world = source.level();
-        if (isOnTaint(world, entity.blockPosition())) {
+        BlockPos pos = entity.blockPosition();
+        boolean eldritch = world.getBiome(pos).is(thaumcraft.common.world.biomes.TCBiomes.ELDRITCH);
+        if (eldritch || isOnTaint(world, pos)) {
             EntityTaintacleSmall taintlet = new EntityTaintacleSmall(world);
             taintlet.moveTo(entity.getX() + world.random.nextFloat() - world.random.nextFloat(), entity.getY(),
                     entity.getZ() + world.random.nextFloat() - world.random.nextFloat(), 0.0f, 0.0f);
             world.addFreshEntity(taintlet);
             source.playSound(SoundsTC.TENTACLE.get(), volume, pitch);
+            if (eldritch && world.isEmptyBlock(pos) && thaumcraft.common.lib.utils.BlockUtils.isAdjacentToSolidBlock(world, pos)) {
+                world.setBlockAndUpdate(pos, thaumcraft.common.config.ConfigBlocks.taintFibre.get().defaultBlockState());
+            }
         }
     }
 

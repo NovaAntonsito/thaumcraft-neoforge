@@ -32,6 +32,16 @@ public final class BlockUtils {
     }
 
     /** True if any neighbour of the block is not a full opaque block. */
+    public static boolean isAdjacentToSolidBlock(Level world, BlockPos pos) {
+        for (Direction face : Direction.values()) {
+            BlockPos np = pos.relative(face);
+            if (world.getBlockState(np).isFaceSturdy(world, np, face.getOpposite())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isBlockExposed(Level world, BlockPos pos) {
         for (Direction face : Direction.values()) {
             BlockPos n = pos.relative(face);

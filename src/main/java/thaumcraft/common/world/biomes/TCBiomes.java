@@ -16,16 +16,19 @@ import thaumcraft.Config;
 import thaumcraft.Thaumcraft;
 
 /**
- * The biomes of Registrar.registerBiomes. Magical Forest and Eerie are data (data/thaumcraft/worldgen/biome); the
- * Outer Lands come with the eldritch stage.
+ * The biomes of Registrar.registerBiomes. Magical Forest, Eerie and the Outer Lands are data
+ * (data/thaumcraft/worldgen/biome).
  * <p>
  * 1.12 put the magical forest in the WARM and COOL biome lists. Since 1.18 biomes are placed by climate, so a
  * TerraBlender region swaps the plain forest of the vanilla layout for it, in the share of the world that the
- * region's weight gives. The Eerie biome was registered but never generated, and it stays that way.
+ * region's weight gives. The Eerie and Outer Lands biomes were registered but never generated, and they stay that way:
+ * Thaumcraft 6 never shipped the Outer Lands dimension, only its biome.
  */
 public final class TCBiomes {
     public static final ResourceKey<Biome> MAGICAL_FOREST = key("magical_forest");
     public static final ResourceKey<Biome> EERIE = key("eerie");
+    /** BiomeHandler.ELDRITCH, registered as "Outer Lands". */
+    public static final ResourceKey<Biome> ELDRITCH = key("eldritch");
 
     private TCBiomes() {
     }
