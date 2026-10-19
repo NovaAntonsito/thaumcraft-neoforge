@@ -19,6 +19,7 @@ public final class SoundsTC {
     public static final Supplier<SoundEvent> DUST = register("dust");
     public static final Supplier<SoundEvent> JAR = register("jar");
     public static final Supplier<SoundEvent> PAGE = register("page");
+    public static final Supplier<SoundEvent> PAGETURN = register("pageturn");
     public static final Supplier<SoundEvent> KEY = register("key");
     public static final Supplier<SoundEvent> WRITE = register("write");
     public static final Supplier<SoundEvent> CLACK = register("clack");

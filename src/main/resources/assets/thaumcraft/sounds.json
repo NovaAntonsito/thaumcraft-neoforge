@@ -42,6 +42,12 @@
       "thaumcraft:page2"
     ]
   },
+  "pageturn": {
+    "category": "master",
+    "sounds": [
+      "thaumcraft:pageturn"
+    ]
+  },
   "key": {
     "category": "ambient",
     "sounds": [

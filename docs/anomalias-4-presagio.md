@@ -14,6 +14,12 @@ Estado: **hecha, compila, sin probar en el juego.** Con esto se cierra la etapa 
    - Tiene 60 segundos. Si no elige, sale una de las 3 al azar. Mientras elige, el reloj se pausa y el HUD muestra la cuenta.
    - Si cerrás la pantalla, la volvés a abrir agachado + clic derecho con el taumómetro (apuntando al aire).
    - Los demás jugadores ven "Un vidente está eligiendo".
+   - **Las cartas son las hojas de theorycraft de TC6**, con sus mismas animaciones:
+     - salen del centro de a una, con sonido de página;
+     - se agrandan un poco cuando pasás el mouse;
+     - cada hoja tiene su propia inclinación y vuelta;
+     - la elegida va al centro y las otras se desvanecen; al final suena la escritura.
+   - Las positivas van en la hoja dorada (`papergilded.png`). Las negativas y las mixtas van en la hoja común. El texto va en tinta oscura, y el nombre en el color de su tipo.
 
 ## Decisiones
 - Las entradas van en **Auromancia** y no en Eldritch, porque Eldritch se abre muy tarde y las anomalías salen desde el principio.
