@@ -6,7 +6,7 @@
       "biome": "thaumcraft:eldritch",
       "layers": [
         {
-          "block": "minecraft:air",
+          "block": "minecraft:structure_void",
           "height": 1
         }
       ],
