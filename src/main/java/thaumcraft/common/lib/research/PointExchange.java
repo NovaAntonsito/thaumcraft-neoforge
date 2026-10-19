@@ -85,7 +85,7 @@ public final class PointExchange {
             return;
         }
         long now = player.level().getGameTime();
-        long last = player.getPersistentData().getLong(cooldownKey(offer));
+        long last = player.getData(TCAttachments.DREAM).getLong(cooldownKey(offer));
         if (offer.daily && last > 0 && now - last < COOLDOWN) {
             fail(player, Component.translatable("tc.exchange.wait", (COOLDOWN - (now - last)) / 1200 + 1));
             return;
@@ -123,7 +123,7 @@ public final class PointExchange {
             }
         }
         if (offer != Offer.RARE) pay(player, offer.cost);
-        if (offer.daily) player.getPersistentData().putLong(cooldownKey(offer), now);
+        if (offer.daily) player.getData(TCAttachments.DREAM).putLong(cooldownKey(offer), now);
         player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundsTC.WRITE.get(), SoundSource.PLAYERS, 0.75f, 1.0f);
     }
 

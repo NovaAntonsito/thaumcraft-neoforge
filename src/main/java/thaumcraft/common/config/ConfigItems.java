@@ -75,6 +75,9 @@ public final class ConfigItems {
 
     public static final DeferredItem<ItemScribingTools> scribingTools = ITEMS.registerItem("scribing_tools", ItemScribingTools::new);
     public static final DeferredItem<ItemResearchNote> researchNote = ITEMS.registerItem("research_note", ItemResearchNote::new);
+    // Dream branch: a page of the void explorer's journal.
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemVoidJournalPage> voidJournalPage =
+            ITEMS.registerItem("void_journal_page", thaumcraft.common.items.consumables.ItemVoidJournalPage::new);
     // Dream branch: a note that leads to a place in the world.
     public static final DeferredItem<thaumcraft.common.items.consumables.ItemCartographicNote> cartographicNote =
             ITEMS.registerItem("cartographic_note", thaumcraft.common.items.consumables.ItemCartographicNote::new);
@@ -338,6 +341,9 @@ public final class ConfigItems {
                                 output.acceptAll(thaumcraft.common.golems.ItemGolemPlacer.creativeStacks(item.get()));
                             } else if (item.get() instanceof thaumcraft.common.items.ISubItems sub) {
                                 sub.fillSubItems(output::accept);
+                            } else if (item.get() instanceof thaumcraft.common.items.consumables.ItemCartographicNote) {
+                                // Dream branch: a blank cartographic note picks where it leads in the inventory.
+                                output.accept(item.get());
                             } else if (item.get() instanceof ItemResearchNote) {
                                 // A blank note is useless: notes come from the thaumonomicon.
                             } else {

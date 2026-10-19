@@ -207,7 +207,7 @@ public class AnomalyManager extends SavedData {
 
     /** Drops the upcoming anomalies that can no longer run, and draws new ones up to {@link #CHOICES}. */
     private void refillUpcoming(ServerLevel level) {
-        upcoming.removeIf(id -> !canRun(Anomalies.get(id)));
+        upcoming.removeIf(id -> !canRun(Anomalies.get(id)) || !Anomalies.get(id).canStartIn(level));
         while (upcoming.size() < CHOICES) {
             AnomalyType t = draw(level, upcoming);
             if (t == null) break;
@@ -295,6 +295,7 @@ public class AnomalyManager extends SavedData {
         for (AnomalyType t : Anomalies.all()) {
             if (blacklist.contains(t.id) || isActive(t.id) || t.getMinTier() > getTier() || exclude.contains(t.id)) continue;
             if (wuss && t.polarity != AnomalyType.Polarity.POSITIVE) continue;
+            if (!t.canStartIn(level)) continue;
             double w = t.getWeight() * switch (t.polarity) {
                 case POSITIVE -> positive;
                 case NEGATIVE -> negative;

@@ -43,6 +43,10 @@ public final class TCDataComponents {
     public static final Supplier<DataComponentType<Integer>> WARP = DATA_COMPONENTS.registerComponentType("warp",
             builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
 
+    /** Dream branch: which page of the void explorer's journal (1 to 5). */
+    public static final Supplier<DataComponentType<Integer>> JOURNAL_PAGE = DATA_COMPONENTS.registerComponentType("journal_page",
+            builder -> builder.persistent(com.mojang.serialization.Codec.INT).networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT.cast()));
+
     /** The grid of a research note. Replaces the note's NBT (key, color, hexgrid, aspects, ...). */
     public static final Supplier<DataComponentType<ResearchNoteData>> RESEARCH_NOTE =
             DATA_COMPONENTS.registerComponentType("research_note", builder -> builder

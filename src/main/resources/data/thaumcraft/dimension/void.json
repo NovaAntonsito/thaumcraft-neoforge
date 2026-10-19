@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:void",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "thaumcraft:void",
+      "layers": [
+        {
+          "block": "minecraft:air",
+          "height": 1
+        }
+      ],
+      "lakes": false,
+      "features": true,
+      "structure_overrides": []
+    }
+  }
+}

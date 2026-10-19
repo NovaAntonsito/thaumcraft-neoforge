@@ -28,6 +28,7 @@ public final class InternalMethodHandler {
                 case PERMANENT -> (byte) 0;
                 case NORMAL -> (byte) 1;
                 case TEMPORARY -> (byte) 2;
+                case VOID -> (byte) 3;
             };
             net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp, new thaumcraft.common.lib.network.playerdata.PacketWarpMessage(amount, t));
         }
@@ -35,7 +36,7 @@ public final class InternalMethodHandler {
             pw.setCounter(pw.get(PlayerWarp.EnumWarpType.TEMPORARY) + pw.get(PlayerWarp.EnumWarpType.PERMANENT)
                     + pw.get(PlayerWarp.EnumWarpType.NORMAL));
         }
-        if (type != PlayerWarp.EnumWarpType.TEMPORARY && ThaumcraftCapabilities.knowsResearchStrict(player, "FIRSTSTEPS")
+        if (type != PlayerWarp.EnumWarpType.TEMPORARY && type != PlayerWarp.EnumWarpType.VOID && ThaumcraftCapabilities.knowsResearchStrict(player, "FIRSTSTEPS")
                 && !ThaumcraftCapabilities.knowsResearchStrict(player, "WARP")) {
             ResearchManager.completeResearch(player, "WARP");
             player.displayClientMessage(Component.translatable("research.WARP.warn"), true);

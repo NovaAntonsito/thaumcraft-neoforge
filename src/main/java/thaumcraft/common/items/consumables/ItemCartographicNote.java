@@ -105,14 +105,14 @@ public class ItemCartographicNote extends ItemResearchNote {
         if (target == null || !data.isComplete()) return InteractionResultHolder.fail(stack);
         if (!(world instanceof ServerLevel level)) return InteractionResultHolder.success(stack);
         Set<Long> mapped = new HashSet<>();
-        for (long l : player.getPersistentData().getLongArray(MAPPED)) mapped.add(l);
+        for (long l : player.getData(thaumcraft.common.registry.TCAttachments.DREAM).getLongArray(MAPPED)) mapped.add(l);
         BlockPos pos = CartographyTargets.find(target, level, player.blockPosition(), mapped);
         if (pos == null) {
             player.displayClientMessage(Component.translatable("tc.carto.none").withStyle(ChatFormatting.GRAY), true);
             return InteractionResultHolder.fail(stack);
         }
         mapped.add(pos.asLong());
-        player.getPersistentData().putLongArray(MAPPED, mapped.stream().mapToLong(Long::longValue).toArray());
+        player.getData(thaumcraft.common.registry.TCAttachments.DREAM).putLongArray(MAPPED, mapped.stream().mapToLong(Long::longValue).toArray());
         // As an explorer map: centered on the place, the biomes filled in and an X on it.
         ItemStack map = MapItem.create(level, pos.getX(), pos.getZ(), (byte) 1, true, true);
         MapItem.renderBiomePreviewMap(level, map);

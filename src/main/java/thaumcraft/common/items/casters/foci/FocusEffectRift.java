@@ -55,7 +55,7 @@ public class FocusEffectRift extends FocusEffect {
         }
         Level world = getPackage().world;
         BlockPos tp = bhr.getBlockPos();
-        if (world.dimension().location().equals(Thaumcraft.id("outer_lands"))) {
+        if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(world)) {
             world.playSound(null, tp.getX() + 0.5, tp.getY() + 0.5, tp.getZ() + 0.5, SoundsTC.WANDFAIL.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
             return false;
         }

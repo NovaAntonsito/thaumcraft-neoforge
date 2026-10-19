@@ -23,6 +23,10 @@ public final class TCEntities {
     public static final Supplier<EntityType<EntityFluxRift>> FLUX_RIFT = ENTITY_TYPES.register("flux_rift",
             () -> EntityType.Builder.<EntityFluxRift>of(EntityFluxRift::new, MobCategory.MISC).sized(2.0f, 2.0f).fireImmune()
                     .clientTrackingRange(4).updateInterval(20).build("flux_rift"));
+    /** Dream branch: the steady rift into a void labyrinth. */
+    public static final Supplier<EntityType<thaumcraft.common.entities.EntityVoidRift>> VOID_RIFT = ENTITY_TYPES.register("void_rift",
+            () -> EntityType.Builder.<thaumcraft.common.entities.EntityVoidRift>of(thaumcraft.common.entities.EntityVoidRift::new, MobCategory.MISC)
+                    .sized(2.0f, 2.0f).fireImmune().clientTrackingRange(8).updateInterval(20).build("void_rift"));
 
     /** ConfigEntities: "FocusProjectile", tracked up to 64 blocks, updates every 20 ticks (10 here, like vanilla throwables). */
     public static final Supplier<EntityType<thaumcraft.common.entities.projectile.EntityFocusProjectile>> FOCUS_PROJECTILE = ENTITY_TYPES.register("focus_projectile",

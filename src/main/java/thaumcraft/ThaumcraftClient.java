@@ -136,6 +136,7 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.ALUMENTUM.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(TCEntities.PERMANENT_ITEM.get(), net.minecraft.client.renderer.entity.ItemEntityRenderer::new);
         event.registerEntityRenderer(TCEntities.FLUX_RIFT.get(), RenderFluxRift::new);
+        event.registerEntityRenderer(TCEntities.VOID_RIFT.get(), ctx -> (net.minecraft.client.renderer.entity.EntityRenderer) new RenderFluxRift(ctx));
         event.registerEntityRenderer(TCEntities.FOCUS_PROJECTILE.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_CLOUD.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_MINE.get(), thaumcraft.client.renderers.entity.projectile.RenderFocusMine::new);
@@ -317,6 +318,8 @@ public class ThaumcraftClient {
         // Reborn's research note colors: layer 1 (the overlay) takes the note's color.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF000000 | ItemResearchNote.getColor(stack) : 0xFFFFFFFF,
                 ConfigItems.researchNote.get(), ConfigItems.cartographicNote.get());
+        // Dream branch: the void journal pages, a note with a deep void overlay.
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF3A1060 : 0xFFFFFFFF, ConfigItems.voidJournalPage.get());
         // The aura atlas (dream branch): a research note whose overlay is vis violet.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF9A60D0 : 0xFFFFFFFF, ConfigItems.auraAtlas.get());
         // Phials and labels: the overlay layer. Jars: the essentia inside the item model (tintindex 1).

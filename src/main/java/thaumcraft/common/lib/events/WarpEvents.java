@@ -63,7 +63,8 @@ public final class WarpEvents {
         int tw = wc.get(PlayerWarp.EnumWarpType.TEMPORARY);
         int nw = wc.get(PlayerWarp.EnumWarpType.NORMAL);
         int pw = wc.get(PlayerWarp.EnumWarpType.PERMANENT);
-        int warp = tw + nw + pw;
+        // Dream branch: void warp past its safe amount.
+        int warp = tw + nw + pw + wc.getVoidExcess();
         int actualwarp = pw + nw;
         int gearWarp = getWarpFromGear(player);
         warp += gearWarp;

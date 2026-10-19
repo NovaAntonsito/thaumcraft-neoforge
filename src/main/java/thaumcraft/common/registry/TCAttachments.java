@@ -47,6 +47,16 @@ public final class TCAttachments {
                     .sync((holder, player) -> holder == player, PlayerAspects.STREAM_CODEC)
                     .build());
 
+    /**
+     * Dream branch: what the new features remember about a player (the places their cartographic notes mapped, the
+     * point exchange times, the void encounters). Kept on death.
+     */
+    public static final Supplier<AttachmentType<CompoundTag>> DREAM = ATTACHMENT_TYPES.register("dream",
+            () -> AttachmentType.builder(() -> new CompoundTag())
+                    .serialize(CompoundTag.CODEC)
+                    .copyOnDeath()
+                    .build());
+
     /** Per-chunk aura (vis, flux, base). Saved with the chunk; replaces the "Thaumcraft" tag written in ChunkDataEvent. */
     public static final Supplier<AttachmentType<AuraChunk>> AURA = ATTACHMENT_TYPES.register("aura",
             () -> AttachmentType.builder(() -> new AuraChunk(null, (short) 0, 0.0f, 0.0f))

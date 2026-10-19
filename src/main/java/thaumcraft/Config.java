@@ -198,6 +198,24 @@ public class Config {
 
     static {
         BUILDER.pop();
+        BUILDER.comment("Dream branch: the Whispers of the Void event.").push("void");
+    }
+
+    public static final ModConfigSpec.BooleanValue VOID_WHISPERS = BUILDER
+            .comment("The Whispers of the Void event: rifts to small labyrinths in the void dimension.")
+            .define("voidWhispers", true);
+    public static final ModConfigSpec.IntValue VOID_WARP_GAIN = BUILDER
+            .comment("Void warp gained each time a player goes through a void rift.")
+            .defineInRange("voidWarpGain", 25, 0, 1000);
+    public static final ModConfigSpec.IntValue VOID_WARP_SAFE = BUILDER
+            .comment("Void warp up to this amount has no effect; only what is above it counts toward warp events.")
+            .defineInRange("voidWarpSafe", 25, 0, 1000);
+    public static final ModConfigSpec.IntValue VOID_WARP_DECAY = BUILDER
+            .comment("Minutes for one point of void warp to wear off.")
+            .defineInRange("voidWarpDecayMinutes", 2, 1, 1440);
+
+    static {
+        BUILDER.pop();
     }
 
     static final ModConfigSpec SPEC = BUILDER.build();

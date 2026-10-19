@@ -49,7 +49,7 @@ public final class PlayerEvents {
 
     /** TC4 EventHandlerEntity.livingTick: no flying in the Outer Lands outside creative, checked once a second. */
     private static void breakFlight(ServerPlayer player) {
-        if (thaumcraft.common.world.dim.OuterLands.is(player.level()) && !player.getAbilities().instabuild
+        if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(player.level()) && !player.getAbilities().instabuild
                 && player.tickCount % 20 == 0 && player.getAbilities().flying) {
             player.getAbilities().flying = false;
             player.onUpdateAbilities();

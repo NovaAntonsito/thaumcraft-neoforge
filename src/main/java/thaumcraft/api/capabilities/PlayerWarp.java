@@ -19,7 +19,12 @@ import net.minecraft.util.StringRepresentable;
  */
 public class PlayerWarp {
     public enum EnumWarpType implements StringRepresentable {
-        PERMANENT, NORMAL, TEMPORARY;
+        PERMANENT, NORMAL, TEMPORARY,
+        /**
+         * Dream branch: the warp of the void, gained by entering it. It only counts toward warp events above
+         * {@code voidWarpSafe}, it cannot be cleansed and it wears off by itself.
+         */
+        VOID;
 
         public static final Codec<EnumWarpType> CODEC = StringRepresentable.fromEnum(EnumWarpType::values);
 
@@ -38,12 +43,14 @@ public class PlayerWarp {
             ByteBufCodecs.VAR_INT, w -> w.get(EnumWarpType.PERMANENT),
             ByteBufCodecs.VAR_INT, w -> w.get(EnumWarpType.NORMAL),
             ByteBufCodecs.VAR_INT, w -> w.get(EnumWarpType.TEMPORARY),
+            ByteBufCodecs.VAR_INT, w -> w.get(EnumWarpType.VOID),
             ByteBufCodecs.VAR_INT, PlayerWarp::getCounter,
-            (p, n, t, c) -> {
+            (p, n, t, v, c) -> {
                 PlayerWarp w = new PlayerWarp();
                 w.set(EnumWarpType.PERMANENT, p);
                 w.set(EnumWarpType.NORMAL, n);
                 w.set(EnumWarpType.TEMPORARY, t);
+                w.set(EnumWarpType.VOID, v);
                 w.setCounter(c);
                 return w;
             });
@@ -83,11 +90,14 @@ public class PlayerWarp {
         return add(type, -amount);
     }
 
-    /** Total warp, as used by warp events. */
+    /** Total warp, as used by warp events: void warp only counts above the safe amount. */
     public int getTotal() {
-        int total = 0;
-        for (int v : warp.values()) total += v;
-        return total;
+        return get(EnumWarpType.PERMANENT) + get(EnumWarpType.NORMAL) + get(EnumWarpType.TEMPORARY) + getVoidExcess();
+    }
+
+    /** The void warp above {@code voidWarpSafe}, the part that brings warp events. */
+    public int getVoidExcess() {
+        return Math.max(0, get(EnumWarpType.VOID) - thaumcraft.Config.VOID_WARP_SAFE.get());
     }
 
     /** Internal counter used to space out warp events. */
