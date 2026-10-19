@@ -12,6 +12,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -20,12 +21,19 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.blocks.essentia.BlockSmelter;
+import thaumcraft.common.blocks.essentia.BlockTube;
+import thaumcraft.common.items.consumables.ItemPhial;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.tiles.crafting.TileCrucible;
 import thaumcraft.common.tiles.crafting.TileInfusionMatrix;
 import thaumcraft.common.tiles.crafting.TilePedestal;
+import thaumcraft.common.tiles.crafting.TileResearchTable;
+import thaumcraft.common.tiles.essentia.TileCentrifuge;
 import thaumcraft.common.tiles.essentia.TileJarFillable;
+import thaumcraft.common.tiles.essentia.TileTubeBuffer;
+import thaumcraft.common.tiles.essentia.TileTubeFilter;
+import thaumcraft.common.tiles.essentia.TileTubeValve;
 
 /**
  * The Ponder storyboards. Every .text(...) here must match the thaumcraft.ponder.&lt;scene&gt;.text_N entries in
@@ -309,6 +317,334 @@ public final class ThaumcraftPonderScenes {
                 .text("Not all essentia survives: the basic smeltery loses about a fifth of it as flux into the aura")
                 .colored(PonderPalette.RED)
                 .pointAt(util.vector().topOf(alembic))
+                .placeNearTarget();
+        scene.idle(90);
+        scene.markAsFinished();
+    }
+
+    // ---- (d) arcane workbench: salis mundus on a crafting table, vis and crystals ----
+    public static void arcaneWorkbench(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("arcane_workbench", "The Arcane Workbench");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos bench = util.grid().at(2, 1, 2);
+        BlockState workbench = ConfigBlocks.arcaneWorkbench.get().defaultBlockState();
+        scene.world().setBlock(bench, Blocks.CRAFTING_TABLE.defaultBlockState(), false);
+        scene.world().showSection(util.select().position(bench), Direction.DOWN);
+        scene.idle(15);
+
+        scene.overlay().showControls(util.vector().topOf(bench), Pointing.DOWN, 40).rightClick()
+                .withItem(new ItemStack(ConfigItems.salisMundus.get()));
+        scene.idle(15);
+        scene.world().setBlock(bench, workbench, true);
+        scene.overlay().showText(80)
+                .text("Once your research has begun, sprinkle Salis Mundus on a Crafting Table to turn it into an Arcane Workbench")
+                .pointAt(util.vector().topOf(bench))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(90);
+
+        scene.overlay().showText(90)
+                .text("Arcane recipes are laid out like normal ones, but they also cost vis, drawn from the aura of the chunk the workbench stands in")
+                .pointAt(util.vector().centerOf(bench))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+
+        scene.overlay().showControls(util.vector().topOf(bench), Pointing.DOWN, 50)
+                .withItem(ConfigItems.crystalEssence.get().makeCrystal(Aspect.ORDER, 1));
+        scene.overlay().showText(80)
+                .text("Some recipes also ask for vis crystals, placed in the six slots around the crafting grid")
+                .pointAt(util.vector().topOf(bench))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(90);
+
+        scene.overlay().showText(70)
+                .text("Only recipes you have researched can be made, and the chunk must hold enough vis")
+                .colored(PonderPalette.RED)
+                .pointAt(util.vector().centerOf(bench))
+                .placeNearTarget();
+        scene.idle(80);
+        scene.markAsFinished();
+    }
+
+    // ---- (e) research table: scribing tools on a wooden table, notes and bonus aspects ----
+    public static void researchTable(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("research_table", "The Research Table");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos table = util.grid().at(2, 1, 2);
+        BlockPos water = util.grid().at(0, 1, 4);
+        BlockPos dirt = util.grid().at(4, 1, 4);
+        BlockPos torch = util.grid().at(0, 1, 0);
+        BlockState research = ConfigBlocks.researchTable.get().defaultBlockState()
+                .setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH);
+        scene.world().setBlock(table, ConfigBlocks.tableWood.get().defaultBlockState(), false);
+        scene.world().showSection(util.select().position(table), Direction.DOWN);
+        scene.idle(15);
+
+        ItemStack tools = new ItemStack(ConfigItems.scribingTools.get());
+        scene.overlay().showControls(util.vector().topOf(table), Pointing.DOWN, 40).rightClick().withItem(tools);
+        scene.idle(15);
+        scene.world().setBlock(table, research, true);
+        scene.world().modifyBlockEntity(table, TileResearchTable.class, te -> te.setItem(0, tools.copy()));
+        scene.overlay().showText(80)
+                .text("Right-click a Wooden Table with Scribing Tools to turn it into a Research Table. The tools stay on it")
+                .pointAt(util.vector().topOf(table))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(90);
+
+        scene.overlay().showText(80)
+                .text("Put a research note in the table next to the tools to work on it")
+                .pointAt(util.vector().centerOf(table))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(90);
+
+        scene.overlay().showText(100)
+                .text("Write aspects on the hexagons of the note to link the aspects already on it. Neighbouring aspects must be related: one has to be made from the other")
+                .pointAt(util.vector().topOf(table))
+                .placeNearTarget();
+        scene.idle(110);
+
+        scene.overlay().showText(70)
+                .text("Every aspect you write uses up some ink from the Scribing Tools")
+                .colored(PonderPalette.RED)
+                .pointAt(util.vector().topOf(table))
+                .placeNearTarget();
+        scene.idle(80);
+
+        Selection around = util.select().position(water).add(util.select().position(dirt)).add(util.select().position(torch));
+        scene.world().showSection(around, Direction.DOWN);
+        scene.idle(15);
+        scene.overlay().showOutline(PonderPalette.GREEN, "around", around, 100);
+        scene.overlay().showText(100)
+                .text("Now and then the surroundings give the table a free primal point: water gives Aqua, dirt Terra, fire or lava Ignis, redstone devices Ordo. Darkness and height help too")
+                .colored(PonderPalette.GREEN)
+                .pointAt(util.vector().centerOf(water))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(110);
+        scene.markAsFinished();
+    }
+
+    // Shared by both tube scenes: the jar on the left drains into the labelled jar on the right.
+    private static void flow(SceneBuilder scene, BlockPos from, BlockPos to, Aspect aspect, int steps) {
+        for (int i = 1; i <= steps; i++) {
+            int moved = i * 4;
+            scene.world().modifyBlockEntity(from, TileJarFillable.class, te -> te.amount = Math.max(0, 32 - moved));
+            scene.world().modifyBlockEntity(to, TileJarFillable.class, te -> {
+                te.aspect = aspect;
+                te.amount = moved;
+            });
+            scene.idle(8);
+        }
+    }
+
+    private static void fillJars(SceneBuilder scene, BlockPos from, BlockPos to, Aspect aspect) {
+        scene.world().modifyBlockEntity(from, TileJarFillable.class, te -> {
+            te.aspect = aspect;
+            te.amount = 32;
+        });
+        scene.world().modifyBlockEntity(to, TileJarFillable.class, te -> {
+            te.aspect = null;
+            te.amount = 0;
+            te.aspectFilter = aspect;
+        });
+    }
+
+    private static BlockState tubeState(Block block) {
+        return block.defaultBlockState().setValue(BlockTube.WEST, true).setValue(BlockTube.EAST, true);
+    }
+
+    // ---- (f) essentia tubes: suction, valve and filter ----
+    public static void essentiaTubes(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("essentia_tubes", "Essentia Tubes");
+        scene.configureBasePlate(0, 0, 7);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos source = util.grid().at(1, 1, 2);
+        BlockPos target = util.grid().at(5, 1, 2);
+        BlockPos middle = util.grid().at(3, 2, 2);
+        fillJars(scene, source, target, Aspect.FIRE);
+
+        scene.world().showSection(util.select().position(source).add(util.select().position(target)), Direction.DOWN);
+        scene.idle(10);
+        scene.world().showSection(util.select().fromTo(1, 2, 2, 5, 2, 2), Direction.DOWN);
+        scene.idle(15);
+
+        scene.overlay().showText(90)
+                .text("Essentia moves through tubes towards whatever pulls on it hardest. That pull is called suction")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+
+        scene.overlay().showText(80)
+                .text("A labelled Warded Jar pulls harder than an unlabelled one, so the essentia flows into it")
+                .pointAt(util.vector().topOf(target))
+                .placeNearTarget();
+        flow(scene, source, target, Aspect.FIRE, 4);
+        scene.idle(50);
+
+        // Valve.
+        scene.world().setBlock(middle, tubeState(ConfigBlocks.tubeValve.get()), true);
+        scene.idle(15);
+        scene.overlay().showControls(util.vector().topOf(middle), Pointing.DOWN, 40).rightClick();
+        scene.idle(10);
+        scene.world().modifyBlockEntity(middle, TileTubeValve.class, te -> te.allowFlow = false);
+        scene.overlay().showText(90)
+                .text("The Essentia Valve closes the line when right-clicked with an empty hand, or while it gets a redstone signal")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+        scene.overlay().showControls(util.vector().topOf(middle), Pointing.DOWN, 30).rightClick();
+        scene.idle(10);
+        scene.world().modifyBlockEntity(middle, TileTubeValve.class, te -> te.allowFlow = true);
+        scene.idle(20);
+
+        // Filter.
+        scene.world().setBlock(middle, tubeState(ConfigBlocks.tubeFilter.get()), true);
+        scene.idle(15);
+        scene.overlay().showControls(util.vector().topOf(middle), Pointing.DOWN, 40).rightClick()
+                .withItem(ItemPhial.makeFilledPhial(Aspect.FIRE));
+        scene.idle(10);
+        scene.world().modifyBlockEntity(middle, TileTubeFilter.class, te -> te.aspectFilter = Aspect.FIRE);
+        scene.overlay().showText(100)
+                .text("The Essentia Filter lets a single aspect through. Right-click it with a filled phial to choose it, and sneak and right-click to clear it")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        flow(scene, source, target, Aspect.FIRE, 4);
+        scene.idle(80);
+        scene.markAsFinished();
+    }
+
+    // ---- (g) the other tubes: restricted, directional and buffer ----
+    public static void tubeVariants(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("tube_variants", "Special Essentia Tubes");
+        scene.configureBasePlate(0, 0, 7);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos source = util.grid().at(1, 1, 2);
+        BlockPos target = util.grid().at(5, 1, 2);
+        BlockPos middle = util.grid().at(3, 2, 2);
+        fillJars(scene, source, target, Aspect.WATER);
+        scene.world().setBlock(middle, tubeState(ConfigBlocks.tubeRestrict.get()), false);
+
+        scene.world().showSection(util.select().position(source).add(util.select().position(target)), Direction.DOWN);
+        scene.idle(10);
+        scene.world().showSection(util.select().fromTo(1, 2, 2, 5, 2, 2), Direction.DOWN);
+        scene.idle(15);
+
+        scene.overlay().showText(90)
+                .text("The Restricted Tube halves the suction that passes through it, so other paths with stronger suction win")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+
+        // Directional tube.
+        scene.world().setBlock(middle, tubeState(ConfigBlocks.tubeOneway.get()), true);
+        scene.idle(15);
+        scene.overlay().showControls(util.vector().topOf(middle), Pointing.DOWN, 40).rightClick()
+                .withItem(new ItemStack(ConfigItems.casterBasic.get()));
+        scene.idle(10);
+        scene.overlay().showText(90)
+                .text("The Directional Tube lets essentia through in one direction only. Right-click its middle with a Caster's Gauntlet to turn it")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        flow(scene, source, target, Aspect.WATER, 4);
+        scene.idle(70);
+
+        // Buffer.
+        scene.world().setBlock(middle, tubeState(ConfigBlocks.tubeBuffer.get()), true);
+        scene.idle(15);
+        scene.world().modifyBlockEntity(middle, TileTubeBuffer.class, te -> te.aspects = new AspectList().add(Aspect.WATER, 10));
+        scene.overlay().showText(90)
+                .text("The Essentia Buffer holds up to 10 essentia in the line and hands it on with a very weak suction")
+                .pointAt(util.vector().centerOf(middle))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+        scene.overlay().showControls(util.vector().blockSurface(middle, Direction.EAST), Pointing.DOWN, 40).rightClick()
+                .withItem(new ItemStack(ConfigItems.casterBasic.get()));
+        scene.idle(10);
+        scene.overlay().showText(90)
+                .text("Right-click one of its sides with a Caster's Gauntlet to choke it: once for low suction on that side, twice to close it")
+                .pointAt(util.vector().blockSurface(middle, Direction.EAST))
+                .placeNearTarget();
+        scene.idle(100);
+        scene.markAsFinished();
+    }
+
+    // ---- (h) centrifuge: splitting compound essentia ----
+    public static void centrifuge(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("centrifuge", "The Essentia Centrifuge");
+        scene.configureBasePlate(0, 0, 5);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos source = util.grid().at(2, 1, 2);
+        BlockPos spin = util.grid().at(2, 2, 2);
+        BlockPos left = util.grid().at(1, 1, 2);
+        BlockPos right = util.grid().at(3, 1, 2);
+        scene.world().modifyBlockEntity(source, TileJarFillable.class, te -> {
+            te.aspect = Aspect.CRYSTAL;
+            te.amount = 32;
+        });
+
+        scene.world().showSection(util.select().position(source), Direction.DOWN);
+        scene.idle(10);
+        scene.world().showSection(util.select().position(spin), Direction.DOWN);
+        scene.idle(15);
+        scene.overlay().showText(90)
+                .text("The Essentia Centrifuge splits compound essentia back into the two aspects it is made of. It pulls essentia in from below")
+                .pointAt(util.vector().centerOf(spin))
+                .placeNearTarget()
+                .attachKeyFrame();
+        scene.idle(100);
+
+        scene.world().showSection(util.select().fromTo(1, 1, 2, 3, 3, 2).substract(util.select().fromTo(2, 1, 2, 2, 2, 2)),
+                Direction.DOWN);
+        scene.idle(15);
+        scene.overlay().showText(100)
+                .text("Every point comes out of the top as one of its two components, picked at random. Here Vitreus becomes Terra or Aer")
+                .pointAt(util.vector().topOf(spin))
+                .placeNearTarget()
+                .attachKeyFrame();
+        Aspect[] outs = {Aspect.EARTH, Aspect.AIR, Aspect.AIR, Aspect.EARTH, Aspect.EARTH, Aspect.AIR};
+        int[] counts = {0, 0};
+        for (int i = 0; i < outs.length; i++) {
+            int left0 = 32 - (i + 1);
+            Aspect out = outs[i];
+            int side = out == Aspect.EARTH ? 0 : 1;
+            int amount = ++counts[side];
+            scene.world().modifyBlockEntity(source, TileJarFillable.class, te -> te.amount = left0);
+            scene.world().modifyBlockEntity(spin, TileCentrifuge.class, te -> te.aspectIn = Aspect.CRYSTAL);
+            scene.idle(10);
+            scene.world().modifyBlockEntity(side == 0 ? left : right, TileJarFillable.class, te -> {
+                te.aspect = out;
+                te.amount = amount;
+            });
+            scene.idle(8);
+        }
+        scene.idle(30);
+
+        scene.overlay().showText(80)
+                .text("Primal aspects cannot be split, and a redstone signal stops the centrifuge")
+                .colored(PonderPalette.RED)
+                .pointAt(util.vector().centerOf(spin))
                 .placeNearTarget();
         scene.idle(90);
         scene.markAsFinished();

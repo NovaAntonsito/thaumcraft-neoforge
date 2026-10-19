@@ -36,5 +36,4 @@ Prueba piloto de tutoriales animados adentro del juego con **Ponder**, la librer
 ## Pendiente
 - Revisar las escenas en el juego y ajustar cámara, tiempos y posiciones.
 - Traducciones (es_ar y demás).
-- Más escenas: mesa arcana, tubos (válvula, filtro, búfer), centrífuga, investigación.
-- Etiquetas (tags) de Ponder para agrupar los temas de Thaumcraft en el índice.
+- ~~Más escenas~~ y ~~etiquetas~~: hechas en la etapa 11.

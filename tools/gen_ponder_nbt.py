@@ -147,8 +147,61 @@ def smelting():
     s.save("smelting.nbt")
 
 
+def arcane_workbench():
+    s = Structure(5, 2, 5)
+    s.floor()
+    # The scene starts with a crafting table here and swaps it.
+    s.set(2, 1, 2, "thaumcraft:arcane_workbench")
+    s.save("arcane_workbench.nbt")
+
+
+def research_table():
+    s = Structure(5, 2, 5)
+    s.floor()
+    # The scene starts with a wooden table here and swaps it.
+    s.set(2, 1, 2, "thaumcraft:research_table", facing="north")
+    # Surroundings that can give bonus aspects: water (Aqua), dirt (Terra), a circuit block (Ordo).
+    s.set(0, 1, 4, "minecraft:water", level=0)
+    s.set(4, 1, 4, "minecraft:grass_block", snowy=False)
+    s.set(0, 1, 0, "minecraft:redstone_torch", lit=True)
+    s.save("research_table.nbt")
+
+
+def essentia_tubes():
+    s = Structure(7, 3, 5)
+    s.floor()
+    # Jar -> tube up -> line of tubes -> tube down -> jar. The scenes swap the middle tube (3,2,2) for each variant.
+    s.set(1, 1, 2, "thaumcraft:jar_normal")
+    s.set(1, 2, 2, "thaumcraft:tube", **tube(down=True, east=True))
+    for x in (2, 3, 4):
+        s.set(x, 2, 2, "thaumcraft:tube", **tube(west=True, east=True))
+    s.set(5, 2, 2, "thaumcraft:tube", **tube(west=True, down=True))
+    s.set(5, 1, 2, "thaumcraft:jar_normal")
+    s.save("essentia_tubes.nbt")
+
+
+def centrifuge():
+    s = Structure(5, 4, 5)
+    s.floor()
+    # Source jar under the centrifuge; the output splits to one jar on each side.
+    s.set(2, 1, 2, "thaumcraft:jar_normal")
+    s.set(2, 2, 2, "thaumcraft:centrifuge")
+    s.set(2, 3, 2, "thaumcraft:tube", **tube(down=True, west=True, east=True))
+    s.set(1, 3, 2, "thaumcraft:tube", **tube(east=True, down=True))
+    s.set(3, 3, 2, "thaumcraft:tube", **tube(west=True, down=True))
+    s.set(1, 2, 2, "thaumcraft:tube", **tube(up=True, down=True))
+    s.set(3, 2, 2, "thaumcraft:tube", **tube(up=True, down=True))
+    s.set(1, 1, 2, "thaumcraft:jar_normal")
+    s.set(3, 1, 2, "thaumcraft:jar_normal")
+    s.save("centrifuge.nbt")
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     crucible()
     infusion()
     smelting()
+    arcane_workbench()
+    research_table()
+    essentia_tubes()
+    centrifuge()

@@ -2,11 +2,13 @@ package thaumcraft.client.ponder;
 
 import net.createmod.ponder.api.registration.PonderPlugin;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
+import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import thaumcraft.Thaumcraft;
 import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
 
 /**
  * Ponder tutorials (hold W over an item). Ponder is optional: this class is only touched from
@@ -14,6 +16,8 @@ import thaumcraft.common.config.ConfigBlocks;
  * Scene texts live in en_us.json under thaumcraft.ponder.&lt;scene&gt;.header / text_N.
  */
 public class ThaumcraftPonderPlugin implements PonderPlugin {
+    public static final ResourceLocation TAG_ARCANE = Thaumcraft.id("arcane_crafting");
+    public static final ResourceLocation TAG_ESSENTIA = Thaumcraft.id("essentia_handling");
 
     public static void register() {
         PonderIndex.addPlugin(new ThaumcraftPonderPlugin());
@@ -33,5 +37,27 @@ public class ThaumcraftPonderPlugin implements PonderPlugin {
                 .addStoryBoard("infusion_altar", ThaumcraftPonderScenes::infusionAltar);
         h.forComponents(ConfigBlocks.smelterBasic, ConfigBlocks.alembic, ConfigBlocks.tube, ConfigBlocks.bellows)
                 .addStoryBoard("smelting", ThaumcraftPonderScenes::smelting);
+        h.addStoryBoard(ConfigBlocks.arcaneWorkbench, "arcane_workbench", ThaumcraftPonderScenes::arcaneWorkbench);
+        h.forComponents(ConfigBlocks.researchTable, ConfigBlocks.tableWood)
+                .addStoryBoard("research_table", ThaumcraftPonderScenes::researchTable);
+        // Both tube scenes share one structure; the middle tube is swapped for each variant.
+        h.forComponents(ConfigBlocks.tube, ConfigBlocks.tubeValve, ConfigBlocks.tubeFilter, ConfigBlocks.jarNormal)
+                .addStoryBoard("essentia_tubes", ThaumcraftPonderScenes::essentiaTubes);
+        h.forComponents(ConfigBlocks.tube, ConfigBlocks.tubeRestrict, ConfigBlocks.tubeOneway, ConfigBlocks.tubeBuffer)
+                .addStoryBoard("essentia_tubes", ThaumcraftPonderScenes::tubeVariants);
+        h.addStoryBoard(ConfigBlocks.centrifuge, "centrifuge", ThaumcraftPonderScenes::centrifuge);
+    }
+
+    @Override
+    public void registerTags(PonderTagRegistrationHelper<ResourceLocation> helper) {
+        PonderTagRegistrationHelper<DeferredHolder<?, ?>> h = helper.withKeyFunction(DeferredHolder::getId);
+        // Titles and descriptions come from en_us.json: thaumcraft.ponder.tag.<id> / .description.
+        helper.registerTag(TAG_ARCANE).item(ConfigItems.salisMundus.get(), true, false).addToIndex().register();
+        helper.registerTag(TAG_ESSENTIA).item(ConfigBlocks.jarNormal.get(), true, false).addToIndex().register();
+        h.addToTag(TAG_ARCANE).add(ConfigBlocks.arcaneWorkbench).add(ConfigBlocks.researchTable).add(ConfigBlocks.crucible)
+                .add(ConfigBlocks.infusionMatrix).add(ConfigBlocks.pedestalArcane).add(ConfigBlocks.pillarArcane);
+        h.addToTag(TAG_ESSENTIA).add(ConfigBlocks.smelterBasic).add(ConfigBlocks.alembic).add(ConfigBlocks.bellows)
+                .add(ConfigBlocks.jarNormal).add(ConfigBlocks.tube).add(ConfigBlocks.tubeValve).add(ConfigBlocks.tubeFilter)
+                .add(ConfigBlocks.tubeRestrict).add(ConfigBlocks.tubeOneway).add(ConfigBlocks.tubeBuffer).add(ConfigBlocks.centrifuge);
     }
 }
