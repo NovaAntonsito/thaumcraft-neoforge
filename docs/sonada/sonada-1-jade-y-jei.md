@@ -5,7 +5,7 @@ Primer agregado del branch `sonada`. No está en Thaumcraft 6: es lo que hacían
 ## JEI (y EMI)
 
 - **Aspectos como ingredientes**:
-  - Los 48 aspectos aparecen en la lista de JEI, con su ícono y su color.
+  - Todos los aspectos aparecen en la lista de JEI, con su ícono y su color.
   - Se buscan por nombre: escribí `ignis` y aparece.
   - Al pasar el mouse muestran el nombre, la descripción y de qué dos aspectos están hechos (o "Primal aspect").
 - **"¿Qué tiene Ignis?"**: con R (recetas) sobre un aspecto aparece la categoría **Aspect Sources**:
