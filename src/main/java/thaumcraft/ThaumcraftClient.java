@@ -101,6 +101,7 @@ public class ThaumcraftClient {
     @SuppressWarnings("unchecked")
     static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TCBlockEntities.CRUCIBLE.get(), TileCrucibleRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), thaumcraft.client.renderers.tile.TileAuraNodeRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_ALTAR.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.altar());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_CAP.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.cap());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_OBELISK.get(), thaumcraft.client.renderers.tile.TileEldritchObeliskRenderer::new);

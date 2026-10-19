@@ -27,6 +27,9 @@ public final class TCFeatures {
     /** generateSurface: the barrows and the lesser crimson portals. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRUCTURES = FEATURES.register("structures",
             () -> new ThaumcraftWorldGenerator.StructuresFeature(NoneFeatureConfiguration.CODEC));
+    /** Not in Thaumcraft 6: the wild aura nodes of Thaumcraft 4 (generateWildNodes). */
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> NODES = FEATURES.register("nodes",
+            () -> new ThaumcraftWorldGenerator.NodesFeature(NoneFeatureConfiguration.CODEC));
     /** BiomeGenMagicalForest.decorate, placed by the magical forest biome. */
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> MAGICAL_FOREST = FEATURES.register("magical_forest",
             () -> new thaumcraft.common.world.biomes.BiomeGenMagicalForest(NoneFeatureConfiguration.CODEC));

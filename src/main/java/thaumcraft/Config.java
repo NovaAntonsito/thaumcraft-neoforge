@@ -157,6 +157,19 @@ public class Config {
     public static final ModConfigSpec.BooleanValue GENERATE_CRYSTALS = BUILDER.define("generateCrystals", true);
     public static final ModConfigSpec.BooleanValue GENERATE_TREES = BUILDER.define("generateTrees", true);
     public static final ModConfigSpec.BooleanValue GENERATE_STRUCTURE = BUILDER.define("generateStructure", true);
+    /** Not in Thaumcraft 6: the aura nodes of Thaumcraft 4 (dream branch). */
+    public static final ModConfigSpec.BooleanValue GENERATE_NODES = BUILDER
+            .comment("Generate the aura nodes of Thaumcraft 4.")
+            .define("generateNodes", true);
+    public static final ModConfigSpec.IntValue NODE_RARITY = BUILDER
+            .comment("One chunk in this many gets a wild aura node. Thaumcraft 4 default 36")
+            .defineInRange("nodeRarity", 36, 1, 1000);
+    public static final ModConfigSpec.IntValue SPECIAL_NODE_RARITY = BUILDER
+            .comment("One node in this many is of a special type, and one in half as many has a special brightness. Default 18")
+            .defineInRange("specialNodeRarity", 18, 3, 1000);
+    public static final ModConfigSpec.BooleanValue HARD_NODE = BUILDER
+            .comment("Hungry nodes pull and hurt creatures, dark nodes summon zombies and tainted nodes spread fibres.")
+            .define("hardNode", true);
     public static final ModConfigSpec.BooleanValue ALLOW_CHAMPION_MOBS = BUILDER
             .comment("Setting this to false will disable spawning champion mobs. Even when false they will still",
                     "have a greatly reduced chance of spawning in certain dangerous places.")

@@ -86,6 +86,7 @@ public final class ConfigResearch {
         }
         ScanningManager.addScannableThing(new ScanGeneric());
         ScanningManager.addScannableThing(new thaumcraft.common.anomaly.ScanAnomaly());
+        ScanningManager.addScannableThing(new thaumcraft.common.lib.research.ScanAuraNode());
         // Enchantments are data driven now; the vanilla ones are known up front.
         for (Field f : Enchantments.class.getFields()) {
             if (Modifier.isStatic(f.getModifiers()) && f.getType() == ResourceKey.class) {

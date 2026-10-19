@@ -217,6 +217,8 @@ public final class TCBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final Supplier<BlockEntityType<thaumcraft.common.tiles.essentia.TileEssentiaTerminal>> ESSENTIA_TERMINAL = BLOCK_ENTITIES.register("essentia_terminal",
             () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.essentia.TileEssentiaTerminal::new, ConfigBlocks.essentiaTerminal.get()).build(null));
+    public static final Supplier<BlockEntityType<thaumcraft.common.tiles.misc.TileAuraNode>> AURA_NODE = BLOCK_ENTITIES.register("aura_node",
+            () -> BlockEntityType.Builder.of(thaumcraft.common.tiles.misc.TileAuraNode::new, ConfigBlocks.auraNode.get()).build(null));
     public static final Supplier<BlockEntityType<TilePotionSprayer>> POTION_SPRAYER = BLOCK_ENTITIES.register("potion_sprayer",
             () -> BlockEntityType.Builder.of(TilePotionSprayer::new, ConfigBlocks.potionSprayer.get()).build(null));
 

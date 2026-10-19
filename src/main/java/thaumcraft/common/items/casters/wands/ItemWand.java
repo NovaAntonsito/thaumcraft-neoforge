@@ -9,7 +9,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import thaumcraft.common.tiles.misc.TileAuraNode;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -58,6 +63,19 @@ public class ItemWand extends ItemCaster implements IRechargable, thaumcraft.com
         stack.set(TCDataComponents.WAND_FRACTION.get(), vis - whole);
     }
 
+    /** How much whole vis still fits in the wand. */
+    public static int getRoom(ItemStack stack) {
+        return Math.max(0, getParts(stack).getRod().capacity() - RechargeHelper.getCharge(stack));
+    }
+
+    /** ItemWandCasting.addVis with one vis: adds up to amount, returns what did not fit. */
+    public static int addCharge(ItemStack stack, int amount, boolean doit) {
+        int room = getRoom(stack);
+        int added = Math.min(room, amount);
+        if (doit && added > 0) stack.set(TCDataComponents.CHARGE.get(), Math.max(0, RechargeHelper.getCharge(stack)) + added);
+        return amount - added;
+    }
+
     @Override
     public int getMaxCharge(ItemStack stack, @Nullable LivingEntity player) {
         return getParts(stack).getRod().capacity();
@@ -101,6 +119,37 @@ public class ItemWand extends ItemCaster implements IRechargable, thaumcraft.com
             player.displayClientMessage(Component.translatable("tc.wandnocharge").withStyle(ChatFormatting.RED), true);
         }
         return super.use(world, player, hand);
+    }
+
+    /** Holding use on an aura node drains it into the wand (TileNode.onUsingWandTick). */
+    @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player != null && context.getLevel().getBlockEntity(context.getClickedPos()) instanceof TileAuraNode) {
+            player.startUsingItem(context.getHand());
+            return InteractionResult.SUCCESS;
+        }
+        return super.onItemUseFirst(stack, context);
+    }
+
+    @Override
+    public void onUseTick(Level level, LivingEntity living, ItemStack stack, int remaining) {
+        if (!(living instanceof Player player)) return;
+        HitResult hit = player.pick(player.blockInteractionRange(), 1.0f, false);
+        if (hit instanceof BlockHitResult bhr && hit.getType() == HitResult.Type.BLOCK
+                && level.getBlockEntity(bhr.getBlockPos()) instanceof TileAuraNode node
+                && node.onUsingWandTick(stack, player, getUseDuration(stack, living) - remaining)) {
+            return;
+        }
+        player.stopUsingItem();
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity living, int timeLeft) {
+        HitResult hit = living.pick(living instanceof Player p ? p.blockInteractionRange() : 4.5, 1.0f, false);
+        if (hit instanceof BlockHitResult bhr && level.getBlockEntity(bhr.getBlockPos()) instanceof TileAuraNode node) {
+            node.drainEntity = null;
+        }
     }
 
     @Override

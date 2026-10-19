@@ -777,8 +777,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -3,
-        -3
+        -4,
+        6
       ],
       "stages": [
         {
@@ -807,8 +807,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -5,
-        -2
+        -6,
+        5
       ],
       "stages": [
         {
@@ -837,8 +837,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -5,
-        -4
+        -6,
+        7
       ],
       "stages": [
         {
@@ -867,8 +867,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -3,
-        -5
+        -4,
+        8
       ],
       "stages": [
         {
@@ -899,8 +899,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -7,
-        -2
+        -8,
+        5
       ],
       "stages": [
         {
@@ -931,8 +931,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -7,
-        -4
+        -8,
+        7
       ],
       "stages": [
         {
@@ -963,8 +963,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -5,
-        -6
+        -6,
+        9
       ],
       "stages": [
         {
@@ -998,8 +998,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -5,
-        -8
+        -6,
+        11
       ],
       "stages": [
         {
@@ -1030,8 +1030,8 @@
       ],
       "category": "AUROMANCY",
       "location": [
-        -9,
-        -4
+        -10,
+        7
       ],
       "stages": [
         {
@@ -1047,6 +1047,107 @@
             "thaumcraft:wand_cap_void_inert",
             "thaumcraft:wand_cap_void"
           ]
+        }
+      ]
+    },
+    {
+      "key": "NODES",
+      "name": "research.NODES.title",
+      "icons": [
+        "thaumcraft:thaumometer"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -8,
+        2
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.NODES.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "NODETAPPER1",
+      "name": "research.NODETAPPER1.title",
+      "icons": [
+        "thaumcraft:wand"
+      ],
+      "parents": [
+        "NODES",
+        "WANDS"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        2
+      ],
+      "stages": [
+        {
+          "text": "research.NODETAPPER1.stage.1",
+          "required_knowledge": [
+            "OBSERVATION;AUROMANCY;1",
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.NODETAPPER1.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "NODETAPPER2",
+      "name": "research.NODETAPPER2.title",
+      "icons": [
+        "thaumcraft:wand"
+      ],
+      "parents": [
+        "NODETAPPER1"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -12,
+        2
+      ],
+      "stages": [
+        {
+          "text": "research.NODETAPPER2.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;2"
+          ]
+        },
+        {
+          "text": "research.NODETAPPER2.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "NODEPRESERVE",
+      "name": "research.NODEPRESERVE.title",
+      "icons": [
+        "thaumcraft:wand"
+      ],
+      "parents": [
+        "NODETAPPER1"
+      ],
+      "category": "AUROMANCY",
+      "location": [
+        -10,
+        4
+      ],
+      "stages": [
+        {
+          "text": "research.NODEPRESERVE.stage.1",
+          "required_knowledge": [
+            "THEORY;AUROMANCY;1"
+          ]
+        },
+        {
+          "text": "research.NODEPRESERVE.stage.2"
         }
       ]
     }

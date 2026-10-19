@@ -110,6 +110,10 @@ public class WorldGenEldritchRing {
                     for (int y = 4; y <= 7; ++y) {
                         world.setBlock(new BlockPos(x, j + y, z), ConfigBlocks.eldritchObeliskBody.get().defaultBlockState(), 3);
                     }
+                    // TC4 (dream branch): the dark node over the obelisk.
+                    if (thaumcraft.Config.GENERATE_NODES.get()) {
+                        thaumcraft.common.world.ThaumcraftWorldGenerator.createRandomNodeAt(world, new BlockPos(x, j + 9, z), rand, false, true, false);
+                    }
                 } else if (((x == i - 3 || x == i + 3) && Math.abs((z - k) % 2) == 1 || (z == k - 3 || z == k + 3) && Math.abs((x - i) % 2) == 1)
                         && Math.abs(x - i) != Math.abs(z - k)) {
                     world.setBlock(new BlockPos(x, j, z), tile, 3);
