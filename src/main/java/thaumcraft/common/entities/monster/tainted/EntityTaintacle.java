@@ -98,7 +98,7 @@ public class EntityTaintacle extends Monster implements ITaintedMob {
                 flailIntensity -= 0.01f;
             }
             if (tickCount < getBbHeight() * 10.0f && onGround()) {
-                ClientFX.tentacleArise(this);
+                thaumcraft.client.fx.FXDispatcher.tentacleAriseFX(this);
             }
         }
     }

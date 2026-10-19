@@ -67,7 +67,11 @@ public class BlockEffectSap extends Block {
     @Override
     public void animateTick(BlockState state, Level w, BlockPos pos, RandomSource r) {
         float h = r.nextFloat() * 0.33f;
-        w.addParticle(new DustParticleOptions(new Vector3f(0.3f - r.nextFloat() * 0.1f, 0.0f, 0.5f + r.nextFloat() * 0.2f), 0.6f + h),
-                pos.getX() + r.nextFloat(), pos.getY() + 0.1515f + h / 2.0f, pos.getZ() + r.nextFloat(), 0, 0, 0);
+        thaumcraft.client.fx.FXDispatcher.spark(pos.getX() + r.nextFloat(), pos.getY() + 0.1515f + h / 2.0f, pos.getZ() + r.nextFloat(), 3.0f + h * 6.0f,
+                0.3f - r.nextFloat() * 0.1f, 0.0f, 0.5f + r.nextFloat() * 0.2f, 1.0f);
+        if (r.nextInt(50) == 0) {
+            w.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), thaumcraft.common.lib.SoundsTC.JACOBS.get(), net.minecraft.sounds.SoundSource.AMBIENT, 0.25f,
+                    1.0f + (r.nextFloat() - r.nextFloat()) * 0.2f, false);
+        }
     }
 }

@@ -300,7 +300,7 @@ public class TileInfernalFurnace extends TileThaumcraft implements WorldlyContai
                     setFacing();
                 }
                 for (int a = 0; a < 5; ++a) {
-                    thaumcraft.client.fx.ClientFX.furnaceLava(worldPosition, facingX, facingZ);
+                    thaumcraft.client.fx.FXDispatcher.furnaceLavaFx(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), facingX, facingZ);
                     level.playLocalSound(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, SoundEvents.LAVA_POP,
                             SoundSource.BLOCKS, 0.1f + level.random.nextFloat() * 0.1f, 0.9f + level.random.nextFloat() * 0.15f, false);
                 }

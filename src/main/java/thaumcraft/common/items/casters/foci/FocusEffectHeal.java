@@ -83,7 +83,6 @@ public class FocusEffectHeal extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double x, double y, double z, double vx, double vy, double vz) {
-        world.addParticle(ParticleTypes.END_ROD, x, y, z, (vx + world.random.nextGaussian() * 0.01) * 0.5, (vy + world.random.nextGaussian() * 0.01) * 0.5,
-                (vz + world.random.nextGaussian() * 0.01) * 0.5);
+        thaumcraft.client.fx.FocusFX.heal(x, y, z, vx, vy, vz);
     }
 }

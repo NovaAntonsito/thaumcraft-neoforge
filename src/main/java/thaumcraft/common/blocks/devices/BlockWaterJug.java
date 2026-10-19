@@ -100,7 +100,7 @@ public class BlockWaterJug extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
         if (world.getBlockEntity(pos) instanceof TileWaterJug tile && tile.tank.getFluidAmount() >= tile.tank.getCapacity()) {
-            ClientFX.jarSplash(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+            thaumcraft.client.fx.FXDispatcher.jarSplashFx(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
         }
     }
 }

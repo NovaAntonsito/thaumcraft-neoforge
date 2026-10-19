@@ -4,8 +4,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import thaumcraft.client.fx.FXDispatcher;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -293,21 +292,24 @@ public class EntityThaumcraftGolem extends EntityOwnedConstruct implements IGole
 
     /**
      * The emotes: 5 task taken, 6 task dropped, 7 unused, 8 told to stay, 9 rank up.
-     * TODO (stage 10): the original FXDispatcher particles; vanilla particles stand in for now.
      */
     @Override
     public void handleEntityEvent(byte par1) {
         double y = getY() + getBbHeight() + 0.1;
         switch (par1) {
-            case 5 -> level().addParticle(random.nextBoolean() ? ParticleTypes.HAPPY_VILLAGER : ParticleTypes.NOTE, getX(), y, getZ(), 0.0, 0.0, 0.0);
-            case 6 -> level().addParticle(ParticleTypes.SMOKE, getX(), y, getZ(), 0.0, 0.025, 0.0);
-            case 7 -> level().addParticle(ParticleTypes.ENCHANT, getX(), y, getZ(), 0.0, 0.05, 0.0);
-            case 8 -> level().addParticle(ParticleTypes.ANGRY_VILLAGER, getX(), y, getZ(), 0.0, 0.01, 0.0);
+            case 5 -> FXDispatcher.drawGenericParticles(getX(), y, getZ(), 0.0, 0.0, 0.0, 1.0f, 1.0f, 1.0f, 0.5f, false,
+                    704 + (random.nextBoolean() ? 0 : 3), 3, 1, 6, 0, 2.0f, 0.0f, 1);
+            case 6 -> FXDispatcher.drawGenericParticles(getX(), y, getZ(), 0.0, 0.025, 0.0, 0.1f, 1.0f, 1.0f, 0.5f, false,
+                    15, 1, 1, 10, 0, 2.0f, 0.0f, 1);
+            case 7 -> FXDispatcher.drawGenericParticles(getX(), y, getZ(), 0.0, 0.05, 0.0, 1.0f, 1.0f, 1.0f, 0.5f, false,
+                    640, 10, 1, 10, 0, 2.0f, 0.0f, 1);
+            case 8 -> FXDispatcher.drawGenericParticles(getX(), y, getZ(), 0.0, 0.01, 0.0, 1.0f, 1.0f, 0.1f, 0.5f, false,
+                    14, 1, 1, 20, 0, 2.0f, 0.0f, 1);
             case 9 -> {
                 for (int a = 0; a < 5; ++a) {
-                    ParticleOptions p = ParticleTypes.END_ROD;
-                    level().addParticle(p, getX(), getY() + getBbHeight(), getZ(), random.nextGaussian() * 0.01, random.nextFloat() * 0.02,
-                            random.nextGaussian() * 0.01);
+                    FXDispatcher.drawGenericParticles(getX(), getY() + getBbHeight(), getZ(), random.nextGaussian() * 0.01,
+                            random.nextFloat() * 0.02, random.nextGaussian() * 0.01, 1.0f, 1.0f, 1.0f, 0.5f, false, 13, 1, 1,
+                            20 + random.nextInt(20), 0, 0.3f + random.nextFloat() * 0.4f, 0.0f, 1);
                 }
             }
             default -> super.handleEntityEvent(par1);

@@ -49,7 +49,7 @@ public final class ClientBaubles {
             jumpList.put(name, true);
         }
         if (spacePressed && !player.onGround() && !player.isInWater() && jumpTicks(player) == 0 && jumpList.containsKey(name) && jumpList.get(name)) {
-            ClientFX.drawBamf(player.level(), player.getX(), player.getY() + 0.5, player.getZ(), 0xFFFFFF, false, false);
+            thaumcraft.client.fx.FXDispatcher.drawBamf(player.getX(), player.getY() + 0.5, player.getZ(), 1.0f, 1.0f, 1.0f, false, false, net.minecraft.core.Direction.UP);
             player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.1f,
                     1.0f + (float) player.level().random.nextGaussian() * 0.05f, false);
             jumpList.put(name, false);

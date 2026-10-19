@@ -45,15 +45,9 @@ public class EntityBottleTaint extends ThrowableItemProjectile {
     public void handleEntityEvent(byte id) {
         if (id == 3) {
             for (int a = 0; a < 100; ++a) {
-                ClientFX.taintSplat(level(), getX(), getY() + random.nextFloat() * getBbHeight(), getZ(), 0.0);
+                thaumcraft.client.fx.FXDispatcher.taintsplosionFX(this);
             }
-            // bottleTaintBreak
-            for (int k1 = 0; k1 < 8; ++k1) {
-                level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ConfigItems.bottleTaint.get())), getX(), getY(), getZ(),
-                        random.nextGaussian() * 0.15, random.nextDouble() * 0.2, random.nextGaussian() * 0.15);
-            }
-            level().playLocalSound(getX(), getY(), getZ(), SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0f,
-                    random.nextFloat() * 0.1f + 0.9f, false);
+            thaumcraft.client.fx.FXDispatcher.bottleTaintBreak(getX(), getY(), getZ());
         } else {
             super.handleEntityEvent(id);
         }

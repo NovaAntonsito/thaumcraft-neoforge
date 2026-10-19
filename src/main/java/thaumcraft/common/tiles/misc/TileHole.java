@@ -3,11 +3,9 @@ package thaumcraft.common.tiles.misc;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.joml.Vector3f;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.items.casters.foci.FocusEffectRift;
 import thaumcraft.common.registry.TCBlockEntities;
@@ -98,7 +96,7 @@ public class TileHole extends TileMemory {
                         sx = sx == 0.0f ? level.random.nextFloat() : sx + 0.5f;
                         sy = sy == 0.0f ? level.random.nextFloat() : sy + 0.5f;
                         sz = sz == 0.0f ? level.random.nextFloat() : sz + 0.5f;
-                        level.addParticle(new DustParticleOptions(new Vector3f(0.25f, 0.25f, 1.0f), 0.5f), pos.getX() + sx, pos.getY() + sy, pos.getZ() + sz, 0, 0, 0);
+                        thaumcraft.client.fx.FXDispatcher.sparkle(pos.getX() + sx, pos.getY() + sy, pos.getZ() + sz, 0.25f, 0.25f, 1.0f);
                     }
                 }
             }

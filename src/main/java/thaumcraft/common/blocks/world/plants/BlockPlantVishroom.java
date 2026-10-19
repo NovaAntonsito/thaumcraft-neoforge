@@ -59,7 +59,7 @@ public class BlockPlantVishroom extends BushBlock {
             float xr = pos.getX() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.4f;
             float yr = pos.getY() + 0.3f;
             float zr = pos.getZ() + 0.5f + (rand.nextFloat() - rand.nextFloat()) * 0.4f;
-            ClientFX.drawWispyMotes(world, xr, yr, zr, 0.0, 0.0, 0.0, 0.5f, 0.3f, 0.8f);
+            thaumcraft.client.fx.FXDispatcher.drawWispyMotes(xr, yr, zr, 0.0, 0.0, 0.0, 10, 0.5f, 0.3f, 0.8f, 0.001f);
         }
     }
 }

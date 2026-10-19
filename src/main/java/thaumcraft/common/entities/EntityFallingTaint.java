@@ -117,7 +117,7 @@ public class EntityFallingTaint extends Entity implements IEntityWithComplexSpaw
             }
         } else if (onGround() || fallTime == 1) {
             for (int j = 0; j < 10; ++j) {
-                ClientFX.taintSplat(world, getX(), (getBoundingBox().minY + getBoundingBox().maxY) / 2.0, getZ(), 1.0);
+                thaumcraft.client.fx.FXDispatcher.taintLandFX(this);
             }
         }
     }

@@ -44,7 +44,7 @@ public class BlockGrassAmbient extends GrassBlock {
             for (int q = 0; q < 10 && pp.getY() > 50 && !worldIn.getBlockState(pp).is(Blocks.GRASS_BLOCK); pp = pp.below(), ++q) {
             }
             if (worldIn.getBlockState(pp).is(Blocks.GRASS_BLOCK)) {
-                ClientFX.drawWispyMotesOnBlock(worldIn, pp.above(), 400, -0.01f);
+                thaumcraft.client.fx.FXDispatcher.drawWispyMotesOnBlock(pp.above(), 400, -0.01f);
             }
         }
     }

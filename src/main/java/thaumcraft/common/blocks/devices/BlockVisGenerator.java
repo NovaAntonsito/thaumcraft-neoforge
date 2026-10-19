@@ -120,7 +120,8 @@ public class BlockVisGenerator extends BaseEntityBlock {
             double x = face.getStepX() == 0 ? rand.nextGaussian() * 0.1 : face.getStepX() * 0.1;
             double y = face.getStepY() == 0 ? rand.nextGaussian() * 0.1 : face.getStepY() * 0.1;
             double z = face.getStepZ() == 0 ? rand.nextGaussian() * 0.1 : face.getStepZ() * 0.1;
-            ClientFX.spark(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, 0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f);
+            thaumcraft.client.fx.FXDispatcher.spark(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, 0.66f + rand.nextFloat(),
+                    0.65f + rand.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
         }
     }
 }

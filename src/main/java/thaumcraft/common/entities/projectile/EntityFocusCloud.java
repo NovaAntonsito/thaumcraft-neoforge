@@ -234,9 +234,7 @@ public class EntityFocusCloud extends Entity implements IEntityWithComplexSpawn 
         }
     }
 
-    /** FXDispatcher.drawFocusCloudParticle: a big faded puff in the effect's color. */
     private void drawFocusCloudParticle(Level world, double x, double y, double z, double mx, double my, double mz, int c) {
-        Color color = new Color(c);
-        world.addParticle(new DustParticleOptions(new Vector3f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f), 4.0f), x, y, z, mx, my, mz);
+        thaumcraft.client.fx.FXDispatcher.drawFocusCloudParticle(x, y, z, mx, my, mz, c);
     }
 }

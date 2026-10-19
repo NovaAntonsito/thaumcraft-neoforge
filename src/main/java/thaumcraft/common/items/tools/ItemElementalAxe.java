@@ -62,7 +62,7 @@ public class ItemElementalAxe extends AxeItem implements ISubItems {
             e.setDeltaMovement(Mth.clamp(m.x - d6 * d10, -0.25, 0.25), Mth.clamp(m.y - (d7 * d10 - 0.1), -0.25, 0.25),
                     Mth.clamp(m.z - d8 * d10, -0.25, 0.25));
             if (level.isClientSide) {
-                ClientFX.crucibleBubble(level, (float) e.getX() + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f,
+                thaumcraft.client.fx.FXDispatcher.crucibleBubble((float) e.getX() + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f,
                         (float) e.getY() + e.getBbHeight() + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f,
                         (float) e.getZ() + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f, 0.33f, 0.33f, 1.0f);
             }

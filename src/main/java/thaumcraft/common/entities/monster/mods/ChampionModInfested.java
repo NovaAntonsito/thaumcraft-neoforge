@@ -20,10 +20,9 @@ public class ChampionModInfested implements IChampionModifierEffect {
     }
 
     @Override
-    public void showFX(LivingEntity mob) {
-        RandomSource rand = mob.getRandom();
-        if (rand.nextBoolean()) {
-            ClientFX.slimeJump(mob);
+    public void showFX(LivingEntity boss) {
+        if (boss.level().random.nextBoolean()) {
+            thaumcraft.client.fx.FXDispatcher.slimeJumpFX(boss, 0);
         }
     }
 }

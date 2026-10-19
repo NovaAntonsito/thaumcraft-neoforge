@@ -103,8 +103,7 @@ public class FocusEffectRift extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(new DustParticleOptions(new Vector3f(0.25f, 0.25f, 1.0f), Math.max(0.2f, (float) (0.7 + world.random.nextGaussian() * 0.3))),
-                posX, posY, posZ, motionX, motionY, motionZ);
+        thaumcraft.client.fx.FocusFX.rift(posX, posY, posZ, motionX, motionY, motionZ);
     }
 
     @Override

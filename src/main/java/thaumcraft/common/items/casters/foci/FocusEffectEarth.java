@@ -82,7 +82,19 @@ public class FocusEffectEarth extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), posX, posY, posZ, motionX, motionY, motionZ);
+        thaumcraft.client.fx.FXDispatcher.GenPart pp = new thaumcraft.client.fx.FXDispatcher.GenPart();
+        pp.grav = 0.4f;
+        pp.layer = 1;
+        pp.age = 20 + world.random.nextInt(10);
+        pp.alpha = new float[] { 1.0f, 0.0f };
+        pp.partStart = 75 + world.random.nextInt(4);
+        pp.partInc = 1;
+        pp.partNum = 1;
+        pp.slowDown = 0.9;
+        pp.rot = (float) world.random.nextGaussian();
+        float s = (float) (1.0 + world.random.nextGaussian() * 0.20000000298023224);
+        pp.scale = new float[] { s, s / 2.0f };
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(posX, posY, posZ, motionX, motionY, motionZ, pp);
     }
 
     @Override

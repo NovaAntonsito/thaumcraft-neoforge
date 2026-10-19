@@ -112,7 +112,7 @@ public class ItemElementalShovel extends ShovelItem implements IArchitect, ISubI
                             world.setBlock(p2, bs, 3);
                             player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
                             if (world.isClientSide) {
-                                ClientFX.drawBamf(world, p2, 8401408, false, false);
+                                thaumcraft.client.fx.FXDispatcher.drawBamf(p2, 8401408, false, false, side);
                             }
                             player.swing(hand);
                         } else if (bs.is(Blocks.GRASS_BLOCK)
@@ -122,7 +122,7 @@ public class ItemElementalShovel extends ShovelItem implements IArchitect, ISubI
                             world.setBlock(p2, Blocks.DIRT.defaultBlockState(), 3);
                             player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
                             if (world.isClientSide) {
-                                ClientFX.drawBamf(world, p2, 8401408, false, false);
+                                thaumcraft.client.fx.FXDispatcher.drawBamf(p2, 8401408, false, false, side);
                             }
                             player.swing(hand);
                             if (player.getItemInHand(hand).isEmpty()) {

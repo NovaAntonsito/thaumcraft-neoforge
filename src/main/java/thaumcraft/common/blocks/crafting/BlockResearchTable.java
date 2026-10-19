@@ -111,16 +111,12 @@ public class BlockResearchTable extends BaseEntityBlock {
     }
 
     /**
-     * With a note on the table, motes drift toward it (FXGeneric in the original).
-     * TODO: the original's particle sheet sparkles; vanilla enchant glyphs stand in for them.
+     * With a note on the table, motes drift toward it.
      */
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
         if (rand.nextInt(5) == 0 && world.getBlockEntity(pos) instanceof TileResearchTable te && te.hasResearchNote()) {
-            double xx = rand.nextGaussian() / 2.0;
-            double zz = rand.nextGaussian() / 2.0;
-            double yy = 1.5 + rand.nextFloat();
-            world.addParticle(ParticleTypes.ENCHANT, pos.getX() + 0.5, pos.getY() + 0.85, pos.getZ() + 0.5, xx, yy - 0.85, zz);
+            thaumcraft.client.fx.FXDispatcher.researchTableMote(pos);
         }
     }
 }

@@ -116,7 +116,7 @@ public class TileLevitator extends TileThaumcraft {
             float x = worldPosition.getX() + 0.25f + level.random.nextFloat() * 0.5f;
             float y = worldPosition.getY() + 0.25f + level.random.nextFloat() * 0.5f;
             float z = worldPosition.getZ() + 0.25f + level.random.nextFloat() * 0.5f;
-            ClientFX.drawLevitatorParticles(level, x, y, z, facing.getStepX() / 50.0, facing.getStepY() / 50.0, facing.getStepZ() / 50.0);
+            thaumcraft.client.fx.FXDispatcher.drawLevitatorParticles(x, y, z, facing.getStepX() / 50.0, facing.getStepY() / 50.0, facing.getStepZ() / 50.0);
         }
     }
 
@@ -125,7 +125,7 @@ public class TileLevitator extends TileThaumcraft {
             float x = (float) (e.getX() + (level.random.nextFloat() - level.random.nextFloat()) * e.getBbWidth());
             float y = (float) (e.getY() + level.random.nextFloat() * e.getBbHeight());
             float z = (float) (e.getZ() + (level.random.nextFloat() - level.random.nextFloat()) * e.getBbWidth());
-            ClientFX.drawLevitatorParticles(level, x, y, z, (level.random.nextFloat() - level.random.nextFloat()) * 0.01,
+            thaumcraft.client.fx.FXDispatcher.drawLevitatorParticles(x, y, z, (level.random.nextFloat() - level.random.nextFloat()) * 0.01,
                     (level.random.nextFloat() - level.random.nextFloat()) * 0.01, (level.random.nextFloat() - level.random.nextFloat()) * 0.01);
         }
     }

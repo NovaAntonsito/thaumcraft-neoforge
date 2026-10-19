@@ -256,8 +256,10 @@ public class EntityFocusProjectile extends ThrowableProjectile implements IEntit
             double x = xo + (getX() - xo) * coeff;
             double y = yo + (getY() - yo) * coeff + getBbHeight() / 2.0f;
             double z = zo + (getZ() - zo) * coeff;
-            world.addParticle(new DustParticleOptions(new Vector3f(c1.getRed() / 255.0f, c1.getGreen() / 255.0f, c1.getBlue() / 255.0f), 1.0f),
-                    x, y, z, 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f));
+            float scale = 1.0f;
+            thaumcraft.client.fx.FXDispatcher.drawFireMote((float) x, (float) y, (float) z, 0.0125f * (random.nextFloat() - 0.5f) * scale,
+                    0.0125f * (random.nextFloat() - 0.5f) * scale, 0.0125f * (random.nextFloat() - 0.5f) * scale, c1.getRed() / 255.0f, c1.getGreen() / 255.0f,
+                    c1.getBlue() / 255.0f, 0.5f, 7.0f * scale);
             if (firstParticle) {
                 firstParticle = false;
                 eff.renderParticleFX(world, x + random.nextGaussian() * 0.1, y + random.nextGaussian() * 0.1, z + random.nextGaussian() * 0.1,

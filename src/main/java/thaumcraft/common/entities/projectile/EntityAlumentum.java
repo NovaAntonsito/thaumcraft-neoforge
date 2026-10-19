@@ -39,16 +39,14 @@ public class EntityAlumentum extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
         if (level().isClientSide) {
-            // TODO: FXDispatcher.drawAlumentum and its generic sparkles (stage 10). Flames and smoke for now.
             for (double i = 0.0; i < 3.0; ++i) {
                 double coeff = i / 3.0;
-                double px = xo + (getX() - xo) * coeff;
-                double py = yo + (getY() - yo) * coeff + getBbHeight() / 2.0f;
-                double pz = zo + (getZ() - zo) * coeff;
-                level().addParticle(ParticleTypes.FLAME, px, py, pz, 0.0125 * (random.nextFloat() - 0.5), 0.0125 * (random.nextFloat() - 0.5),
-                        0.0125 * (random.nextFloat() - 0.5));
-                level().addParticle(ParticleTypes.SMOKE, getX() + random.nextGaussian() * 0.2, getY() + random.nextGaussian() * 0.2,
-                        getZ() + random.nextGaussian() * 0.2, 0.0, 0.0, 0.0);
+                thaumcraft.client.fx.FXDispatcher.drawAlumentum((float) (xo + (getX() - xo) * coeff), (float) (yo + (getY() - yo) * coeff) + getBbHeight() / 2.0f,
+                        (float) (zo + (getZ() - zo) * coeff), 0.0125f * (random.nextFloat() - 0.5f), 0.0125f * (random.nextFloat() - 0.5f),
+                        0.0125f * (random.nextFloat() - 0.5f), random.nextFloat() * 0.2f, random.nextFloat() * 0.1f, random.nextFloat() * 0.1f, 0.5f, 4.0f);
+                thaumcraft.client.fx.FXDispatcher.drawGenericParticles(getX() + level().random.nextGaussian() * 0.20000000298023224,
+                        getY() + level().random.nextGaussian() * 0.20000000298023224, getZ() + level().random.nextGaussian() * 0.20000000298023224, 0.0, 0.0, 0.0,
+                        1.0f, 1.0f, 1.0f, 0.7f, false, 448, 8, 1, 8, 0, 0.3f, 0.0f, 1);
             }
         }
     }

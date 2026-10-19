@@ -54,13 +54,11 @@ public class BlockFluidPure extends LiquidBlock {
         }
     }
 
-    /** TODO: FXGeneric motes (stage 10); for now faint white dust drifting up. */
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
         if (rand.nextInt(10) == 0) {
             float height = state.getFluidState().getHeight(world, pos);
-            world.addParticle(new DustParticleOptions(new Vector3f(1.0f, 1.0f, 1.0f), rand.nextFloat() * 0.3f + 0.3f),
-                    pos.getX() + rand.nextFloat(), pos.getY() + height, pos.getZ() + rand.nextFloat(), 0.0, 0.01, 0.0);
+            thaumcraft.client.fx.FXDispatcher.pureFluidMote(pos.getX() + rand.nextFloat(), pos.getY() + height, pos.getZ() + rand.nextFloat());
         }
         if (rand.nextInt(50) == 0) {
             world.playLocalSound(pos.getX() + rand.nextFloat(), pos.getY() + 0.5, pos.getZ() + rand.nextFloat(), SoundEvents.LAVA_POP,

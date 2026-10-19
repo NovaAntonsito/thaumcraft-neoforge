@@ -112,10 +112,10 @@ public class TileFocalManipulator extends TileThaumcraft implements Container {
             }
         } else if (tile.vis > 0.0f) {
             var r = world.random;
-            world.addParticle(new net.minecraft.core.particles.DustParticleOptions(
-                            new org.joml.Vector3f(0.5f + r.nextFloat() * 0.4f, 1.0f - r.nextFloat() * 0.4f, 1.0f - r.nextFloat() * 0.4f), 0.6f),
-                    pos.getX() + 0.5 + (r.nextFloat() - r.nextFloat()) * 0.3f, pos.getY() + 1.4 + (r.nextFloat() - r.nextFloat()) * 0.3f,
-                    pos.getZ() + 0.5 + (r.nextFloat() - r.nextFloat()) * 0.3f, 0, 0, 0);
+            thaumcraft.client.fx.FXDispatcher.drawGenericParticles(pos.getX() + 0.5 + (r.nextFloat() - r.nextFloat()) * 0.3f,
+                    pos.getY() + 1.4 + (r.nextFloat() - r.nextFloat()) * 0.3f, pos.getZ() + 0.5 + (r.nextFloat() - r.nextFloat()) * 0.3f, 0.0, 0.0, 0.0,
+                    0.5f + r.nextFloat() * 0.4f, 1.0f - r.nextFloat() * 0.4f, 1.0f - r.nextFloat() * 0.4f, 0.8f, false, 448, 9, 1, 6 + r.nextInt(5), 0,
+                    0.3f + r.nextFloat() * 0.3f, 0.0f, 0);
         }
         if (complete) {
             tile.vis = 0.0f;
@@ -255,7 +255,7 @@ public class TileFocalManipulator extends TileThaumcraft implements Container {
         if (i == 5) {
             if (level != null && level.isClientSide) {
                 var r = level.random;
-                thaumcraft.client.fx.ClientFX.visSparkle(worldPosition.getX() + r.nextInt(3) - r.nextInt(3), worldPosition.getY() + r.nextInt(3),
+                thaumcraft.client.fx.FXDispatcher.visSparkle(worldPosition.getX() + r.nextInt(3) - r.nextInt(3), worldPosition.getY() + r.nextInt(3),
                         worldPosition.getZ() + r.nextInt(3) - r.nextInt(3), worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), j);
             }
             return true;

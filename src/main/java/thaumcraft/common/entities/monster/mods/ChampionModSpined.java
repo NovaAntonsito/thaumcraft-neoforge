@@ -19,10 +19,14 @@ public class ChampionModSpined implements IChampionModifierEffect {
     }
 
     @Override
-    public void showFX(LivingEntity mob) {
-        RandomSource rand = mob.getRandom();
-        if (rand.nextBoolean()) return;
-        ClientFX.championMote(mob, 1.0f, 0.0, 0.5f + rand.nextFloat() * 0.2f, 0.1f + rand.nextFloat() * 0.2f, 0.1f + rand.nextFloat() * 0.2f,
-                1.2f + rand.nextFloat() * 0.3f);
+    public void showFX(LivingEntity boss) {
+        if (boss.level().random.nextBoolean()) {
+            return;
+        }
+        float w = boss.level().random.nextFloat() * boss.getBbWidth();
+        float d = boss.level().random.nextFloat() * boss.getBbWidth();
+        float h = boss.level().random.nextFloat() * boss.getBbHeight();
+        int p = 704 + boss.level().random.nextInt(4) * 3;
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(boss.getBoundingBox().minX + w, boss.getBoundingBox().minY + h, boss.getBoundingBox().minZ + d, 0.0, 0.0, 0.0, 0.5f + boss.level().random.nextFloat() * 0.2f, 0.1f + boss.level().random.nextFloat() * 0.2f, 0.1f + boss.level().random.nextFloat() * 0.2f, 0.7f, false, p, 3, 1, 3, 0, 1.2f + boss.level().random.nextFloat() * 0.3f, 0.0f, 0);
     }
 }

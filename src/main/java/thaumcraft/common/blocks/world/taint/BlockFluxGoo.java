@@ -283,7 +283,7 @@ public class BlockFluxGoo extends Block {
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
         int meta = state.getValue(LEVEL);
         if (rand.nextInt(44) <= meta) {
-            ClientFX.fluxGooBubble(world, pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * meta, pos.getZ() + rand.nextFloat());
+            thaumcraft.client.fx.FXDispatcher.fluxGooBubble(pos.getX() + rand.nextFloat(), pos.getY() + 0.125f * meta, pos.getZ() + rand.nextFloat());
         }
     }
 }

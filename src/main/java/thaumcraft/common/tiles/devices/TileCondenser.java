@@ -70,8 +70,8 @@ public class TileCondenser extends TileThaumcraft implements IEssentiaTransport 
             if (level.isClientSide) {
                 if (essentia > 0 && !uncloggedList.isEmpty() && count % Math.max(3, interval / 50) == 0) {
                     BlockPos p = BlockPos.of(uncloggedList.get(level.random.nextInt(uncloggedList.size())));
-                    ClientFX.spark(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 0.33f + level.random.nextFloat() * 0.66f,
-                            0.33f + level.random.nextFloat() * 0.66f, 0.33f + level.random.nextFloat() * 0.66f);
+                    thaumcraft.client.fx.FXDispatcher.spark(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 4.5f + level.random.nextFloat(),
+                            0.33f + level.random.nextFloat() * 0.66f, 0.33f + level.random.nextFloat() * 0.66f, 0.33f + level.random.nextFloat() * 0.66f, 0.8f);
                 }
             } else {
                 if (count % 5 == 0 && essentia < MAX) {

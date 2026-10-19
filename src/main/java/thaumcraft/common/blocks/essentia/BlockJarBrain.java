@@ -99,8 +99,8 @@ public class BlockJarBrain extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
         if (world.getBlockEntity(pos) instanceof TileJarBrain te && te.xp >= TileJarBrain.XP_MAX) {
-            ClientFX.spark(pos.getX() + 0.5f, pos.getY() + 0.8f, pos.getZ() + 0.5f, 0.2f + rand.nextFloat() * 0.2f, 1.0f,
-                    0.3f + rand.nextFloat() * 0.2f);
+            thaumcraft.client.fx.FXDispatcher.spark(pos.getX() + 0.5f, pos.getY() + 0.8f, pos.getZ() + 0.5f, 3.0f, 0.2f + rand.nextFloat() * 0.2f, 1.0f,
+                    0.3f + rand.nextFloat() * 0.2f, 0.5f);
         }
     }
 

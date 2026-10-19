@@ -84,7 +84,7 @@ public class FocusEffectBreak extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(ParticleTypes.CRIT, posX, posY, posZ, motionX, motionY, motionZ);
+        thaumcraft.client.fx.FocusFX.breakFocus(posX, posY, posZ, motionX, motionY, motionZ);
     }
 
     @Override

@@ -32,6 +32,12 @@ public final class TCNetwork {
         event.registrar("1")
                 .playToClient(SyncObjectAspectsPayload.TYPE, SyncObjectAspectsPayload.STREAM_CODEC, SyncObjectAspectsPayload::handle)
                 .playToClient(PacketFXEssentiaSource.TYPE, PacketFXEssentiaSource.STREAM_CODEC, PacketFXEssentiaSource::handle)
+                .playToClient(thaumcraft.common.lib.network.fx.PacketFXBlockBamf.TYPE, thaumcraft.common.lib.network.fx.PacketFXBlockBamf.STREAM_CODEC,
+                        thaumcraft.common.lib.network.fx.PacketFXBlockBamf::handle)
+                .playToClient(thaumcraft.common.lib.network.fx.PacketFXPollute.TYPE, thaumcraft.common.lib.network.fx.PacketFXPollute.STREAM_CODEC,
+                        thaumcraft.common.lib.network.fx.PacketFXPollute::handle)
+                .playToClient(thaumcraft.common.lib.network.fx.PacketFXSlash.TYPE, thaumcraft.common.lib.network.fx.PacketFXSlash.STREAM_CODEC,
+                        thaumcraft.common.lib.network.fx.PacketFXSlash::handle)
                 .playToClient(PacketFXInfusionSource.TYPE, PacketFXInfusionSource.STREAM_CODEC, PacketFXInfusionSource::handle)
                 .playToClient(PacketFXBlockArc.TYPE, PacketFXBlockArc.STREAM_CODEC, PacketFXBlockArc::handle)
                 .playToClient(PacketFXBlockMist.TYPE, PacketFXBlockMist.STREAM_CODEC, PacketFXBlockMist::handle)

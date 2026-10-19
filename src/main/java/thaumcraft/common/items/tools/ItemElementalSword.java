@@ -89,7 +89,7 @@ public class ItemElementalSword extends SwordItem implements ISubItems {
                 miny = Mth.floor(player.getBoundingBox().minY);
             }
             for (int a = 0; a < 5; ++a) {
-                ClientFX.smokeSpiral(level, player.getX(), player.getBoundingBox().minY + player.getBbHeight() / 2.0f, player.getZ(), 1.5f,
+                thaumcraft.client.fx.FXDispatcher.smokeSpiral(player.getX(), player.getBoundingBox().minY + player.getBbHeight() / 2.0f, player.getZ(), 1.5f,
                         level.random.nextInt(360), miny, 14540253);
             }
             if (player.onGround()) {

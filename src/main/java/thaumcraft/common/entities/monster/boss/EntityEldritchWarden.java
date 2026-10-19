@@ -178,11 +178,11 @@ public class EntityEldritchWarden extends EntityThaumcraftBoss implements Ranged
             }
             float x = (float) (getX() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             float z = (float) (getZ() + (random.nextFloat() - random.nextFloat()) * 0.2f);
-            ClientFX.wispFXEG(level(), x, (float) (getY() + 0.25 * getBbHeight()), z);
+            thaumcraft.client.fx.FXDispatcher.wispFXEG(x, (float) (getY() + 0.25 * getBbHeight()), z, this);
             if (spawnTimer > 0) {
                 float he = Math.max(1.0f, getBbHeight() * ((150 - spawnTimer) / 150.0f));
                 for (int a = 0; a < 33; ++a) {
-                    ClientFX.smokeSpiral(level(), getX(), getBoundingBox().minY + he / 2.0f, getZ(), he, random.nextInt(360),
+                    thaumcraft.client.fx.FXDispatcher.smokeSpiral(getX(), getBoundingBox().minY + he / 2.0f, getZ(), he, random.nextInt(360),
                             Mth.floor(getBoundingBox().minY) - 1, 2232623);
                 }
             }

@@ -80,8 +80,6 @@ public class FocusEffectFlux extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double x, double y, double z, double vx, double vy, double vz) {
-        DustParticleOptions dust = new DustParticleOptions(new Vector3f(0.25f + world.random.nextFloat() * 0.25f, 0.0f, 0.25f + world.random.nextFloat() * 0.25f),
-                1.5f + world.random.nextFloat());
-        world.addParticle(dust, x, y, z, vx + world.random.nextGaussian() * 0.01, vy + world.random.nextGaussian() * 0.01, vz + world.random.nextGaussian() * 0.01);
+        thaumcraft.client.fx.FocusFX.flux(x, y, z, vx, vy, vz);
     }
 }

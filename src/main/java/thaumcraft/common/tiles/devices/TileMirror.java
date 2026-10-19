@@ -298,9 +298,10 @@ public class TileMirror extends TileThaumcraft implements Container {
                 double xx = worldPosition.getX() + 0.33 + level.random.nextFloat() * 0.33f - face.getStepX() / 2.0;
                 double yy = worldPosition.getY() + 0.33 + level.random.nextFloat() * 0.33f - face.getStepY() / 2.0;
                 double zz = worldPosition.getZ() + 0.33 + level.random.nextFloat() * 0.33f - face.getStepZ() / 2.0;
-                ClientFX.drawWispyMotes(level, xx, yy, zz, face.getStepX() / 50.0 + level.random.nextGaussian() * 0.01,
+                thaumcraft.client.fx.FXDispatcher.drawWispyMotes(xx, yy, zz, face.getStepX() / 50.0 + level.random.nextGaussian() * 0.01,
                         face.getStepY() / 50.0 + level.random.nextGaussian() * 0.01, face.getStepZ() / 50.0 + level.random.nextGaussian() * 0.01,
-                        level.random.nextFloat() / 3.0f, 0.0f, level.random.nextFloat() / 2.0f);
+                        net.minecraft.util.Mth.nextInt(level.random, 10, 30), level.random.nextFloat() / 3.0f, 0.0f, level.random.nextFloat() / 2.0f,
+                        (float) (level.random.nextGaussian() * 0.01));
             }
             return true;
         }

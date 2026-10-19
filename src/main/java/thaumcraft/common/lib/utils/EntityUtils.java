@@ -139,6 +139,21 @@ public final class EntityUtils {
     /**
      * hasGoggles: the held item, a worn bauble or a worn piece of armor reveals essentia contents and the like.
      */
+    /** A point just in front of the hand the player holds things in. */
+    public static net.minecraft.world.phys.Vec3 posToHand(Entity e, net.minecraft.world.InteractionHand hand) {
+        double px = e.getX();
+        double py = e.getBoundingBox().minY + e.getBbHeight() / 2.0f + 0.25;
+        double pz = e.getZ();
+        float m = hand == net.minecraft.world.InteractionHand.MAIN_HAND ? 0.0f : 180.0f;
+        px += -net.minecraft.util.Mth.cos((e.getYRot() + m) / 180.0f * 3.141593f) * 0.3f;
+        pz += -net.minecraft.util.Mth.sin((e.getYRot() + m) / 180.0f * 3.141593f) * 0.3f;
+        net.minecraft.world.phys.Vec3 vec3d = e.getViewVector(1.0f);
+        px += vec3d.x * 0.3;
+        py += vec3d.y * 0.3;
+        pz += vec3d.z * 0.3;
+        return new net.minecraft.world.phys.Vec3(px, py, pz);
+    }
+
     public static boolean hasGoggles(@Nullable Entity e) {
         if (!(e instanceof net.minecraft.world.entity.player.Player viewer)) {
             return false;

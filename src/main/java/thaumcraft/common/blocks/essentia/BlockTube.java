@@ -243,7 +243,7 @@ public class BlockTube extends BaseEntityBlock {
             world.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.1f,
                     1.0f + world.random.nextFloat() * 0.1f, false);
             for (int a = 0; a < 5; ++a) {
-                ClientFX.drawVentParticles(world, pos.getX() + 0.33 + world.random.nextFloat() * 0.33, pos.getY() + 0.33 + world.random.nextFloat() * 0.33,
+                thaumcraft.client.fx.FXDispatcher.drawVentParticles(pos.getX() + 0.33 + world.random.nextFloat() * 0.33, pos.getY() + 0.33 + world.random.nextFloat() * 0.33,
                         pos.getZ() + 0.33 + world.random.nextFloat() * 0.33, 0.0, 0.0, 0.0, Aspect.FLUX.getColor());
             }
         }

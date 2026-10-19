@@ -97,7 +97,7 @@ public class EntityWisp extends FlyingMob implements Enemy {
     public void handleEntityEvent(byte id) {
         super.handleEntityEvent(id);
         if (id == 3 && level().isClientSide) {
-            ClientFX.burst(getX(), getY() + 0.44999998807907104, getZ(), 1.0f);
+            thaumcraft.client.fx.FXDispatcher.burst(getX(), getY() + 0.44999998807907104, getZ(), 1.0f);
         }
     }
 
@@ -105,13 +105,13 @@ public class EntityWisp extends FlyingMob implements Enemy {
     public void tick() {
         super.tick();
         if (level().isClientSide && tickCount <= 1) {
-            ClientFX.burst(getX(), getY(), getZ(), 10.0f);
+            thaumcraft.client.fx.FXDispatcher.burst(getX(), getY(), getZ(), 10.0f);
         }
         Aspect aspect = Aspect.getAspect(getWispType());
         if (level().isClientSide && random.nextBoolean() && aspect != null) {
-            ClientFX.drawWispParticles(level(), getX() + (random.nextFloat() - random.nextFloat()) * 0.7f,
-                    getY() + (random.nextFloat() - random.nextFloat()) * 0.7f, getZ() + (random.nextFloat() - random.nextFloat()) * 0.7f,
-                    aspect.getColor());
+            thaumcraft.client.fx.FXDispatcher.drawWispParticles(getX() + (random.nextFloat() - random.nextFloat()) * 0.7f,
+                    getY() + (random.nextFloat() - random.nextFloat()) * 0.7f, getZ() + (random.nextFloat() - random.nextFloat()) * 0.7f, 0.0, 0.0, 0.0,
+                    aspect.getColor(), 0);
         }
         Vec3 m = getDeltaMovement();
         setDeltaMovement(m.x, m.y * 0.6000000238418579, m.z);

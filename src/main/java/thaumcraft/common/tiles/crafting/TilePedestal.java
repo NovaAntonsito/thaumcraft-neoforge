@@ -140,19 +140,19 @@ public class TilePedestal extends TileThaumcraft implements Container {
     /**
      * Client effects sent with level.blockEvent: 11 when instability knocks the item off, 12 when infusion
      * finishes, 5 for the stabilizer shield.
-     * TODO: the original FXDispatcher.drawBamf and drawPedestalShield (stage 10). Vanilla particles for now.
+     * TODO: drawPedestalShield (stage 10b).
      */
     @Override
     public boolean triggerEvent(int i, int j) {
-        if (i == 11 || i == 12) {
+        if (i == 11) {
             if (level != null && level.isClientSide) {
-                BlockPos p = worldPosition.above();
-                level.playLocalSound(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, SoundsTC.POOF.get(), SoundSource.BLOCKS, 0.4f,
-                        1.0f + (float) level.random.nextGaussian() * 0.05f, false);
-                for (int a = 0; a < 8 + level.random.nextInt(3); ++a) {
-                    level.addParticle(i == 11 ? ParticleTypes.WITCH : ParticleTypes.POOF, p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5,
-                            level.random.nextGaussian() * 0.05, level.random.nextGaussian() * 0.05, level.random.nextGaussian() * 0.05);
-                }
+                thaumcraft.client.fx.FXDispatcher.drawBamf(worldPosition.above(), 0.75f, 0.0f, 0.5f, true, true, null);
+            }
+            return true;
+        }
+        if (i == 12) {
+            if (level != null && level.isClientSide) {
+                thaumcraft.client.fx.FXDispatcher.drawBamf(worldPosition.above(), true, true, null);
             }
             return true;
         }

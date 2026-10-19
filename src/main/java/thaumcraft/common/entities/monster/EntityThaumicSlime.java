@@ -94,7 +94,7 @@ public class EntityThaumicSlime extends Slime implements ITaintedMob {
     protected boolean spawnCustomParticles() {
         if (level().isClientSide) {
             for (int j = 0; j < getSize() * 2; ++j) {
-                ClientFX.slimeJump(this);
+                thaumcraft.client.fx.FXDispatcher.slimeJumpFX(this, getSize());
             }
         }
         return true;
@@ -108,7 +108,7 @@ public class EntityThaumicSlime extends Slime implements ITaintedMob {
             if (launched > 0) {
                 --launched;
                 for (int k = 0; k < i * (launched + 1); ++k) {
-                    ClientFX.slimeJump(this);
+                    thaumcraft.client.fx.FXDispatcher.slimeJumpFX(this, i);
                 }
             }
         } else if (isAlive()) {

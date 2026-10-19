@@ -82,7 +82,9 @@ public class ChampionModTainted implements IChampionModifierEffect {
 
     @Override
     public void showFX(LivingEntity boss) {
-        RandomSource rand = boss.getRandom();
-        ClientFX.championMote(boss, 1.0f, -0.01, 0.1f + rand.nextFloat() * 0.2f, 0.0f, 0.1f + rand.nextFloat() * 0.1f, 2.0f + rand.nextFloat());
+        float w = boss.level().random.nextFloat() * boss.getBbWidth();
+        float d = boss.level().random.nextFloat() * boss.getBbWidth();
+        float h = boss.level().random.nextFloat() * boss.getBbHeight();
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(boss.getBoundingBox().minX + w, boss.getBoundingBox().minY + h, boss.getBoundingBox().minZ + d, 0.0, -0.01, 0.0, 0.1f + boss.level().random.nextFloat() * 0.2f, 0.0f, 0.1f + boss.level().random.nextFloat() * 0.1f, 0.25f, false, 1, 5, 1, 6 + boss.level().random.nextInt(6), 0, 2.0f + boss.level().random.nextFloat(), 0.5f, 1);
     }
 }

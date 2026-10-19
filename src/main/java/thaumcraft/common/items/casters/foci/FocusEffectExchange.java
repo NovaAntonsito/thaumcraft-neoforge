@@ -83,9 +83,7 @@ public class FocusEffectExchange extends FocusEffect implements IFocusBlockPicke
 
     @Override
     public void renderParticleFX(Level world, double x, double y, double z, double vx, double vy, double vz) {
-        float g = 0.25f + world.random.nextFloat() * 0.25f;
-        world.addParticle(new DustParticleOptions(new Vector3f(g, g, g), 0.5f), x, y, z, vx + world.random.nextGaussian() * 0.01,
-                vy + world.random.nextGaussian() * 0.01, vz + world.random.nextGaussian() * 0.01);
+        thaumcraft.client.fx.FocusFX.exchange(x, y, z, vx, vy, vz);
     }
 
     @Override

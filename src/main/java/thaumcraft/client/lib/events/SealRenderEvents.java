@@ -38,7 +38,7 @@ import thaumcraft.common.golems.seals.SealHandler;
  * The seal part of RenderEventHandler.renderLast (drawSeals, drawSealArea, renderSeal, translateSeal), kept in its own
  * class. While the player holds a seal displayer (a seal, the bell, a golem) every seal within 16 blocks is drawn,
  * through walls while sneaking.
- * TODO (stage 10): the red spark of a seal stopped by redstone.
+ * A seal stopped by redstone is drawn dimmed and now and then throws a red spark.
  */
 @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT)
 public final class SealRenderEvents {
@@ -85,7 +85,17 @@ public final class SealRenderEvents {
             double dis = player.distanceToSqr(Vec3.atCenterOf(seal.getSealPos().pos));
             if (dis <= 256.0) {
                 float alpha = 1.0f - (float) (dis / 256.0);
-                boolean ia = seal.isStoppedByRedstone(player.level());
+                boolean ia = false;
+                if (seal.isStoppedByRedstone(player.level())) {
+                    ia = true;
+                    if (player.level().random.nextFloat() < partialTicks / 12.0f) {
+                        Direction f = seal.getSealPos().face;
+                        thaumcraft.client.fx.FXDispatcher.spark(seal.getSealPos().pos.getX() + 0.5f + f.getStepX() * 0.66f,
+                                seal.getSealPos().pos.getY() + 0.5f + f.getStepY() * 0.66f, seal.getSealPos().pos.getZ() + 0.5f + f.getStepZ() * 0.66f,
+                                2.0f, 0.8f - player.level().random.nextFloat() * 0.2f, 0.0f, 0.0f, 1.0f);
+                        ia = false;
+                    }
+                }
                 renderSeal(pose, buffers, xray, seal.getSealPos().pos.getX(), seal.getSealPos().pos.getY(), seal.getSealPos().pos.getZ(), alpha,
                         seal.getSealPos().face, seal.getSeal().getSealIcon(), ia);
                 drawSealArea(pose, buffers, xray, player, seal, alpha, partialTicks);

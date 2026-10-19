@@ -1,6 +1,7 @@
 package thaumcraft.common.tiles.crafting;
 
 import net.minecraft.server.level.ServerPlayer;
+import thaumcraft.client.fx.FXDispatcher;
 import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
 import thaumcraft.api.capabilities.PlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
@@ -78,8 +79,7 @@ import thaumcraft.common.tiles.devices.TileStabilizer;
  * negative, random instability events can fire.
  * <p>
  * TODO: research (!INSTABILITY), the eldritch and ancient
- * pillars and pedestals, matrix speed and cost upgrades, the instability stabilizer, XP recipes (recipeType 1),
- * and the FXDispatcher effects (stage 10).
+ * pillars and pedestals, matrix speed and cost upgrades, the instability stabilizer and XP recipes (recipeType 1).
  */
 public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api.items.IGogglesDisplayExtended, IInteractWithCaster, IAspectContainer {
     private static final DecimalFormat myFormatter = new DecimalFormat("#######.##");
@@ -634,11 +634,8 @@ public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api
                 level.playLocalSound(worldPosition, SoundsTC.INFUSER.get(), SoundSource.BLOCKS, 0.5f, 1.0f, false);
             }
             ++craftCount;
-            // TODO: FXDispatcher.blockRunes on the central pedestal (stage 10).
-            if (level.random.nextInt(3) == 0) {
-                level.addParticle(ParticleTypes.ENCHANT, worldPosition.getX() + level.random.nextFloat(), worldPosition.getY() - 1.0,
-                        worldPosition.getZ() + level.random.nextFloat(), 0, -0.5, 0);
-            }
+            FXDispatcher.blockRunes(worldPosition.getX(), worldPosition.getY() - 2, worldPosition.getZ(), 0.5f + level.random.nextFloat() * 0.2f, 0.1f,
+                    0.7f + level.random.nextFloat() * 0.3f, 25, -0.03f);
         } else if (craftCount > 0) {
             craftCount -= 2;
             if (craftCount < 0) {
@@ -662,39 +659,38 @@ public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api
                 startUp = 0.0f;
             }
         }
-        double mx = worldPosition.getX() + 0.5, my = worldPosition.getY() + 0.5, mz = worldPosition.getZ() + 0.5;
         for (String fxk : sourceFX.keySet().toArray(new String[0])) {
             SourceFX fx = sourceFX.get(fxk);
             if (fx.ticks <= 0) {
                 sourceFX.remove(fxk);
                 continue;
             }
-            // TODO: drawInfusionParticles1-4 are custom particles (stage 10). Enchant glyphs fly from the source to the matrix.
             if (fx.loc.equals(worldPosition)) {
                 Entity player = level.getEntity(fx.color);
                 if (player != null) {
                     for (int a = 0; a < 4; ++a) {
-                        double px = player.getX() + (level.random.nextFloat() - level.random.nextFloat()) * player.getBbWidth();
-                        double py = player.getBoundingBox().minY + level.random.nextFloat() * player.getBbHeight();
-                        double pz = player.getZ() + (level.random.nextFloat() - level.random.nextFloat()) * player.getBbWidth();
-                        level.addParticle(ParticleTypes.ENCHANT, mx, my, mz, px - mx, py - my, pz - mz);
+                        FXDispatcher.drawInfusionParticles4(player.getX() + (level.random.nextFloat() - level.random.nextFloat()) * player.getBbWidth(),
+                                player.getBoundingBox().minY + level.random.nextFloat() * player.getBbHeight(),
+                                player.getZ() + (level.random.nextFloat() - level.random.nextFloat()) * player.getBbWidth(),
+                                worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
                     }
                 }
             } else if (level.getBlockEntity(fx.loc) instanceof TilePedestal ped) {
                 ItemStack is = ped.getItem(0);
                 if (!is.isEmpty()) {
-                    double px = fx.loc.getX() + 0.5, py = fx.loc.getY() + 1.25, pz = fx.loc.getZ() + 0.5;
                     if (level.random.nextInt(3) == 0) {
-                        level.addParticle(ParticleTypes.ENCHANT, mx, my, mz, px + level.random.nextFloat() - 0.5 - mx,
-                                py + level.random.nextFloat() - 0.5 - my, pz + level.random.nextFloat() - 0.5 - mz);
+                        FXDispatcher.drawInfusionParticles3(fx.loc.getX() + level.random.nextFloat(), fx.loc.getY() + level.random.nextFloat() + 1.0f,
+                                fx.loc.getZ() + level.random.nextFloat(), worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
+                    } else if (is.getItem() instanceof BlockItem bi) {
+                        for (int a2 = 0; a2 < 4; ++a2) {
+                            FXDispatcher.drawInfusionParticles2(fx.loc.getX() + level.random.nextFloat(), fx.loc.getY() + level.random.nextFloat() + 1.0f,
+                                    fx.loc.getZ() + level.random.nextFloat(), worldPosition, bi.getBlock().defaultBlockState(), 0);
+                        }
                     } else {
-                        for (int a = 0; a < 2; ++a) {
-                            double vx = (mx - px) * 0.08, vy = (my - py) * 0.08 + 0.1, vz = (mz - pz) * 0.08;
-                            if (is.getItem() instanceof BlockItem bi) {
-                                level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, bi.getBlock().defaultBlockState()), px, py, pz, vx, vy, vz);
-                            } else {
-                                level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, is), px, py, pz, vx, vy, vz);
-                            }
+                        for (int a2 = 0; a2 < 4; ++a2) {
+                            FXDispatcher.drawInfusionParticles1(fx.loc.getX() + 0.4f + level.random.nextFloat() * 0.2f,
+                                    fx.loc.getY() + 1.23f + level.random.nextFloat() * 0.2f, fx.loc.getZ() + 0.4f + level.random.nextFloat() * 0.2f,
+                                    worldPosition, is);
                         }
                     }
                 }
@@ -704,21 +700,16 @@ public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api
             --fx.ticks;
         }
         if (crafting && stability < 0.0f && level.random.nextInt(250) <= Math.abs(stability)) {
-            spark(worldPosition.getX() + level.random.nextFloat(), worldPosition.getY() + level.random.nextFloat(),
-                    worldPosition.getZ() + level.random.nextFloat(), 0.7f + level.random.nextFloat() * 0.1f, 0.1f, 0.65f + level.random.nextFloat() * 0.1f);
+            FXDispatcher.spark(worldPosition.getX() + level.random.nextFloat(), worldPosition.getY() + level.random.nextFloat(),
+                    worldPosition.getZ() + level.random.nextFloat(), 3.0f + level.random.nextFloat() * 2.0f, 0.7f + level.random.nextFloat() * 0.1f, 0.1f, 0.65f + level.random.nextFloat() * 0.1f, 0.8f);
         }
         if (active && !problemBlocks.isEmpty() && level.random.nextInt(25) == 0) {
             BlockPos p = problemBlocks.get(level.random.nextInt(problemBlocks.size()));
-            spark(p.getX() + level.random.nextFloat(), p.getY() + level.random.nextFloat(), p.getZ() + level.random.nextFloat(),
-                    0.7f + level.random.nextFloat() * 0.1f, 0.1f, 0.65f + level.random.nextFloat() * 0.1f);
+            FXDispatcher.spark(p.getX() + level.random.nextFloat(), p.getY() + level.random.nextFloat(), p.getZ() + level.random.nextFloat(),
+                    2.0f + level.random.nextFloat(), 0.7f + level.random.nextFloat() * 0.1f, 0.1f, 0.65f + level.random.nextFloat() * 0.1f, 0.8f);
         }
     }
 
-    /** FXDispatcher.spark stand-in. */
-    private void spark(double x, double y, double z, float r, float g, float b) {
-        level.addParticle(new DustParticleOptions(new Vector3f(r, g, b), 1.5f), x, y, z, 0, 0, 0);
-        level.addParticle(ParticleTypes.ELECTRIC_SPARK, x, y, z, 0, 0, 0);
-    }
 
     // ---- IAspectContainer: shows the essentia still needed ----------------------------------------
 

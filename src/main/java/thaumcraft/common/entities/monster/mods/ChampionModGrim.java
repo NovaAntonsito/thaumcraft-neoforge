@@ -17,9 +17,13 @@ public class ChampionModGrim implements IChampionModifierEffect {
     }
 
     @Override
-    public void showFX(LivingEntity mob) {
-        RandomSource rand = mob.getRandom();
-        if (rand.nextBoolean()) return;
-        ClientFX.championMote(mob, 1.0f, -0.02, rand.nextFloat() * 0.2f, rand.nextFloat() * 0.2f, rand.nextFloat() * 0.2f, 0.6f + rand.nextFloat() * 0.4f);
+    public void showFX(LivingEntity boss) {
+        if (boss.level().random.nextBoolean()) {
+            return;
+        }
+        float w = boss.level().random.nextFloat() * boss.getBbWidth();
+        float d = boss.level().random.nextFloat() * boss.getBbWidth();
+        float h = boss.level().random.nextFloat() * boss.getBbHeight();
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(boss.getBoundingBox().minX + w, boss.getBoundingBox().minY + h, boss.getBoundingBox().minZ + d, 0.0, -0.02, 0.0, boss.level().random.nextFloat() * 0.2f, boss.level().random.nextFloat() * 0.2f, boss.level().random.nextFloat() * 0.2f, 0.8f, false, 640, 10, 1, 8 + boss.level().random.nextInt(4), 0, 0.6f + boss.level().random.nextFloat() * 0.4f, 0.0f, 0);
     }
 }

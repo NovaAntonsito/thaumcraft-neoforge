@@ -84,7 +84,19 @@ public class FocusEffectAir extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(ParticleTypes.CLOUD, posX, posY, posZ, motionX * 0.5, motionY * 0.5 + 0.02, motionZ * 0.5);
+        thaumcraft.client.fx.FXDispatcher.GenPart pp = new thaumcraft.client.fx.FXDispatcher.GenPart();
+        pp.grav = -0.1f;
+        pp.age = 20 + world.random.nextInt(10);
+        pp.alpha = new float[] { 0.5f, 0.0f };
+        pp.grid = 32;
+        pp.partStart = 337;
+        pp.partInc = 1;
+        pp.partNum = 5;
+        pp.slowDown = 0.75;
+        pp.rot = (float) world.random.nextGaussian() / 2.0f;
+        float s = (float) (2.0 + world.random.nextGaussian() * 0.5);
+        pp.scale = new float[] { s, s * 2.0f };
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(posX, posY, posZ, motionX, motionY, motionZ, pp);
     }
 
     @Override

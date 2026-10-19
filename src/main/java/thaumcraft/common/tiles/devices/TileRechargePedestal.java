@@ -63,7 +63,7 @@ public class TileRechargePedestal extends TileThaumcraft implements WorldlyConta
         if (i == 5) {
             if (level != null && level.isClientSide) {
                 BlockPos up = worldPosition.above();
-                ClientFX.visSparkle(worldPosition.getX() + level.random.nextInt(3) - level.random.nextInt(3), up.getY() + level.random.nextInt(3),
+                thaumcraft.client.fx.FXDispatcher.visSparkle(worldPosition.getX() + level.random.nextInt(3) - level.random.nextInt(3), up.getY() + level.random.nextInt(3),
                         worldPosition.getZ() + level.random.nextInt(3) - level.random.nextInt(3), worldPosition.getX(), up.getY(), worldPosition.getZ(), j);
             }
             return true;

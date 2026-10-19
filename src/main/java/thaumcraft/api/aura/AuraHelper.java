@@ -31,12 +31,14 @@ public class AuraHelper {
         return AuraHandler.getVis(world, pos);
     }
 
-    /**
-     * Adds flux to the aura at the given location.
-     * TODO showEffect: the pollution particles arrive with the FX port.
-     */
+    /** Adds flux to the aura at the given location; with showEffect, pink wisps show where it went. */
     public static void polluteAura(Level world, BlockPos pos, float amount, boolean showEffect) {
+        if (world.isClientSide) return;
         AuraHandler.addFlux(world, pos, amount);
+        if (showEffect && amount > 0.0f) {
+            thaumcraft.common.network.TCNetwork.sendToAllAround(world, pos.getX(), pos.getY(), pos.getZ(), 32.0,
+                    new thaumcraft.common.lib.network.fx.PacketFXPollute(pos, amount));
+        }
     }
 
     public static float getFlux(Level world, BlockPos pos) {

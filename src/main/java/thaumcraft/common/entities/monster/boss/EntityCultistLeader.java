@@ -208,7 +208,7 @@ public class EntityCultistLeader extends EntityThaumcraftBoss implements RangedA
                 double d2 = random.nextGaussian() * 0.05;
                 double d3 = random.nextGaussian() * 0.05;
                 double d4 = 2.0;
-                ClientFX.cultistSpawn(level(), getX() + random.nextFloat() * getBbWidth() * 2.0f - getBbWidth() + d0 * d4,
+                thaumcraft.client.fx.FXDispatcher.cultistSpawn(getX() + random.nextFloat() * getBbWidth() * 2.0f - getBbWidth() + d0 * d4,
                         getY() + random.nextFloat() * getBbHeight() + d2 * d4, getZ() + random.nextFloat() * getBbWidth() * 2.0f - getBbWidth() + d3 * d4,
                         d0, d2, d3);
             }

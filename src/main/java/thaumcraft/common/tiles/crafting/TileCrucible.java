@@ -1,5 +1,7 @@
 package thaumcraft.common.tiles.crafting;
 
+import thaumcraft.client.fx.FXDispatcher;
+import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.neoforged.neoforge.event.EventHooks;
 import javax.annotation.Nullable;
@@ -142,23 +144,26 @@ public class TileCrucible extends BlockEntity implements thaumcraft.api.aspects.
         }
     }
 
-    /** TODO: the original FXDispatcher froth and bubbles (stage 10). Vanilla particles for now. */
     private void drawEffects() {
         var rand = level.random;
+        int px = worldPosition.getX(), py = worldPosition.getY(), pz = worldPosition.getZ();
         if (heat > 150) {
-            level.addParticle(ParticleTypes.BUBBLE_POP, worldPosition.getX() + 0.2 + rand.nextFloat() * 0.6, worldPosition.getY() + getFluidHeight(),
-                    worldPosition.getZ() + 0.2 + rand.nextFloat() * 0.6, 0, 0, 0);
+            FXDispatcher.crucibleFroth(px + 0.2f + rand.nextFloat() * 0.6f, py + getFluidHeight(), pz + 0.2f + rand.nextFloat() * 0.6f);
             if (aspects.visSize() > maxTags) {
-                level.addParticle(ParticleTypes.FALLING_WATER, worldPosition.getX() + rand.nextFloat(), worldPosition.getY() + 1, worldPosition.getZ(), 0, 0, 0);
+                for (int a = 0; a < 2; ++a) {
+                    FXDispatcher.crucibleFrothDown((float) px, (float) (py + 1), pz + rand.nextFloat());
+                    FXDispatcher.crucibleFrothDown((float) (px + 1), (float) (py + 1), pz + rand.nextFloat());
+                    FXDispatcher.crucibleFrothDown(px + rand.nextFloat(), (float) (py + 1), (float) pz);
+                    FXDispatcher.crucibleFrothDown(px + rand.nextFloat(), (float) (py + 1), (float) (pz + 1));
+                }
             }
         }
         if (rand.nextInt(6) == 0 && aspects.size() > 0) {
             int color = aspects.getAspects()[rand.nextInt(aspects.size())].getColor();
             int x = 5 + rand.nextInt(22);
             int y = 5 + rand.nextInt(22);
-            Vector3f c = new Vector3f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f);
-            level.addParticle(new DustParticleOptions(c, 1.0f), worldPosition.getX() + x / 32.0 + 0.015625, worldPosition.getY() + 0.05 + getFluidHeight(),
-                    worldPosition.getZ() + y / 32.0 + 0.015625, 0, 0, 0);
+            FXDispatcher.crucibleBubble(px + x / 32.0f + 0.015625f, py + 0.05f + getFluidHeight(), pz + y / 32.0f + 0.015625f,
+                    ((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f);
         }
     }
 
@@ -283,22 +288,19 @@ public class TileCrucible extends BlockEntity implements thaumcraft.api.aspects.
         }
     }
 
-    /** Client effects sent with level.blockEvent. TODO: the original bamf and boil fx (stage 10). */
+    /** Client effects sent with level.blockEvent. */
     @Override
     public boolean triggerEvent(int i, int j) {
         if (i == 99) {
             if (level.isClientSide) {
-                for (int a = 0; a < 10; a++) {
-                    level.addParticle(ParticleTypes.POOF, worldPosition.getX() + 0.5, worldPosition.getY() + 1.25, worldPosition.getZ() + 0.5,
-                            level.random.nextGaussian() * 0.05, 0.05, level.random.nextGaussian() * 0.05);
-                }
+                FXDispatcher.drawBamf(worldPosition.getX() + 0.5, worldPosition.getY() + 1.25f, worldPosition.getZ() + 0.5, true, true, Direction.UP);
                 level.playLocalSound(worldPosition, SoundsTC.SPILL.get(), SoundSource.BLOCKS, 0.2f, 1.0f, false);
             }
             return true;
         }
         if (i == 1) {
             if (level.isClientSide) {
-                level.addParticle(ParticleTypes.POOF, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, 0, 0.05, 0);
+                FXDispatcher.drawBamf(worldPosition.above(), true, true, Direction.UP);
             }
             return true;
         }
@@ -306,8 +308,7 @@ public class TileCrucible extends BlockEntity implements thaumcraft.api.aspects.
             level.playLocalSound(worldPosition, SoundsTC.SPILL.get(), SoundSource.BLOCKS, 0.2f, 1.0f, false);
             if (level.isClientSide) {
                 for (int q = 0; q < 10; ++q) {
-                    level.addParticle(ParticleTypes.SPLASH, worldPosition.getX() + 0.2 + level.random.nextFloat() * 0.6,
-                            worldPosition.getY() + getFluidHeight(), worldPosition.getZ() + 0.2 + level.random.nextFloat() * 0.6, 0, 0.1, 0);
+                    FXDispatcher.crucibleBoil(worldPosition, this, j);
                 }
             }
             return true;

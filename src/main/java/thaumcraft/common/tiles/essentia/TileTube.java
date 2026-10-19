@@ -144,7 +144,7 @@ public class TileTube extends TileThaumcraft implements IEssentiaTransport, IInt
             double fx = -Mth.sin(ry / 180.0f * Mth.PI) * Mth.cos(rp / 180.0f * Mth.PI);
             double fz = Mth.cos(ry / 180.0f * Mth.PI) * Mth.cos(rp / 180.0f * Mth.PI);
             double fy = -Mth.sin(rp / 180.0f * Mth.PI);
-            ClientFX.drawVentParticles(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
+            thaumcraft.client.fx.FXDispatcher.drawVentParticles(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
                     fx / 5.0, fy / 5.0, fz / 5.0, ventColor);
         }
     }

@@ -46,7 +46,8 @@ public class ItemElementalHoe extends HoeItem {
                         new BlockHitResult(Vec3.atCenterOf(pp), context.getClickedFace(), pp, false));
                 if (super.useOn(ctx).consumesAction()) {
                     if (world.isClientSide) {
-                        ClientFX.drawBamf(world, pp.getX() + 0.5, pp.getY() + 1.01, pp.getZ() + 0.5, 0x4C1F19, xx == 0 && zz == 0, false);
+                        thaumcraft.client.fx.FXDispatcher.drawBamf(pp.getX() + 0.5, pp.getY() + 1.01, pp.getZ() + 0.5, 0.3f, 0.12f, 0.1f, xx == 0 && zz == 0, false,
+                                net.minecraft.core.Direction.UP);
                     }
                     did = true;
                 }
@@ -61,7 +62,7 @@ public class ItemElementalHoe extends HoeItem {
                 if (!world.isClientSide) {
                     world.levelEvent(1505, pos, 15);
                 } else {
-                    ClientFX.blockMist(pos, 4259648);
+                    thaumcraft.client.fx.FXDispatcher.drawBlockMistParticles(pos, 4259648);
                 }
             }
         }

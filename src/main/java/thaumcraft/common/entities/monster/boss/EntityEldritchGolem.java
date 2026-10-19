@@ -306,11 +306,11 @@ public class EntityEldritchGolem extends EntityThaumcraftBoss implements IEldrit
                 if (random.nextInt(20) == 0) {
                     float a = (random.nextFloat() - random.nextFloat()) / 3.0f;
                     float b = (random.nextFloat() - random.nextFloat()) / 3.0f;
-                    ClientFX.spark((float) (getX() + v.x + a), (float) getY() + getEyeHeight() - 0.75f, (float) (getZ() + v.z + b),
-                            0.65f + random.nextFloat() * 0.1f, 1.0f, 1.0f);
+                    thaumcraft.client.fx.FXDispatcher.spark((float) (getX() + v.x + a), (float) getY() + getEyeHeight() - 0.75f, (float) (getZ() + v.z + b), 3.0f,
+                            0.65f + random.nextFloat() * 0.1f, 1.0f, 1.0f, 0.8f);
                 }
-                ClientFX.drawVentParticles(level(), (float) getX() + v.x * 0.4, (float) getY() + getEyeHeight() - 1.25f, (float) getZ() + v.z * 0.4,
-                        0.0, 0.001, 0.0, 5592405);
+                thaumcraft.client.fx.FXDispatcher.drawVentParticles((float) getX() + v.x * 0.4, (float) getY() + getEyeHeight() - 1.25f,
+                        (float) getZ() + v.z * 0.4, 0.0, 0.001, 0.0, 5592405, 4.0f);
                 if (arcing > 0) {
                     ClientFX.arcLightning(getX(), getY() + getBbHeight() / 2.0f, getZ(), ax + 0.5, ay + 1, az + 0.5,
                             0.65f + random.nextFloat() * 0.1f, 1.0f, 1.0f);

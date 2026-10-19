@@ -181,10 +181,11 @@ public class BlockInlay extends Block implements IInfusionStabiliserExt {
                 double d0 = pos.getX() + 0.5 + rand.nextGaussian() * 0.08;
                 double d2 = pos.getY() + 0.025f;
                 double d3 = pos.getZ() + 0.5 + rand.nextGaussian() * 0.08;
+                double f0 = face.getStepX() / 70.0 * (1.0 - rand.nextFloat() * 0.1);
+                double f2 = face.getStepZ() / 70.0 * (1.0 - rand.nextFloat() * 0.1);
                 float r = Mth.nextInt(rand, 150, 200) / 255.0f;
                 float g = Mth.nextInt(rand, 0, 200) / 255.0f;
-                // TODO: drawLineSparkle, a spark that runs along the inlay (stage 10).
-                ClientFX.spark(d0 + face.getStepX() * 0.25, d2, d3 + face.getStepZ() * 0.25, r, g, g / 2.0f);
+                thaumcraft.client.fx.FXDispatcher.drawLineSparkle(rand, d0, d2, d3, f0, 0.0, f2, 0.33f, r, g, g / 2.0f, 0, 1.0f, 0.0f, 16);
             }
         }
     }

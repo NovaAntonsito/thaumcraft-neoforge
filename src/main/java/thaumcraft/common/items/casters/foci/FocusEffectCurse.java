@@ -117,9 +117,7 @@ public class FocusEffectCurse extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        DustParticleOptions dust = new DustParticleOptions(new Vector3f(0.41f + world.random.nextFloat() * 0.2f, 0.0f, 0.019f + world.random.nextFloat() * 0.2f),
-                1.0f + world.random.nextFloat() * 2.0f);
-        world.addParticle(dust, posX, posY, posZ, motionX, motionY, motionZ);
+        thaumcraft.client.fx.FocusFX.curse(posX, posY, posZ, motionX, motionY, motionZ);
     }
 
     @Override

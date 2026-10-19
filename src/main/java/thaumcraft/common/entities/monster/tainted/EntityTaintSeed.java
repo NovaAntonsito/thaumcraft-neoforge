@@ -172,11 +172,11 @@ public class EntityTaintSeed extends Monster implements ITaintedMob {
             float xx = 1.0f * Mth.sin(tickCount * 0.05f - 0.5f) / 5.0f;
             float zz = 1.0f * Mth.sin(tickCount * 0.06f - 0.5f) / 5.0f + hurtTime / 200.0f + attackAnim;
             if (random.nextFloat() < 0.033) {
-                ClientFX.drawLightningFlash(level(), getX() + xx, getY() + getBbHeight() + 0.25f, getZ() + zz, 0.7f, 0.1f, 0.9f, 0.5f,
-                        1.5f + random.nextFloat());
+                thaumcraft.client.fx.FXDispatcher.drawLightningFlash((float) getX() + xx, (float) getY() + getBbHeight() + 0.25f, (float) getZ() + zz, 0.7f, 0.1f,
+                        0.9f, 0.5f, 1.5f + random.nextFloat());
             } else {
-                ClientFX.drawTaintParticles(level(), getX() + xx, getY() + getBbHeight() + 0.25f, getZ() + zz, random.nextGaussian() * 0.05f,
-                        0.1f + 0.01f * random.nextFloat(), random.nextGaussian() * 0.05f, 2.0f);
+                thaumcraft.client.fx.FXDispatcher.drawTaintParticles((float) getX() + xx, (float) getY() + getBbHeight() + 0.25f, (float) getZ() + zz,
+                        (float) random.nextGaussian() * 0.05f, 0.1f + 0.01f * random.nextFloat(), (float) random.nextGaussian() * 0.05f, 2.0f);
             }
         }
     }

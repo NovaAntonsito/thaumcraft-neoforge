@@ -225,7 +225,7 @@ public class TileThaumatorium extends TileThaumcraft implements WorldlyContainer
             float fz2 = 0.1f - level.random.nextFloat() * 0.2f;
             float fy2 = 0.1f - level.random.nextFloat() * 0.2f;
             Direction facing = getFacing();
-            ClientFX.drawVentParticles(level, worldPosition.getX() + 0.5f + fx + facing.getStepX() / 2.0f, worldPosition.getY() + 0.5f + fy,
+            thaumcraft.client.fx.FXDispatcher.drawVentParticles(worldPosition.getX() + 0.5f + fx + facing.getStepX() / 2.0f, worldPosition.getY() + 0.5f + fy,
                     worldPosition.getZ() + 0.5f + fz + facing.getStepZ() / 2.0f, facing.getStepX() / 4.0f + fx2, fy2,
                     facing.getStepZ() / 4.0f + fz2, 0xFFFFFF);
         }

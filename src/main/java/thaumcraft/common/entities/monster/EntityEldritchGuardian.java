@@ -120,7 +120,7 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
             }
             float x = (float) (getX() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             float z = (float) (getZ() + (random.nextFloat() - random.nextFloat()) * 0.2f);
-            ClientFX.wispFXEG(level(), x, (float) (getY() + 0.22 * getBbHeight()), z);
+            thaumcraft.client.fx.FXDispatcher.wispFXEG(x, (float) (getY() + 0.22 * getBbHeight()), z, this);
         } else if ((tickCount == 0 || tickCount % 100 == 0) && level().getDifficulty() != Difficulty.EASY) {
             double d6 = (level().getDifficulty() == Difficulty.HARD) ? 576.0 : 256.0;
             for (Player entityplayer1 : level().players()) {

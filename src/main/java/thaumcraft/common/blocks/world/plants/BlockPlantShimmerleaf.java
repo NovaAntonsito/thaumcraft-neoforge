@@ -48,8 +48,8 @@ public class BlockPlantShimmerleaf extends BushBlock {
             float xr = (float) (pos.getX() + 0.5f + rand.nextGaussian() * 0.1);
             float yr = (float) (pos.getY() + 0.4f + rand.nextGaussian() * 0.1);
             float zr = (float) (pos.getZ() + 0.5f + rand.nextGaussian() * 0.1);
-            ClientFX.drawWispyMotes(world, xr, yr, zr, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01,
-                    0.3f + world.random.nextFloat() * 0.3f, 0.7f + world.random.nextFloat() * 0.3f, 0.7f + world.random.nextFloat() * 0.3f);
+            thaumcraft.client.fx.FXDispatcher.drawWispyMotes(xr, yr, zr, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01, rand.nextGaussian() * 0.01,
+                    10, 0.3f + world.random.nextFloat() * 0.3f, 0.7f + world.random.nextFloat() * 0.3f, 0.7f + world.random.nextFloat() * 0.3f, 0.0f);
         }
     }
 }

@@ -96,7 +96,7 @@ public class FocusEffectFrost extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(ParticleTypes.SNOWFLAKE, posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
+        thaumcraft.client.fx.FocusFX.frost(posX, posY, posZ, motionX, motionY, motionZ);
     }
 
     @Override

@@ -137,9 +137,9 @@ public class TilePotionSprayer extends TileThaumcraft implements WorldlyContaine
                 float fx2 = (float) (level.random.nextGaussian() * 0.06);
                 float fz2 = (float) (level.random.nextGaussian() * 0.06);
                 float fy2 = (float) (level.random.nextGaussian() * 0.06);
-                ClientFX.drawVentParticles(level, worldPosition.getX() + 0.5f + fx + facing.getStepX() / 2.0f,
+                thaumcraft.client.fx.FXDispatcher.drawVentParticles2(worldPosition.getX() + 0.5f + fx + facing.getStepX() / 2.0f,
                         worldPosition.getY() + 0.5f + fy + facing.getStepY() / 2.0f, worldPosition.getZ() + 0.5f + fz + facing.getStepZ() / 2.0f,
-                        fx2 + facing.getStepX() * 0.25, fy2 + facing.getStepY() * 0.25, fz2 + facing.getStepZ() * 0.25, color);
+                        fx2 + facing.getStepX() * 0.25, fy2 + facing.getStepY() * 0.25, fz2 + facing.getStepZ() * 0.25, color, 4.0f);
             }
         }
     }

@@ -243,13 +243,14 @@ public class EntityFluxRift extends Entity {
             if (!getCollapse() && getRiftStability() < 0.0f && random.nextInt(150) < Math.abs(getRiftStability())) {
                 int pi = 1 + random.nextInt(points.size() - 2);
                 Vec3 v1 = points.get(pi).add(getX(), getY(), getZ());
-                ClientFX.drawCurlyWisp(level, v1.x, v1.y, v1.z, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 1.0f, 1.0f);
+                thaumcraft.client.fx.FXDispatcher.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f, 1.0f, 1.0f, 0.25f, null,
+                        1, 0, 0);
             }
             if (getCollapse()) {
                 int pi = 1 + random.nextInt(points.size() - 2);
                 Vec3 v1 = points.get(pi).add(getX(), getY(), getZ());
-                ClientFX.drawCurlyWisp(level, v1.x, v1.y, v1.z, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f,
-                        0.3f + random.nextFloat() * 0.1f, 0.3f + random.nextFloat() * 0.1f);
+                thaumcraft.client.fx.FXDispatcher.drawCurlyWisp(v1.x, v1.y, v1.z, 0.0, 0.0, 0.0, 0.1f + pointsWidth.get(pi) * 3.0f, 1.0f,
+                        0.3f + random.nextFloat() * 0.1f, 0.3f + random.nextFloat() * 0.1f, 0.4f, null, 1, 0, 0);
             }
         }
     }
@@ -430,10 +431,9 @@ public class EntityFluxRift extends Entity {
         for (int a = 0; a < qq; ++a) {
             spawnAtLocation(new ItemStack(ConfigItems.voidSeed.get()), 0.0f);
         }
-        // TODO: PacketFXBlockBamf (stage 10). A vanilla burst for now.
-        if (level() instanceof ServerLevel server) {
-            server.sendParticles(net.minecraft.core.particles.ParticleTypes.REVERSE_PORTAL, getX(), getY(), getZ(), 40, 0.5, 0.5, 0.5, 0.3);
-        }
+        // The original sent color 0, so the puff is black.
+        thaumcraft.common.network.TCNetwork.sendToAllAround(level(), getX(), getY(), getZ(), 64.0,
+                new thaumcraft.common.lib.network.fx.PacketFXBlockBamf(getX(), getY(), getZ(), 0, true, true, null));
         List<LivingEntity> list = level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(32.0),
                 e -> e.distanceToSqr(this) < 1024.0);
         // The original's switch falls through: very unstable also gets the weakness and the warp.

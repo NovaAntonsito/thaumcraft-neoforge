@@ -70,7 +70,7 @@ public class EntityGolemOrb extends ThrowableProjectile implements IEntityWithCo
         }
         playSound(SoundsTC.SHOCK.get(), 1.0f, 1.0f + (random.nextFloat() - random.nextFloat()) * 0.2f);
         if (level().isClientSide) {
-            ClientFX.burst(getX(), getY(), getZ(), 1.0f);
+            thaumcraft.client.fx.FXDispatcher.burst(getX(), getY(), getZ(), 1.0f);
         }
         discard();
     }

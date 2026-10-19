@@ -23,6 +23,6 @@ public record PacketFXBlockMist(BlockPos pos, int color) implements CustomPacket
     }
 
     public static void handle(PacketFXBlockMist msg, IPayloadContext context) {
-        ClientFX.blockMist(msg.pos, msg.color);
+        thaumcraft.client.fx.FXDispatcher.drawBlockMistParticles(msg.pos, msg.color);
     }
 }

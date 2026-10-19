@@ -93,7 +93,16 @@ public class FocusEffectFire extends FocusEffect {
 
     @Override
     public void renderParticleFX(Level world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
-        world.addParticle(ParticleTypes.FLAME, posX, posY, posZ, motionX * 0.5, motionY * 0.5 + 0.02, motionZ * 0.5);
+        thaumcraft.client.fx.FXDispatcher.GenPart pp = new thaumcraft.client.fx.FXDispatcher.GenPart();
+        pp.grav = -0.2f;
+        pp.age = 10;
+        pp.alpha = new float[] { 0.7f };
+        pp.partStart = 640;
+        pp.partInc = 1;
+        pp.partNum = 10;
+        pp.slowDown = 0.75;
+        pp.scale = new float[] { (float) (1.5 + world.random.nextGaussian() * 0.20000000298023224) };
+        thaumcraft.client.fx.FXDispatcher.drawGenericParticles(posX, posY, posZ, motionX, motionY, motionZ, pp);
     }
 
     @Override

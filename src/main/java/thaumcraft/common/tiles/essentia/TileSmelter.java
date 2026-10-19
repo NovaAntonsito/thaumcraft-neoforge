@@ -354,7 +354,7 @@ public class TileSmelter extends TileThaumcraft implements WorldlyContainer {
                     float fx2 = 0.1f - level.random.nextFloat() * 0.2f;
                     float fz2 = 0.1f - level.random.nextFloat() * 0.2f;
                     float fy2 = 0.1f - level.random.nextFloat() * 0.2f;
-                    ClientFX.drawVentParticles(level, worldPosition.getX() + 0.5f + fx + o.getStepX(), worldPosition.getY() + 0.5f + fy,
+                    thaumcraft.client.fx.FXDispatcher.drawVentParticles(worldPosition.getX() + 0.5f + fx + o.getStepX(), worldPosition.getY() + 0.5f + fy,
                             worldPosition.getZ() + 0.5f + fz + o.getStepZ(), o.getStepX() / 4.0f + fx2, o.getStepY() / 4.0f + fy2,
                             o.getStepZ() / 4.0f + fz2, 0xAAAAAA);
                 }

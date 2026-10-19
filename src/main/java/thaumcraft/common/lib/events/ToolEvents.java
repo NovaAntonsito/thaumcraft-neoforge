@@ -6,7 +6,6 @@ import java.util.Map;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.TickTask;
@@ -37,6 +36,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import thaumcraft.common.lib.network.fx.PacketFXSlash;
 import thaumcraft.Thaumcraft;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
@@ -49,7 +49,7 @@ import thaumcraft.common.lib.network.fx.PacketFXScanSource;
  * <p>
  * The 1.12 HarvestDropsEvent work is split: area breaking (Destructive) runs on BreakEvent and the drop changes
  * (Collector, Lamplighter, rare earth) on BlockDropsEvent.
- * TODO: Essence (needs entity aspects); the following item and slash FX.
+ * TODO: Essence (needs entity aspects); the following item FX.
  */
 @EventBusSubscriber(modid = Thaumcraft.MODID)
 public final class ToolEvents {
@@ -95,8 +95,8 @@ public final class ToolEvents {
                     if (e.hurt(world.damageSources().playerAttack(player), f * 0.5f)) {
                         e.push(-Mth.sin(player.getYRot() * Mth.DEG_TO_RAD) * 0.5f, 0.1, Mth.cos(player.getYRot() * Mth.DEG_TO_RAD) * 0.5f);
                         ++count;
-                        // TODO: PacketFXSlash (stage 10).
-                        ((ServerLevel) world).sendParticles(ParticleTypes.SWEEP_ATTACK, e.getX(), e.getY(0.5), e.getZ(), 1, 0, 0, 0, 0);
+                        PacketDistributor.sendToPlayersNear((ServerLevel) world, null, target.getX(), target.getY(), target.getZ(), 64.0,
+                                new PacketFXSlash(target.getId(), e.getId()));
                     }
                 }
                 if (count >= rank) break;
@@ -104,6 +104,8 @@ public final class ToolEvents {
             if (count > 0) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundsTC.WIND.get(), SoundSource.PLAYERS, 1.0f,
                         0.9f + world.random.nextFloat() * 0.2f);
+                PacketDistributor.sendToPlayersNear((ServerLevel) world, null, player.getX(), player.getY(), player.getZ(), 64.0,
+                        new PacketFXSlash(player.getId(), target.getId()));
             }
         }
     }

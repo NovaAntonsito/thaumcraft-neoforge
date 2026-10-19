@@ -50,12 +50,11 @@ public class BlockPedestal extends BaseEntityBlock implements IInfusionStabilise
         builder.add(BlockInlay.CHARGE);
     }
 
-    /** TODO: FXDispatcher.blockRunes2, red runes around the base while charged (stage 10). Red dust for now. */
+    /** Red runes around the base while charged. */
     @Override
     public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
         if (stateIn.getValue(BlockInlay.CHARGE) > 0) {
-            worldIn.addParticle(new DustParticleOptions(new Vector3f(1.0f, 0.0f, 0.0f), 0.6f), pos.getX() + rand.nextFloat(),
-                    pos.getY() + 0.125, pos.getZ() + rand.nextFloat(), 0, 0.02, 0);
+            thaumcraft.client.fx.FXDispatcher.blockRunes2(pos.getX(), pos.getY() - 0.375, pos.getZ(), 1.0f, 0.0f, 0.0f, 10, 0.0f);
         }
     }
 

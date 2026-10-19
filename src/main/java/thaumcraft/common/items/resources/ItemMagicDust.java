@@ -39,7 +39,7 @@ public class ItemMagicDust extends Item {
                 }
                 trigger.execute(world, player, pos, place, context.getClickedFace());
                 if (world.isClientSide) {
-                    doSparkles(world, trigger.sparkle(world, player, pos, place));
+                    doSparkles(player, world, pos, context.getClickLocation(), context.getHand(), trigger, place);
                 }
                 return InteractionResult.sidedSuccess(world.isClientSide);
             }
@@ -47,14 +47,27 @@ public class ItemMagicDust extends Item {
         return InteractionResult.PASS;
     }
 
-    /** TODO: the original FXDispatcher sparkles (stage 10). Vanilla particles for now. */
-    private static void doSparkles(Level world, java.util.List<BlockPos> sparkles) {
-        for (BlockPos p : sparkles) {
-            for (int a = 0; a < 20; a++) {
-                world.addParticle(ParticleTypes.ENCHANT, p.getX() + world.random.nextDouble(), p.getY() + 1.0 + world.random.nextDouble() * 0.5,
-                        p.getZ() + world.random.nextDouble(), 0, 0.05, 0);
+    /** Golden sparkles thrown from the hand at the block, then over each block the trigger changes. */
+    private static void doSparkles(Player player, Level world, BlockPos pos, net.minecraft.world.phys.Vec3 hit, net.minecraft.world.InteractionHand hand,
+            IDustTrigger trigger, IDustTrigger.Placement place) {
+        net.minecraft.world.phys.Vec3 v1 = thaumcraft.common.lib.utils.EntityUtils.posToHand(player, hand);
+        net.minecraft.world.phys.Vec3 v2 = net.minecraft.world.phys.Vec3.atCenterOf(pos).subtract(v1);
+        for (int cnt = 50, a = 0; a < cnt; ++a) {
+            boolean floaty = a < cnt / 3;
+            float r = net.minecraft.util.Mth.nextInt(world.random, 255, 255) / 255.0f;
+            float g = net.minecraft.util.Mth.nextInt(world.random, 189, 255) / 255.0f;
+            float b = net.minecraft.util.Mth.nextInt(world.random, 64, 255) / 255.0f;
+            thaumcraft.client.fx.FXDispatcher.drawSimpleSparkle(world.random, v1.x, v1.y, v1.z, v2.x / 6.0 + world.random.nextGaussian() * 0.05,
+                    v2.y / 6.0 + world.random.nextGaussian() * 0.05 + (floaty ? 0.05 : 0.15), v2.z / 6.0 + world.random.nextGaussian() * 0.05, 0.5f, r, g, b,
+                    world.random.nextInt(5), floaty ? 0.3f + world.random.nextFloat() * 0.5f : 0.85f, floaty ? 0.2f : 0.5f, 16);
+        }
+        world.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundsTC.DUST.get(), SoundSource.PLAYERS, 0.33f, 1.0f + (float) world.random.nextGaussian() * 0.05f,
+                false);
+        java.util.List<BlockPos> sparkles = trigger.sparkle(world, player, pos, place);
+        if (sparkles != null) {
+            for (BlockPos p : sparkles) {
+                thaumcraft.client.fx.FXDispatcher.drawBlockSparkles(p, hit);
             }
-            world.playLocalSound(p, SoundsTC.DUST.get(), SoundSource.PLAYERS, 0.33f, 1.0f + (float) world.random.nextGaussian() * 0.05f, false);
         }
     }
 }

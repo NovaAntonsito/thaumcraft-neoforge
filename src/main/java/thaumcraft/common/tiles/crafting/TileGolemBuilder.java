@@ -143,19 +143,19 @@ public class TileGolemBuilder extends TileThaumcraft implements WorldlyContainer
                     level.playLocalSound(x, worldPosition.getY() + 0.5, z, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.66f,
                             1.0f + level.random.nextFloat() * 0.1f, false);
                     for (int a = 0; a < 16; ++a) {
-                        ClientFX.drawVentParticles(level, x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
+                        thaumcraft.client.fx.FXDispatcher.drawVentParticles(x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
                     }
                 }
             }
             if (press >= 90 && level.random.nextInt(8) == 0) {
-                ClientFX.drawVentParticles(level, x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
+                thaumcraft.client.fx.FXDispatcher.drawVentParticles(x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
                 level.playLocalSound(x, worldPosition.getY() + 0.5, z, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.1f,
                         1.0f + level.random.nextFloat() * 0.1f, false);
             }
             if (press > 0 && (cost <= 0 || golem == -1L)) {
                 if (press >= 90) {
                     for (int a = 0; a < 10; ++a) {
-                        ClientFX.drawVentParticles(level, x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
+                        thaumcraft.client.fx.FXDispatcher.drawVentParticles(x, y, z, level.random.nextGaussian() * 0.1, 0.0, level.random.nextGaussian() * 0.1, 11184810);
                     }
                 }
                 press -= 3;
