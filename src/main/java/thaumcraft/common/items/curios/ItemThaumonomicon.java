@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -18,9 +17,7 @@ import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.api.research.ResearchCategory;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchEntry;
-import thaumcraft.client.ClientPacketHandlers;
 import thaumcraft.common.command.ThaumcraftCommand;
-import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
 import thaumcraft.common.lib.research.ResearchManager;
 
@@ -67,8 +64,8 @@ public class ItemThaumonomicon extends Item {
             }
             if (player instanceof ServerPlayer sp) PacketSyncKnowledge.sync(sp);
         } else {
-            world.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundsTC.PAGE.get(), SoundSource.PLAYERS, 1.0f, 1.0f, false);
-            ClientPacketHandlers.openResearchBrowser();
+            // The book opens in the hand first; the browser opens when it is open.
+            thaumcraft.client.lib.ThaumonomiconAnimation.start(player, hand);
         }
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), world.isClientSide);
     }

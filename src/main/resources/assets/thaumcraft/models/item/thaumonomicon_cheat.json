@@ -1,6 +1,20 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "thaumcraft:items/thaumonomicon_cheat"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "minecraft:builtin/entity",
+    "textures": {
+      "particle": "thaumcraft:items/thaumonomicon_cheat"
+    },
+    "display": {
+      "firstperson_righthand": { "rotation": [0, 0, 0], "translation": [1, 2, -2], "scale": [0.6, 0.6, 0.6] },
+      "firstperson_lefthand": { "rotation": [0, 0, 0], "translation": [-1, 2, -2], "scale": [0.6, 0.6, 0.6] },
+      "thirdperson_righthand": { "rotation": [0, 90, 0], "translation": [0, 2, 1], "scale": [0.5, 0.5, 0.5] },
+      "thirdperson_lefthand": { "rotation": [0, 90, 0], "translation": [0, 2, 1], "scale": [0.5, 0.5, 0.5] }
+    }
+  },
+  "perspectives": {
+    "gui": { "parent": "minecraft:item/generated", "textures": { "layer0": "thaumcraft:items/thaumonomicon_cheat" } },
+    "ground": { "parent": "minecraft:item/generated", "textures": { "layer0": "thaumcraft:items/thaumonomicon_cheat" } },
+    "fixed": { "parent": "minecraft:item/generated", "textures": { "layer0": "thaumcraft:items/thaumonomicon_cheat" } }
   }
 }

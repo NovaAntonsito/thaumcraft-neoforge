@@ -216,6 +216,16 @@ public class ThaumcraftClient {
     /** FluidPure: the water textures tinted 0x77FFCCAA (getColor of the original). */
     @SubscribeEvent
     static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        // The Thaumonomicon as a 3D book in the hand.
+        event.registerItem(new net.neoforged.neoforge.client.extensions.common.IClientItemExtensions() {
+            private thaumcraft.client.renderers.item.ThaumonomiconRenderer renderer;
+
+            @Override
+            public net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) renderer = new thaumcraft.client.renderers.item.ThaumonomiconRenderer();
+                return renderer;
+            }
+        }, ConfigItems.thaumonomicon.get(), ConfigItems.thaumonomiconCheat.get());
         event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
                 thaumcraft.client.renderers.models.gear.ModelKnightArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelKnightArmor::new),
                 ConfigItems.crimsonPlateHelm.get(), ConfigItems.crimsonPlateChest.get(), ConfigItems.crimsonPlateLegs.get());
