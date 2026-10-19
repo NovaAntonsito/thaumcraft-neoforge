@@ -28,6 +28,8 @@ public class ItemVoidseerCharm extends Item implements IVisDiscountGear, IWarpin
     @Override
     public int getVisDiscount(ItemStack stack, Player player) {
         int q = 0;
+        // No player while the creative search tab builds its tooltips.
+        if (player == null) return 0;
         PlayerWarp warp = ThaumcraftCapabilities.getWarp(player);
         if (warp != null) {
             int pw = Math.min(100, warp.get(PlayerWarp.EnumWarpType.PERMANENT));
