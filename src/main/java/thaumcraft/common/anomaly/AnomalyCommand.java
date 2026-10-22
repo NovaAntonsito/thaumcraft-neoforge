@@ -53,7 +53,7 @@ public final class AnomalyCommand {
     private static AnomalyManager manager(CommandSourceStack src) {
         ServerLevel level = src.getLevel();
         if (!AnomalyManager.isEnabledIn(level)) {
-            src.sendFailure(Component.literal("Anomalies are disabled in this dimension (config: anomalies.enabled / anomalies.dimensions)."));
+            src.sendFailure(Component.translatable("commands.thaumcraft.anomaly.disabled"));
             return null;
         }
         return AnomalyManager.get(level);
@@ -68,12 +68,13 @@ public final class AnomalyCommand {
         AnomalyManager m = manager(src);
         if (m == null) return 0;
         long now = src.getLevel().getGameTime();
-        src.sendSuccess(() -> Component.literal("Next anomaly in " + time(m.getRemaining(now)) + (m.isPaused() ? " (paused)" : "")
-                + " | cycle " + m.getCycle() + ", tier " + m.getTier() + ", max active " + m.getMaxActive()), false);
+        src.sendSuccess(() -> Component.translatable("commands.thaumcraft.anomaly.status", time(m.getRemaining(now)),
+                m.isPaused() ? Component.translatable("commands.thaumcraft.anomaly.paused") : "",
+                m.getCycle(), m.getTier(), m.getMaxActive()), false);
         for (ActiveAnomaly a : m.getActive()) {
             AnomalyType t = a.type();
             src.sendSuccess(() -> Component.literal(" - ").append(Component.translatable(t.getTranslationKey()).withColor(t.polarity.color))
-                    .append(Component.literal(" (" + a.id() + "), " + time(a.end() - now) + " left")), false);
+                    .append(Component.translatable("commands.thaumcraft.anomaly.active", a.id(), time(a.end() - now))), false);
         }
         return 1;
     }
@@ -81,7 +82,8 @@ public final class AnomalyCommand {
     private static int list(CommandSourceStack src) {
         for (AnomalyType t : Anomalies.all()) {
             src.sendSuccess(() -> Component.literal(t.id + " ").append(Component.translatable(t.getTranslationKey()).withColor(t.polarity.color))
-                    .append(Component.literal(" [" + t.polarity.name().toLowerCase() + ", weight " + t.getWeight() + ", tier " + t.getMinTier() + "+]")
+                    .append(Component.translatable("commands.thaumcraft.anomaly.list_entry",
+                            Component.translatable("tc.anomaly.polarity." + t.polarity.name().toLowerCase()), t.getWeight(), t.getMinTier())
                             .withStyle(ChatFormatting.GRAY)), false);
         }
         return Anomalies.all().size();
@@ -92,15 +94,15 @@ public final class AnomalyCommand {
         if (m == null) return 0;
         AnomalyType t = Anomalies.get(id);
         if (t == null) {
-            src.sendFailure(Component.literal("Unknown anomaly: " + id));
+            src.sendFailure(Component.translatable("commands.thaumcraft.anomaly.unknown", id));
             return 0;
         }
         if (m.isActive(id)) {
-            src.sendFailure(Component.literal(id + " is already active."));
+            src.sendFailure(Component.translatable("commands.thaumcraft.anomaly.already_active", id));
             return 0;
         }
         m.start(src.getLevel(), t, src.getLevel().getGameTime(), minutes > 0 ? minutes * 1200 : -1);
-        src.sendSuccess(() -> Component.literal("Started " + id + "."), true);
+        src.sendSuccess(() -> Component.translatable("commands.thaumcraft.anomaly.started", id), true);
         return 1;
     }
 
@@ -108,7 +110,7 @@ public final class AnomalyCommand {
         AnomalyManager m = manager(src);
         if (m == null) return 0;
         int n = m.stop(src.getLevel(), id);
-        src.sendSuccess(() -> Component.literal("Stopped " + n + " anomal" + (n == 1 ? "y." : "ies.")), true);
+        src.sendSuccess(() -> Component.translatable(n == 1 ? "commands.thaumcraft.anomaly.stopped.one" : "commands.thaumcraft.anomaly.stopped", n), true);
         return n;
     }
 
@@ -116,7 +118,7 @@ public final class AnomalyCommand {
         AnomalyManager m = manager(src);
         if (m == null) return 0;
         m.setTimer(src.getLevel(), ticks);
-        src.sendSuccess(() -> Component.literal("Next anomaly in " + time(ticks) + "."), true);
+        src.sendSuccess(() -> Component.translatable("commands.thaumcraft.anomaly.timer", time(ticks)), true);
         return 1;
     }
 }

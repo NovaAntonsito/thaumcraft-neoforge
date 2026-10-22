@@ -39,7 +39,7 @@ public class ItemThaumonomicon extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        if (cheat) tooltip.add(Component.literal("Creative only").withStyle(ChatFormatting.DARK_PURPLE));
+        if (cheat) tooltip.add(Component.translatable("item.thaumcraft.thaumonomicon_cheat.text").withStyle(ChatFormatting.DARK_PURPLE));
     }
 
     @Override

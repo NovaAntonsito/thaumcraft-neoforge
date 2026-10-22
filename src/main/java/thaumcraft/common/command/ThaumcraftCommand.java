@@ -76,7 +76,7 @@ public final class ThaumcraftCommand {
         BlockPos from = BlockPos.containing(source.getPosition());
         BlockPos b = data.nearest(from);
         if (b == null) {
-            source.sendFailure(Component.literal("No barrow known in this dimension yet. Barrows are recorded as new chunks generate, so explore new land and try again."));
+            source.sendFailure(Component.translatable("commands.thaumcraft.barrow.none"));
             return 0;
         }
         int dist = net.minecraft.util.Mth.floor(Math.sqrt(from.distSqr(new BlockPos(b.getX(), from.getY(), b.getZ()))));
@@ -86,8 +86,7 @@ public final class ThaumcraftCommand {
                         "/tp @s " + b.getX() + " " + b.getY() + " " + b.getZ()))
                 .withHoverEvent(new net.minecraft.network.chat.HoverEvent(net.minecraft.network.chat.HoverEvent.Action.SHOW_TEXT,
                         Component.translatable("chat.coordinates.tooltip"))));
-        source.sendSuccess(() -> Component.literal("The nearest barrow is at ").append(coords)
-                .append(" (" + dist + " blocks away, " + data.count() + " known)"), false);
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.barrow.found", coords, dist, data.count()), false);
         return dist;
     }
 
@@ -193,7 +192,7 @@ public final class ThaumcraftCommand {
         for (ResearchCategory rc : ResearchCategories.researchCategories.values()) rc.research.clear();
         ResearchManager.parseAllResearch();
         ResearchNoteManager.patchResearch();
-        source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.success"), true);
         return 1;
     }
 
@@ -204,13 +203,13 @@ public final class ThaumcraftCommand {
 
     private static int giveResearch(CommandSourceStack source, ServerPlayer player, String research) {
         if (ResearchCategories.getResearch(research) == null) {
-            source.sendFailure(Component.literal("Research does not exist."));
+            source.sendFailure(Component.translatable("commands.thaumcraft.research.unknown"));
             return 0;
         }
         giveRecursiveResearch(player, research);
         PacketSyncKnowledge.sync(player);
-        player.sendSystemMessage(Component.literal("\u00a75" + source.getTextName() + " gave you " + research + " research and its requisites."));
-        source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
+        player.sendSystemMessage(Component.translatable("commands.thaumcraft.research.given", source.getTextName(), research));
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.success"), true);
         return 1;
     }
 
@@ -248,13 +247,13 @@ public final class ThaumcraftCommand {
 
     private static int revokeResearch(CommandSourceStack source, ServerPlayer player, String research) {
         if (ResearchCategories.getResearch(research) == null) {
-            source.sendFailure(Component.literal("Research does not exist."));
+            source.sendFailure(Component.translatable("commands.thaumcraft.research.unknown"));
             return 0;
         }
         revokeRecursiveResearch(player, research);
         PacketSyncKnowledge.sync(player);
-        player.sendSystemMessage(Component.literal("\u00a75" + source.getTextName() + " removed " + research + " research and its children."));
-        source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
+        player.sendSystemMessage(Component.translatable("commands.thaumcraft.research.removed", source.getTextName(), research));
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.success"), true);
         return 1;
     }
 
@@ -276,15 +275,15 @@ public final class ThaumcraftCommand {
 
     private static int listAllResearch(CommandSourceStack source, ServerPlayer player) {
         String ss = String.join(", ", ThaumcraftCapabilities.getKnowledge(player).getResearchList());
-        source.sendSystemMessage(Component.literal("\u00a75Research for " + player.getName().getString()));
+        source.sendSystemMessage(Component.translatable("commands.thaumcraft.research.list", player.getName().getString()));
         source.sendSystemMessage(Component.literal("\u00a75" + ss));
         return 1;
     }
 
     private static int giveAllResearch(CommandSourceStack source, ServerPlayer player) {
         for (String key : researchKeys()) giveRecursiveResearch(player, key);
-        player.sendSystemMessage(Component.literal("\u00a75" + source.getTextName() + " has given you all research."));
-        source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
+        player.sendSystemMessage(Component.translatable("commands.thaumcraft.research.all_given", source.getTextName()));
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.success"), true);
         PacketSyncKnowledge.sync(player);
         return 1;
     }
@@ -296,8 +295,8 @@ public final class ThaumcraftCommand {
                 if (ri.hasMeta(ResearchEntry.EnumResearchMeta.AUTOUNLOCK)) ResearchManager.completeResearch(player, ri.getKey(), false);
             }
         }
-        player.sendSystemMessage(Component.literal("\u00a75" + source.getTextName() + " has reset all your research."));
-        source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
+        player.sendSystemMessage(Component.translatable("commands.thaumcraft.research.reset", source.getTextName()));
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.success"), true);
         PacketSyncKnowledge.sync(player);
         return 1;
     }
@@ -314,7 +313,7 @@ public final class ThaumcraftCommand {
         if (name.equals("all")) return new ArrayList<>(Aspect.aspects.values());
         Aspect aspect = Aspect.getAspect(name);
         if (aspect == null) {
-            source.sendFailure(Component.literal("Invalid aspect name"));
+            source.sendFailure(Component.translatable("commands.thaumcraft.aspects.invalid"));
             return null;
         }
         return List.of(aspect);
@@ -330,7 +329,7 @@ public final class ThaumcraftCommand {
         }
         player.syncData(TCAttachments.ASPECTS);
         int count = n;
-        source.sendSuccess(() -> Component.literal("Successfully researched " + count + " aspects").withStyle(ChatFormatting.GREEN), true);
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.aspects.researched", count).withStyle(ChatFormatting.GREEN), true);
         return n;
     }
 
@@ -348,7 +347,7 @@ public final class ThaumcraftCommand {
             }
         }
         if (set) player.syncData(TCAttachments.ASPECTS);
-        source.sendSuccess(() -> Component.literal("Successfully").withStyle(ChatFormatting.GREEN), true);
+        source.sendSuccess(() -> Component.translatable("commands.thaumcraft.aspects.done").withStyle(ChatFormatting.GREEN), true);
         return 1;
     }
 
