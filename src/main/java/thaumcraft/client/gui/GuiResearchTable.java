@@ -41,6 +41,7 @@ import thaumcraft.common.lib.SoundsTC;
 import thaumcraft.common.lib.network.misc.PacketAspectCombinationToServer;
 import thaumcraft.common.lib.network.misc.PacketAspectPlaceToServer;
 import thaumcraft.common.lib.network.misc.PacketCopyPlayerNoteToServer;
+import thaumcraft.common.lib.research.PointExchange;
 import thaumcraft.common.lib.research.ResearchNoteData;
 import thaumcraft.common.lib.research.ResearchNoteManager;
 import thaumcraft.common.lib.utils.HexUtils;
@@ -81,6 +82,11 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
     private final Map<String, HexUtils.Hex[]> lines = new HashMap<>();
     private final List<String> checked = new ArrayList<>();
     private final List<String> highlight = new ArrayList<>();
+    /** Dream branch: the point exchange panel is open over the sheet. */
+    private boolean exchangeOpen;
+    private final boolean pointExchange;
+    private static final ResourceLocation PAPER = Thaumcraft.id("textures/gui/paper.png");
+    private static final ResourceLocation WARP = Thaumcraft.id("textures/research/r_warp.png");
 
     public GuiResearchTable(ContainerResearchTable menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -90,6 +96,7 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
         imageHeight = 256;
         researchMastery = ThaumcraftCapabilities.getKnowledge(player).isResearchComplete("RESEARCHMASTERY");
         researchDupe = ThaumcraftCapabilities.getKnowledge(player).isResearchComplete("RESEARCHDUPE");
+        pointExchange = ThaumcraftCapabilities.getKnowledge(player).isResearchComplete(PointExchange.RESEARCH);
     }
 
     private PlayerAspects aspects() {
@@ -128,6 +135,7 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
             drawOrb(g, mx - 8, my - 8, draggedAspect.getColor());
             g.pose().popPose();
         }
+        if (pointExchange) drawExchange(g, gx, gy, mx, my);
         drawAspectText(g, gx, gy, mx, my);
         ItemStack tools = tileEntity.getItem(0);
         if (note != null && (tools.isEmpty() || tools.getDamageValue() >= tools.getMaxDamage())) {
@@ -167,6 +175,62 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
         drawSheet(g, leftPos, topPos, mx, my);
         RenderSystem.defaultBlendFunc();
         g.setColor(1, 1, 1, 1);
+    }
+
+    /**
+     * Dream branch: the point exchange. A button right of the inventory opens a panel over the sheet with the four
+     * offers, their cost and the spare points; clicking one buys it.
+     */
+    private void drawExchange(GuiGraphics g, int gx, int gy, int mx, int my) {
+        int bx = gx + 228;
+        int by = gy + 172;
+        boolean overButton = inside(mx, my, bx, by, 22, 22);
+        g.fill(bx, by, bx + 22, by + 22, exchangeOpen || overButton ? 0xFF6A4A2A : 0xFF3A2A1A);
+        g.fill(bx + 1, by + 1, bx + 21, by + 21, 0xFF20160E);
+        g.renderItem(new ItemStack(thaumcraft.common.config.ConfigItems.cartographicNote.get()), bx + 3, by + 3);
+        List<Component> tooltip = null;
+        if (overButton) tooltip = List.of(Component.translatable("tc.exchange.title"));
+        if (exchangeOpen) {
+            int px = gx + 94;
+            int py = gy + 8;
+            g.pose().pushPose();
+            g.pose().translate(0, 0, 200);
+            RenderSystem.enableBlend();
+            g.blit(PAPER, px, py, 150, 150, 0, 0, 256, 256, 256, 256);
+            g.drawCenteredString(font, Component.translatable("tc.exchange.title"), px + 75, py + 10, 0xFF40206A);
+            int spare = PointExchange.surplus(aspects());
+            Component sp = Component.translatable("tc.exchange.spare", spare);
+            g.drawString(font, sp, px + 75 - font.width(sp) / 2, py + 22, 0xFF6A4A80, false);
+            PointExchange.Offer[] offers = PointExchange.Offer.values();
+            for (int i = 0; i < offers.length; ++i) {
+                PointExchange.Offer o = offers[i];
+                int ry = py + 36 + i * 27;
+                boolean over = inside(mx, my, px + 10, ry, 130, 24);
+                if (over) g.fill(px + 10, ry, px + 140, ry + 24, 0x30603080);
+                switch (o) {
+                    case INK -> g.renderItem(new ItemStack(thaumcraft.common.config.ConfigItems.scribingTools.get()), px + 14, ry + 4);
+                    case CALM -> UtilsFX.quad(g, WARP, px + 14, ry + 4, px + 30, ry + 20, 0, 1, 0, 1);
+                    case RARE -> UtilsFX.quad(g, UNKNOWN, px + 14, ry + 4, px + 30, ry + 20, 0, 1, 0, 1);
+                    case CARTOGRAPHY -> g.renderItem(new ItemStack(thaumcraft.common.config.ConfigItems.cartographicNote.get()), px + 14, ry + 4);
+                }
+                g.drawString(font, Component.translatable(o.key()), px + 36, ry + 4, 0xFF302010, false);
+                g.drawString(font, Component.translatable("tc.exchange.cost", o.cost), px + 36, ry + 14,
+                        spare >= o.cost ? 0xFF3A6A2A : 0xFF8A2A2A, false);
+                if (over) {
+                    tooltip = new ArrayList<>();
+                    tooltip.add(Component.translatable(o.key()));
+                    tooltip.add(Component.translatable(o.key() + ".desc").withStyle(net.minecraft.ChatFormatting.GRAY));
+                    if (o.daily) tooltip.add(Component.translatable("tc.exchange.daily").withStyle(net.minecraft.ChatFormatting.DARK_PURPLE));
+                }
+            }
+            g.pose().popPose();
+        }
+        if (tooltip != null) {
+            g.pose().pushPose();
+            g.pose().translate(0, 0, 300);
+            g.renderComponentTooltip(font, tooltip, mx, my);
+            g.pose().popPose();
+        }
     }
 
     private void drawAspects(GuiGraphics g, int x, int y) {
@@ -220,7 +284,7 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
             return;
         }
         ResearchNoteData note = note();
-        if (note != null && !note.key.isEmpty()) {
+        if (note != null && !exchangeOpen && !note.key.isEmpty()) {
             HexUtils.Hex hp = new HexUtils.Pixel(mx - (gx + 169), my - (gy + 83)).toHex(HEX_SIZE);
             ResearchNoteData.HexEntry e = note.hexEntries.get(hp.toString());
             if (e != null && e.aspect() != null && aspects().isKnowAspect(e.aspect())) drawAspectTooltip(g, e.aspect(), mx, my);
@@ -436,6 +500,21 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
         int gx = leftPos;
         int gy = topPos;
         if (butcount2 > System.nanoTime()) return handled;
+        if (pointExchange && inside(mx, my, gx + 228, gy + 172, 22, 22)) {
+            exchangeOpen = !exchangeOpen;
+            playButtonClick();
+            return true;
+        }
+        if (exchangeOpen && inside(mx, my, gx + 94, gy + 8, 150, 150)) {
+            for (int i = 0; i < PointExchange.Offer.values().length; ++i) {
+                if (inside(mx, my, gx + 104, gy + 44 + i * 27, 130, 24)) {
+                    playButtonClick();
+                    PacketDistributor.sendToServer(new thaumcraft.common.lib.network.misc.PacketPointExchangeToServer(tileEntity.getBlockPos(), i));
+                    return true;
+                }
+            }
+            return true;
+        }
         if (select1 != null && select2 != null && inside(mx, my, gx + 35, gy + 139, 32, 16)) {
             butcount2 = System.nanoTime() + 200000000L;
             playButtonClick();
@@ -507,7 +586,7 @@ public class GuiResearchTable extends AbstractContainerScreen<ContainerResearchT
             int my = (int) mouseY;
             int gx = leftPos;
             int gy = topPos;
-            ResearchNoteData note = note();
+            ResearchNoteData note = exchangeOpen ? null : note();
             boolean done = false;
             if (note != null) {
                 HexUtils.Hex hp = new HexUtils.Pixel(mx - (gx + 169), my - (gy + 83)).toHex(HEX_SIZE);

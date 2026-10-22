@@ -293,7 +293,7 @@ public final class EntityEvents {
                 if (world.getDifficulty() == Difficulty.HARD) {
                     c -= (allow ? 2 : 0);
                 }
-                if (thaumcraft.common.world.dim.OuterLands.is(world)) {
+                if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(world)) {
                     c -= 3;
                 }
                 Holder<Biome> bg = world.getBiome(mob.blockPosition());
@@ -327,7 +327,7 @@ public final class EntityEvents {
 
     /** TC4: the key rooms and libraries of the Outer Lands maze. */
     private static boolean isDangerousLocation(Level world, net.minecraft.core.BlockPos pos) {
-        if (thaumcraft.common.world.dim.OuterLands.is(world)) {
+        if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(world)) {
             thaumcraft.common.world.dim.Cell c = thaumcraft.common.world.dim.MazeHandler.getFromHashMap(
                     new thaumcraft.common.world.dim.CellLoc(pos.getX() >> 4, pos.getZ() >> 4));
             return c != null && (c.feature == 6 || c.feature == 8);

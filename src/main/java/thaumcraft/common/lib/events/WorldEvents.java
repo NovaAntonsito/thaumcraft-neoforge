@@ -44,7 +44,7 @@ public final class WorldEvents {
     }
 
     private static boolean isNearActiveBoss(Level world, Player player, BlockPos pos) {
-        if (OuterLands.is(world) && player != null && !player.getAbilities().instabuild) {
+        if (OuterLands.isMazeWorld(world) && player != null && !player.getAbilities().instabuild) {
             Cell c = MazeHandler.getFromHashMap(new CellLoc(pos.getX() >> 4, pos.getZ() >> 4));
             if (c != null && c.feature >= 2 && c.feature <= 5) {
                 List<EntityThaumcraftBoss> list = thaumcraft.common.lib.utils.EntityUtils.getEntitiesInRange(world, pos.getX(), pos.getY(), pos.getZ(),

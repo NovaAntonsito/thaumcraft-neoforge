@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "thaumcraft:models/block/node_stabilizer_block.obj",
+  "flip_v": true,
+  "textures": {
+    "texture": "thaumcraft:blocks/node_stabilizer",
+    "particle": "thaumcraft:blocks/node_stabilizer"
+  }
+}

@@ -101,6 +101,10 @@ public class ThaumcraftClient {
     @SuppressWarnings("unchecked")
     static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TCBlockEntities.CRUCIBLE.get(), TileCrucibleRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), thaumcraft.client.renderers.tile.TileAuraNodeRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.JAR_NODE.get(), thaumcraft.client.renderers.tile.TileJarNodeRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.NODE_STABILIZER.get(), thaumcraft.client.renderers.tile.TileNodeStabilizerRenderer::new);
+        event.registerBlockEntityRenderer(TCBlockEntities.NODE_TRANSDUCER.get(), thaumcraft.client.renderers.tile.TileNodeStabilizerRenderer::new);
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_ALTAR.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.altar());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_CAP.get(), thaumcraft.client.renderers.tile.TileEldritchCapRenderer.cap());
         event.registerBlockEntityRenderer(TCBlockEntities.ELDRITCH_OBELISK.get(), thaumcraft.client.renderers.tile.TileEldritchObeliskRenderer::new);
@@ -132,6 +136,7 @@ public class ThaumcraftClient {
         event.registerEntityRenderer(TCEntities.ALUMENTUM.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(TCEntities.PERMANENT_ITEM.get(), net.minecraft.client.renderer.entity.ItemEntityRenderer::new);
         event.registerEntityRenderer(TCEntities.FLUX_RIFT.get(), RenderFluxRift::new);
+        event.registerEntityRenderer(TCEntities.VOID_RIFT.get(), ctx -> (net.minecraft.client.renderer.entity.EntityRenderer) new RenderFluxRift(ctx));
         event.registerEntityRenderer(TCEntities.FOCUS_PROJECTILE.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_CLOUD.get(), thaumcraft.client.renderers.entity.projectile.RenderNoProjectile::new);
         event.registerEntityRenderer(TCEntities.FOCUS_MINE.get(), thaumcraft.client.renderers.entity.projectile.RenderFocusMine::new);
@@ -208,6 +213,7 @@ public class ThaumcraftClient {
         event.register(TCMenus.FOCAL_MANIPULATOR.get(), GuiFocalManipulator::new);
         event.register(TCMenus.FOCUS_POUCH.get(), thaumcraft.client.gui.GuiFocusPouch::new);
         event.register(TCMenus.POTION_SPRAYER.get(), GuiPotionSprayer::new);
+        event.register(TCMenus.ESSENTIA_TERMINAL.get(), thaumcraft.client.gui.GuiEssentiaTerminal::new);
         event.register(TCMenus.GOLEM_BUILDER.get(), thaumcraft.client.gui.GuiGolemBuilder::new);
         event.register(TCMenus.SEAL.get(), thaumcraft.common.golems.client.gui.SealBaseGUI::new);
         event.register(TCMenus.LOGISTICS.get(), thaumcraft.client.gui.GuiLogistics::new);
@@ -226,6 +232,15 @@ public class ThaumcraftClient {
                 return renderer;
             }
         }, ConfigItems.thaumonomicon.get(), ConfigItems.thaumonomiconCheat.get());
+        event.registerItem(new net.neoforged.neoforge.client.extensions.common.IClientItemExtensions() {
+            private thaumcraft.client.renderers.item.WandRenderer renderer;
+
+            @Override
+            public net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) renderer = new thaumcraft.client.renderers.item.WandRenderer();
+                return renderer;
+            }
+        }, ConfigItems.wand.get());
         event.registerItem(thaumcraft.client.renderers.models.gear.CustomArmorHelper.extensions(
                 thaumcraft.client.renderers.models.gear.ModelKnightArmor::createLayer, thaumcraft.client.renderers.models.gear.ModelKnightArmor::new),
                 ConfigItems.crimsonPlateHelm.get(), ConfigItems.crimsonPlateChest.get(), ConfigItems.crimsonPlateLegs.get());
@@ -284,8 +299,8 @@ public class ThaumcraftClient {
         event.wrapLayer(VanillaGuiLayers.BOSS_OVERLAY, thaumcraft.client.gui.AnomalyHud::pushBossBars);
     }
 
-    /** Clients generate item aspects from the recipes the server sent. */
-    @SubscribeEvent
+    /** Clients generate item aspects from the recipes the server sent. First, so JEI sees them when it loads. */
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.HIGHEST)
     static void onRecipesUpdated(RecipesUpdatedEvent event) {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null) {
@@ -302,7 +317,11 @@ public class ThaumcraftClient {
         }, ConfigItems.crystalEssence.get());
         // Reborn's research note colors: layer 1 (the overlay) takes the note's color.
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF000000 | ItemResearchNote.getColor(stack) : 0xFFFFFFFF,
-                ConfigItems.researchNote.get());
+                ConfigItems.researchNote.get(), ConfigItems.cartographicNote.get());
+        // Dream branch: the void journal pages, a note with a deep void overlay.
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF3A1060 : 0xFFFFFFFF, ConfigItems.voidJournalPage.get());
+        // The aura atlas (dream branch): a research note whose overlay is vis violet.
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xFF9A60D0 : 0xFFFFFFFF, ConfigItems.auraAtlas.get());
         // Phials and labels: the overlay layer. Jars: the essentia inside the item model (tintindex 1).
         event.register((stack, tintIndex) -> tintIndex == 1 ? aspectColor(ConfigItems.phial.get().getAspects(stack)) : -1,
                 ConfigItems.phial.get());
@@ -470,6 +489,8 @@ public class ThaumcraftClient {
                     (stack, level, entity, seed) -> ConfigItems.casterBasic.get().getFocus(stack) != null ? 1.0f : 0.0f);
             // Reborn's discovery model (metadata 64): a solved note.
             ItemProperties.register(ConfigItems.researchNote.get(), Thaumcraft.id("complete"),
+                    (stack, level, entity, seed) -> ItemResearchNote.isComplete(stack) ? 1.0f : 0.0f);
+            ItemProperties.register(ConfigItems.cartographicNote.get(), Thaumcraft.id("complete"),
                     (stack, level, entity, seed) -> ItemResearchNote.isComplete(stack) ? 1.0f : 0.0f);
             ItemProperties.register(ConfigItems.grappleGun.get(), Thaumcraft.id("type"),
                     (stack, level, entity, seed) -> thaumcraft.common.items.tools.ItemGrappleGun.isLoaded(stack) ? 1.0f : 0.0f);

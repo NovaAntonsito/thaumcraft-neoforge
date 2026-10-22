@@ -1,0 +1,86 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_silverwood",
+  "instability": 5,
+  "aspects": {
+    "aer": 9,
+    "ignis": 9,
+    "aqua": 9,
+    "terra": 9,
+    "ordo": 9,
+    "perditio": 9,
+    "praecantatio": 9
+  },
+  "central": {
+    "item": "thaumcraft:log_silverwood"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "aer": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "ignis": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "aqua": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "terra": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "ordo": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "perditio": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_silverwood",
+    "count": 1
+  }
+}

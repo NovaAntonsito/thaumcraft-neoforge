@@ -95,7 +95,7 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
     public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(ServerLevelAccessor world, net.minecraft.world.DifficultyInstance difficulty,
             MobSpawnType reason, @javax.annotation.Nullable net.minecraft.world.entity.SpawnGroupData data) {
         data = super.finalizeSpawn(world, difficulty, reason, data);
-        if (thaumcraft.common.world.dim.OuterLands.is(world.getLevel())) {
+        if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(world.getLevel())) {
             int bh = (int) getAttribute(Attributes.MAX_HEALTH).getBaseValue() / 2;
             setAbsorptionAmount(getAbsorptionAmount() + bh);
         }
@@ -105,7 +105,7 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if (thaumcraft.common.world.dim.OuterLands.is(level()) && invulnerableTime <= 0 && tickCount % 25 == 0) {
+        if (thaumcraft.common.world.dim.OuterLands.isMazeWorld(level()) && invulnerableTime <= 0 && tickCount % 25 == 0) {
             int bh = (int) getAttribute(Attributes.MAX_HEALTH).getBaseValue() / 2;
             if (getAbsorptionAmount() < bh) {
                 setAbsorptionAmount(getAbsorptionAmount() + 1.0f);
@@ -145,7 +145,7 @@ public class EntityEldritchGuardian extends Monster implements RangedAttackMob, 
             float x = (float) (getX() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             float z = (float) (getZ() + (random.nextFloat() - random.nextFloat()) * 0.2f);
             thaumcraft.client.fx.FXDispatcher.wispFXEG(x, (float) (getY() + 0.22 * getBbHeight()), z, this);
-        } else if (!thaumcraft.common.world.dim.OuterLands.is(level()) && (tickCount == 0 || tickCount % 100 == 0)
+        } else if (!thaumcraft.common.world.dim.OuterLands.isMazeWorld(level()) && (tickCount == 0 || tickCount % 100 == 0)
                 && level().getDifficulty() != Difficulty.EASY) {
             double d6 = (level().getDifficulty() == Difficulty.HARD) ? 576.0 : 256.0;
             for (Player entityplayer1 : level().players()) {

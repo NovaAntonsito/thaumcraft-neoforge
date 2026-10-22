@@ -19,6 +19,9 @@ public class MazeFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         BlockPos origin = context.origin();
+        // Dream branch: the void labyrinths share the maze map; each dimension only builds its own.
+        boolean voidLevel = thaumcraft.common.world.voidrealm.VoidDim.is(context.level().getLevel());
+        if (thaumcraft.common.world.voidrealm.VoidDim.isVoidChunk(origin.getX() >> 4) != voidLevel) return true;
         MazeHandler.generateEldritch(context.level(), context.random(), origin.getX() >> 4, origin.getZ() >> 4);
         return true;
     }

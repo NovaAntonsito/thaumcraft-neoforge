@@ -1,0 +1,165 @@
+{
+  "entries": [
+    {
+      "key": "VOIDWHISPERS",
+      "name": "research.VOIDWHISPERS.title",
+      "icons": [
+        "thaumcraft:textures/research/r_outerrev.png"
+      ],
+      "category": "VOID",
+      "location": [
+        0,
+        0
+      ],
+      "meta": [
+        "ROUND",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDWHISPERS.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDPAGE1",
+      "name": "research.VOIDPAGE1.title",
+      "icons": [
+        "thaumcraft:void_journal_page"
+      ],
+      "parents": [
+        "VOIDWHISPERS"
+      ],
+      "category": "VOID",
+      "location": [
+        2,
+        0
+      ],
+      "meta": [
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDPAGE1.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDPAGE2",
+      "name": "research.VOIDPAGE2.title",
+      "icons": [
+        "thaumcraft:void_journal_page"
+      ],
+      "parents": [
+        "VOIDPAGE1"
+      ],
+      "category": "VOID",
+      "location": [
+        4,
+        2
+      ],
+      "meta": [
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDPAGE2.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDPAGE3",
+      "name": "research.VOIDPAGE3.title",
+      "icons": [
+        "thaumcraft:void_journal_page"
+      ],
+      "parents": [
+        "VOIDPAGE2"
+      ],
+      "category": "VOID",
+      "location": [
+        6,
+        0
+      ],
+      "meta": [
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDPAGE3.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDPAGE4",
+      "name": "research.VOIDPAGE4.title",
+      "icons": [
+        "thaumcraft:void_journal_page"
+      ],
+      "parents": [
+        "VOIDPAGE3"
+      ],
+      "category": "VOID",
+      "location": [
+        8,
+        2
+      ],
+      "meta": [
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDPAGE4.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDPAGE5",
+      "name": "research.VOIDPAGE5.title",
+      "icons": [
+        "thaumcraft:void_journal_page"
+      ],
+      "parents": [
+        "VOIDPAGE4"
+      ],
+      "category": "VOID",
+      "location": [
+        10,
+        0
+      ],
+      "meta": [
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDPAGE5.stage.1"
+        }
+      ]
+    },
+    {
+      "key": "VOIDEXPLORER",
+      "name": "research.VOIDEXPLORER.title",
+      "icons": [
+        "thaumcraft:textures/research/r_outer.png"
+      ],
+      "parents": [
+        "VOIDPAGE5"
+      ],
+      "category": "VOID",
+      "location": [
+        12,
+        1
+      ],
+      "meta": [
+        "ROUND",
+        "SPIKY",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDEXPLORER.stage.1"
+        }
+      ]
+    }
+  ]
+}

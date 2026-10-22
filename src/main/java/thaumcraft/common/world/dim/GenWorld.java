@@ -35,6 +35,8 @@ public final class GenWorld {
     final ArrayList<BlockPos> crabSpawner = new ArrayList<>();
     final ArrayList<BlockPos> decoUrn = new ArrayList<>();
     private final BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
+    /** Dream branch: set by {@link MazeExport}, which keeps the blocks and leaves the entities out. */
+    boolean exporting;
 
     private static Map<Block, OldBlocks> byBlock;
 
@@ -48,17 +50,25 @@ public final class GenWorld {
         return mpos.set(x, y, z);
     }
 
+    /** Whether the chunk of a position is in the generation region: TC4 reached anywhere, 1.21 throws outside it. */
+    private boolean inRegion(BlockPos p) {
+        return level.hasChunk(p.getX() >> 4, p.getZ() >> 4);
+    }
+
     public boolean isAirBlock(int x, int y, int z) {
-        return level.isEmptyBlock(at(x, y, z));
+        BlockPos p = at(x, y, z);
+        return !inRegion(p) || level.isEmptyBlock(p);
     }
 
     boolean isOpaqueCube(int x, int y, int z) {
         BlockPos p = at(x, y, z);
-        return level.getBlockState(p).isSolidRender(level, p);
+        return inRegion(p) && level.getBlockState(p).isSolidRender(level, p);
     }
 
     public OldBlocks getBlock(int x, int y, int z) {
-        BlockState s = level.getBlockState(at(x, y, z));
+        BlockPos p = at(x, y, z);
+        if (!inRegion(p)) return OldBlocks.air;
+        BlockState s = level.getBlockState(p);
         if (s.isAir()) {
             return OldBlocks.air;
         }
@@ -66,7 +76,8 @@ public final class GenWorld {
     }
 
     public BlockEntity getTileEntity(int x, int y, int z) {
-        return level.getBlockEntity(at(x, y, z));
+        BlockPos p = at(x, y, z);
+        return inRegion(p) ? level.getBlockEntity(p) : null;
     }
 
     public void setBlock(int x, int y, int z, OldBlocks block) {
@@ -76,6 +87,7 @@ public final class GenWorld {
     /** The flags are ignored: world generation never notifies neighbours. */
     public void setBlock(int x, int y, int z, OldBlocks block, int meta, int flags) {
         BlockPos p = at(x, y, z).immutable();
+        if (!inRegion(p)) return;
         BlockState s = state(block, meta);
         if (block == OldBlocks.blockTaintFibres) {
             s = BlockTaintFibre.getActualState(s, level, p);
@@ -91,6 +103,7 @@ public final class GenWorld {
         BlockPos c = new BlockPos(x, y, z);
         for (Direction d : Direction.values()) {
             BlockPos n = c.relative(d);
+            if (!inRegion(n)) continue;
             BlockState s = level.getBlockState(n);
             if (s.getBlock() instanceof BlockEldritchNothing) {
                 BlockState want = BlockEldritchNothing.stateFor(level, n);
@@ -107,6 +120,7 @@ public final class GenWorld {
      */
     public void setFacing(int x, int y, int z, ForgeDirection dir) {
         BlockPos p = at(x, y, z).immutable();
+        if (!inRegion(p)) return;
         BlockState s = level.getBlockState(p);
         if (s.hasProperty(BlockStateProperties.FACING)) {
             level.setBlock(p, s.setValue(BlockStateProperties.FACING, Direction.from3DDataValue(dir.ordinal())), Block.UPDATE_CLIENTS);
@@ -114,6 +128,7 @@ public final class GenWorld {
     }
 
     public void spawnEntityInWorld(Entity entity) {
+        if (exporting) return;
         level.addFreshEntity(entity);
     }
 
@@ -152,7 +167,7 @@ public final class GenWorld {
     public boolean isAdjacentToSolidBlock(int x, int y, int z) {
         for (Direction d : Direction.values()) {
             BlockPos n = new BlockPos(x, y, z).relative(d);
-            if (level.getBlockState(n).isFaceSturdy(level, n, d.getOpposite())) {
+            if (inRegion(n) && level.getBlockState(n).isFaceSturdy(level, n, d.getOpposite())) {
                 return true;
             }
         }

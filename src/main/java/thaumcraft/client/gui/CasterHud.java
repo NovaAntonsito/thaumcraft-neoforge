@@ -56,6 +56,11 @@ public final class CasterHud {
         g.pose().translate(16.0f, 16.0f, 0.0f);
         int max = ThaumometerHud.auraBase;
         int amt = (int) ThaumometerHud.auraVis;
+        // Not in Thaumcraft 6: a wand shows the vis it holds, not the aura.
+        if (wandstack.getItem() instanceof thaumcraft.common.items.casters.wands.ItemWand) {
+            max = thaumcraft.common.items.casters.wands.ItemWand.getParts(wandstack).getRod().capacity();
+            amt = (int) thaumcraft.common.items.casters.wands.ItemWand.getVis(wandstack);
+        }
         ItemFocus focus = (ItemFocus) wand.getFocus(wandstack);
         ItemStack focusStack = wand.getFocusStack(wandstack);
         g.pose().pushPose();

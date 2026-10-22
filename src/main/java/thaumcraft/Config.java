@@ -157,6 +157,19 @@ public class Config {
     public static final ModConfigSpec.BooleanValue GENERATE_CRYSTALS = BUILDER.define("generateCrystals", true);
     public static final ModConfigSpec.BooleanValue GENERATE_TREES = BUILDER.define("generateTrees", true);
     public static final ModConfigSpec.BooleanValue GENERATE_STRUCTURE = BUILDER.define("generateStructure", true);
+    /** Not in Thaumcraft 6: the aura nodes of Thaumcraft 4 (dream branch). */
+    public static final ModConfigSpec.BooleanValue GENERATE_NODES = BUILDER
+            .comment("Generate the aura nodes of Thaumcraft 4.")
+            .define("generateNodes", true);
+    public static final ModConfigSpec.IntValue NODE_RARITY = BUILDER
+            .comment("One chunk in this many gets a wild aura node. Thaumcraft 4 default 36")
+            .defineInRange("nodeRarity", 36, 1, 1000);
+    public static final ModConfigSpec.IntValue SPECIAL_NODE_RARITY = BUILDER
+            .comment("One node in this many is of a special type, and one in half as many has a special brightness. Default 18")
+            .defineInRange("specialNodeRarity", 18, 3, 1000);
+    public static final ModConfigSpec.BooleanValue HARD_NODE = BUILDER
+            .comment("Hungry nodes pull and hurt creatures, dark nodes summon zombies and tainted nodes spread fibres.")
+            .define("hardNode", true);
     public static final ModConfigSpec.BooleanValue ALLOW_CHAMPION_MOBS = BUILDER
             .comment("Setting this to false will disable spawning champion mobs. Even when false they will still",
                     "have a greatly reduced chance of spawning in certain dangerous places.")
@@ -182,6 +195,24 @@ public class Config {
             .comment("The range at which taint can spread from a taint seed.",
                     "This value is only a base and will be modified by flux levels.")
             .defineInRange("taintSpreadArea", 32, 8, 256);
+
+    static {
+        BUILDER.pop();
+        BUILDER.comment("Dream branch: the Whispers of the Void event.").push("void");
+    }
+
+    public static final ModConfigSpec.BooleanValue VOID_WHISPERS = BUILDER
+            .comment("The Whispers of the Void event: rifts to small labyrinths in the void dimension.")
+            .define("voidWhispers", true);
+    public static final ModConfigSpec.IntValue VOID_WARP_GAIN = BUILDER
+            .comment("Void warp gained each time a player goes through a void rift.")
+            .defineInRange("voidWarpGain", 25, 0, 1000);
+    public static final ModConfigSpec.IntValue VOID_WARP_SAFE = BUILDER
+            .comment("Void warp up to this amount has no effect; only what is above it counts toward warp events.")
+            .defineInRange("voidWarpSafe", 25, 0, 1000);
+    public static final ModConfigSpec.IntValue VOID_WARP_DECAY = BUILDER
+            .comment("Minutes for one point of void warp to wear off.")
+            .defineInRange("voidWarpDecayMinutes", 2, 1, 1440);
 
     static {
         BUILDER.pop();

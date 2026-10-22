@@ -200,4 +200,29 @@ public final class Utils {
     public static int setBit(int value, int bit) {
         return value | 1 << bit;
     }
+
+    /**
+     * Utils.setBiomeAt: turns the column of biome cells at this spot into the biome and sends the chunk's biomes to
+     * the players that see it. 1.21 keeps biomes in 4x4x4 cells, so a whole 4x4 column changes.
+     */
+    @SuppressWarnings("unchecked")
+    public static void setBiomeAt(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+                                  net.minecraft.resources.ResourceKey<net.minecraft.world.level.biome.Biome> key) {
+        java.util.Optional<net.minecraft.core.Holder.Reference<net.minecraft.world.level.biome.Biome>> biome =
+                level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME).getHolder(key);
+        if (biome.isEmpty() || !level.isLoaded(pos) || level.getBiome(pos).is(key)) return;
+        net.minecraft.world.level.chunk.LevelChunk chunk = level.getChunkAt(pos);
+        int qx = net.minecraft.core.QuartPos.fromBlock(pos.getX()) & 3;
+        int qz = net.minecraft.core.QuartPos.fromBlock(pos.getZ()) & 3;
+        for (net.minecraft.world.level.chunk.LevelChunkSection section : chunk.getSections()) {
+            if (section.getBiomes() instanceof net.minecraft.world.level.chunk.PalettedContainer<?> pc) {
+                for (int qy = 0; qy < 4; ++qy) {
+                    ((net.minecraft.world.level.chunk.PalettedContainer<net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome>>) pc)
+                            .getAndSetUnchecked(qx, qy, qz, biome.get());
+                }
+            }
+        }
+        chunk.setUnsaved(true);
+        level.getChunkSource().chunkMap.resendBiomesForChunks(java.util.List.of(chunk));
+    }
 }

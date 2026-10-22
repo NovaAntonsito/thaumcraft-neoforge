@@ -110,7 +110,8 @@ public class TileVoidSiphon extends TileThaumcraft implements WorldlyContainer {
         Vec3 c = Vec3.atCenterOf(worldPosition);
         for (EntityFluxRift fr : level.getEntitiesOfClass(EntityFluxRift.class, new AABB(worldPosition).inflate(8.0),
                 e -> e.distanceToSqr(c) < 64.0)) {
-            if (!fr.isAlive() || fr.getRiftSize() < 2) {
+            // Dream branch: the void rifts of the Whispers of the Void cannot be siphoned.
+            if (!fr.isAlive() || fr.getRiftSize() < 2 || fr instanceof thaumcraft.common.entities.EntityVoidRift) {
                 continue;
             }
             Vec3 v1 = new Vec3(worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5);

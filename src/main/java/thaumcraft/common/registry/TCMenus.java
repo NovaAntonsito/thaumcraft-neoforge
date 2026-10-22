@@ -48,6 +48,8 @@ public final class TCMenus {
     public static final Supplier<MenuType<ContainerSpa>> SPA = MENUS.register("spa",
             () -> IMenuTypeExtension.create(ContainerSpa::new));
 
+    public static final Supplier<MenuType<thaumcraft.common.container.ContainerEssentiaTerminal>> ESSENTIA_TERMINAL = MENUS.register("essentia_terminal",
+            () -> IMenuTypeExtension.create(thaumcraft.common.container.ContainerEssentiaTerminal::new));
     public static final Supplier<MenuType<ContainerPotionSprayer>> POTION_SPRAYER = MENUS.register("potion_sprayer",
             () -> IMenuTypeExtension.create(ContainerPotionSprayer::new));
 

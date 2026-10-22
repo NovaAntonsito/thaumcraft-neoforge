@@ -49,6 +49,12 @@ public record PacketWarpMessage(int data, byte warpType) implements CustomPacket
                 player.playSound(SoundsTC.WHISPERS.get(), 0.5f, 1.0f);
             }
             player.displayClientMessage(Component.translatable(text), true);
+        } else if (message.warpType == 3) {
+            // Dream branch: void warp.
+            if (message.data > 0) {
+                player.playSound(SoundsTC.WHISPERS.get(), 0.5f, 0.6f);
+                player.displayClientMessage(Component.translatable("tc.addwarpvoid"), true);
+            }
         } else if (message.data > 0) {
             player.displayClientMessage(Component.translatable("tc.addwarptemp"), true);
         }

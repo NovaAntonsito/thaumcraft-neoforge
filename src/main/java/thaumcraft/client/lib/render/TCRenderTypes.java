@@ -23,6 +23,7 @@ public final class TCRenderTypes extends RenderType {
     private static final Map<ResourceLocation, RenderType> BEAM_ADDITIVE = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> RUNES = new HashMap<>();
     private static final Map<ResourceLocation, RenderType> RUNES_ADDITIVE = new HashMap<>();
+    private static final Map<String, RenderType> NODE = new HashMap<>();
 
     private TCRenderTypes(String name, VertexFormat format, VertexFormat.Mode mode, int bufferSize, boolean affectsCrumbling, boolean sortOnUpload,
                           Runnable setupState, Runnable clearState) {
@@ -103,5 +104,19 @@ public final class TCRenderTypes extends RenderType {
                         .setTextureState(new TextureStateShard(t, true, false))
                         .setTransparencyState(additive ? LIGHTNING_TRANSPARENCY : TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL)
                         .setOverlayState(OVERLAY).setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
+    }
+
+    /**
+     * The aura nodes (TileNodeRenderer): blurred POSITION_TEX_COLOR quads, culling off, no depth writes, blended by
+     * the aspect (GL_ONE added on top, or normally). With xray the depth test is off too, as with goggles.
+     */
+    public static RenderType node(ResourceLocation texture, boolean additive, boolean xray) {
+        return NODE.computeIfAbsent(texture + "/" + additive + "/" + xray, k -> create("thaumcraft_node",
+                DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS, 1536, false, true,
+                CompositeState.builder().setShaderState(new ShaderStateShard(net.minecraft.client.renderer.GameRenderer::getPositionTexColorShader))
+                        .setTextureState(new TextureStateShard(texture, true, false))
+                        .setTransparencyState(additive ? LIGHTNING_TRANSPARENCY : TRANSLUCENT_TRANSPARENCY)
+                        .setDepthTestState(xray ? NO_DEPTH_TEST : LEQUAL_DEPTH_TEST).setCullState(NO_CULL)
+                        .setWriteMaskState(COLOR_WRITE).createCompositeState(false)));
     }
 }

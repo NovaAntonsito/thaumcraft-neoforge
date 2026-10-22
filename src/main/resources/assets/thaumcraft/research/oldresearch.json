@@ -163,6 +163,32 @@
           "text": "research.RESEARCHDUPE.stage.2"
         }
       ]
+    },
+    {
+      "key": "POINTEXCHANGE",
+      "name": "research.POINTEXCHANGE.title",
+      "icons": [
+        "thaumcraft:textures/research/rd_map.png"
+      ],
+      "category": "BASICS",
+      "location": [
+        6,
+        1
+      ],
+      "parents": [
+        "RESEARCHMASTERY"
+      ],
+      "stages": [
+        {
+          "text": "research.POINTEXCHANGE.stage.1",
+          "required_knowledge": [
+            "THEORY;BASICS;1"
+          ]
+        },
+        {
+          "text": "research.POINTEXCHANGE.stage.2"
+        }
+      ]
     }
   ]
 }

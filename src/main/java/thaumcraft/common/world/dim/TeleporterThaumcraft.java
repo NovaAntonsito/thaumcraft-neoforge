@@ -24,8 +24,14 @@ public final class TeleporterThaumcraft {
     }
 
     public static DimensionTransition transition(ServerLevel target, Entity entity) {
-        int l = Mth.floor(entity.getX());
-        int i1 = Mth.floor(entity.getZ());
+        return transitionTo(target, entity, Mth.floor(entity.getX()), Mth.floor(entity.getZ()));
+    }
+
+    /**
+     * As {@link #transition}, looking for the portal around x and z instead of the entity's own place (dream branch:
+     * the void labyrinths). With no portal found the entity lands at x and z, at the height of the maze floor.
+     */
+    public static DimensionTransition transitionTo(ServerLevel target, Entity entity, int l, int i1) {
         target.getChunk(l >> 4, i1 >> 4);
         BlockPos found = findPortal(target, entity, l, i1);
         Vec3 dest;
@@ -33,6 +39,8 @@ public final class TeleporterThaumcraft {
             double d8 = found.getX() + 0.5 + (target.random.nextBoolean() ? 1 : -1);
             double d4 = found.getZ() + 0.5 + (target.random.nextBoolean() ? 1 : -1);
             dest = new Vec3(d8, found.getY(), d4);
+        } else if (l != Mth.floor(entity.getX()) || i1 != Mth.floor(entity.getZ())) {
+            dest = new Vec3(l + 0.5, 53.0, i1 + 0.5);
         } else {
             dest = entity.position();
         }

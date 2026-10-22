@@ -1,0 +1,15 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "thaumcraft:items/researchnote",
+    "layer1": "thaumcraft:items/researchnoteoverlay"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumcraft:complete": 1
+      },
+      "model": "thaumcraft:item/discovery"
+    }
+  ]
+}

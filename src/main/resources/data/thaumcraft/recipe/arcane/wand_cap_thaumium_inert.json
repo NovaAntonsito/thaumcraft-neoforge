@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "CAP_thaumium",
+  "vis": 18,
+  "pattern": [
+    "NNN",
+    "N N"
+  ],
+  "key": {
+    "N": {
+      "tag": "c:nuggets/thaumium"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand_cap_thaumium_inert",
+    "count": 1
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "thaumcraft:infusion",
+  "research": "ROD_primal",
+  "instability": 3,
+  "aspects": {
+    "ignis": 12,
+    "praecantatio": 6,
+    "bestia": 6
+  },
+  "central": {
+    "item": "minecraft:blaze_rod"
+  },
+  "components": [
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "praecantatio": 1
+        }
+      }
+    },
+    {
+      "type": "neoforge:components",
+      "items": "thaumcraft:crystal_essence",
+      "components": {
+        "thaumcraft:aspects": {
+          "ignis": 1
+        }
+      }
+    }
+  ],
+  "result": {
+    "id": "thaumcraft:wand_rod_blaze",
+    "count": 1
+  }
+}

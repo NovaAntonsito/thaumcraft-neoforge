@@ -62,11 +62,20 @@ import thaumcraft.common.lib.network.playerdata.PacketAspectPool;
  * <li>/thaumcraft research list | &lt;player&gt; &lt;list|all|reset|&lt;research&gt;&gt; | &lt;player&gt; revoke &lt;research&gt; (original)</li>
  * <li>/thaumcraft locate barrow: the nearest known barrow, with a link to teleport there (not in the original)</li>
  * <li>/thaumcraft reload: re-reads the research files (original)</li>
+ * <li>/thaumcraft maze export: the maze cells as structure templates (not in the original)</li>
  * <li>/thaumcraft aspects &lt;player&gt; research &lt;aspect|all&gt; | add|set &lt;aspect|all&gt; &lt;amount&gt;: the aspect pool (Reborn's /oldresearch)</li>
  * </ul>
  */
 public final class ThaumcraftCommand {
     private ThaumcraftCommand() {
+    }
+
+    /** Dream branch: every kind of maze cell, saved as a structure template to rework with structure blocks. */
+    private static int exportMaze(CommandSourceStack source) {
+        List<String> saved = thaumcraft.common.world.dim.MazeExport.exportAll(source.getLevel());
+        source.sendSuccess(() -> Component.literal("Saved " + saved.size() + " maze structures to generated/thaumcraft/structures/maze: "
+                + String.join(", ", saved)), true);
+        return saved.size();
     }
 
     /** The nearest barrow recorded by MoundLocations, as vanilla /locate shows it. */
@@ -92,6 +101,9 @@ public final class ThaumcraftCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("thaumcraft")
+                .then(Commands.literal("maze")
+                        .requires(src -> src.hasPermission(2))
+                        .then(Commands.literal("export").executes(ctx -> exportMaze(ctx.getSource()))))
                 .then(Commands.literal("locate")
                         .requires(src -> src.hasPermission(2))
                         .then(Commands.literal("barrow").executes(ctx -> locateBarrow(ctx.getSource()))))

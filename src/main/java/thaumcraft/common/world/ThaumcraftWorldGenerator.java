@@ -20,6 +20,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.neoforged.neoforge.common.Tags;
 import thaumcraft.Config;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.blocks.world.ore.BlockCrystal;
 import thaumcraft.common.blocks.world.ore.ShardType;
 import thaumcraft.common.config.ConfigBlocks;
@@ -224,15 +225,22 @@ public final class ThaumcraftWorldGenerator {
                 if (new thaumcraft.common.world.objects.WorldGenMound().generate(world, random, p)) {
                     // Not in the original: remembered for /thaumcraft locate barrow (the entrance, on the west side).
                     thaumcraft.common.world.objects.MoundLocations.record(world.getLevel().dimension(), p.offset(0, 9, 9));
+                    // TC4 (dream branch): a dark node floats over the barrow.
+                    if (Config.GENERATE_NODES.get()) {
+                        createRandomNodeAt(world, p.offset(9, 8, 9), random, false, true, false);
+                    }
                 }
             } else if (random.nextInt(66) == 0) {
-                // TC4: an eldritch altar ring. Its node above the obelisk does not exist in TC6.
+                // TC4: an eldritch altar ring, with a dark node above the obelisk on the dream branch.
                 thaumcraft.common.world.objects.WorldGenEldritchRing ring = new thaumcraft.common.world.objects.WorldGenEldritchRing();
                 ring.chunkX = chunkX;
                 ring.chunkZ = chunkZ;
                 ring.width = 11 + random.nextInt(6) * 2;
                 ring.height = 11 + random.nextInt(6) * 2;
                 if (ring.generate(world, random, p.above(8))) {
+                    // Dream branch: remembered for the cartographic notes.
+                    thaumcraft.common.world.objects.StructureLocations.record(world.getLevel().dimension(),
+                            thaumcraft.common.world.objects.StructureLocations.ELDRITCH_RING, p.above(8));
                     thaumcraft.common.world.dim.MazeHandler.startMaze(chunkX, chunkZ, ring.width, ring.height, random.nextLong());
                 }
             } else if (random.nextInt(500) == 0) {
@@ -274,6 +282,182 @@ public final class ThaumcraftWorldGenerator {
             BlockPos origin = context.origin();
             generateSurface(context.level(), context.random(), origin.getX() >> 4, origin.getZ() >> 4);
             return true;
+        }
+    }
+
+    // ---- Aura nodes, from Thaumcraft 4 (dream branch) ----
+
+    /** generateWildNodes: one chunk in nodeRarity gets a node on the first air above the bottom of the world. */
+    public static class NodesFeature extends Feature<NoneFeatureConfiguration> {
+        public NodesFeature(Codec<NoneFeatureConfiguration> codec) {
+            super(codec);
+        }
+
+        @Override
+        public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+            if (!Config.GENERATE_NODES.get()) {
+                return false;
+            }
+            WorldGenLevel world = context.level();
+            RandomSource random = context.random();
+            if (random.nextInt(Config.NODE_RARITY.get()) != 0) {
+                return false;
+            }
+            BlockPos origin = context.origin();
+            int x = (origin.getX() >> 4) * 16 + random.nextInt(16);
+            int z = (origin.getZ() >> 4) * 16 + random.nextInt(16);
+            int bottom = world.getMinBuildHeight();
+            int selectedY = getFirstUncoveredY(world, x, z);
+            if (selectedY < bottom + 2) {
+                selectedY = bottom + 32 + random.nextInt(64);
+            }
+            if (world.isEmptyBlock(new BlockPos(x, selectedY + 1, z))) {
+                ++selectedY;
+            }
+            int p = random.nextInt(4);
+            BlockState b = world.getBlockState(new BlockPos(x, selectedY + p, z));
+            if (b.isAir() || b.canBeReplaced()) {
+                selectedY += p;
+            }
+            if (selectedY >= world.getMaxBuildHeight()) {
+                return false;
+            }
+            createRandomNodeAt(world, new BlockPos(x, selectedY, z), random, false, false, false);
+            return true;
+        }
+    }
+
+    /** Utils.getFirstUncoveredY: the first air going up from five blocks above the bottom of the world (often a cave). */
+    private static int getFirstUncoveredY(WorldGenLevel world, int x, int z) {
+        int y = world.getMinBuildHeight() + 5;
+        while (y < world.getMaxBuildHeight() - 1 && !world.isEmptyBlock(new BlockPos(x, y + 1, z))) {
+            ++y;
+        }
+        return y;
+    }
+
+    /**
+     * createRandomNodeAt: a node with aspects from the biome and its surroundings. Silverwood nodes are pure, eerie
+     * ones dark, and the rest one in specialNodeRarity of a special type. Small and silverwood nodes are weaker.
+     */
+    public static void createRandomNodeAt(net.minecraft.world.level.LevelAccessor world, BlockPos pos, RandomSource random,
+                                          boolean silverwood, boolean eerie, boolean small) {
+        java.util.List<Aspect> basicAspects = Aspect.getPrimalAspects();
+        java.util.List<Aspect> complexAspects = Aspect.getCompoundAspects();
+        int special = Config.SPECIAL_NODE_RARITY.get();
+        thaumcraft.api.nodes.NodeType type = thaumcraft.api.nodes.NodeType.NORMAL;
+        if (silverwood) {
+            type = thaumcraft.api.nodes.NodeType.PURE;
+        } else if (eerie) {
+            type = thaumcraft.api.nodes.NodeType.DARK;
+        } else if (random.nextInt(special) == 0) {
+            switch (random.nextInt(10)) {
+                case 0, 1, 2 -> type = thaumcraft.api.nodes.NodeType.DARK;
+                case 3, 4, 5 -> type = thaumcraft.api.nodes.NodeType.UNSTABLE;
+                case 6, 7, 8 -> type = thaumcraft.api.nodes.NodeType.PURE;
+                default -> type = thaumcraft.api.nodes.NodeType.HUNGRY;
+            }
+        }
+        thaumcraft.api.nodes.NodeModifier modifier = null;
+        if (random.nextInt(special / 2) == 0) {
+            switch (random.nextInt(3)) {
+                case 0 -> modifier = thaumcraft.api.nodes.NodeModifier.BRIGHT;
+                case 1 -> modifier = thaumcraft.api.nodes.NodeModifier.PALE;
+                default -> modifier = thaumcraft.api.nodes.NodeModifier.FADING;
+            }
+        }
+        Holder<Biome> bg = world.getBiome(pos);
+        // BiomeHandler.getBiomeAura: Thaumcraft 6 keeps a 0-1 level per biome; 400 brings it to Thaumcraft 4's range.
+        int baura = Math.max(2, (int) (BiomeHandler.getBiomeAuraModifier(bg) * 400.0f));
+        // The taint biome of the original does not exist; its 1.5x boost and tainted nodes are left out.
+        if (silverwood || small) {
+            baura /= 4;
+        }
+        int value = random.nextInt(Math.max(1, baura / 2)) + baura / 2;
+        Aspect ra = BiomeHandler.getRandomBiomeTag(bg, random);
+        AspectList al = new AspectList();
+        if (ra != null) {
+            al.add(ra, 2);
+        } else {
+            al.add(complexAspects.get(random.nextInt(complexAspects.size())), 1);
+            al.add(basicAspects.get(random.nextInt(basicAspects.size())), 1);
+        }
+        for (int a = 0; a < 3; ++a) {
+            if (random.nextBoolean()) {
+                if (random.nextInt(special) == 0) {
+                    al.merge(complexAspects.get(random.nextInt(complexAspects.size())), 1);
+                } else {
+                    al.merge(basicAspects.get(random.nextInt(basicAspects.size())), 1);
+                }
+            }
+        }
+        switch (type) {
+            case HUNGRY -> {
+                // Fames and lucrum are gone from Thaumcraft 6; desiderium and vacuos take their place.
+                al.merge(Aspect.DESIRE, 2);
+                if (random.nextBoolean()) al.merge(Aspect.VOID, 1);
+            }
+            case PURE -> {
+                if (random.nextBoolean()) al.merge(Aspect.LIFE, 2);
+                else al.merge(Aspect.ORDER, 2);
+            }
+            case DARK -> {
+                if (random.nextBoolean()) al.merge(Aspect.DEATH, 1);
+                if (random.nextBoolean()) al.merge(Aspect.UNDEAD, 1);
+                if (random.nextBoolean()) al.merge(Aspect.ENTROPY, 1);
+                if (random.nextBoolean()) al.merge(Aspect.DARKNESS, 1);
+            }
+            default -> {
+            }
+        }
+        int water = 0;
+        int lava = 0;
+        int stone = 0;
+        int foliage = 0;
+        for (BlockPos p : BlockPos.betweenClosed(pos.offset(-5, -5, -5), pos.offset(5, 5, 5))) {
+            BlockState bi = world.getBlockState(p);
+            if (bi.getFluidState().is(net.minecraft.tags.FluidTags.WATER)) {
+                ++water;
+            } else if (bi.getFluidState().is(net.minecraft.tags.FluidTags.LAVA)) {
+                ++lava;
+            } else if (bi.is(net.minecraft.world.level.block.Blocks.STONE)) {
+                ++stone;
+            }
+            if (bi.is(BlockTags.LEAVES) || bi.is(BlockTags.REPLACEABLE_BY_TREES)) {
+                ++foliage;
+            }
+        }
+        if (water > 100) al.merge(Aspect.WATER, 1);
+        if (lava > 100) {
+            al.merge(Aspect.FIRE, 1);
+            al.merge(Aspect.EARTH, 1);
+        }
+        if (stone > 500) al.merge(Aspect.EARTH, 1);
+        if (foliage > 100) al.merge(Aspect.PLANT, 1);
+        Aspect[] sorted = al.getAspectsSortedByAmount();
+        int[] spread = new int[sorted.length];
+        float total = 0.0f;
+        for (int a = 0; a < spread.length; ++a) {
+            spread[a] = al.getAmount(sorted[a]) == 2 ? 50 + random.nextInt(25) : 25 + random.nextInt(50);
+            total += spread[a];
+        }
+        for (int a = 0; a < spread.length; ++a) {
+            al.merge(sorted[a], (int) (spread[a] / total * value));
+        }
+        createNodeAt(world, pos, type, modifier, al);
+    }
+
+    /** createNodeAt: puts a node block in the air (or replaces nothing) and gives it its kind and aspects. */
+    public static void createNodeAt(net.minecraft.world.level.LevelAccessor world, BlockPos pos, thaumcraft.api.nodes.NodeType nt,
+                                    @javax.annotation.Nullable thaumcraft.api.nodes.NodeModifier nm, AspectList al) {
+        if (world.isEmptyBlock(pos)) {
+            world.setBlock(pos, ConfigBlocks.auraNode.get().defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+        if (world.getBlockEntity(pos) instanceof thaumcraft.common.tiles.misc.TileAuraNode node) {
+            node.setNodeType(nt);
+            node.setNodeModifier(nm);
+            node.setAspects(al);
+            node.setChanged();
         }
     }
 }

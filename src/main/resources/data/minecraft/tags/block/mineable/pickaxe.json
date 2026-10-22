@@ -74,6 +74,10 @@
     "thaumcraft:ancient_stone_slab",
     "thaumcraft:eldritch_stone_glyphed",
     "thaumcraft:crusted_opening",
-    "thaumcraft:runed_stone"
+    "thaumcraft:runed_stone",
+    "thaumcraft:essentia_terminal",
+    "thaumcraft:node_stabilizer",
+    "thaumcraft:node_stabilizer_advanced",
+    "thaumcraft:node_transducer"
   ]
 }

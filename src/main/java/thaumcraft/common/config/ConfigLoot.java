@@ -38,6 +38,9 @@ public final class ConfigLoot {
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.GOLD_INGOT), 100, 0, 1, 2);
         ThaumcraftApi.addLootBagItem(new ItemStack(Items.ENDER_PEARL), 100, 0, 1, 2);
         ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.amuletVisFound.get()), 6, 1, 2);
+        // Dream branch: a blank cartographic note; it picks where it leads when it reaches an inventory.
+        ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.cartographicNote.get()), 4, 1);
+        ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.cartographicNote.get()), 8, 2);
         int[][] baubleLoot = {{10, 0}, {10, 0}, {10, 0}, {5, 2}, {5, 1}, {5, 1}, {5, 1}};
         for (int b = 0; b < baubleLoot.length; ++b) {
             ThaumcraftApi.addLootBagItem(new ItemStack(ConfigItems.baubles.get(thaumcraft.common.items.baubles.ItemBaubles.VARIANTS[b]).get()), baubleLoot[b][0], baubleLoot[b][1]);

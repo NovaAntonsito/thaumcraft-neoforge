@@ -75,6 +75,12 @@ public final class ConfigItems {
 
     public static final DeferredItem<ItemScribingTools> scribingTools = ITEMS.registerItem("scribing_tools", ItemScribingTools::new);
     public static final DeferredItem<ItemResearchNote> researchNote = ITEMS.registerItem("research_note", ItemResearchNote::new);
+    // Dream branch: a page of the void explorer's journal.
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemVoidJournalPage> voidJournalPage =
+            ITEMS.registerItem("void_journal_page", thaumcraft.common.items.consumables.ItemVoidJournalPage::new);
+    // Dream branch: a note that leads to a place in the world.
+    public static final DeferredItem<thaumcraft.common.items.consumables.ItemCartographicNote> cartographicNote =
+            ITEMS.registerItem("cartographic_note", thaumcraft.common.items.consumables.ItemCartographicNote::new);
 
     public static final DeferredItem<ItemMagicDust> salisMundus = ITEMS.registerItem("salis_mundus", ItemMagicDust::new);
 
@@ -85,9 +91,19 @@ public final class ConfigItems {
     public static final DeferredItem<BucketItem> purifyingFluidBucket = ITEMS.registerItem("purifying_fluid_bucket",
             p -> new BucketItem(TCFluids.PURIFYING.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final DeferredItem<ItemThaumometer> thaumometer = ITEMS.registerItem("thaumometer", ItemThaumometer::new);
+    // Not in Thaumcraft 4 (dream branch): a map of the aura, its nodes and anomalies.
+    public static final DeferredItem<thaumcraft.common.items.tools.ItemAuraAtlas> auraAtlas = ITEMS.registerItem("aura_atlas", thaumcraft.common.items.tools.ItemAuraAtlas::new);
     public static final DeferredItem<ItemResonator> resonator = ITEMS.registerItem("resonator", ItemResonator::new);
     public static final DeferredItem<ItemAlumentum> alumentum = ITEMS.registerItem("alumentum", ItemAlumentum::new);
     public static final DeferredItem<ItemCaster> casterBasic = ITEMS.registerItem("caster_basic", p -> new ItemCaster(0, p));
+    // Not in Thaumcraft 6: the wands of Thaumcraft 4 (dream branch). Rods and caps are plain parts; wood is a stick.
+    public static final DeferredItem<thaumcraft.common.items.casters.wands.ItemWand> wand = ITEMS.registerItem("wand", thaumcraft.common.items.casters.wands.ItemWand::new);
+    /** "greatwood","obsidian","blaze","ice","quartz","bone","reed","silverwood" */
+    public static final Map<String, DeferredItem<Item>> wandRods = variants("wand_rod",
+            "greatwood", "obsidian", "blaze", "ice", "quartz", "bone", "reed", "silverwood");
+    /** The usable caps, then the inert ones that infusion charges. */
+    public static final Map<String, DeferredItem<Item>> wandCaps = variants("wand_cap",
+            "iron", "copper", "gold", "silver", "thaumium", "void", "silver_inert", "thaumium_inert", "void_inert");
     public static final DeferredItem<thaumcraft.common.items.casters.ItemFocus> focus1 =
             ITEMS.registerItem("focus_1", p -> new thaumcraft.common.items.casters.ItemFocus(15, p));
     public static final DeferredItem<thaumcraft.common.items.casters.ItemFocus> focus2 =
@@ -325,6 +341,9 @@ public final class ConfigItems {
                                 output.acceptAll(thaumcraft.common.golems.ItemGolemPlacer.creativeStacks(item.get()));
                             } else if (item.get() instanceof thaumcraft.common.items.ISubItems sub) {
                                 sub.fillSubItems(output::accept);
+                            } else if (item.get() instanceof thaumcraft.common.items.consumables.ItemCartographicNote) {
+                                // Dream branch: a blank cartographic note picks where it leads in the inventory.
+                                output.accept(item.get());
                             } else if (item.get() instanceof ItemResearchNote) {
                                 // A blank note is useless: notes come from the thaumonomicon.
                             } else {

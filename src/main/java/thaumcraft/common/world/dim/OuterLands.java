@@ -18,4 +18,9 @@ public final class OuterLands {
     public static boolean is(Level world) {
         return world.dimension() == KEY;
     }
+
+    /** The Outer Lands, or the void of the dream branch, whose labyrinths are Outer Lands mazes and work the same. */
+    public static boolean isMazeWorld(Level world) {
+        return is(world) || thaumcraft.common.world.voidrealm.VoidDim.is(world);
+    }
 }

@@ -92,6 +92,22 @@ public class GenKeyRoom extends GenCommon {
       entityitem.setDeltaMovement(0.0F, 0.0F, 0.0F);
       world.spawnEntityInWorld(entityitem);
       int zz = 2 + (world.difficultySetting == Difficulty.HARD ? 2 : (world.difficultySetting == Difficulty.NORMAL ? 1 : 0));
+      // Dream branch: in a void labyrinth the key room also holds the encounter's journal page and a chest, and more
+      // guardians watch it the further the encounters go.
+      boolean voidMaze = thaumcraft.common.world.voidrealm.VoidDim.is(world.level.getLevel());
+      int encounter = voidMaze ? thaumcraft.common.world.voidrealm.VoidDim.encounterAt(cz) : 0;
+      if (voidMaze) {
+         EntityPermanentItem page = new EntityPermanentItem(world.level.getLevel(), (double)x + 8.5, (double)y + 3.5, (double)z + 9.5,
+                 thaumcraft.common.items.consumables.ItemVoidJournalPage.page(encounter));
+         page.setDeltaMovement(0.0F, 0.0F, 0.0F);
+         world.spawnEntityInWorld(page);
+         BlockPos chest = new BlockPos(x + 8, y + 2, z + 10);
+         world.level.setBlock(chest, net.minecraft.world.level.block.Blocks.CHEST.defaultBlockState(), 2);
+         net.minecraft.world.RandomizableContainer.setBlockEntityLootTable(world.level, random, chest,
+                 net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                         thaumcraft.Thaumcraft.id("chests/void_encounter_" + encounter)));
+         zz += encounter - 1;
+      }
 
       for(int qq = 0; qq < zz; ++qq) {
          EntityEldritchGuardian eg = TCEntities.ELDRITCH_GUARDIAN.get().create(world.level.getLevel());
@@ -101,7 +117,7 @@ public class GenKeyRoom extends GenCommon {
          eg.setPos(i1, j1, k1);
          eg.finalizeSpawn(world.level, world.level.getCurrentDifficultyAt(eg.blockPosition()), MobSpawnType.STRUCTURE, null);
          eg.restrictTo(new BlockPos(x + 8, y + 2, z + 8), 16);
-         if (qq == 0 && zz >= 4) {
+         if (qq == 0 && zz >= 4 || voidMaze && qq < encounter - 2) {
             EntityUtils.makeChampion(eg, true);
          }
 

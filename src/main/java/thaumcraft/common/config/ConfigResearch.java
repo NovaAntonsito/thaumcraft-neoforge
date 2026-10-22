@@ -68,6 +68,8 @@ public final class ConfigResearch {
         }
         ResearchManager.jsonLocs.add(Thaumcraft.id("research/scans"));
         ResearchManager.jsonLocs.add(Thaumcraft.id("research/anomalies"));
+        // Dream branch: the Whispers of the Void chapter.
+        ResearchManager.jsonLocs.add(Thaumcraft.id("research/void"));
         ResearchManager.parseAllResearch();
         // TC4 Research Port: Reborn: the THEORY knowledge stages become research notes.
         ResearchNoteManager.init();
@@ -86,6 +88,7 @@ public final class ConfigResearch {
         }
         ScanningManager.addScannableThing(new ScanGeneric());
         ScanningManager.addScannableThing(new thaumcraft.common.anomaly.ScanAnomaly());
+        ScanningManager.addScannableThing(new thaumcraft.common.lib.research.ScanAuraNode());
         // Enchantments are data driven now; the vanilla ones are known up front.
         for (Field f : Enchantments.class.getFields()) {
             if (Modifier.isStatic(f.getModifiers()) && f.getType() == ResourceKey.class) {
@@ -197,5 +200,8 @@ public final class ConfigResearch {
                 Thaumcraft.id("textures/research/cat_golemancy.png"), Thaumcraft.id("textures/gui/gui_research_back_5.png"), BACK_OVER);
         ResearchCategories.registerCategory("ELDRITCH", "UNLOCKELDRITCH", new AspectList().add(Aspect.ELDRITCH, 20).add(Aspect.DARKNESS, 10).add(Aspect.MAGIC, 5).add(Aspect.MIND, 5).add(Aspect.VOID, 5).add(Aspect.DEATH, 5).add(Aspect.UNDEAD, 5).add(Aspect.ENTROPY, 5),
                 Thaumcraft.id("textures/research/cat_eldritch.png"), Thaumcraft.id("textures/gui/gui_research_back_6.png"), BACK_OVER);
+        // Dream branch: the Whispers of the Void, shown once the void has called.
+        ResearchCategories.registerCategory("VOID", "VOIDWHISPERS", new AspectList().add(Aspect.VOID, 20).add(Aspect.ELDRITCH, 10).add(Aspect.DARKNESS, 10).add(Aspect.MIND, 5),
+                Thaumcraft.id("textures/research/r_outerrev.png"), Thaumcraft.id("textures/gui/gui_research_back_6.png"), BACK_OVER);
     }
 }

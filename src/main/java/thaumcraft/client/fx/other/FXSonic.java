@@ -22,6 +22,13 @@ import thaumcraft.client.lib.render.TCRenderTypes;
  */
 public class FXSonic extends FXBase {
     private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "models/obj/hemis.obj");
+    private static final ResourceLocation[] RIPPLE = new ResourceLocation[16];
+
+    static {
+        for (int i = 1; i < RIPPLE.length; ++i) {
+            RIPPLE[i] = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/models/ripple" + i + ".png");
+        }
+    }
     Entity target;
     float yaw;
     float pitch;
@@ -77,7 +84,7 @@ public class FXSonic extends FXBase {
     public void renderCustom(MultiBufferSource buffers, Camera cam, float f) {
         float fade = (age + f) / lifetime;
         int frame = Math.min(15, (int) (14.0f * fade) + 1);
-        ResourceLocation tex = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/models/ripple" + frame + ".png");
+        ResourceLocation tex = RIPPLE[frame];
         PoseStack pose = new PoseStack();
         pose.translate(relX(cam, f), relY(cam, f), relZ(cam, f));
         pose.mulPose(Axis.YP.rotationDegrees(-yaw));

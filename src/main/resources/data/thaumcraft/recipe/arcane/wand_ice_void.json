@@ -1,0 +1,28 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "WANDS",
+  "vis": 108,
+  "pattern": [
+    "  C",
+    " R ",
+    "C  "
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:wand_cap_void"
+    },
+    "R": {
+      "item": "thaumcraft:wand_rod_ice"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand",
+    "count": 1,
+    "components": {
+      "thaumcraft:wand_parts": {
+        "rod": "ice",
+        "cap": "void"
+      }
+    }
+  }
+}

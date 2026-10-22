@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "CAP_gold",
+  "vis": 9,
+  "pattern": [
+    "NNN",
+    "N N"
+  ],
+  "key": {
+    "N": {
+      "tag": "c:nuggets/gold"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand_cap_gold",
+    "count": 1
+  }
+}

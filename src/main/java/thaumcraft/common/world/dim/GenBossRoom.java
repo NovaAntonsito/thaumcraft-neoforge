@@ -59,6 +59,8 @@ public class GenBossRoom extends GenCommon {
                dir = ForgeDirection.WEST;
             }
 
+            // A cell with no exit leaves the doorway at 0, 0 (TC4 built it there); skip it instead.
+            if (dir == ForgeDirection.UNKNOWN) continue;
             switch (PAT_DOORWAY[a][b]) {
                case 1:
                   placeBlock(world, xx, y + 2 + b, zz, 16, cell);

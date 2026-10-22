@@ -294,6 +294,9 @@ public final class ResearchNoteManager {
 
     @Nullable
     public static ResearchNoteData computeNoteData(Level world, String key) {
+        if (thaumcraft.common.items.consumables.ItemCartographicNote.isCartographic(key)) {
+            return thaumcraft.common.items.consumables.ItemCartographicNote.computeNoteData(world, key);
+        }
         ResearchNotePattern pattern = NOTE_PATTERNS.get(key);
         return pattern != null ? computeNoteDataFromPattern(pattern, key) : computeNoteDataFromRandom(world, key);
     }

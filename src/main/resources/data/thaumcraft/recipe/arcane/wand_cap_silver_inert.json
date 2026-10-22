@@ -1,0 +1,18 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "CAP_silver",
+  "vis": 12,
+  "pattern": [
+    "NNN",
+    "N N"
+  ],
+  "key": {
+    "N": {
+      "tag": "c:nuggets/silver"
+    }
+  },
+  "result": {
+    "id": "thaumcraft:wand_cap_silver_inert",
+    "count": 1
+  }
+}

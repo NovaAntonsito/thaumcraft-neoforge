@@ -85,6 +85,11 @@ public class AnomalyType {
         return "tc.anomaly." + id;
     }
 
+    /** Whether it can be drawn in this dimension now. Most anomalies always can. */
+    public boolean canStartIn(ServerLevel level) {
+        return true;
+    }
+
     /** Called once when the anomaly starts. */
     public void onStart(ServerLevel level, ActiveAnomaly anomaly) {
     }

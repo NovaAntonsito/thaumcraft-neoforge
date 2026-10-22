@@ -53,6 +53,9 @@ public class TileEldritchPortal extends BlockEntity {
             }
             if (player.isOnPortalCooldown()) {
                 player.setPortalCooldown(100);
+            } else if (thaumcraft.common.world.voidrealm.VoidDim.is(world)) {
+                // Dream branch: a void labyrinth's portal leads back to its rift.
+                thaumcraft.common.world.voidrealm.VoidEncounters.leave(player);
             } else if (!OuterLands.is(world)) {
                 ServerLevel outer = world.getServer().getLevel(OuterLands.KEY);
                 if (outer != null) {
