@@ -20,5 +20,5 @@ Lo que falte en `es_es.json` cae a inglés automáticamente.
 ## Tandas
 
 1. Interfaz y contenido (todo menos `research.*`): hecho.
-2. Investigaciones del Thaumonomicon (`research.*`).
+2. Investigaciones del Thaumonomicon (`research.*`): hecho.
 3. Textos hardcodeados en Java pasados a claves de idioma.
