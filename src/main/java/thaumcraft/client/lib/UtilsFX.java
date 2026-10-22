@@ -69,6 +69,7 @@ public final class UtilsFX {
 
     public static final ResourceLocation nodeTexture = ResourceLocation.fromNamespaceAndPath("thaumcraft", "textures/misc/auranodes.png");
     private static final Map<ResourceLocation, int[]> TEXTURE_SIZES = new HashMap<>();
+    private static final Map<ResourceLocation, Boolean> TEXTURE_PRESENT = new HashMap<>();
 
     /** A textured quad with float corners and UVs (0-1), tinted by GuiGraphics.setColor. */
     public static void quad(GuiGraphics g, ResourceLocation tex, float x1, float y1, float x2, float y2, float u1, float u2, float v1, float v2) {
@@ -113,7 +114,8 @@ public final class UtilsFX {
     }
 
     public static boolean hasTexture(ResourceLocation tex) {
-        return Minecraft.getInstance().getResourceManager().getResource(tex).isPresent();
+        // Asked for every research icon on every frame of the browser: looked up once.
+        return TEXTURE_PRESENT.computeIfAbsent(tex, t -> Minecraft.getInstance().getResourceManager().getResource(t).isPresent());
     }
 
     /** renderQuadCentered for GUIs: one frame of a gridX x gridY sheet, scale pixels wide, centered on the origin. */

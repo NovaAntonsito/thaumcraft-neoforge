@@ -29,6 +29,8 @@ import thaumcraft.common.items.casters.wands.WandParts;
  */
 public class WandRenderer extends BlockEntityWithoutLevelRenderer {
     private static final net.minecraft.resources.ResourceLocation FOCUS = Thaumcraft.id("textures/models/wand.png");
+    /** The rod and cap textures by id, so a frame does not build them anew. */
+    private static final java.util.Map<String, net.minecraft.resources.ResourceLocation> TEXTURES = new java.util.concurrent.ConcurrentHashMap<>();
     private final ModelPart cap;
     private final ModelPart capBottom;
     private final ModelPart rod;
@@ -49,6 +51,10 @@ public class WandRenderer extends BlockEntityWithoutLevelRenderer {
         focus = baked.getChild("focus");
     }
 
+    private static net.minecraft.resources.ResourceLocation texture(String name) {
+        return TEXTURES.computeIfAbsent(name, n -> Thaumcraft.id("textures/models/" + n + ".png"));
+    }
+
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext context, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
         if (!(stack.getItem() instanceof ItemWand wand)) return;
@@ -59,11 +65,11 @@ public class WandRenderer extends BlockEntityWithoutLevelRenderer {
         pose.scale(1.0f, -1.0f, -1.0f);
         pose.translate(0.0, -10.0 / 16.0, 0.0);
 
-        var rodTex = Thaumcraft.id("textures/models/wand_rod_" + parts.getRod().id() + ".png");
+        var rodTex = texture("wand_rod_" + parts.getRod().id());
         int rodLight = parts.getRod().glowing() ? LightTexture.FULL_BRIGHT : light;
         rod.render(pose, buffers.getBuffer(RenderType.entityCutoutNoCull(rodTex)), rodLight, overlay);
 
-        var capTex = Thaumcraft.id("textures/models/wand_cap_" + parts.getCap().id() + ".png");
+        var capTex = texture("wand_cap_" + parts.getCap().id());
         var capVc = buffers.getBuffer(RenderType.entityCutoutNoCull(capTex));
         pose.pushPose();
         pose.scale(1.2f, 1.0f, 1.2f);
