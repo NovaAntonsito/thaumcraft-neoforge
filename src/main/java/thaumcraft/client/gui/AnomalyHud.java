@@ -53,6 +53,8 @@ public final class AnomalyHud {
         lastBottom = 0;
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.hideGui || mc.level == null || mc.player == null) return;
+        // Behind an open screen it is only clutter, and JEI's overlay draws over it. The chat keeps it.
+        if (mc.screen != null && !(mc.screen instanceof net.minecraft.client.gui.screens.ChatScreen)) return;
         if (!AnomalyClientState.enabled || !Config.ANOMALY_SHOW_HUD.get()) return;
         Font font = mc.font;
         long now = mc.level.getGameTime();
@@ -138,12 +140,17 @@ public final class AnomalyHud {
         return (g, delta) -> {
             int half = 91; // BossHealthOverlay bars are 182 wide, centered
             int mid = g.guiWidth() / 2;
-            int shift = lastBottom > 0 && lastLeft < mid + half && lastRight > mid - half ? lastBottom : 0;
+            int shift = bottomOver(mid - half, mid + half);
             g.pose().pushPose();
             g.pose().translate(0.0f, shift, 0.0f);
             bossBars.render(g, delta);
             g.pose().popPose();
         };
+    }
+
+    /** The bottom of the panel drawn last frame if it covers any of the columns left..right, else 0. */
+    public static int bottomOver(int left, int right) {
+        return lastBottom > 0 && lastLeft < right && lastRight > left ? lastBottom : 0;
     }
 
     private static boolean holdsThaumometer(Minecraft mc) {

@@ -78,6 +78,19 @@ public class ScanningManager {
         }
     }
 
+    /** The research keys of every scan that matches the object, as if scanned, without its rewards. */
+    public static void markScanned(Player player, @Nullable Object object) {
+        for (IScanThing thing : things) {
+            if (thing.checkThing(player, object)) {
+                try {
+                    String key = thing.getResearchKey(player, object);
+                    if (key != null && !key.isEmpty()) ThaumcraftCapabilities.getKnowledge(player).addResearch(key);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
     /** @return true if the object can be scanned for research the player has not yet discovered */
     public static boolean isThingStillScannable(Player player, @Nullable Object object) {
         for (IScanThing thing : things) {

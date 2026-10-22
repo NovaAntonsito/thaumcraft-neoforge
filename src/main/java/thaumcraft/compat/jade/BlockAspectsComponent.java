@@ -12,9 +12,8 @@ import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.api.research.ScanningManager;
 import thaumcraft.common.lib.research.ScanManager;
-import thaumcraft.common.lib.utils.EntityUtils;
 
-/** The aspects of a block already scanned, with goggles of revealing. Containers show their essentia instead. */
+/** The aspects of a block already scanned. Containers show their essentia instead. */
 public enum BlockAspectsComponent implements IBlockComponentProvider {
     INSTANCE;
 
@@ -28,7 +27,7 @@ public enum BlockAspectsComponent implements IBlockComponentProvider {
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         Player player = accessor.getPlayer();
-        if (!EntityUtils.hasGoggles(player) || accessor.getBlockEntity() instanceof IAspectContainer
+        if (accessor.getBlockEntity() instanceof IAspectContainer
                 || accessor.getBlockEntity() instanceof IEssentiaTransport
                 || ScanningManager.isThingStillScannable(player, accessor.getPosition())) {
             return;

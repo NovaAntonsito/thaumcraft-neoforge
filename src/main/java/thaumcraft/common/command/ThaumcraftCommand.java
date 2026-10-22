@@ -3,7 +3,6 @@ package thaumcraft.common.command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import net.minecraft.world.entity.player.Player;
 import thaumcraft.api.capabilities.PlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
@@ -11,6 +10,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategory;
 import thaumcraft.api.research.ResearchEntry;
 import thaumcraft.api.research.ResearchStage;
+import thaumcraft.api.research.ScanningManager;
 import thaumcraft.common.lib.network.playerdata.PacketSyncKnowledge;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.research.ResearchNoteManager;
@@ -37,7 +37,10 @@ import java.util.function.Supplier;
 import thaumcraft.common.config.ConfigBlocks;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectHelper;
 import thaumcraft.api.aspects.AspectList;
@@ -295,10 +298,26 @@ public final class ThaumcraftCommand {
 
     private static int giveAllResearch(CommandSourceStack source, ServerPlayer player) {
         for (String key : researchKeys()) giveRecursiveResearch(player, key);
+        markAllScanned(player);
         player.sendSystemMessage(Component.literal("\u00a75" + source.getTextName() + " has given you all research."));
         source.sendSuccess(() -> Component.literal("\u00a75Success!"), true);
         PacketSyncKnowledge.sync(player);
         return 1;
+    }
+
+    /**
+     * Every item and entity type as if scanned: the keys of the scans that match each, and the "!" key of every
+     * item, since crystals and other items keep their aspects on the stack and have none when empty.
+     */
+    private static void markAllScanned(ServerPlayer player) {
+        PlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);
+        for (Item item : BuiltInRegistries.ITEM) {
+            ScanningManager.markScanned(player, new ItemStack(item));
+            knowledge.addResearch("!" + BuiltInRegistries.ITEM.getKey(item));
+        }
+        for (ThaumcraftApi.EntityTags et : ThaumcraftApi.scanEntities) {
+            knowledge.addResearch("!" + BuiltInRegistries.ENTITY_TYPE.getKey(et.entityType));
+        }
     }
 
     private static int resetResearch(CommandSourceStack source, ServerPlayer player) {
