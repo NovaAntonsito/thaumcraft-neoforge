@@ -5,6 +5,7 @@ import com.mojang.math.Axis;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BookModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +33,10 @@ public class ThaumonomiconRenderer extends BlockEntityWithoutLevelRenderer {
 
     @Override
     public void onResourceManagerReload(ResourceManager manager) {
-        model = new BookModel(BookModel.createBodyLayer().bakeRoot());
+        ModelPart root = BookModel.createBodyLayer().bakeRoot();
+        // The spine sits in the same plane as the pages' bound edge and flickers against it; move it out a little.
+        root.getChild("seam").x = -0.05f;
+        model = new BookModel(root);
     }
 
     @Override
