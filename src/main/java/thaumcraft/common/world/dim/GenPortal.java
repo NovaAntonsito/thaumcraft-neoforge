@@ -79,7 +79,7 @@ public class GenPortal extends GenCommon {
             for(int c = 1; c < 12; ++c) {
                if (a <= 4 && b <= 4 || a <= 4 && b >= 12 || a >= 12 && b <= 4 || a >= 12 && b >= 12) {
                   placeBlock(world, x + a, y + c, z + b, 9, cell);
-                  world.notifyBlockChange(x + a, y + c, z + b, OldOldBlocks.air);
+                  world.notifyBlockChange(x + a, y + c, z + b, OldBlocks.air);
                }
             }
          }
