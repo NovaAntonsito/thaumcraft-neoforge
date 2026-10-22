@@ -21,4 +21,4 @@ Lo que falte en `es_es.json` cae a inglés automáticamente.
 
 1. Interfaz y contenido (todo menos `research.*`): hecho.
 2. Investigaciones del Thaumonomicon (`research.*`): hecho.
-3. Textos hardcodeados en Java pasados a claves de idioma.
+3. Textos hardcodeados en Java pasados a claves de idioma: hecho (comandos `/thaumcraft`, `/anomaly` y tooltip del Thaumonomicon del tramposo).
