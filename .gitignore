@@ -38,3 +38,9 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+
+## Claude Addons ##
+
+graphify-out/
+src/main/java/graphify-out/
