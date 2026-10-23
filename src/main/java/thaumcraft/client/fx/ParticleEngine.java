@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
@@ -97,17 +98,13 @@ public final class ParticleEngine {
         int ps = mc.options.particles().get().getId();
         if (mc.getFps() < 30) ++ps;
         if (mc.level.random.nextInt(3) < ps) return;
-        List<Particle> parts = particles[layerOf(fx)];
-        if (parts.size() >= getParticleLimit()) parts.remove(0);
-        parts.add(fx);
+        particles[layerOf(fx)].add(fx);
     }
 
     /** For the effects the original gave to the vanilla effect renderer (arcs, bolts, shields): no random skipping. */
     public static void addEffectAlways(Level level, Particle fx) {
         if (Minecraft.getInstance().level == null || !sync()) return;
-        List<Particle> parts = particles[layerOf(fx)];
-        if (parts.size() >= getParticleLimit()) parts.remove(0);
-        parts.add(fx);
+        particles[layerOf(fx)].add(fx);
     }
 
     public static void addEffectWithDelay(Level level, Particle fx, int delay) {
@@ -119,17 +116,21 @@ public final class ParticleEngine {
     static void updateParticles(ClientTickEvent.Pre event) {
         if (!sync()) return;
         ClientFX.tickEssentiaSources();
-        Iterator<ParticleDelay> i = particlesDelayed.iterator();
-        List<Particle> ready = new ArrayList<>();
-        while (i.hasNext()) {
-            ParticleDelay pd = i.next();
-            if (--pd.delay <= 0) {
-                ready.add(pd.particle);
-                i.remove();
+        if (!particlesDelayed.isEmpty()) {
+            Iterator<ParticleDelay> i = particlesDelayed.iterator();
+            List<Particle> ready = new ArrayList<>();
+            while (i.hasNext()) {
+                ParticleDelay pd = i.next();
+                if (--pd.delay <= 0) {
+                    ready.add(pd.particle);
+                    i.remove();
+                }
             }
+            for (Particle p : ready) addEffect(world, p);
         }
-        for (Particle p : ready) addEffect(world, p);
+        int limit = getParticleLimit();
         for (List<Particle> parts : particles) {
+            // Indexed: a particle's tick may spawn new ones into this list.
             for (int j = 0; j < parts.size(); ++j) {
                 Particle particle = parts.get(j);
                 try {
@@ -137,10 +138,11 @@ public final class ParticleEngine {
                 } catch (Exception e) {
                     particle.remove();
                 }
-                if (!particle.isAlive()) {
-                    parts.remove(j--);
-                }
             }
+            // One pass each instead of shifting the array per dead particle, or per add once at the limit.
+            parts.removeIf(p -> !p.isAlive());
+            int excess = parts.size() - limit;
+            if (excess > 0) parts.subList(0, excess).clear();
         }
     }
 
@@ -153,6 +155,7 @@ public final class ParticleEngine {
         Minecraft mc = Minecraft.getInstance();
         Camera camera = event.getCamera();
         float frame = event.getPartialTick().getGameTimeDeltaPartialTick(false);
+        Frustum frustum = event.getFrustum();
         LightTexture light = mc.gameRenderer.lightTexture();
         light.turnOnLightLayer();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -171,6 +174,9 @@ public final class ParticleEngine {
             if (layer >= 2) RenderSystem.disableDepthTest();
             BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
             for (Particle particle : parts) {
+                if (frustum != null && particle instanceof FXBase b && !b.isCustomRender() && !frustum.isVisible(b.getCullBox(frame))) {
+                    continue;
+                }
                 try {
                     particle.render(buffer, camera, frame);
                 } catch (Throwable throwable) {

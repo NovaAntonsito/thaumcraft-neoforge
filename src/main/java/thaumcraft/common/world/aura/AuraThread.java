@@ -1,8 +1,5 @@
 package thaumcraft.common.world.aura;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.core.BlockPos;
@@ -28,6 +25,8 @@ public class AuraThread {
     private float riftMult = 1.0f;
     private final float[] phaseTable = {0.25f, 0.15f, 0.1f, 0.05f, 0.0f, 0.05f, 0.1f, 0.15f};
     private final float[] maxTable = {0.15f, 0.05f, 0.0f, -0.05f, -0.15f, -0.05f, 0.0f, 0.05f};
+    /** The four horizontal directions, reshuffled for each chunk. */
+    private final int[] directions = {0, 1, 2, 3};
 
     public void tick(ServerLevel world) {
         AuraWorld auraWorld = AuraHandler.getAuraWorld(world.dimension());
@@ -45,8 +44,14 @@ public class AuraThread {
     }
 
     private void processAuraChunk(AuraWorld auraWorld, AuraChunk auraChunk) {
-        List<Integer> directions = Arrays.asList(0, 1, 2, 3);
-        Collections.shuffle(directions, rand);
+        // Shuffled in place (Fisher-Yates), as Collections.shuffle did, without a boxed list per chunk.
+        int[] directions = this.directions;
+        for (int i = directions.length - 1; i > 0; --i) {
+            int j = rand.nextInt(i + 1);
+            int t = directions[i];
+            directions[i] = directions[j];
+            directions[j] = t;
+        }
         int x = auraChunk.loc.x;
         int y = auraChunk.loc.z;
         float base = auraChunk.getBase() * phaseMax;
@@ -57,7 +62,7 @@ public class AuraThread {
         AuraChunk neighbourFluxChunk = null;
         float lowestVis = Float.MAX_VALUE;
         float lowestFlux = Float.MAX_VALUE;
-        for (Integer a : directions) {
+        for (int a : directions) {
             Direction dir = Direction.from2DDataValue(a);
             AuraChunk n = auraWorld.getAuraChunkAt(x + dir.getStepX(), y + dir.getStepZ());
             if (n != null) {

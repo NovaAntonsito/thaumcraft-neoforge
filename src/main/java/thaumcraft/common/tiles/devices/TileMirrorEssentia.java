@@ -29,6 +29,13 @@ public class TileMirrorEssentia extends TileMirror implements IAspectSource {
     }
 
     @Override
+    public void setRemoved() {
+        super.setRemoved();
+        // The twin searches around this mirror under this mirror's position.
+        thaumcraft.common.lib.events.EssentiaHandler.forget(this);
+    }
+
+    @Override
     protected int getInstabilityLimit() {
         return 64;
     }

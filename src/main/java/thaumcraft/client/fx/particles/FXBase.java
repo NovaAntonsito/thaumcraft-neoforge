@@ -11,6 +11,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -19,6 +20,9 @@ import net.minecraft.world.phys.Vec3;
  * for the original's tessellator and GL matrix calls.
  */
 public abstract class FXBase extends Particle {
+    /** Reused by billboard, corner and vertex: particles are only drawn on the render thread. */
+    private static final Quaternionf SCRATCH_Q = new Quaternionf();
+    private static final Vector3f SCRATCH_V = new Vector3f();
     protected float particleScale;
     protected int particleTextureIndexX;
     protected int particleTextureIndexY;
@@ -48,6 +52,23 @@ public abstract class FXBase extends Particle {
     }
 
     public void renderCustom(net.minecraft.client.renderer.MultiBufferSource buffers, Camera cam, float pt) {
+    }
+
+    /**
+     * How far from its position this particle can draw, for the engine's frustum check. Generous on purpose: the
+     * sheet quads are at most about particleScale across. Particles drawn away from their position override it.
+     */
+    protected float cullRadius() {
+        return 1.0f + particleScale;
+    }
+
+    /** World space box that holds what render draws; only used for sheet particles (not isCustomRender). */
+    public AABB getCullBox(float pt) {
+        double px = Mth.lerp(pt, xo, x);
+        double py = Mth.lerp(pt, yo, y);
+        double pz = Mth.lerp(pt, zo, z);
+        double r = cullRadius();
+        return new AABB(px - r, py - r, pz - r, px + r, py + r, pz + r);
     }
 
     @Override
@@ -94,7 +115,7 @@ public abstract class FXBase extends Particle {
      */
     protected static void billboard(VertexConsumer vc, Camera cam, float px, float py, float pz, float s, float roll, float u0, float u1, float v0,
             float v1, float r, float g, float b, float a, int light) {
-        Quaternionf q = new Quaternionf(cam.rotation());
+        Quaternionf q = SCRATCH_Q.set(cam.rotation());
         if (roll != 0.0f) q.rotateZ(roll);
         corner(vc, q, px, py, pz, 1.0f, -1.0f, s, u1, v1, r, g, b, a, light);
         corner(vc, q, px, py, pz, 1.0f, 1.0f, s, u1, v0, r, g, b, a, light);
@@ -104,13 +125,13 @@ public abstract class FXBase extends Particle {
 
     private static void corner(VertexConsumer vc, Quaternionf q, float px, float py, float pz, float cx, float cy, float s, float u, float v, float r,
             float g, float b, float a, int light) {
-        Vector3f p = new Vector3f(cx, cy, 0.0f).rotate(q).mul(s).add(px, py, pz);
+        Vector3f p = SCRATCH_V.set(cx, cy, 0.0f).rotate(q).mul(s).add(px, py, pz);
         vc.addVertex(p.x(), p.y(), p.z()).setUv(u, v).setColor(r, g, b, a).setLight(light);
     }
 
     /** One vertex of a quad placed with a matrix, for the particles the original drew with glTranslate/glRotate. */
     protected static void vertex(VertexConsumer vc, Matrix4f m, float x, float y, float z, float u, float v, float r, float g, float b, float a, int light) {
-        Vector3f p = m.transformPosition(x, y, z, new Vector3f());
+        Vector3f p = m.transformPosition(x, y, z, SCRATCH_V);
         vc.addVertex(p.x(), p.y(), p.z()).setUv(u, v).setColor(r, g, b, a).setLight(light);
     }
 

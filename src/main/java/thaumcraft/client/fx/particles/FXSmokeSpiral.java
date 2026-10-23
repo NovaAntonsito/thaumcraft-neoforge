@@ -51,6 +51,12 @@ public class FXSmokeSpiral extends FXBase {
     }
 
     @Override
+    protected float cullRadius() {
+        // Drawn on a sphere of this radius around its position.
+        return radius + 1.0f + particleScale;
+    }
+
+    @Override
     public int getFXLayer() {
         return 1;
     }

@@ -114,6 +114,12 @@ public class TileInfusionMatrix extends TileThaumcraft implements thaumcraft.api
     }
 
     @Override
+    public void setRemoved() {
+        super.setRemoved();
+        thaumcraft.common.lib.events.EssentiaHandler.forget(this);
+    }
+
+    @Override
     protected void readSyncNBT(CompoundTag tag, HolderLookup.Provider registries) {
         active = tag.getBoolean("active");
         crafting = tag.getBoolean("crafting");

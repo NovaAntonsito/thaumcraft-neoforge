@@ -13,6 +13,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.neoforge.network.PacketDistributor;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IAspectSource;
@@ -199,28 +200,26 @@ public final class EssentiaHandler {
             start = -range;
             direction = Direction.UP;
         }
-        for (int aa = -range; aa <= range; ++aa) {
-            for (int bb = -range; bb <= range; ++bb) {
-                for (int cc = start; cc < range; ++cc) {
-                    if (aa == 0 && bb == 0 && cc == 0) continue;
-                    int xx = origin.getX();
-                    int yy = origin.getY();
-                    int zz = origin.getZ();
-                    if (direction.getStepY() != 0) {
-                        xx += aa;
-                        yy += cc * direction.getStepY();
-                        zz += bb;
-                    } else if (direction.getStepX() == 0) {
-                        xx += aa;
-                        yy += bb;
-                        zz += cc * direction.getStepZ();
-                    } else {
-                        xx += cc * direction.getStepX();
-                        yy += aa;
-                        zz += bb;
+        // The original's box: range on both sides across, start..range-1 along the direction.
+        int[] min = { origin.getX() - range, origin.getY() - range, origin.getZ() - range };
+        int[] max = { origin.getX() + range, origin.getY() + range, origin.getZ() + range };
+        int axis = direction.getAxis().ordinal();
+        int o = axis == 0 ? origin.getX() : axis == 1 ? origin.getY() : origin.getZ();
+        int step = direction.getAxisDirection().getStep();
+        min[axis] = step > 0 ? o + start : o - (range - 1);
+        max[axis] = step > 0 ? o + range - 1 : o - start;
+        // Only the block entities of the loaded chunks in the box, instead of a getBlockEntity per position
+        // (15625 at range 12), which could also load chunks.
+        for (int cx = min[0] >> 4; cx <= max[0] >> 4; ++cx) {
+            for (int cz = min[2] >> 4; cz <= max[2] >> 4; ++cz) {
+                LevelChunk chunk = world.getChunkSource().getChunkNow(cx, cz);
+                if (chunk == null) continue;
+                for (BlockEntity te : chunk.getBlockEntities().values()) {
+                    BlockPos p = te.getBlockPos();
+                    if (p.getX() < min[0] || p.getX() > max[0] || p.getY() < min[1] || p.getY() > max[1] || p.getZ() < min[2] || p.getZ() > max[2]
+                            || p.equals(origin)) {
+                        continue;
                     }
-                    BlockPos p = new BlockPos(xx, yy, zz);
-                    BlockEntity te = world.getBlockEntity(p);
                     if (te instanceof IAspectSource && !isTwinMirror(sourceTile, te, world)) {
                         sourceList.add(p);
                     }
@@ -245,6 +244,18 @@ public final class EssentiaHandler {
     public static void refreshSources(BlockEntity tile) {
         if (tile.getLevel() != null) {
             sources.remove(GlobalPos.of(tile.getLevel().dimension(), tile.getBlockPos()));
+        }
+    }
+
+    /**
+     * Drops everything cached for a tile that is broken or unloaded, so the maps do not grow for the life of the
+     * server. A tile that comes back just searches again.
+     */
+    public static void forget(BlockEntity tile) {
+        if (tile.getLevel() != null) {
+            GlobalPos loc = GlobalPos.of(tile.getLevel().dimension(), tile.getBlockPos());
+            sources.remove(loc);
+            sourcesDelay.remove(loc);
         }
     }
 }
