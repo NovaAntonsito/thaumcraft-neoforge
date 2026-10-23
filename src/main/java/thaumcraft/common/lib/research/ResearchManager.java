@@ -198,6 +198,8 @@ public class ResearchManager {
             String s = "/assets/" + loc.getNamespace() + "/" + loc.getPath();
             if (!s.endsWith(".json")) s += ".json";
             InputStream stream = ResearchManager.class.getResourceAsStream(s);
+            // Files of addons live in their own module, which only the class loader sees.
+            if (stream == null) stream = ResearchManager.class.getClassLoader().getResourceAsStream(s.substring(1));
             if (stream == null) {
                 Thaumcraft.LOGGER.warn("Research file not found: {}", loc);
                 continue;

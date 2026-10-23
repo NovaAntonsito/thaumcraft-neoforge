@@ -80,6 +80,8 @@ public class Thaumcraft {
         TCRecipes.RECIPE_TYPES.register(modEventBus);
         TCRecipes.RECIPE_SERIALIZERS.register(modEventBus);
         SoundsTC.SOUNDS.register(modEventBus);
+        thaumcraft.api.maze.MazeWorlds.register(thaumcraft.common.world.voidrealm.VoidDim.KEY,
+                thaumcraft.common.world.voidrealm.VoidMazeWorld.INSTANCE);
         TCMenus.MENUS.register(modEventBus);
         TCFluids.FLUID_TYPES.register(modEventBus);
         TCFluids.FLUIDS.register(modEventBus);

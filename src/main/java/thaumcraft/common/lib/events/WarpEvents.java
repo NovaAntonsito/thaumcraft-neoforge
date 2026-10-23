@@ -58,6 +58,7 @@ public final class WarpEvents {
     }
 
     public static void checkWarpEvent(Player player) {
+        if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new thaumcraft.api.events.WarpEventCheck(player)).isCanceled()) return;
         PlayerWarp wc = ThaumcraftCapabilities.getWarp(player);
         InternalMethodHandler.addWarpToPlayer(player, -1, PlayerWarp.EnumWarpType.TEMPORARY);
         int tw = wc.get(PlayerWarp.EnumWarpType.TEMPORARY);

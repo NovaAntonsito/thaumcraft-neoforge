@@ -1,7 +1,6 @@
 package thaumcraft.common.lib.network.playerdata;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,12 +29,12 @@ public record PacketWarpMessage(int data, byte warpType) implements CustomPacket
 
     public static void handle(PacketWarpMessage message, IPayloadContext context) {
         if (message.data != 0) {
-            processMessage(message);
+            processMessage(message, context.player());
         }
     }
 
-    static void processMessage(PacketWarpMessage message) {
-        Player player = Minecraft.getInstance().player;
+    /** The context's player, not Minecraft's: naming the client player here keeps a dedicated server from loading. */
+    static void processMessage(PacketWarpMessage message, Player player) {
         if (player == null) {
             return;
         }

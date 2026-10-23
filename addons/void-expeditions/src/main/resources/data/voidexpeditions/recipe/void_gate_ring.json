@@ -1,0 +1,29 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "VOIDGATE",
+  "vis": 150,
+  "crystals": {
+    "ordo": 1,
+    "perditio": 2
+  },
+  "pattern": [
+    "OPO",
+    "PSP",
+    "OPO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "P": {
+      "tag": "c:plates/void"
+    },
+    "S": {
+      "item": "thaumcraft:void_seed"
+    }
+  },
+  "result": {
+    "id": "voidexpeditions:void_gate_ring",
+    "count": 4
+  }
+}

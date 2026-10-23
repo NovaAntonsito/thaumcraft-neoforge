@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "voidexpeditions:block/void_horizon"
+    },
+    "axis=z": {
+      "model": "voidexpeditions:block/void_horizon",
+      "y": 90
+    }
+  }
+}

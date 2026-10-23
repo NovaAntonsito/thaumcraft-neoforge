@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import thaumcraft.Thaumcraft;
+import thaumcraft.api.maze.MazeWorlds;
 
 /**
  * The Outer Lands dimension (TC4's WorldProviderOuter, Config.dimensionOuterId). It is a data pack dimension:
@@ -19,8 +20,8 @@ public final class OuterLands {
         return world.dimension() == KEY;
     }
 
-    /** The Outer Lands, or the void of the dream branch, whose labyrinths are Outer Lands mazes and work the same. */
+    /** The Outer Lands, or another dimension of Outer Lands mazes (see {@link MazeWorlds}), which work the same. */
     public static boolean isMazeWorld(Level world) {
-        return is(world) || thaumcraft.common.world.voidrealm.VoidDim.is(world);
+        return is(world) || MazeWorlds.get(world) != null;
     }
 }

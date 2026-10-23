@@ -1,0 +1,32 @@
+{
+  "type": "thaumcraft:arcane_shaped",
+  "research": "VOIDGATE",
+  "vis": 250,
+  "crystals": {
+    "ordo": 2,
+    "perditio": 2
+  },
+  "pattern": [
+    "PMP",
+    "STS",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/void"
+    },
+    "M": {
+      "item": "thaumcraft:mirrored_glass"
+    },
+    "S": {
+      "item": "thaumcraft:void_seed"
+    },
+    "T": {
+      "item": "thaumcraft:runed_tablet"
+    }
+  },
+  "result": {
+    "id": "voidexpeditions:expedition_terminal",
+    "count": 1
+  }
+}

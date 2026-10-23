@@ -7,3 +7,7 @@ pluginManagement {
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
+
+// Void Expeditions: a separate mod (an addon of Thaumcraft) built from addons/void-expeditions.
+include 'void-expeditions'
+project(':void-expeditions').projectDir = file('addons/void-expeditions')

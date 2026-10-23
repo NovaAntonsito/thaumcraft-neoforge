@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import thaumcraft.Thaumcraft;
+import thaumcraft.api.maze.MazeWorlds;
 
 /**
  * Dream branch: the void, a dimension only reached through the void rifts of the Whispers of the Void
@@ -25,9 +26,9 @@ public final class VoidDim {
         return level.dimension() == KEY;
     }
 
-    /** True for the chunks of the void labyrinths. */
+    /** True for the chunks of the void labyrinths, between the Outer Lands ones and the addons'. */
     public static boolean isVoidChunk(int cx) {
-        return cx >= OFFSET - SPACING / 2;
+        return cx >= OFFSET - SPACING / 2 && cx < MazeWorlds.ADDON_START - SPACING / 2;
     }
 
     /** The encounter (1 to 5) of the labyrinth a chunk belongs to. */

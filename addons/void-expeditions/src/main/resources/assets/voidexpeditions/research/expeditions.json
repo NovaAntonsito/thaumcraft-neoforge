@@ -1,0 +1,33 @@
+{
+  "entries": [
+    {
+      "key": "VOIDGATE",
+      "name": "research.VOIDGATE.title",
+      "icons": [
+        "voidexpeditions:void_gate_ring"
+      ],
+      "parents": [
+        "VOIDEXPLORER"
+      ],
+      "category": "VOID",
+      "location": [
+        14,
+        1
+      ],
+      "meta": [
+        "ROUND",
+        "SPIKY",
+        "HIDDEN"
+      ],
+      "stages": [
+        {
+          "text": "research.VOIDGATE.stage.1",
+          "recipes": [
+            "voidexpeditions:void_gate_ring",
+            "voidexpeditions:expedition_terminal"
+          ]
+        }
+      ]
+    }
+  ]
+}

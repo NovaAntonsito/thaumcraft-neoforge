@@ -330,7 +330,8 @@ public class ItemCaster extends Item implements ICaster, IArchitect {
         if (focus == null || CasterManager.isOnCooldown(player)) {
             return super.use(world, player, hand);
         }
-        CasterManager.setCooldown(player, focus.getActivationTime(focusStack));
+        CasterManager.setCooldown(player, Math.round(focus.getActivationTime(focusStack)
+                * thaumcraft.api.casters.CasterModifiers.getCooldownMultiplier(player)));
         FocusPackage core = ItemFocus.getPackage(focusStack);
         if (core == null) {
             return InteractionResultHolder.fail(held);

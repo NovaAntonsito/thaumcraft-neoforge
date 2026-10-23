@@ -44,6 +44,7 @@ public class CasterManager {
                 total += gear.getVisDiscount(is, player);
             }
         }
+        total += thaumcraft.api.casters.CasterModifiers.getVisDiscount(player);
         // Flux Flu and Flux Phage: 10% more cost per level.
         net.minecraft.world.effect.MobEffectInstance ve = player.getEffect(thaumcraft.common.registry.TCMobEffects.VIS_EXHAUST);
         net.minecraft.world.effect.MobEffectInstance ive = player.getEffect(thaumcraft.common.registry.TCMobEffects.INFECTIOUS_VIS_EXHAUST);
