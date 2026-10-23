@@ -111,7 +111,7 @@ public class TileCrucible extends BlockEntity implements thaumcraft.api.aspects.
         if (!level.isClientSide) {
             if (tank.getFluidAmount() > 0) {
                 BlockState below = level.getBlockState(worldPosition.below());
-                if (below.is(TCTags.CRUCIBLE_HEATERS)) {
+                if (TCTags.isHeating(below)) {
                     if (heat < 200) {
                         ++heat;
                         if (prevheat < 151 && heat >= 151) {

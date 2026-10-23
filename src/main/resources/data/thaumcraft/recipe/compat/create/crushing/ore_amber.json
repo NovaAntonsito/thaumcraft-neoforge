@@ -1,0 +1,12 @@
+{
+  "neoforge:conditions": [ { "type": "neoforge:mod_loaded", "modid": "create" } ],
+  "type": "create:crushing",
+  "ingredients": [ { "item": "thaumcraft:ore_amber" } ],
+  "processing_time": 250,
+  "results": [
+    { "id": "thaumcraft:amber", "count": 2 },
+    { "id": "thaumcraft:amber", "chance": 0.25 },
+    { "id": "create:experience_nugget", "chance": 0.75 },
+    { "id": "minecraft:cobblestone", "chance": 0.125 }
+  ]
+}

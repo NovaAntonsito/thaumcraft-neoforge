@@ -1,0 +1,6 @@
+{
+  "neoforge:conditions": [ { "type": "neoforge:mod_loaded", "modid": "create" } ],
+  "type": "create:pressing",
+  "ingredients": [ { "tag": "c:ingots/thaumium" } ],
+  "results": [ { "id": "thaumcraft:plate_thaumium" } ]
+}

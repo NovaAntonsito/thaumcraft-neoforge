@@ -153,7 +153,7 @@ public class TileThaumatorium extends TileThaumcraft implements WorldlyContainer
     /** Lava, fire, nitor or magma two blocks down (under the crucible). */
     boolean checkHeat() {
         BlockState bs = level.getBlockState(worldPosition.below(2));
-        return bs.is(TCTags.CRUCIBLE_HEATERS) || ConfigBlocks.nitor.values().stream().anyMatch(n -> bs.is(n.get()));
+        return TCTags.isHeating(bs) || ConfigBlocks.nitor.values().stream().anyMatch(n -> bs.is(n.get()));
     }
 
     public Direction getFacing() {
